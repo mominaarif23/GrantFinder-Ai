@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50 text-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GrantFinder AI — Intelligent Scholarships & Startup Grants{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1E293B',
+                            900: '#0F172A',
+                            950: '#0A192F',
+                        },
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/css/custom.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans">
+
+    <!-- Dynamic Atmospheric Country Backdrop -->
+    <div id="dynamicAtmosphere" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-20 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-50/92 via-slate-50/85 to-slate-100/98 backdrop-blur-[2px]"></div>
+    </div>
+
+    <!-- Atmospheric Landmark Indicator Floating Badge (Visible on Desktop only) -->
+    <div id="atmosphereBadge" class="fixed bottom-5 left-5 z-30 hidden lg:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-slate-200 shadow-sm text-xs text-slate-700 transition-all duration-300">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+        <span class="font-extrabold text-navy-900" id="atmosphereCountry">Pakistan</span>
+        <span class="text-slate-300">•</span>
+        <span class="text-slate-600 truncate max-w-xs font-medium" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
+    </div>
+
+    <!-- Institutional Utility Micro-Bar -->
+    <header class="w-full bg-navy-950 text-slate-300 text-[11px] border-b border-navy-900 relative z-50 py-1.5">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col sm:flex-row items-center justify-between gap-1.5">
+            <div class="flex items-center space-x-2.5">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-900/90 text-brand-200 border border-brand-700/60">
+                    Institutional FYP Portal
+                </span>
+                <span class="text-slate-400 hidden sm:inline">Autonomous Opportunity Intelligence & Application Synthesis</span>
+            </div>
+            <div class="flex items-center space-x-4 text-slate-400">
+                <span class="inline-flex items-center space-x-1.5 text-[11px]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-slate-300 font-medium">Curated Repositories & Real-Time Web Engine Active</span>
+                </span>
+                <span class="hidden md:inline text-slate-700">•</span>
+                <a href="/register?role=student" class="hidden md:inline text-slate-400 hover:text-white transition">Scholarships Track</a>
+                <span class="hidden md:inline text-slate-700">•</span>
+                <a href="/register?role=founder" class="hidden md:inline text-slate-400 hover:text-white transition">Startup Grants Track</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Navigation Bar -->
+    <nav class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/92 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="flex items-center space-x-3 group">
+                        <div class="h-10 w-8 shrink-0 group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
+                            <img src="/static/img/logo.svg" alt="GrantFinder AI Minimal Mark" class="h-10 w-auto">
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center space-x-1.5">
+                                <span class="font-extrabold text-xl tracking-tight text-navy-900 leading-none">GrantFinder</span>
+                                <span class="font-extrabold text-xl tracking-tight text-brand-600 leading-none">AI</span>
+                            </div>
+                            <span class="hidden sm:block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Autonomous Opportunity Intelligence</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Navigation Links (Desktop) -->
+                <div class="hidden lg:flex items-center space-x-1 text-xs font-bold text-slate-600">
+                    <a href="/" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Home</a>
+                    <button onclick="toggleAdvisorWidget()" class="px-3.5 py-2 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200 shadow-xs cursor-pointer">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>AI Assistant</span>
+                    </button>
+                    <a href="/#destinations" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Destinations</a>
+                    <a href="/#services" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">AI Capabilities</a>
+                    <a href="/#why-us" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Why GrantFinder</a>
+                    <a href="/#repositories" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Verified Portals</a>
+                    <a href="/#faq" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">FAQ</a>
+                </div>
+
+                <!-- Right Nav Links -->
+                <div class="flex items-center space-x-3">
+                    {% if user %}
+                        <!-- Role Navigation -->
+                        {% if user.role == 'student' %}
+                            <a href="/dashboard/student" class="text-xs font-bold text-brand-700 bg-brand-50 px-3.5 py-2 rounded-xl border border-brand-200 hover:bg-brand-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5">
+                                <span>Scholarships Portal</span>
+                                <span class="text-brand-400">&rarr;</span>
+                            </a>
+                        {% elif user.role == 'founder' %}
+                            <a href="/dashboard/founder" class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-300 hover:bg-emerald-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5">
+                                <span>Startup Grants Portal</span>
+                                <span class="text-emerald-500">&rarr;</span>
+                            </a>
+                        {% elif user.role == 'admin' %}
+                            <a href="/admin" class="text-xs font-bold text-amber-900 bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-300 hover:bg-amber-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5">
+                                <span>Governance Console</span>
+                                <span class="text-amber-500">&rarr;</span>
+                            </a>
+                        {% endif %}
+
+                        <!-- Plan Badge (Desktop/Tablet) -->
+                        {% if user.plan == 'premium' %}
+                            <span class="hidden md:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs shrink-0 whitespace-nowrap">
+                                Premium Tier
+                            </span>
+                        {% else %}
+                            <button onclick="openUpgradeModal()" class="hidden md:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition shadow-xs shrink-0 whitespace-nowrap">
+                                Free Plan · <span class="underline ml-1">Upgrade ($9)</span>
+                            </button>
+                        {% endif %}
+
+                        <!-- Notifications Dropdown Button -->
+                        <div class="relative" id="notifDropdownContainer">
+                            <button onclick="toggleNotifDropdown()" class="relative p-2 sm:p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 transition border border-transparent hover:border-slate-200 shrink-0">
+                                <span class="sr-only">View notifications</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                                {% if notifications and notifications|length > 0 %}
+                                    <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-600 ring-2 ring-white"></span>
+                                {% endif %}
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div id="notifDropdown" class="hidden absolute right-0 mt-2 w-72 sm:w-96 rounded-3xl bg-white border border-slate-200 shadow-2xl p-4 z-50">
+                                <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                                    <div>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-navy-900">Notifications</span>
+                                        <p class="text-[11px] text-slate-400">In-App & Multi-Channel Alerts</p>
+                                    </div>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{{ notifications|length if notifications else 0 }} Alerts</span>
+                                </div>
+                                <div class="max-h-72 overflow-y-auto space-y-2 text-xs text-slate-700 pr-1">
+                                    {% if notifications and notifications|length > 0 %}
+                                        {% for n in notifications[:5] %}
+                                            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+                                                <p class="font-bold text-navy-900">{{ n.title }}</p>
+                                                <p class="text-slate-600 mt-0.5 text-xs leading-relaxed">{{ n.message }}</p>
+                                                <p class="text-[10px] text-slate-400 mt-1.5 font-mono">{{ n.sent_date[:10] }} · Channel: {{ n.channel }}</p>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-slate-400 text-center py-6 text-xs">No active notifications recorded.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Profile Avatar -->
+                        <div class="flex items-center space-x-2.5 pl-1.5 sm:pl-3 border-l border-slate-200">
+                            <div class="w-8 h-8 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center shadow-xs shrink-0" title="{{ user.name }}">
+                                {{ user.name[:2]|upper }}
+                            </div>
+                            <div class="hidden xl:flex flex-col text-left">
+                                <span class="text-xs font-bold text-navy-900 leading-tight truncate max-w-[120px]">{{ user.name }}</span>
+                                <span class="text-[10px] text-slate-400 capitalize">{{ user.role }} Account</span>
+                            </div>
+                            <button onclick="handleLogout()" class="hidden md:inline-block px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition shrink-0 whitespace-nowrap">
+                                Log out
+                            </button>
+                        </div>
+                    {% else %}
+                        <a href="/login" class="text-xs font-bold text-slate-700 hover:text-brand-700 transition px-2.5 sm:px-3 py-2 rounded-xl hover:bg-slate-100 shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/register" class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold bg-brand-700 text-white hover:bg-brand-800 shadow-sm transition shrink-0 whitespace-nowrap">
+                            <span>Explore Funding</span>
+                            <span class="ml-1.5 font-normal text-brand-200">&rarr;</span>
+                        </a>
+                    {% endif %}
+
+                    <!-- Mobile Menu Hamburger Button -->
+                    <button onclick="toggleMobileNav()" id="mobileNavToggleBtn" class="lg:hidden p-2 sm:p-2.5 rounded-xl text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition border border-slate-200 shrink-0">
+                        <span class="sr-only">Open navigation menu</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileNavDrawer" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3">
+            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-slate-700 pt-2">
+                <a href="/" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Home</a>
+                <a href="/#destinations" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Destinations</a>
+                <a href="/#services" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Capabilities</a>
+                <a href="/#why-us" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Why Us</a>
+                <a href="/#repositories" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Portals</a>
+                <a href="/#faq" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">FAQ</a>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                {% if user %}
+                    <!-- User Profile Banner in Drawer -->
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-2.5">
+                            <div class="w-9 h-9 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center">
+                                {{ user.name[:2]|upper }}
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-navy-900 leading-tight">{{ user.name }}</p>
+                                <p class="text-[10px] text-slate-500 capitalize">{{ user.role }} • {{ user.plan }} plan</p>
+                            </div>
+                        </div>
+                        {% if user.plan == 'premium' %}
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                                Premium
+                            </span>
+                        {% else %}
+                            <button onclick="openUpgradeModal()" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 border border-amber-300 font-bold text-[10px] hover:bg-amber-200 transition">
+                                Upgrade ($9)
+                            </button>
+                        {% endif %}
+                    </div>
+
+                    {% if user.role == 'student' %}
+                        <a href="/dashboard/student" class="text-center py-2.5 rounded-xl bg-brand-50 text-brand-700 font-bold text-xs border border-brand-200">Open Scholarships Console &rarr;</a>
+                    {% elif user.role == 'founder' %}
+                        <a href="/dashboard/founder" class="text-center py-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-300">Open Startup Grants Console &rarr;</a>
+                    {% elif user.role == 'admin' %}
+                        <a href="/admin" class="text-center py-2.5 rounded-xl bg-amber-50 text-amber-900 font-bold text-xs border border-amber-300">Open Governance Console &rarr;</a>
+                    {% endif %}
+
+                    {% if user.plan != 'premium' %}
+                        <button onclick="openUpgradeModal()" class="w-full text-center py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-xs transition">
+                            Unlock Unlimited Results & AI Drafter ($9)
+                        </button>
+                    {% endif %}
+
+                    <button onclick="handleLogout()" class="w-full text-center py-2.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 font-bold text-xs transition">
+                        Sign Out
+                    </button>
+                    <!-- AI Assistant Launch Button in Mobile Drawer -->
+                    <button onclick="toggleAdvisorWidget(); toggleMobileMenu();" class="w-full text-center py-2.5 rounded-xl bg-navy-950 text-white font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Open AI Funding Advisor Chat</span>
+                    </button>
+
+                {% else %}
+                    <a href="/login" class="text-center py-2.5 rounded-xl bg-slate-100 text-navy-900 font-bold text-xs hover:bg-slate-200 transition">Sign In to Account</a>
+                    <button onclick="toggleAdvisorWidget(); toggleMobileMenu();" class="w-full text-center py-2.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Open AI Funding Advisor Chat</span>
+                    </button>
+                    <a href="/register?role=student" class="text-center py-2.5 rounded-xl bg-brand-700 text-white font-bold text-xs shadow-xs hover:bg-brand-800 transition">Student Scholarships Track &rarr;</a>
+                    <a href="/register?role=founder" class="text-center py-2.5 rounded-xl bg-white text-emerald-800 font-bold text-xs border border-emerald-300 hover:bg-emerald-50 transition">Founder Grants Track &rarr;</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 w-full relative z-10">
+        {% block content %}
+            {% if error_title %}
+                <div class="max-w-xl mx-auto my-24 p-8 rounded-3xl bg-white border border-slate-200 text-center shadow-lg">
+                    <h2 class="text-2xl font-bold text-navy-900 mb-2">{{ error_title }}</h2>
+                    <p class="text-slate-600 mb-6">{{ error_message }}</p>
+                    <a href="/" class="inline-flex px-5 py-2.5 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 transition">Return to Home</a>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </main>
+
+    <!-- Upgrade to Premium Modal (Mock Checkout Flow) -->
+    <div id="upgradeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-navy-950/60 backdrop-blur-sm p-4">
+        <div class="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeUpgradeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-navy-900 text-xl font-bold">&times;</button>
+            <div class="text-center">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 mb-3">
+                    Premium Tier Access
+                </span>
+                <h3 class="text-xl font-bold text-navy-900 mb-1">Unlock Unlimited Matches & AI Drafting</h3>
+                <p class="text-xs text-slate-500 mb-5">Demonstration one-time license for students and startup founders.</p>
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 mb-5 text-left space-y-2.5 text-xs text-slate-700">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <span><strong>Unlimited Matches:</strong> Remove 3-result limitation on all live web searches</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <span><strong>AI Essay Assistant:</strong> Generate tailored scholarship Statements of Purpose</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <span><strong>AI Pitch Assistant:</strong> Generate structured startup grant proposals</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <span><strong>Twilio WhatsApp Alerts:</strong> Real-time instant messaging alerts</span>
+                    </div>
+                </div>
+                <div class="mb-5 flex items-center justify-between px-4 py-3 rounded-2xl bg-slate-100 border border-slate-200">
+                    <div>
+                        <span class="text-xs text-slate-500">Total Demonstration Cost:</span>
+                        <p class="text-xl font-extrabold text-navy-900">$9.00 <span class="text-xs font-normal text-slate-500">USD</span></p>
+                    </div>
+                    <span class="text-[11px] font-semibold text-amber-800 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">Demo Checkout</span>
+                </div>
+                <button id="upgradeConfirmBtn" onclick="executeMockUpgrade()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-sm hover:opacity-95 shadow-md transition">
+                    Confirm Upgrade ($9 Demo)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
+
+    <!-- Footer (Institutional EEDU Point Style) -->
+    <footer class="w-full border-t border-slate-200 bg-navy-900 text-white py-14 text-xs relative z-10 mt-auto">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <img src="/static/img/logo.svg" alt="GrantFinder AI Emblem" class="w-9 h-9 shrink-0">
+                        <span class="font-extrabold text-lg tracking-tight text-white">GrantFinder AI</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Your intelligent partner for academic scholarships and startup innovation grants across Pakistan and premier global destinations.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Opportunity Tracks</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="/register?role=student" class="hover:text-white transition">University Scholarships</a></li>
+                        <li><a href="/register?role=founder" class="hover:text-white transition">Startup Innovation Grants</a></li>
+                        <li><a href="/#destinations" class="hover:text-white transition">Government Portals (HEC, Ignite)</a></li>
+                        <li><a href="/#destinations" class="hover:text-white transition">International Fellowships</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">AI Capabilities</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><span>Hybrid Data Model</span></li>
+                        <li><span>Gemini Semantic Match Scoring</span></li>
+                        <li><span>Statement of Purpose Drafter</span></li>
+                        <li><span>Executive Grant Pitch Drafter</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Zero-Cost Architecture</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                        Built for university students and early-stage founders with zero vendor lock-in.
+                    </p>
+                    <div class="flex items-center space-x-2 text-[11px] text-slate-400">
+                        <span>FastAPI</span> &bull; <span>Gemini</span> &bull; <span>Serper</span> &bull; <span>Twilio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-3">
+                <p>&copy; 2026 GrantFinder AI — Agentic Systems Environment. All rights reserved.</p>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
+                    <span>&bull;</span>
+                    <a href="#" class="hover:text-slate-400 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating GrantFinder AI Advisor Trigger Button -->
+    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-6 right-6 z-40 flex items-center space-x-2.5 px-4 py-3 rounded-full bg-navy-950 text-white shadow-xl hover:bg-brand-900 border border-slate-700/60 transition-all duration-200 group hover:scale-105" title="Chat with GrantFinder AI Advisor">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs font-bold tracking-tight">AI Advisor</span>
+        <svg class="w-4 h-4 text-brand-300 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+    </button>
+
+    <!-- Floating GrantFinder AI Advisor Chat Console -->
+    <div id="advisorChatWidget" class="hidden fixed bottom-20 right-4 sm:right-6 w-[92vw] sm:w-[390px] h-[520px] max-h-[82vh] z-50 rounded-3xl bg-white/98 backdrop-blur-xl border border-slate-200/90 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right">
+        <!-- Header -->
+        <div class="px-5 py-3.5 bg-navy-950 text-white flex items-center justify-between border-b border-navy-900 shrink-0">
+            <div class="flex items-center space-x-3">
+                <div class="w-7 h-7 rounded-xl bg-white/10 flex items-center justify-center p-1 border border-white/10">
+                    <img src="/static/img/logo.svg" alt="Advisor" class="w-5 h-5">
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold text-white tracking-tight">GrantFinder AI Advisor</h3>
+                    <p class="text-[10px] text-slate-300">Conversational Funding Guidance</p>
+                </div>
+            </div>
+            <button onclick="toggleAdvisorWidget()" class="text-slate-400 hover:text-white p-1 transition" title="Close Advisor">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Messages Body -->
+        <div id="advisorChatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50/60">
+            <!-- Initial Greeting -->
+            <div class="flex items-start space-x-2">
+                <div class="w-6 h-6 rounded-lg bg-navy-900 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    G
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed">
+                    Hello! I am your GrantFinder AI Advisor. I help students discover fully funded scholarships and help student founders secure startup innovation grants. What academic field or venture domain are you pursuing?
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Footer -->
+        <div class="p-3 bg-white border-t border-slate-200 shrink-0">
+            <form id="advisorChatForm" onsubmit="handleAdvisorSubmit(event)" class="flex items-center space-x-2">
+                <input id="advisorInput" type="text" placeholder="Ask about scholarships, grants, DAAD, eligibility..." 
+                       class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
+                <button type="submit" class="p-2.5 rounded-xl bg-navy-950 hover:bg-brand-900 text-white transition shrink-0 shadow-xs" title="Send message">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supabase Client Library & Integration Script (Non-blocking) -->
+    <script>
+        window.SUPABASE_URL = "https://jxvouadenzfxicecqeri.supabase.co";
+        window.SUPABASE_KEY = "sb_publishable_TmFlWjB6qeJwMMCY-NXEVQ_u2vt0j6j";
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="if(window.supabase){window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);}"></script>
+    <script src="/static/js/app.js?v=3.1"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

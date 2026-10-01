@@ -1,0 +1,464 @@
+{% extends "base.html" %}
+
+{% block title %}GrantFinder AI — Intelligent Scholarships & Startup Grants Platform{% endblock %}
+
+{% block content %}
+<div class="space-y-24 pb-24">
+
+    <!-- 1. Hero Section (EEDU Point & Academic Synthesis) -->
+    <section class="relative pt-10 pb-20 bg-gradient-to-b from-brand-50/50 via-white/80 to-slate-50/90 border-b border-slate-200/80">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content Column -->
+                <div class="lg:col-span-7 text-left space-y-6">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-bold bg-brand-100/90 border border-brand-200 text-brand-800">
+                            <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                            <span>AI-Powered Scholarships & Startup Grants</span>
+                        </div>
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/95 border border-slate-200 shadow-xs backdrop-blur-md">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-slate-500 text-[11px]">Scenery:</span>
+                            <span id="heroDestinationTag" class="text-navy-900 font-bold text-xs">Pakistan &bull; Faisal Mosque, Islamabad</span>
+                        </div>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                        Turn Ambition into <span class="font-serif italic font-normal text-brand-700">Achievement</span> with AI Funding.
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+                        Build your profile once. GrantFinder AI aggregates verified government institutions with real-time web discovery across Pakistan and global destinations — matching, explaining, and drafting applications for you.
+                    </p>
+
+                    <!-- Dual CTAs -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+                        <a href="/register?role=student" class="inline-flex items-center justify-center px-7 py-3.5 rounded-2xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow-md shadow-brand-700/20 transition group">
+                            <span>Find Scholarships</span>
+                            <span class="ml-2 group-hover:translate-x-1 transition-transform">&rarr;</span>
+                        </a>
+                        <a href="/register?role=founder" class="inline-flex items-center justify-center px-7 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-emerald-800 font-bold text-sm border border-emerald-300 shadow-xs transition">
+                            <span>Explore Startup Grants</span>
+                        </a>
+                    </div>
+
+                    <!-- Social Proof / Metrics Row -->
+                    <div class="pt-8 border-t border-slate-200/80 grid grid-cols-3 gap-6 text-left max-w-xl">
+                        <div>
+                            <p class="text-3xl font-extrabold text-navy-900">10K+</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Opportunities Analyzed</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-extrabold text-brand-700">26+</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Curated Portals</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-extrabold text-emerald-700">98%</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Match Accuracy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Column (EEDU Point & Academic Composition) -->
+                <div class="lg:col-span-5 relative">
+                    <div class="rounded-3xl bg-white/95 p-5 shadow-2xl border border-slate-200/90 space-y-4 backdrop-blur-md">
+                        <!-- Top Active Banner Card -->
+                        <div class="p-6 rounded-2xl bg-gradient-to-tr from-navy-950 to-brand-900 text-white shadow-md">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-brand-300">Live AI Search Active</span>
+                            <h3 class="text-lg font-bold mt-1">Hybrid Data Pipeline</h3>
+                            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                Merging stable repositories (HEC, Ignite, Karandaaz) with live web indexing for current semester deadlines.
+                            </p>
+                            <div class="mt-4 flex items-center justify-between text-xs pt-3 border-t border-navy-800">
+                                <span class="text-slate-300">Semantic Matching</span>
+                                <span class="font-mono font-bold text-emerald-400">0 - 100% Score</span>
+                            </div>
+                        </div>
+
+                        <!-- Two Mini Action Tracks -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="p-4 rounded-2xl bg-brand-50/80 border border-brand-200/80 text-left">
+                                <div class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                </div>
+                                <h4 class="font-bold text-navy-900 text-xs mt-2">Scholarship Track</h4>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Degree, GPA & major matching</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 text-left">
+                                <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                </div>
+                                <h4 class="font-bold text-navy-900 text-xs mt-2">Grant Track</h4>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Seed fund & stage matching</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 1.5 Interactive GrantFinder AI Assistant Console Section -->
+    <section id="ai-assistant" class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 my-12">
+        <div class="rounded-3xl bg-gradient-to-br from-navy-950 via-navy-900 to-brand-950 border border-navy-800 p-6 sm:p-10 shadow-2xl relative overflow-hidden text-white">
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-brand-600/15 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <!-- Left Description Column -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-bold bg-brand-900/80 text-brand-200 border border-brand-700/60">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Conversational Intelligence</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                        GrantFinder AI Assistant
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Have a real-time conversation with our AI advisor. It extracts your profile, evaluates realistic competition levels across thousands of curated government programs, and recommends the best opportunities for your background.
+                    </p>
+
+                    <!-- Quick Prompt Chips -->
+                    <div class="pt-2">
+                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Try quick prompts:</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <button type="button" onclick="sendQuickPrompt('I am a Computer Science undergrad looking for scholarships in Pakistan')" class="px-3 py-1.5 rounded-xl bg-navy-800/80 hover:bg-brand-800 text-slate-200 border border-navy-700 hover:border-brand-500 transition text-[11px] cursor-pointer">
+                                CS BS in Pakistan
+                            </button>
+                            <button type="button" onclick="sendQuickPrompt('Looking for fully funded Master scholarships in Germany DAAD')" class="px-3 py-1.5 rounded-xl bg-navy-800/80 hover:bg-brand-800 text-slate-200 border border-navy-700 hover:border-brand-500 transition text-[11px] cursor-pointer">
+                                DAAD Germany (Master's)
+                            </button>
+                            <button type="button" onclick="sendQuickPrompt('I have an AI startup prototype seeking seed grants in Pakistan')" class="px-3 py-1.5 rounded-xl bg-navy-800/80 hover:bg-brand-800 text-slate-200 border border-navy-700 hover:border-brand-500 transition text-[11px] cursor-pointer">
+                                AI Startup Seed Grant
+                            </button>
+                            <button type="button" onclick="sendQuickPrompt('Chevening and Commonwealth scholarships in the UK')" class="px-3 py-1.5 rounded-xl bg-navy-800/80 hover:bg-brand-800 text-slate-200 border border-navy-700 hover:border-brand-500 transition text-[11px] cursor-pointer">
+                                UK Chevening / Rhodes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Chat Window Column -->
+                <div class="lg:col-span-7">
+                    <div class="rounded-2xl bg-white text-slate-800 shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[420px]">
+                        <!-- Chat Header -->
+                        <div class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-7 h-7 rounded-lg bg-navy-950 flex items-center justify-center p-1">
+                                    <img src="/static/img/logo.svg" alt="Advisor" class="w-5 h-5">
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-navy-900 leading-none">GrantFinder AI Advisor</p>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">Online &bull; Connected to Curated Database</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">Active</span>
+                        </div>
+
+                        <!-- Chat Messages Container -->
+                        <div id="inlineAdvisorMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50/70">
+                            <div class="flex items-start space-x-2">
+                                <div class="w-6 h-6 rounded-lg bg-navy-950 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                    G
+                                </div>
+                                <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 shadow-xs max-w-[85%] text-slate-700 leading-relaxed">
+                                    Hello! I am the GrantFinder AI Assistant. I guide university students toward fully funded scholarships and help founders secure startup innovation grants. What degree program or startup sector are you seeking funding for?
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input Form -->
+                        <div class="p-3 bg-white border-t border-slate-200">
+                            <form id="inlineAdvisorForm" onsubmit="handleInlineAdvisorSubmit(event)" class="flex items-center space-x-2">
+                                <input id="inlineAdvisorInput" type="text" placeholder="Type your major, degree stage, or country preference..." 
+                                       class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
+                                <button type="submit" class="px-4 py-2.5 rounded-xl bg-navy-950 hover:bg-brand-900 text-white font-bold text-xs transition shrink-0 shadow-xs flex items-center space-x-1.5 cursor-pointer">
+                                    <span>Send</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Popular Destinations & Regions Section (Interactive Background Scenery) -->
+    <section id="destinations" class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-slate-200">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Study & Innovation Regions</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-1">Popular Funding Destinations</h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">Click any country card below to immerse the background in that nation's iconic landmark imagery.</p>
+            </div>
+            <a href="/register" class="text-xs font-bold text-brand-700 hover:text-brand-800 transition mt-2 md:mt-0">
+                View All Regions &rarr;
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <!-- Pakistan Card -->
+            <div id="dest-card-pakistan" onclick="selectDestinationCountry('Pakistan')" class="destination-card cursor-pointer p-5 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-500 hover:shadow-md transition-all group text-left transform hover:-translate-y-1 ring-2 ring-brand-600 bg-brand-50/50">
+                <div class="w-9 h-9 rounded-2xl bg-navy-900 text-white font-bold text-xs flex items-center justify-center mb-3 group-hover:scale-110 transition shadow-xs">
+                    PK
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm">Pakistan</h4>
+                <p class="text-[11px] text-slate-500 mt-1">HEC, Ignite & NIC Portals</p>
+                <span class="inline-block mt-3 text-[10px] font-bold text-brand-700">14+ Programs &rarr;</span>
+            </div>
+
+            <!-- United Kingdom Card -->
+            <div id="dest-card-united-kingdom" onclick="selectDestinationCountry('United Kingdom')" class="destination-card cursor-pointer p-5 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-500 hover:shadow-md transition-all group text-left transform hover:-translate-y-1">
+                <div class="w-9 h-9 rounded-2xl bg-navy-900 text-white font-bold text-xs flex items-center justify-center mb-3 group-hover:scale-110 transition shadow-xs">
+                    UK
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm">United Kingdom</h4>
+                <p class="text-[11px] text-slate-500 mt-1">Chevening, Rhodes & Oxford</p>
+                <span class="inline-block mt-3 text-[10px] font-bold text-brand-700">Fully Funded &rarr;</span>
+            </div>
+
+            <!-- United States Card -->
+            <div id="dest-card-united-states" onclick="selectDestinationCountry('United States')" class="destination-card cursor-pointer p-5 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-500 hover:shadow-md transition-all group text-left transform hover:-translate-y-1">
+                <div class="w-9 h-9 rounded-2xl bg-navy-900 text-white font-bold text-xs flex items-center justify-center mb-3 group-hover:scale-110 transition shadow-xs">
+                    US
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm">United States</h4>
+                <p class="text-[11px] text-slate-500 mt-1">Fulbright & Y Combinator</p>
+                <span class="inline-block mt-3 text-[10px] font-bold text-brand-700">Pre-Seed & MS &rarr;</span>
+            </div>
+
+            <!-- Germany Card -->
+            <div id="dest-card-germany" onclick="selectDestinationCountry('Germany')" class="destination-card cursor-pointer p-5 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-500 hover:shadow-md transition-all group text-left transform hover:-translate-y-1">
+                <div class="w-9 h-9 rounded-2xl bg-navy-900 text-white font-bold text-xs flex items-center justify-center mb-3 group-hover:scale-110 transition shadow-xs">
+                    DE
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm">Germany</h4>
+                <p class="text-[11px] text-slate-500 mt-1">DAAD & Research Grants</p>
+                <span class="inline-block mt-3 text-[10px] font-bold text-brand-700">Tuition-Free &rarr;</span>
+            </div>
+
+            <!-- Australia Card -->
+            <div id="dest-card-australia" onclick="selectDestinationCountry('Australia')" class="destination-card cursor-pointer p-5 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-500 hover:shadow-md transition-all group text-left transform hover:-translate-y-1">
+                <div class="w-9 h-9 rounded-2xl bg-navy-900 text-white font-bold text-xs flex items-center justify-center mb-3 group-hover:scale-110 transition shadow-xs">
+                    AU
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm">Australia</h4>
+                <p class="text-[11px] text-slate-500 mt-1">Australia Awards Fellowships</p>
+                <span class="inline-block mt-3 text-[10px] font-bold text-brand-700">Govt Funded &rarr;</span>
+            </div>
+
+            <!-- Global / International Card -->
+            <div id="dest-card-global" onclick="selectDestinationCountry('Global')" class="destination-card cursor-pointer p-5 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-500 hover:shadow-md transition-all group text-left transform hover:-translate-y-1">
+                <div class="w-9 h-9 rounded-2xl bg-navy-900 text-white font-bold text-xs flex items-center justify-center mb-3 group-hover:scale-110 transition shadow-xs">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm">Global Programs</h4>
+                <p class="text-[11px] text-slate-500 mt-1">Erasmus, Gates & MIT Solve</p>
+                <span class="inline-block mt-3 text-[10px] font-bold text-brand-700">Worldwide &rarr;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Complete Support / Capabilities Grid (EEDU Point Style) -->
+    <section id="services" class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Platform Capabilities</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-1">Complete Support for Your Funding Journey</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-2">From profile synthesis to live search and AI-assisted drafting, everything is unified under one roof.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">Hybrid Search Architecture</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Combines static government databases with live Serper.dev web searches so opportunities are always fresh.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">Semantic Match Scoring</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Gemini AI evaluates eligibility, GPA, and stage, returning precise 0-100% scores and individualized rationales.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">AI Essay Drafter (Students)</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Generates polished 4-paragraph Statements of Purpose tailored directly to scholarship criteria.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">AI Pitch Drafter (Founders)</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Generates 5-section executive grant proposals with problem, solution, traction, and milestone budgets.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">Twilio WhatsApp Alerts</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Premium users receive instantaneous WhatsApp notifications when high-match opportunities or deadlines approach.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">Opportunity Safe / Bookmarks</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Save matching programs to your account with persistent cloud storage across all sessions.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">SuperAdmin Governance</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Institutional operators can curate programs, monitor search telemetry, and audit user acquisition.
+                </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs text-left hover:border-brand-400 hover:shadow-md transition">
+                <div class="w-10 h-10 rounded-2xl bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 font-bold mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h4 class="font-bold text-navy-900 text-sm mb-1">Zero-Cost Architecture</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Operates statelessly on free-tier services (Render, Vercel, Supabase) with zero vendor lock-in.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Why Choose GrantFinder AI (Nuova Academic & EEDU Point Split) -->
+    <section id="why-us" class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div class="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 text-left space-y-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Why GrantFinder AI</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">Your Success is Our Single Mandate.</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        We bridge the gap between ambitious students, university founders, and funding bodies. No more dead links, expired deadlines, or generic search results.
+                    </p>
+                    <div class="pt-2">
+                        <a href="/register" class="inline-flex px-5 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                            Create Free Account &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                        <h4 class="font-bold text-navy-900 text-xs flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-brand-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            <span>Expert Guidance</span>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1">Structured semantic rationale explaining exactly why you qualify for each fund.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                        <h4 class="font-bold text-navy-900 text-xs flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-emerald-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            <span>Verified Partnerships</span>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1">Pre-seeded datasets directly tied to official portals like HEC, Ignite, and USEFP.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                        <h4 class="font-bold text-navy-900 text-xs flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-indigo-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            <span>Personalized AI Approach</span>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1">Unique Statement of Purpose and pitch drafts built on your specific resume milestones.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                        <h4 class="font-bold text-navy-900 text-xs flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-amber-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            <span>High Acceptance Rate</span>
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1">Applicants with structured pitch and essay drafts report significantly higher conversion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Blue Callout Banner (EEDU Point Style) -->
+    <section class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div class="rounded-3xl bg-gradient-to-r from-brand-800 via-brand-700 to-indigo-800 text-white p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 text-left">
+            <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-200 bg-brand-900/60 px-3 py-1 rounded-full">Take the First Step</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold mt-3">Let's Build Your Academic & Venture Future.</h3>
+                <p class="text-xs sm:text-sm text-brand-100 mt-1 max-w-xl">Get matched with high-value scholarships and early-stage grants in under 2 minutes.</p>
+            </div>
+            <a href="/register" class="inline-flex px-6 py-3.5 rounded-xl bg-white text-brand-800 hover:bg-brand-50 font-bold text-sm shadow-md transition shrink-0">
+                Start Discovering Free &rarr;
+            </a>
+        </div>
+    </section>
+
+    <!-- 6. Accordion FAQ Section (Nuova Academic Style) -->
+    <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div class="text-center mb-8">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Common Inquiries</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-1">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="space-y-3 text-xs">
+            <details class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 cursor-pointer flex items-center justify-between list-none">
+                    <span>How does the Hybrid Data Model prevent outdated results?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-slate-600 mt-3 leading-relaxed">
+                    Major, stable government sources (HEC, Ignite, Karandaaz, PSEB) are curated into our database. Whenever you execute a search, the system concurrently queries live Serper.dev web indexes to extract newly announced cohorts, ensuring you never encounter expired deadlines.
+                </p>
+            </details>
+
+            <details class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 cursor-pointer flex items-center justify-between list-none">
+                    <span>What is included in the $9 one-time Premium demonstration tier?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-slate-600 mt-3 leading-relaxed">
+                    Premium removes the 3-result cutoff on all searches, unlocks unlimited opportunity matches, enables the Gemini-powered AI Statement of Purpose and Pitch Proposal drafters, and activates real-time WhatsApp instant alerts via Twilio.
+                </p>
+            </details>
+
+            <details class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 cursor-pointer flex items-center justify-between list-none">
+                    <span>Can I use GrantFinder AI for international study and global accelerator grants?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-slate-600 mt-3 leading-relaxed">
+                    Yes. The platform indexes opportunities across Pakistan, the United Kingdom, the United States, Germany, Australia, and worldwide programs including Fulbright, Chevening, DAAD, Erasmus Mundus, and Y Combinator.
+                </p>
+            </details>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}Student Scholar Portal — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 space-y-8">
+    
+    <!-- Header Banner (Institutional Style) -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden">
+        <div class="space-y-1.5 relative z-10">
+            <div class="flex items-center space-x-2.5">
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                    Scholarship Discovery Track
+                </span>
+                <span class="text-slate-300">•</span>
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ user.plan }} Account</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">Welcome, {{ user.name }}</h1>
+            <p class="text-xs sm:text-sm text-slate-600 max-w-2xl">Access verified government scholarship portals and real-time live fellowship matches. Selecting any destination adapts background atmosphere and query filters.</p>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 relative z-10">
+            {% if user.plan != 'premium' %}
+                <button onclick="openUpgradeModal()" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition">
+                    <span>Unlock Unlimited Results & AI Drafter ($9)</span>
+                    <span class="ml-1.5 font-normal text-brand-200">&rarr;</span>
+                </button>
+            {% else %}
+                <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 self-start sm:self-auto">
+                    Premium Active
+                </span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Quick Atmospheric Region Selector Strip -->
+    <div class="p-4 rounded-3xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center space-x-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+            <span class="text-xs font-bold text-navy-900 uppercase tracking-wider">Immersive Destinations:</span>
+            <span class="text-[11px] text-slate-400 hidden md:inline">Click any region to immerse background scenery</span>
+        </div>
+        <div class="flex items-center flex-wrap gap-2 text-xs">
+            <button type="button" onclick="selectDestinationCountry('Pakistan')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-50 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition text-[11px] sm:text-xs">Pakistan (PK)</button>
+            <button type="button" onclick="selectDestinationCountry('United Kingdom')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-50 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition text-[11px] sm:text-xs">United Kingdom (UK)</button>
+            <button type="button" onclick="selectDestinationCountry('United States')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-50 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition text-[11px] sm:text-xs">United States (US)</button>
+            <button type="button" onclick="selectDestinationCountry('Germany')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-50 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition text-[11px] sm:text-xs">Germany (DE)</button>
+            <button type="button" onclick="selectDestinationCountry('Australia')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-50 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition text-[11px] sm:text-xs">Australia (AU)</button>
+            <button type="button" onclick="selectDestinationCountry('all')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-50 hover:bg-brand-50 hover:text-brand-700 text-slate-700 border border-slate-200 transition text-[11px] sm:text-xs">All Regions</button>
+        </div>
+    </div>
+
+    <!-- Top Grid: Academic Profile & Saved Bookmarks -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Academic Profile Editor -->
+        <div class="lg:col-span-2 rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
+                <div>
+                    <h3 class="text-base font-bold text-navy-900">Academic Profile</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Parameters driving Google Gemini semantic match evaluation</p>
+                </div>
+                <span class="text-[11px] font-bold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full border border-brand-200">Active Record</span>
+            </div>
+
+            <form id="profileForm" onsubmit="handleProfileSubmit(event, 'academic')" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5" for="major_domain">Academic Discipline / Major</label>
+                    <input type="text" id="major_domain" required value="{{ profile.major_domain if profile else 'Computer Science' }}" 
+                        placeholder="e.g. Software Engineering, AI, Physics" 
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5" for="degree_level_stage">Current Degree Level</label>
+                    <select id="degree_level_stage" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+                        <option value="Undergraduate BS" {% if profile and profile.degree_level_stage == 'Undergraduate BS' %}selected{% endif %}>Undergraduate (BS)</option>
+                        <option value="Master's MS/MPhil" {% if profile and profile.degree_level_stage == "Master's MS/MPhil" %}selected{% endif %}>Master's (MS/MPhil)</option>
+                        <option value="Doctoral PhD" {% if profile and profile.degree_level_stage == 'Doctoral PhD' %}selected{% endif %}>Doctoral (PhD)</option>
+                        <option value="Postdoctoral" {% if profile and profile.degree_level_stage == 'Postdoctoral' %}selected{% endif %}>Postdoctoral Research</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5" for="gpa_funding">Academic Standing / CGPA</label>
+                    <input type="text" id="gpa_funding" value="{{ profile.gpa_funding if profile else '3.6 CGPA' }}" 
+                        placeholder="e.g. 3.7 CGPA or Top 5% Merit" 
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5" for="country_preference">Target Country / Region</label>
+                    <select id="country_preference" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+                        <option value="Pakistan" {% if not profile or profile.country_preference == 'Pakistan' %}selected{% endif %}>Pakistan (Local Institutions & HEC)</option>
+                        <option value="International" {% if profile and profile.country_preference == 'International' %}selected{% endif %}>International (Global & Overseas)</option>
+                        <option value="United Kingdom" {% if profile and profile.country_preference == 'United Kingdom' %}selected{% endif %}>United Kingdom (Chevening / Commonwealth)</option>
+                        <option value="United States" {% if profile and profile.country_preference == 'United States' %}selected{% endif %}>United States (Fulbright)</option>
+                        <option value="Germany" {% if profile and profile.country_preference == 'Germany' %}selected{% endif %}>Germany (DAAD)</option>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2 flex items-center justify-between pt-3">
+                    <span id="profileStatusMsg" class="text-xs text-emerald-700 font-bold"></span>
+                    <button type="submit" id="saveProfileBtn" class="px-5 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition shadow-xs">
+                        Update Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Saved Bookmarks Drawer Box -->
+        <div class="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                    <h3 class="text-base font-bold text-navy-900">Saved Opportunities</h3>
+                    <span id="savedCountBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold">{{ saved|length }}</span>
+                </div>
+                <div id="savedOpportunitiesList" class="space-y-2 max-h-52 overflow-y-auto pr-1 text-xs">
+                    {% if saved and saved|length > 0 %}
+                        {% for s in saved %}
+                            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2" id="saved-card-{{ s.id }}">
+                                <div class="truncate">
+                                    <p class="font-bold text-navy-900 truncate">{{ s.opportunity_name }}</p>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">{{ s.amount }} · Score: {{ s.match_score }}%</p>
+                                </div>
+                                <div class="flex items-center space-x-1 shrink-0">
+                                    <a href="{{ s.source_link }}" target="_blank" class="p-1.5 text-slate-500 hover:text-brand-700" title="Open Official Link">&rarr;</a>
+                                    <button onclick="removeSavedOpp('{{ s.id }}')" class="p-1.5 text-slate-400 hover:text-rose-600 font-bold" title="Remove">&times;</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-slate-400 text-center py-6 text-xs">No saved opportunities yet. Click 'Save' on any match below.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="pt-4 border-t border-slate-100 text-[11px] text-slate-400">
+                Bookmarked opportunities persist automatically across all logins.
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Search & Filtering Console -->
+    <div class="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div class="mb-4">
+            <h3 class="text-lg font-bold text-navy-900">Hybrid Opportunity Discovery Console</h3>
+            <p class="text-xs text-slate-500 mt-1">Queries verified institutional repositories (HEC, PEEF, Fulbright) concurrently with live real-time web discovery.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <div class="sm:col-span-2">
+                <input type="text" id="searchKeyword" placeholder="Filter by discipline or criteria (e.g. AI, Full Tuition, Fellowship, Merit)" 
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+            </div>
+            <div>
+                <select id="searchCountry" data-track="scholarship" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+                    <option value="Pakistan">Country: Pakistan</option>
+                    <option value="International">Country: International</option>
+                    <option value="United Kingdom">Country: United Kingdom</option>
+                    <option value="United States">Country: United States</option>
+                    <option value="Germany">Country: Germany</option>
+                    <option value="all">Country: All Regions</option>
+                </select>
+            </div>
+            <div>
+                <button onclick="triggerSearch('scholarship')" id="searchBtn" class="w-full py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition flex items-center justify-center space-x-2">
+                    <span>Run AI Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results Section -->
+    <div class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <div>
+                <h3 class="text-lg font-bold text-navy-900">Matching Academic Opportunities</h3>
+                <p id="resultsStatusSubtitle" class="text-xs text-slate-500">Curated government portals and live web discoveries scored against your profile.</p>
+            </div>
+            <div id="resultsCountBanner" class="hidden text-xs font-bold px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-navy-900"></div>
+        </div>
+
+        <!-- Cards Container -->
+        <div id="opportunitiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Cards Loaded by JS -->
+        </div>
+    </div>
+</div>
+
+<!-- AI Scholarship Essay Assistant Modal (Executive Academic Style) -->
+<div id="essayModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-navy-950/60 backdrop-blur-sm p-4">
+    <div class="w-full max-w-2xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl relative max-h-[90vh] flex flex-col">
+        <button onclick="closeEssayModal()" class="absolute top-5 right-5 text-slate-400 hover:text-navy-900 text-xl font-bold">&times;</button>
+        
+        <div class="mb-4">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                AI Application Assistant
+            </span>
+            <h3 class="text-xl font-bold text-navy-900 mt-1" id="essayModalOppName">Scholarship Application Essay</h3>
+            <p class="text-xs text-slate-500">Synthesizes a structured Statement of Purpose aligned with your profile and stated criteria.</p>
+        </div>
+
+        <div class="space-y-3 mb-4 text-xs">
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">Stated Opportunity Requirements</label>
+                <input type="text" id="essayStatedReq" placeholder="e.g. Leadership potential, academic merit, career impact" 
+                    class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600">
+            </div>
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">Personal Notes / Emphasized Achievements (Optional)</label>
+                <textarea id="essayPersonalNotes" rows="2" placeholder="e.g. Completed research in computer vision, active leadership in university tech society" 
+                    class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600"></textarea>
+            </div>
+            <button onclick="generateEssayDraft()" id="essayGenerateBtn" class="w-full py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition shadow-xs">
+                Generate Statement with Gemini AI
+            </button>
+        </div>
+
+        <!-- Output Draft Container -->
+        <div class="flex-1 flex flex-col min-h-48">
+            <div class="flex items-center justify-between pb-1.5 text-xs">
+                <span class="font-bold text-navy-900">Generated Statement Draft:</span>
+                <button onclick="copyEssayToClipboard()" id="copyEssayBtn" class="text-brand-700 hover:text-brand-800 font-bold">Copy to Clipboard</button>
+            </div>
+            <textarea id="essayOutputArea" readonly placeholder="Your generated statement of purpose will appear here..." 
+                class="w-full flex-1 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-800 focus:outline-none resize-none leading-relaxed"></textarea>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Automatically run search on initial load
+document.addEventListener('DOMContentLoaded', () => {
+    triggerSearch('scholarship');
+});
+</script>
+{% endblock %}
