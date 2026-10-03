@@ -702,12 +702,82 @@ const countryLandmarks = {
         url: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1920&q=80',
         subtitle: 'DAAD Scholarships, Max Planck Fellowships, and public research universities'
     },
+    'france': {
+        name: 'France',
+        landmark: 'Sorbonne University & Panthéon, Paris',
+        tag: 'Continental Academia & Research',
+        url: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Campus France, Eiffel Excellence Scholarships, and French Tech'
+    },
+    'china': {
+        name: 'China',
+        landmark: 'Tsinghua University & Forbidden City, Beijing',
+        tag: 'State Key Innovation Centers',
+        url: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Chinese Government Scholarship (CSC) and Belt and Road Fellowships'
+    },
+    'netherlands': {
+        name: 'Netherlands',
+        landmark: 'Leiden University & Historic Canals',
+        tag: 'Dutch Research Consortiums',
+        url: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'NL Scholarship, Orange Knowledge Programme, and Erasmus MC'
+    },
+    'sweden': {
+        name: 'Sweden',
+        landmark: 'Uppsala University & Gamla Stan, Stockholm',
+        tag: 'Scandinavian Innovation Centers',
+        url: 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Swedish Institute Scholarships for Global Professionals (SISGP)'
+    },
+    'italy': {
+        name: 'Italy',
+        landmark: 'University of Bologna & Piazza Maggiore',
+        tag: 'Historic European Academia',
+        url: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Invest Your Talent in Italy, MAECI, and DSU regional grants'
+    },
+    'spain': {
+        name: 'Spain',
+        landmark: 'University of Salamanca & Plaza Mayor',
+        tag: 'Iberian Academic Foundations',
+        url: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Fundación Carolina, MAEC-AECID, and Spanish university endowments'
+    },
+    'canada': {
+        name: 'Canada',
+        landmark: 'University of Toronto & Historic Front Campus',
+        tag: 'U15 Canadian Research Universities',
+        url: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Vanier CGS, Banting Postdoctoral Fellowships, and Mitacs Elevate'
+    },
     'australia': {
         name: 'Australia',
         landmark: 'Sydney Harbor & Historic Cloisters',
         tag: 'Go8 Research Portals',
         url: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1920&q=80',
         subtitle: 'Australia Awards, Endeavour Fellowships, and innovation grants'
+    },
+    'japan': {
+        name: 'Japan',
+        landmark: 'University of Tokyo & Yasuda Auditorium',
+        tag: 'MEXT Imperial Academia',
+        url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'MEXT Japanese Government Scholarships and JSPS Postdoctoral Fellowships'
+    },
+    'switzerland': {
+        name: 'Switzerland',
+        landmark: 'ETH Zurich & Polyterrasse',
+        tag: 'Federal Institutes of Technology',
+        url: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Swiss Government Excellence Scholarships (ESKAS) and EPFL grants'
+    },
+    'ireland': {
+        name: 'Ireland',
+        landmark: 'Trinity College & Long Room, Dublin',
+        tag: 'Silicon Docks & Research Ireland',
+        url: 'https://images.unsplash.com/photo-1549918864-48ac978761a4?auto=format&fit=crop&w=1920&q=80',
+        subtitle: 'Government of Ireland Postgraduate Scholarship Programme'
     },
     'global': {
         name: 'Global / International',
@@ -739,7 +809,17 @@ function normalizeCountryKey(key) {
     if (clean.includes('uk') || clean.includes('kingdom') || clean.includes('britain') || clean.includes('england')) return 'united kingdom';
     if (clean.includes('usa') || clean.includes('united states') || clean.includes('america')) return 'united states';
     if (clean.includes('germany') || clean.includes('deutschland')) return 'germany';
+    if (clean.includes('france')) return 'france';
+    if (clean.includes('china')) return 'china';
+    if (clean.includes('netherland') || clean.includes('holland')) return 'netherlands';
+    if (clean.includes('sweden')) return 'sweden';
+    if (clean.includes('ital')) return 'italy';
+    if (clean.includes('spain')) return 'spain';
+    if (clean.includes('canada')) return 'canada';
     if (clean.includes('australia')) return 'australia';
+    if (clean.includes('japan')) return 'japan';
+    if (clean.includes('switz')) return 'switzerland';
+    if (clean.includes('ireland')) return 'ireland';
     if (clean.includes('all')) return 'all';
     return 'international';
 }
@@ -757,9 +837,23 @@ function setAtmosphereCountry(rawCountry) {
         }, 300);
     }
 
-    // Defensive cleanup: remove any lingering place mark / landmark badges from DOM
-    const legacyBadge = document.getElementById('atmosphereBadge');
-    if (legacyBadge) legacyBadge.remove();
+    const atmosphereCountry = document.getElementById('atmosphereCountry');
+    if (atmosphereCountry) {
+        atmosphereCountry.innerText = data.name;
+    }
+
+    const atmosphereLandmark = document.getElementById('atmosphereLandmark');
+    if (atmosphereLandmark) {
+        atmosphereLandmark.innerText = data.landmark;
+    }
+
+    const atmosphereBadge = document.getElementById('atmosphereBadge');
+    if (atmosphereBadge) {
+        atmosphereBadge.classList.remove('hidden');
+        atmosphereBadge.classList.add('flex');
+    }
+
+    // Defensive cleanup: keep top of landing page clean
     const legacyTag = document.getElementById('heroDestinationTag');
     if (legacyTag && legacyTag.parentElement) legacyTag.parentElement.remove();
 }
