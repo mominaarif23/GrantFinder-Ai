@@ -28,12 +28,16 @@ This specification is designed for software architects, backend and frontend eng
 ### 1.4 Project Scope
 GrantFinder AI is an automated, AI-assisted funding discovery platform. It eliminates manual searching across fragmented university websites, government repositories, and private foundation lists. Users configure an academic or venture profile once, after which the platform combines pre-seeded, curated institutional databases with real-time AI-driven web crawling to discover, match, score, and rank opportunities. It features dual tracks (Scholarships for students, Innovation Grants for student founders), demonstrated freemium monetization, and AI-powered application drafting assistants.
 
+### 1.5 Future Scope (Deferred Enhancements)
+* **Phone Number Verification:** SMS / OTP telephone verification is formally deferred to Phase 2 (Future Scope). The current production release authenticates users exclusively via cryptographic Email/Password credentials to maximize onboarding speed and avoid vendor lock-in.
+* **Biometric & Institutional SSO:** OAuth 2.0 institutional student single sign-on (EduGAIN / Google Workspace) planned for future institutional pilots.
+
 ---
 
 ## 2. Overall Description
 
 ### 2.1 Product Perspective
-GrantFinder AI operates as a self-contained web service utilizing a zero-cost, modular architecture. It interfaces with external web search indexes (Serper.dev), large language model inference APIs (Google Gemini), mail transport services (SMTP), and messaging gateways (Twilio WhatsApp).
+GrantFinder AI operates as a self-contained web service utilizing a modular, zero-cost architecture. It interfaces with external web search indexes (Serper.dev), large language model inference APIs (Google Gemini), mail transport services (SMTP), and messaging gateways (WhatsApp Cloud API / CallMeBot).
 
 ```mermaid
 flowchart TD

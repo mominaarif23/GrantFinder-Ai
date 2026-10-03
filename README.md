@@ -24,12 +24,13 @@ Instead of manually checking scattered university portals, government ministries
 
 ### 1.4 Freemium Monetization Model (Demonstrated)
 * **Free Tier:** Complete profile builder, top 3 visible matches per search, basic match percentage, in-app notifications, and email notifications.
-* **Premium Tier ($9 One-Time Demo):** Unlimited matches (removes 3-result cutoff), detailed scoring breakdowns, AI Essay & Pitch Drafters, and instant Twilio WhatsApp alerts.
+* **Premium Tier ($9 One-Time Demo):** Unlimited matches (removes 3-result cutoff), detailed scoring breakdowns, AI Essay & Pitch Drafters, and instant WhatsApp alerts.
 
 ### 1.5 Multi-Channel Notifications
 * **In-App Alerts:** Built-in notification bell dropdown for all users.
 * **Email Notifications:** Dispatched via Gmail SMTP.
-* **WhatsApp Instant Alerts:** Dispatched via Twilio WhatsApp sandbox for Premium tier users.
+* **WhatsApp Instant Alerts:** Dispatched via Meta WhatsApp Cloud API / CallMeBot for Premium tier users.
+* **Phone Number Verification:** Deferred to Phase 2 (Future Scope). Current MVP requires only Email/Password credentials to minimize registration friction.
 
 ---
 
@@ -40,7 +41,7 @@ Instead of manually checking scattered university portals, government ministries
 * **Database:** SQLite (Local Development) / PostgreSQL / Supabase with clean abstraction layer
 * **AI & Embeddings:** Google Gemini API (`gemini-1.5-flash`)
 * **Search Engine:** Serper.dev Web Search API (with resilient heuristic fallback)
-* **Messaging & Alerts:** Twilio WhatsApp Sandbox & SMTP Email
+* **Messaging & Alerts:** Meta WhatsApp Cloud API / CallMeBot & SMTP Email
 * **Testing:** Pytest & FastAPI TestClient
 
 ---

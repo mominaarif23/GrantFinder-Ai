@@ -749,11 +749,6 @@ function setAtmosphereCountry(rawCountry) {
     const data = countryLandmarks[key] || countryLandmarks['pakistan'];
     
     const atmosphereImage = document.getElementById('atmosphereImage');
-    const atmosphereCountry = document.getElementById('atmosphereCountry');
-    const atmosphereLandmark = document.getElementById('atmosphereLandmark');
-    const heroDestinationTag = document.getElementById('heroDestinationTag');
-    const atmosphereBadge = document.getElementById('atmosphereBadge');
-
     if (atmosphereImage) {
         atmosphereImage.style.opacity = '0';
         setTimeout(() => {
@@ -762,27 +757,11 @@ function setAtmosphereCountry(rawCountry) {
         }, 300);
     }
 
-    if (atmosphereCountry) {
-        atmosphereCountry.innerText = data.name;
-    }
-
-    if (atmosphereLandmark) {
-        atmosphereLandmark.innerText = data.landmark;
-    }
-
-    if (heroDestinationTag) {
-        heroDestinationTag.innerHTML = `<strong>${data.name}</strong> · ${data.landmark}`;
-    }
-
-    if (atmosphereBadge) {
-        if (window.innerWidth >= 1024) {
-            atmosphereBadge.classList.remove('hidden');
-            atmosphereBadge.classList.add('flex');
-        } else {
-            atmosphereBadge.classList.add('hidden');
-            atmosphereBadge.classList.remove('flex');
-        }
-    }
+    // Defensive cleanup: remove any lingering place mark / landmark badges from DOM
+    const legacyBadge = document.getElementById('atmosphereBadge');
+    if (legacyBadge) legacyBadge.remove();
+    const legacyTag = document.getElementById('heroDestinationTag');
+    if (legacyTag && legacyTag.parentElement) legacyTag.parentElement.remove();
 }
 
 function selectDestinationCountry(countryName) {
@@ -810,7 +789,7 @@ function selectDestinationCountry(countryName) {
         triggerSearch(searchDropdown.dataset.track || 'scholarship');
     }
 
-    showToast(`Loaded ${countryName} landmark atmosphere`, 'info');
+    showToast(`Selected ${countryName}`, 'info');
 }
 
 // Auto-bind on load

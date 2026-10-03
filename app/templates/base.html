@@ -59,17 +59,17 @@
 
 
     <!-- Top Navigation Bar -->
-    <nav class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/92 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+    <nav class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-20 gap-3">
                 <!-- Brand Logo -->
-                <div class="flex items-center space-x-4 shrink-0">
-                    <a href="/" class="flex items-center space-x-3 group">
+                <div class="flex items-center shrink-0">
+                    <a href="/" class="flex items-center space-x-3 group whitespace-nowrap">
                         <div class="h-10 w-8 shrink-0 group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
-                            <img src="/static/img/logo.svg" alt="GrantFinder AI Minimal Mark" class="h-10 w-auto">
+                            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="h-10 w-auto">
                         </div>
                         <div class="flex flex-col">
-                            <div class="flex items-center space-x-1.5">
+                            <div class="flex items-center space-x-1.5 whitespace-nowrap">
                                 <span class="font-extrabold text-xl tracking-tight text-navy-900 leading-none">GrantFinder</span>
                                 <span class="font-extrabold text-xl tracking-tight text-brand-600 leading-none">AI</span>
                             </div>
@@ -78,48 +78,49 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links (Desktop) -->
-                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-slate-600">
-                    <a href="/" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Home</a>
-                    <button onclick="toggleAdvisorWidget()" class="px-3 py-2 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200 shadow-xs cursor-pointer">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span>AI Assistant</span>
-                    </button>
-                    <a href="/#destinations" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Destinations</a>
-                    <a href="/#services" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">AI Capabilities</a>
-                    <a href="/#why-us" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Why GrantFinder</a>
-                    <a href="/#repositories" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Verified Portals</a>
-                    <a href="/#faq" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">FAQ</a>
-                </div>
+                <!-- Center Navigation Links -->
+                {% if user %}
+                    <!-- Logged-in In-App Navigation (Streamlined, Single-Line, Zero-Wrapping) -->
+                    <div class="hidden md:flex items-center space-x-2 text-xs font-bold text-slate-600">
+                        <a href="/" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Home</a>
+                        {% if user.role == 'student' %}
+                            <a href="/dashboard/student" class="px-3 py-2 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition whitespace-nowrap border border-brand-200/60 font-extrabold">Scholarships Portal</a>
+                        {% elif user.role == 'founder' %}
+                            <a href="/dashboard/founder" class="px-3 py-2 rounded-xl text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition whitespace-nowrap border border-emerald-200/60 font-extrabold">Startup Grants Portal</a>
+                        {% elif user.role == 'admin' %}
+                            <a href="/admin" class="px-3 py-2 rounded-xl text-amber-900 bg-amber-50 hover:bg-amber-100 transition whitespace-nowrap border border-amber-200/60 font-extrabold">Governance Console</a>
+                        {% endif %}
+                        <button onclick="toggleAdvisorWidget()" class="px-3 py-2 rounded-xl text-slate-700 hover:text-navy-900 hover:bg-slate-100 transition flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>AI Assistant</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <!-- Public Marketing Navigation (Single-Line, Zero-Wrapping) -->
+                    <div class="hidden lg:flex items-center space-x-1 xl:space-x-2 text-xs font-bold text-slate-600">
+                        <a href="/" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Home</a>
+                        <a href="/#destinations" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Destinations</a>
+                        <a href="/#services" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Capabilities</a>
+                        <a href="/#why-us" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Why Us</a>
+                        <a href="/#repositories" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Portals</a>
+                        <a href="/#faq" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">FAQ</a>
+                        <button onclick="toggleAdvisorWidget()" class="px-3 py-1.5 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200 shadow-xs cursor-pointer whitespace-nowrap">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>AI Assistant</span>
+                        </button>
+                    </div>
+                {% endif %}
 
                 <!-- Right Nav Links -->
-                <div class="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
+                <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
                     {% if user %}
-                        <!-- Role Navigation -->
-                        {% if user.role == 'student' %}
-                            <a href="/dashboard/student" class="text-xs font-bold text-brand-700 bg-brand-50 px-3.5 py-2 rounded-xl border border-brand-200 hover:bg-brand-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5 whitespace-nowrap">
-                                <span>Scholarships Portal</span>
-                                <span class="text-brand-400">&rarr;</span>
-                            </a>
-                        {% elif user.role == 'founder' %}
-                            <a href="/dashboard/founder" class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-300 hover:bg-emerald-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5 whitespace-nowrap">
-                                <span>Startup Grants Portal</span>
-                                <span class="text-emerald-500">&rarr;</span>
-                            </a>
-                        {% elif user.role == 'admin' %}
-                            <a href="/admin" class="text-xs font-bold text-amber-900 bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-300 hover:bg-amber-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5 whitespace-nowrap">
-                                <span>Governance Console</span>
-                                <span class="text-amber-500">&rarr;</span>
-                            </a>
-                        {% endif %}
-
-                        <!-- Plan Badge (Desktop/Tablet) -->
+                        <!-- Plan Badge -->
                         {% if user.plan == 'premium' %}
-                            <span class="hidden md:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs shrink-0 whitespace-nowrap">
+                            <span class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs shrink-0 whitespace-nowrap">
                                 Premium Tier
                             </span>
                         {% else %}
-                            <button onclick="openUpgradeModal()" class="hidden md:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition shadow-xs shrink-0 whitespace-nowrap">
+                            <button onclick="openUpgradeModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition shadow-xs shrink-0 whitespace-nowrap">
                                 Free Plan · <span class="underline ml-1">Upgrade ($9)</span>
                             </button>
                         {% endif %}
@@ -161,22 +162,19 @@
                             </div>
                         </div>
 
-                        <!-- User Profile Avatar -->
-                        <div class="flex items-center space-x-2.5 pl-1.5 sm:pl-3 border-l border-slate-200 shrink-0">
+                        <!-- User Profile (Single-Line Display, No Column Wrap) -->
+                        <div class="flex items-center space-x-2 pl-2 border-l border-slate-200 shrink-0">
                             <div class="w-8 h-8 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center shadow-xs shrink-0" title="{{ user.name }}">
                                 {{ user.name[:2]|upper }}
                             </div>
-                            <div class="hidden xl:flex flex-col text-left">
-                                <span class="text-xs font-bold text-navy-900 leading-tight truncate max-w-[120px]">{{ user.name }}</span>
-                                <span class="text-[10px] text-slate-400 capitalize">{{ user.role }} Account</span>
-                            </div>
-                            <button onclick="handleLogout()" class="hidden md:inline-block px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition shrink-0 whitespace-nowrap">
+                            <span class="hidden sm:inline-block text-xs font-bold text-navy-900 whitespace-nowrap truncate max-w-[130px]">{{ user.name }}</span>
+                            <button onclick="handleLogout()" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition shrink-0 whitespace-nowrap">
                                 Log out
                             </button>
                         </div>
                     {% else %}
-                        <a href="/login" class="text-xs font-bold text-slate-700 hover:text-brand-700 transition px-2.5 sm:px-3 py-2 rounded-xl hover:bg-slate-100 shrink-0 whitespace-nowrap">Sign in</a>
-                        <a href="/register" class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold bg-brand-700 text-white hover:bg-brand-800 shadow-sm transition shrink-0 whitespace-nowrap">
+                        <a href="/login" class="text-xs font-bold text-slate-700 hover:text-brand-700 transition px-3 py-2 rounded-xl hover:bg-slate-100 shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/register" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold bg-brand-700 text-white hover:bg-brand-800 shadow-sm transition shrink-0 whitespace-nowrap">
                             <span>Explore Funding</span>
                             <span class="ml-1.5 font-normal text-brand-200">&rarr;</span>
                         </a>
