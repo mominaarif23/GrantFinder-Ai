@@ -60,67 +60,66 @@
 
     <!-- Top Navigation Bar -->
     <nav class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-            <div class="flex items-center justify-between h-20 gap-3">
+        <div class="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 gap-2">
                 <!-- Brand Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="/" class="flex items-center space-x-3 group whitespace-nowrap">
-                        <div class="h-10 w-8 shrink-0 group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
-                            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="h-10 w-auto">
+                    <a href="/" class="flex items-center space-x-2.5 group whitespace-nowrap">
+                        <div class="h-9 w-7 shrink-0 group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
+                            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="h-9 w-auto">
                         </div>
                         <div class="flex flex-col">
-                            <div class="flex items-center space-x-1.5 whitespace-nowrap">
+                            <div class="flex items-center space-x-1 whitespace-nowrap">
                                 <span class="font-extrabold text-xl tracking-tight text-navy-900 leading-none">GrantFinder</span>
                                 <span class="font-extrabold text-xl tracking-tight text-brand-600 leading-none">AI</span>
                             </div>
-                            <span class="hidden sm:block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1 whitespace-nowrap">Autonomous Opportunity Intelligence</span>
+                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-slate-400 mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
                         </div>
                     </a>
                 </div>
 
-                <!-- Center Navigation Links -->
-                {% if user %}
-                    <!-- Logged-in In-App Navigation (Streamlined, Single-Line, Zero-Wrapping) -->
-                    <div class="hidden md:flex items-center space-x-2 text-xs font-bold text-slate-600">
-                        <a href="/" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Home</a>
-                        {% if user.role == 'student' %}
-                            <a href="/dashboard/student" class="px-3 py-2 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition whitespace-nowrap border border-brand-200/60 font-extrabold">Scholarships Portal</a>
-                        {% elif user.role == 'founder' %}
-                            <a href="/dashboard/founder" class="px-3 py-2 rounded-xl text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition whitespace-nowrap border border-emerald-200/60 font-extrabold">Startup Grants Portal</a>
-                        {% elif user.role == 'admin' %}
-                            <a href="/admin" class="px-3 py-2 rounded-xl text-amber-900 bg-amber-50 hover:bg-amber-100 transition whitespace-nowrap border border-amber-200/60 font-extrabold">Governance Console</a>
-                        {% endif %}
-                        <button onclick="toggleAdvisorWidget()" class="px-3 py-2 rounded-xl text-slate-700 hover:text-navy-900 hover:bg-slate-100 transition flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>AI Assistant</span>
-                        </button>
-                    </div>
-                {% else %}
-                    <!-- Public Marketing Navigation (Single-Line, Zero-Wrapping) -->
-                    <div class="hidden lg:flex items-center space-x-1 xl:space-x-2 text-xs font-bold text-slate-600">
-                        <a href="/" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Home</a>
-                        <a href="/#destinations" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Destinations</a>
-                        <a href="/#services" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Capabilities</a>
-                        <a href="/#why-us" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Why Us</a>
-                        <a href="/#repositories" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Portals</a>
-                        <a href="/#faq" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">FAQ</a>
-                        <button onclick="toggleAdvisorWidget()" class="px-3 py-1.5 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200 shadow-xs cursor-pointer whitespace-nowrap">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>AI Assistant</span>
-                        </button>
-                    </div>
-                {% endif %}
+                <!-- Navigation Links (Identical across Landing & Logged-In, Strictly One Line, Zero Up-and-Down Wrapping) -->
+                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-slate-600 shrink-0">
+                    <a href="/" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Home</a>
+                    <a href="/#destinations" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Destinations</a>
+                    <a href="/#services" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">AI Capabilities</a>
+                    <a href="/#why-us" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Why GrantFinder</a>
+                    <a href="/#repositories" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Verified Portals</a>
+                    <a href="/#faq" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">FAQ</a>
+                    <button onclick="toggleAdvisorWidget()" class="px-2.5 py-1.5 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200/80 shadow-xs cursor-pointer whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>AI Assistant</span>
+                    </button>
+                </div>
 
                 <!-- Right Nav Links -->
-                <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+                <div class="flex items-center space-x-2 sm:space-x-2.5 shrink-0">
                     {% if user %}
+                        <!-- Role Navigation -->
+                        {% if user.role == 'student' %}
+                            <a href="/dashboard/student" class="text-xs font-bold text-brand-700 bg-brand-50 px-3 py-1.5 rounded-xl border border-brand-200 hover:bg-brand-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
+                                <span>Scholarships Portal</span>
+                                <span class="text-brand-400">&rarr;</span>
+                            </a>
+                        {% elif user.role == 'founder' %}
+                            <a href="/dashboard/founder" class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-300 hover:bg-emerald-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
+                                <span>Startup Grants Portal</span>
+                                <span class="text-emerald-500">&rarr;</span>
+                            </a>
+                        {% elif user.role == 'admin' %}
+                            <a href="/admin" class="text-xs font-bold text-amber-900 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-300 hover:bg-amber-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
+                                <span>Governance Console</span>
+                                <span class="text-amber-500">&rarr;</span>
+                            </a>
+                        {% endif %}
+
                         <!-- Plan Badge -->
                         {% if user.plan == 'premium' %}
-                            <span class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs shrink-0 whitespace-nowrap">
+                            <span class="hidden md:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs shrink-0 whitespace-nowrap">
                                 Premium Tier
                             </span>
                         {% else %}
-                            <button onclick="openUpgradeModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition shadow-xs shrink-0 whitespace-nowrap">
+                            <button onclick="openUpgradeModal()" class="hidden md:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition shadow-xs shrink-0 whitespace-nowrap">
                                 Free Plan · <span class="underline ml-1">Upgrade ($9)</span>
                             </button>
                         {% endif %}
@@ -167,7 +166,7 @@
                             <div class="w-8 h-8 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center shadow-xs shrink-0" title="{{ user.name }}">
                                 {{ user.name[:2]|upper }}
                             </div>
-                            <span class="hidden sm:inline-block text-xs font-bold text-navy-900 whitespace-nowrap truncate max-w-[130px]">{{ user.name }}</span>
+                            <span class="hidden sm:inline-block text-xs font-bold text-navy-900 whitespace-nowrap truncate max-w-[120px]">{{ user.name }}</span>
                             <button onclick="handleLogout()" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition shrink-0 whitespace-nowrap">
                                 Log out
                             </button>
@@ -181,7 +180,7 @@
                     {% endif %}
 
                     <!-- Mobile Menu Hamburger Button -->
-                    <button onclick="toggleMobileNav()" id="mobileNavToggleBtn" class="lg:hidden p-2 sm:p-2.5 rounded-xl text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition border border-slate-200 shrink-0">
+                    <button onclick="toggleMobileNav()" id="mobileNavToggleBtn" class="xl:hidden p-2 sm:p-2.5 rounded-xl text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition border border-slate-200 shrink-0">
                         <span class="sr-only">Open navigation menu</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -192,14 +191,14 @@
         </div>
 
         <!-- Mobile Navigation Drawer -->
-        <div id="mobileNavDrawer" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3">
+        <div id="mobileNavDrawer" class="hidden xl:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3">
             <div class="grid grid-cols-2 gap-2 text-xs font-bold text-slate-700 pt-2">
-                <a href="/" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Home</a>
-                <a href="/#destinations" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Destinations</a>
-                <a href="/#services" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Capabilities</a>
-                <a href="/#why-us" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Why Us</a>
-                <a href="/#repositories" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">Portals</a>
-                <a href="/#faq" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100">FAQ</a>
+                <a href="/" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Home</a>
+                <a href="/#destinations" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Destinations</a>
+                <a href="/#services" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">AI Capabilities</a>
+                <a href="/#why-us" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Why GrantFinder</a>
+                <a href="/#repositories" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Verified Portals</a>
+                <a href="/#faq" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">FAQ</a>
             </div>
 
             <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
@@ -244,14 +243,14 @@
                         Sign Out
                     </button>
                     <!-- AI Assistant Launch Button in Mobile Drawer -->
-                    <button onclick="toggleAdvisorWidget(); toggleMobileMenu();" class="w-full text-center py-2.5 rounded-xl bg-navy-950 text-white font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-xl bg-navy-950 text-white font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         <span>Open AI Funding Advisor Chat</span>
                     </button>
 
                 {% else %}
                     <a href="/login" class="text-center py-2.5 rounded-xl bg-slate-100 text-navy-900 font-bold text-xs hover:bg-slate-200 transition">Sign In to Account</a>
-                    <button onclick="toggleAdvisorWidget(); toggleMobileMenu();" class="w-full text-center py-2.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                         <span>Open AI Funding Advisor Chat</span>
                     </button>
@@ -323,8 +322,8 @@
     <!-- Footer (Institutional EEDU Point Style) -->
     <footer class="w-full border-t border-slate-200 bg-navy-900 text-white py-14 text-xs relative z-10 mt-auto">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                <div class="space-y-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+                <div class="space-y-3 max-w-lg">
                     <div class="flex items-center space-x-3">
                         <img src="/static/img/logo.svg" alt="GrantFinder AI Emblem" class="w-9 h-9 shrink-0">
                         <span class="font-extrabold text-lg tracking-tight text-white">GrantFinder AI</span>
@@ -333,31 +332,13 @@
                         Your intelligent partner for academic scholarships and startup innovation grants across Pakistan and premier global destinations.
                     </p>
                 </div>
-                <div>
+                <div class="md:pl-12">
                     <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Opportunity Tracks</h4>
                     <ul class="space-y-2 text-slate-400">
                         <li><a href="/register?role=student" class="hover:text-white transition">University Scholarships</a></li>
                         <li><a href="/register?role=founder" class="hover:text-white transition">Startup Innovation Grants</a></li>
                         <li><a href="/#destinations" class="hover:text-white transition">Government Portals (HEC, Ignite)</a></li>
                         <li><a href="/#destinations" class="hover:text-white transition">International Fellowships</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">AI Capabilities</h4>
-                    <ul class="space-y-2 text-slate-400">
-                        <li><span>Hybrid Data Model</span></li>
-                        <li><span>Gemini Semantic Match Scoring</span></li>
-                        <li><span>Statement of Purpose Drafter</span></li>
-                        <li><span>Executive Grant Pitch Drafter</span></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Platform & Resources</h4>
-                    <ul class="space-y-2 text-slate-400">
-                        <li><a href="/#faq" class="hover:text-white transition">Frequently Asked Questions</a></li>
-                        <li><a href="/login" class="hover:text-white transition">Member Sign In</a></li>
-                        <li><a href="/register" class="hover:text-white transition">Create Free Account</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">Global Destination Coverage</a></li>
                     </ul>
                 </div>
             </div>
