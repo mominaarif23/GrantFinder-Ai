@@ -13,6 +13,36 @@ from app.services.notification_service import dispatch_opportunity_alert, send_i
 
 router = APIRouter(prefix="/api/opportunities", tags=["Opportunities"])
 
+import re
+from datetime import datetime, date
+
+def is_deadline_passed(deadline_str: Optional[str]) -> bool:
+    if not deadline_str:
+        return False
+    d_clean = deadline_str.strip().lower()
+    if any(k in d_clean for k in ["open", "rolling", "continuous", "ongoing"]):
+        return False
+    
+    today = date.today()
+
+    # Match YYYY-MM-DD
+    iso_match = re.search(r"(\d{4})-(\d{1,2})-(\d{1,2})", d_clean)
+    if iso_match:
+        try:
+            year, month, day = int(iso_match.group(1)), int(iso_match.group(2)), int(iso_match.group(3))
+            return date(year, month, day) < today
+        except ValueError:
+            pass
+
+    # Match other standard textual date representations
+    for fmt in ("%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y", "%Y/%m/%d", "%m/%d/%Y"):
+        try:
+            return datetime.strptime(deadline_str.strip(), fmt).date() < today
+        except ValueError:
+            continue
+
+    return False
+
 @router.post("/search")
 async def search_opportunities(req: SearchRequest, request: Request):
     user = get_current_user_optional(request)
@@ -43,11 +73,24 @@ async def search_opportunities(req: SearchRequest, request: Request):
     
     # 4. Extract and Structure Web Discoveries using AI
     web_cards = await extract_and_structure_web_results(
-        raw_snippets=raw_web_snippets, track=req.track, profile=profile
+        raw_snippets=raw_web_snippets, track=req.track, profile=profile, country=req.country
     )
     
     # 5. Merge and rank all results
     all_results = curated_cards + web_cards
+
+    # Strict Country Relevance Filter: When a specific country is chosen, exclude opportunities specifically for another domestic country
+    if req.country and req.country.lower() not in ("all", "international"):
+        c_req = req.country.lower().strip()
+        filtered = []
+        for item in all_results:
+            item_c = (item.get("country") or "").lower().strip()
+            item_name = item.get("name", "").lower()
+            if item_c in (c_req, "international", "global") or c_req in item_c:
+                if c_req != "pakistan" and any(k in item_name for k in ["lums", "nust", "fast-nuces", "peef", "ehsaas", "ignite national"]):
+                    continue
+                filtered.append(item)
+        all_results = filtered
     
     # Deduplicate by name similarity
     unique_results = []
@@ -60,6 +103,12 @@ async def search_opportunities(req: SearchRequest, request: Request):
             
     # Sort descending by match score
     unique_results.sort(key=lambda x: x["match_score"], reverse=True)
+
+    # Initial search deadline filter: remove any expired deadlines
+    if req.is_initial:
+        active_results = [r for r in unique_results if not is_deadline_passed(r.get("deadline"))]
+        if active_results:
+            unique_results = active_results
     
     # 6. Apply Freemium Gating (Top 3 unlocked for free; all unlocked for premium/admin)
     is_premium_or_admin = (user_plan == "premium") or (user and user.get("role") == "admin")

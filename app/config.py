@@ -31,9 +31,9 @@ class Settings(BaseModel):
     SMTP_PASS: str = os.getenv("SMTP_PASS", "")
     NOTIFICATION_EMAIL_FROM: str = os.getenv("NOTIFICATION_EMAIL_FROM", "noreply@grantfinder.ai")
     
-    # Notifications: Twilio WhatsApp Sandbox
-    TWILIO_ACCOUNT_SID: str = os.getenv("TWILIO_ACCOUNT_SID", "")
-    TWILIO_AUTH_TOKEN: str = os.getenv("TWILIO_AUTH_TOKEN", "")
-    TWILIO_WHATSAPP_NUMBER: str = os.getenv("TWILIO_WHATSAPP_NUMBER", "whatsapp:+14155238886")
+    # Notifications: WhatsApp (Meta WhatsApp Cloud API or CallMeBot API - zero cost in Pakistan)
+    WHATSAPP_CLOUD_TOKEN: str = os.getenv("WHATSAPP_CLOUD_TOKEN", "")
+    WHATSAPP_PHONE_NUMBER_ID: str = os.getenv("WHATSAPP_PHONE_NUMBER_ID", "")
+    CALLMEBOT_API_KEY: str = os.getenv("CALLMEBOT_API_KEY", "")
 
 settings = Settings()

@@ -52,13 +52,9 @@
             </button>
         </form>
 
-        <!-- Quick Demo Fill -->
+        <!-- Register Link -->
         <div class="mt-8 pt-6 border-t border-slate-100 text-center">
-            <span class="text-xs font-semibold text-slate-500">Quick sign-in for system evaluation:</span>
-            <button onclick="fillDemoAdmin()" class="mt-2.5 block w-full text-center py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-navy-900 hover:bg-slate-100 font-semibold transition">
-                Pre-fill Admin: admin@grantfinder.ai / AdminPass123!
-            </button>
-            <p class="text-xs text-slate-500 mt-5">
+            <p class="text-xs text-slate-500">
                 Don't have an account yet? <a href="/register" class="text-brand-700 font-bold hover:underline">Register here</a>
             </p>
         </div>
@@ -68,11 +64,6 @@
 
 {% block scripts %}
 <script>
-function fillDemoAdmin() {
-    document.getElementById('email').value = 'admin@grantfinder.ai';
-    document.getElementById('password').value = 'AdminPass123!';
-}
-
 // Auto-restore remembered email on load
 document.addEventListener('DOMContentLoaded', () => {
     const savedEmail = localStorage.getItem('grantfinder_remember_email');

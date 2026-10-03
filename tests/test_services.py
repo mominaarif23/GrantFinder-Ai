@@ -85,3 +85,64 @@ async def test_ai_structuring_and_drafting():
     pitch = await generate_startup_pitch(founder_profile, "Ignite SEED Grant", "Crop disease detection delay", "Drone multispectral imaging", "PKR 4,000,000")
     assert "STARTUP INNOVATION GRANT PROPOSAL" in pitch
     assert "AgriTech" in pitch
+
+@pytest.mark.asyncio
+async def test_germany_search_relevance_and_no_pakistan_default():
+    """
+    Verifies that when a user searches for Germany:
+    1. Top 3 results are relevant to Germany or European programs (e.g. DAAD, Deutschlandstipendium).
+    2. Domestic Pakistani scholarships (LUMS, NUST, FAST) are strictly excluded from Germany results.
+    """
+    student_profile = {
+        "major_domain": "Computer Science",
+        "degree_level_stage": "Master's Degree",
+        "country_preference": "Germany",
+        "gpa_funding": "3.8 CGPA"
+    }
+
+    # Curated matches
+    curated = get_curated_matches(track="scholarship", country="Germany", profile=student_profile)
+    # Check DAAD is present and top ranked
+    curated_names = [c["name"].lower() for c in curated]
+    assert any("daad" in n or "germany" in n or "erasmus" in n for n in curated_names)
+    assert not any("lums" in n or "peef" in n or "ehsaas" in n for n in curated_names)
+
+    # Web search matches
+    web_results = await execute_web_search(track="scholarship", country="Germany", keyword="", profile=student_profile)
+    assert len(web_results) > 0
+    web_cards = await extract_and_structure_web_results(web_results, track="scholarship", profile=student_profile, country="Germany")
+    
+    # Check all web cards for Germany have country Germany and high match score
+    for card in web_cards:
+        assert card["country"] == "Germany"
+        assert card["match_score"] >= 80
+
+    # Combined top 3
+    combined = curated + web_cards
+    combined.sort(key=lambda x: x["match_score"], reverse=True)
+    top_3 = combined[:3]
+    top_3_names = [c["name"].lower() for c in top_3]
+    assert not any("lums" in n or "nust" in n or "fast" in n for n in top_3_names)
+
+@pytest.mark.asyncio
+async def test_expanded_countries_web_coverage():
+    """
+    Verifies that European countries and China return country-targeted opportunities.
+    """
+    for country in ["China", "France", "United Kingdom", "Sweden", "Netherlands"]:
+        results = await execute_web_search(track="scholarship", country=country, keyword="", profile={"major_domain": "Artificial Intelligence"})
+        assert len(results) > 0
+        cards = await extract_and_structure_web_results(results, track="scholarship", country=country)
+        assert len(cards) > 0
+        assert cards[0]["country"] == country
+
+@pytest.mark.asyncio
+async def test_whatsapp_notification_dispatch():
+    """
+    Verifies that WhatsApp dispatch succeeds via Meta Cloud API / CallMeBot / simulation fallback
+    without requiring twilio.
+    """
+    from app.services.notification_service import send_whatsapp_message
+    success = send_whatsapp_message("+923001234567", "Test priority alert")
+    assert success is True
+

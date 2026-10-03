@@ -91,10 +91,38 @@
                     <label class="block font-bold text-slate-700 mb-1.5" for="country_preference">Target Country / Region</label>
                     <select id="country_preference" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
                         <option value="Pakistan" {% if not profile or profile.country_preference == 'Pakistan' %}selected{% endif %}>Pakistan (Local Institutions & HEC)</option>
+                        <option value="Germany" {% if profile and profile.country_preference == 'Germany' %}selected{% endif %}>Germany (DAAD & Public Universities)</option>
+                        <option value="United Kingdom" {% if profile and profile.country_preference == 'United Kingdom' %}selected{% endif %}>United Kingdom (Chevening & Commonwealth)</option>
+                        <option value="United States" {% if profile and profile.country_preference == 'United States' %}selected{% endif %}>United States (Fulbright & Universities)</option>
+                        <option value="China" {% if profile and profile.country_preference == 'China' %}selected{% endif %}>China (CSC & Bilateral Programs)</option>
+                        <option value="France" {% if profile and profile.country_preference == 'France' %}selected{% endif %}>France (Eiffel & Campus France)</option>
+                        <option value="Netherlands" {% if profile and profile.country_preference == 'Netherlands' %}selected{% endif %}>Netherlands (NL Scholarship & Orange Tulip)</option>
+                        <option value="Sweden" {% if profile and profile.country_preference == 'Sweden' %}selected{% endif %}>Sweden (Swedish Institute & KTH)</option>
+                        <option value="Italy" {% if profile and profile.country_preference == 'Italy' %}selected{% endif %}>Italy (MAECI & Invest Your Talent)</option>
+                        <option value="Spain" {% if profile and profile.country_preference == 'Spain' %}selected{% endif %}>Spain (MAEC-AECID & Carolina)</option>
+                        <option value="Switzerland" {% if profile and profile.country_preference == 'Switzerland' %}selected{% endif %}>Switzerland (Swiss Excellence & ETH)</option>
+                        <option value="Ireland" {% if profile and profile.country_preference == 'Ireland' %}selected{% endif %}>Ireland (Government of Ireland Awards)</option>
+                        <option value="Norway" {% if profile and profile.country_preference == 'Norway' %}selected{% endif %}>Norway (Research & University Grants)</option>
+                        <option value="Finland" {% if profile and profile.country_preference == 'Finland' %}selected{% endif %}>Finland (Finland Scholarships & Universities)</option>
+                        <option value="Denmark" {% if profile and profile.country_preference == 'Denmark' %}selected{% endif %}>Denmark (Government State Scholarships)</option>
+                        <option value="Austria" {% if profile and profile.country_preference == 'Austria' %}selected{% endif %}>Austria (Ernst Mach & OeAD)</option>
+                        <option value="Belgium" {% if profile and profile.country_preference == 'Belgium' %}selected{% endif %}>Belgium (Master Mind & VLIR-UOS)</option>
+                        <option value="Poland" {% if profile and profile.country_preference == 'Poland' %}selected{% endif %}>Poland (Ignacy Łukasiewicz & NAWA)</option>
+                        <option value="Hungary" {% if profile and profile.country_preference == 'Hungary' %}selected{% endif %}>Hungary (Stipendium Hungaricum)</option>
+                        <option value="Czech Republic" {% if profile and profile.country_preference == 'Czech Republic' %}selected{% endif %}>Czech Republic (Government Scholarships)</option>
+                        <option value="Portugal" {% if profile and profile.country_preference == 'Portugal' %}selected{% endif %}>Portugal (FCT & Camões Scholarships)</option>
+                        <option value="Greece" {% if profile and profile.country_preference == 'Greece' %}selected{% endif %}>Greece (State Scholarships Foundation IKY)</option>
+                        <option value="Turkey" {% if profile and profile.country_preference == 'Turkey' %}selected{% endif %}>Turkey (Türkiye Bursları)</option>
+                        <option value="Canada" {% if profile and profile.country_preference == 'Canada' %}selected{% endif %}>Canada (Vanier & Government Awards)</option>
+                        <option value="Australia" {% if profile and profile.country_preference == 'Australia' %}selected{% endif %}>Australia (Australia Awards & RTP)</option>
+                        <option value="Japan" {% if profile and profile.country_preference == 'Japan' %}selected{% endif %}>Japan (MEXT Scholarships)</option>
+                        <option value="South Korea" {% if profile and profile.country_preference == 'South Korea' %}selected{% endif %}>South Korea (GKS Global Korea Scholarship)</option>
+                        <option value="Singapore" {% if profile and profile.country_preference == 'Singapore' %}selected{% endif %}>Singapore (SINGA & Enterprise Awards)</option>
+                        <option value="Malaysia" {% if profile and profile.country_preference == 'Malaysia' %}selected{% endif %}>Malaysia (MIS Malaysian International)</option>
+                        <option value="Saudi Arabia" {% if profile and profile.country_preference == 'Saudi Arabia' %}selected{% endif %}>Saudi Arabia (KAUST & Government Fellowships)</option>
+                        <option value="United Arab Emirates" {% if profile and profile.country_preference == 'United Arab Emirates' %}selected{% endif %}>United Arab Emirates (UAE University & MBZUAI)</option>
                         <option value="International" {% if profile and profile.country_preference == 'International' %}selected{% endif %}>International (Global & Overseas)</option>
-                        <option value="United Kingdom" {% if profile and profile.country_preference == 'United Kingdom' %}selected{% endif %}>United Kingdom (Chevening / Commonwealth)</option>
-                        <option value="United States" {% if profile and profile.country_preference == 'United States' %}selected{% endif %}>United States (Fulbright)</option>
-                        <option value="Germany" {% if profile and profile.country_preference == 'Germany' %}selected{% endif %}>Germany (DAAD)</option>
+                        <option value="all" {% if profile and profile.country_preference == 'all' %}selected{% endif %}>All Global Destinations</option>
                     </select>
                 </div>
 
@@ -143,7 +171,7 @@
     <div class="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm">
         <div class="mb-4">
             <h3 class="text-lg font-bold text-navy-900">Hybrid Opportunity Discovery Console</h3>
-            <p class="text-xs text-slate-500 mt-1">Queries verified institutional repositories (HEC, PEEF, Fulbright) concurrently with live real-time web discovery.</p>
+            <p class="text-xs text-slate-500 mt-1">Queries verified institutional repositories (HEC, PEEF, DAAD, Fulbright) concurrently with live real-time web discovery.</p>
         </div>
         
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
@@ -154,10 +182,37 @@
             <div>
                 <select id="searchCountry" data-track="scholarship" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs text-navy-900 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
                     <option value="Pakistan">Country: Pakistan</option>
-                    <option value="International">Country: International</option>
+                    <option value="Germany">Country: Germany</option>
                     <option value="United Kingdom">Country: United Kingdom</option>
                     <option value="United States">Country: United States</option>
-                    <option value="Germany">Country: Germany</option>
+                    <option value="China">Country: China</option>
+                    <option value="France">Country: France</option>
+                    <option value="Netherlands">Country: Netherlands</option>
+                    <option value="Sweden">Country: Sweden</option>
+                    <option value="Italy">Country: Italy</option>
+                    <option value="Spain">Country: Spain</option>
+                    <option value="Switzerland">Country: Switzerland</option>
+                    <option value="Ireland">Country: Ireland</option>
+                    <option value="Norway">Country: Norway</option>
+                    <option value="Finland">Country: Finland</option>
+                    <option value="Denmark">Country: Denmark</option>
+                    <option value="Austria">Country: Austria</option>
+                    <option value="Belgium">Country: Belgium</option>
+                    <option value="Poland">Country: Poland</option>
+                    <option value="Hungary">Country: Hungary</option>
+                    <option value="Czech Republic">Country: Czech Republic</option>
+                    <option value="Portugal">Country: Portugal</option>
+                    <option value="Greece">Country: Greece</option>
+                    <option value="Turkey">Country: Turkey</option>
+                    <option value="Canada">Country: Canada</option>
+                    <option value="Australia">Country: Australia</option>
+                    <option value="Japan">Country: Japan</option>
+                    <option value="South Korea">Country: South Korea</option>
+                    <option value="Singapore">Country: Singapore</option>
+                    <option value="Malaysia">Country: Malaysia</option>
+                    <option value="Saudi Arabia">Country: Saudi Arabia</option>
+                    <option value="United Arab Emirates">Country: United Arab Emirates</option>
+                    <option value="International">Country: International</option>
                     <option value="all">Country: All Regions</option>
                 </select>
             </div>
@@ -232,7 +287,13 @@
 <script>
 // Automatically run search on initial load
 document.addEventListener('DOMContentLoaded', () => {
-    triggerSearch('scholarship');
+    {% if profile and profile.country_preference %}
+    const searchCountryEl = document.getElementById('searchCountry');
+    if (searchCountryEl) {
+        searchCountryEl.value = "{{ profile.country_preference }}";
+    }
+    {% endif %}
+    triggerSearch('scholarship', true);
 });
 </script>
 {% endblock %}

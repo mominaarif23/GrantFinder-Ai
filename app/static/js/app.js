@@ -219,7 +219,7 @@ async function handleProfileSubmit(e, profileType) {
 // Hybrid Opportunities Search
 // ==============================================================================
 
-async function triggerSearch(track) {
+async function triggerSearch(track, isInitial = false) {
     const btn = document.getElementById('searchBtn');
     const container = document.getElementById('opportunitiesGrid');
     const countBanner = document.getElementById('resultsCountBanner');
@@ -234,7 +234,8 @@ async function triggerSearch(track) {
     const payload = {
         track: track,
         country: document.getElementById('searchCountry').value,
-        keyword: document.getElementById('searchKeyword').value.trim()
+        keyword: document.getElementById('searchKeyword').value.trim(),
+        is_initial: isInitial
     };
 
     try {

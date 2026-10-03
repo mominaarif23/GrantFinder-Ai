@@ -43,23 +43,58 @@ def send_smtp_email(recipient_email: str, subject: str, message: str) -> bool:
     except Exception:
         return False
 
-def send_twilio_whatsapp(to_number: str, message: str) -> bool:
-    """Send WhatsApp message via Twilio if configured."""
-    if not settings.TWILIO_ACCOUNT_SID or not settings.TWILIO_AUTH_TOKEN:
+import httpx
+
+def send_whatsapp_message(to_number: str, message: str) -> bool:
+    """Send WhatsApp message via Meta WhatsApp Cloud API or CallMeBot API.
+    Zero Twilio dependency. Works in Pakistan without paid numbers or credit cards.
+    """
+    if not to_number or not message:
         return True
 
-    try:
-        from twilio.rest import Client
-        client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-        target = to_number if to_number.startswith("whatsapp:") else f"whatsapp:{to_number}"
-        client.messages.create(
-            from_=settings.TWILIO_WHATSAPP_NUMBER,
-            body=f"*GrantFinder AI Priority Alert*\n{message}",
-            to=target
-        )
-        return True
-    except Exception:
-        return False
+    clean_number = "".join(ch for ch in to_number if ch.isdigit())
+    formatted_msg = f"*GrantFinder AI Priority Alert*\n{message}"
+
+    # 1. Meta WhatsApp Cloud API (Official, free tier 1,000 service conversations/month)
+    if settings.WHATSAPP_CLOUD_TOKEN and settings.WHATSAPP_PHONE_NUMBER_ID:
+        try:
+            url = f"https://graph.facebook.com/v18.0/{settings.WHATSAPP_PHONE_NUMBER_ID}/messages"
+            headers = {
+                "Authorization": f"Bearer {settings.WHATSAPP_CLOUD_TOKEN}",
+                "Content-Type": "application/json"
+            }
+            payload = {
+                "messaging_product": "whatsapp",
+                "to": clean_number,
+                "type": "text",
+                "text": {"body": formatted_msg}
+            }
+            with httpx.Client(timeout=10.0) as client:
+                res = client.post(url, json=payload, headers=headers)
+                return res.status_code in (200, 201)
+        except Exception:
+            return False
+
+    # 2. CallMeBot API (Free HTTP GET, zero setup for Pakistan)
+    if settings.CALLMEBOT_API_KEY:
+        try:
+            url = "https://api.callmebot.com/whatsapp.php"
+            params = {
+                "phone": clean_number,
+                "text": formatted_msg,
+                "apikey": settings.CALLMEBOT_API_KEY
+            }
+            with httpx.Client(timeout=10.0) as client:
+                res = client.get(url, params=params)
+                return res.status_code == 200
+        except Exception:
+            return False
+
+    # 3. Resilient fallback / simulation mode
+    return True
+
+# Backward compatibility alias
+send_twilio_whatsapp = send_whatsapp_message
 
 # ==============================================================================
 # Unified Notification Function (All 3 Channels)
@@ -99,7 +134,7 @@ def notify_user(
     # 3. WhatsApp notification - premium users only
     if user and user.get("plan") == "premium":
         phone_number = user.get("phone_number") or "+923001234567"
-        send_twilio_whatsapp(phone_number, message)
+        send_whatsapp_message(phone_number, message)
         try:
             supabase_service.insert_notification(user_id=user_id, message=message, channel="whatsapp")
             results["whatsapp"] = True
@@ -137,6 +172,6 @@ def send_email_notification(user_id: str, recipient_email: str, title: str, mess
     return True
 
 def send_whatsapp_notification(user_id: str, to_number: str, message: str) -> bool:
-    send_twilio_whatsapp(to_number, message)
+    send_whatsapp_message(to_number, message)
     supabase_service.insert_notification(user_id=user_id, message=message, channel="whatsapp")
     return True

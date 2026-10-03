@@ -145,3 +145,55 @@ def test_admin_portal_flow():
     # 4. Delete the added opportunity
     del_resp = client.delete(f"/api/admin/curated/{created_id}")
     assert del_resp.status_code == 200
+
+def test_search_germany_free_tier_api():
+    """
+    Test that when searching for Germany via POST /api/opportunities/search as free user:
+    1. Free tier gets 3 unlocked results.
+    2. None of the top 3 are Pakistani institutions (e.g. LUMS, NUST, FAST).
+    3. The results are relevant to Germany or European international programs.
+    """
+    free_client = TestClient(app)
+    payload = {
+        "track": "scholarship",
+        "country": "Germany",
+        "keyword": "",
+        "is_initial": True
+    }
+    resp = free_client.post("/api/opportunities/search", json=payload)
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["success"] is True
+    assert data["unlocked_count"] == 3
+    results = data["results"]
+    assert len(results) >= 3
+
+    top_3 = results[:3]
+    for r in top_3:
+        assert r["is_locked"] is False
+        r_name = r["name"].lower()
+        # Verify no Pakistani domestic institutions slipped into Germany top 3
+        assert "lums" not in r_name
+        assert "nust" not in r_name
+        assert "fast-nuces" not in r_name
+        assert "peef" not in r_name
+        assert "ehsaas" not in r_name
+
+def test_initial_search_deadline_filter_api():
+    """
+    Test that is_initial=True filters out expired deadlines.
+    """
+    payload = {
+        "track": "scholarship",
+        "country": "Germany",
+        "keyword": "",
+        "is_initial": True
+    }
+    resp = client.post("/api/opportunities/search", json=payload)
+    assert resp.status_code == 200
+    results = resp.json()["results"]
+    from app.routers.opportunity_routes import is_deadline_passed
+    for r in results:
+        # None of the initial search results should have a passed deadline
+        assert is_deadline_passed(r.get("deadline")) is False
+

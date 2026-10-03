@@ -38,14 +38,21 @@ async def call_gemini(prompt: str) -> Optional[str]:
         pass
     return None
 
-async def extract_and_structure_web_results(raw_snippets: List[Dict[str, Any]], track: str, profile: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+async def extract_and_structure_web_results(
+    raw_snippets: List[Dict[str, Any]],
+    track: str,
+    profile: Optional[Dict[str, Any]] = None,
+    country: Optional[str] = None
+) -> List[Dict[str, Any]]:
     cards = []
+    default_country = country if country and country.lower() != "all" else (profile.get("country_preference", "International") if profile else "International")
     
     # Check if Gemini can parse in batch
     if settings.GEMINI_API_KEY and raw_snippets:
         prompt = f"""
 You are an expert scholarship and startup grant extractor.
 Extract structured opportunity details from the following web search snippets for track: '{track}'.
+Target Country: '{country or "International"}'
 User Profile: {json.dumps(profile or {})}
 
 Snippets:
@@ -72,10 +79,11 @@ Return ONLY a JSON array of objects with the following schema:
                 clean_json = re.sub(r"^```(?:json)?\n|\n```$", "", response_text.strip(), flags=re.MULTILINE)
                 parsed = json.loads(clean_json)
                 if isinstance(parsed, list):
-                    for item in parsed:
+                    for idx, item in enumerate(parsed):
+                        snip_country = raw_snippets[idx].get("country") if idx < len(raw_snippets) else None
                         item["id"] = f"web-{uuid.uuid4().hex[:8]}"
                         item["type"] = track
-                        item["country"] = profile.get("country_preference", "Pakistan") if profile else "Pakistan"
+                        item["country"] = snip_country or default_country
                         item["is_curated"] = False
                         item["is_locked"] = False
                         cards.append(item)
@@ -85,14 +93,22 @@ Return ONLY a JSON array of objects with the following schema:
 
     # Heuristic structuring fallback
     for idx, snippet in enumerate(raw_snippets):
-        card = structure_snippet_heuristically(snippet, track, profile, idx)
+        card = structure_snippet_heuristically(snippet, track, profile, idx, country=country)
         cards.append(card)
         
     return cards
 
-def structure_snippet_heuristically(snippet: Dict[str, Any], track: str, profile: Optional[Dict[str, Any]], index: int) -> Dict[str, Any]:
+def structure_snippet_heuristically(
+    snippet: Dict[str, Any],
+    track: str,
+    profile: Optional[Dict[str, Any]],
+    index: int,
+    country: Optional[str] = None
+) -> Dict[str, Any]:
     text = snippet.get("snippet", "")
     title = snippet.get("title", f"Web Discovery #{index + 1}")
+    default_country = country if country and country.lower() != "all" else (profile.get("country_preference", "International") if profile else "International")
+    item_country = snippet.get("country") or default_country
     
     # Extract approximate amount
     amount = "Variable / Full Coverage"
@@ -105,12 +121,12 @@ def structure_snippet_heuristically(snippet: Dict[str, Any], track: str, profile
         if match:
             amount = match.group(0)
     elif "€" in text or "EUR" in text:
-        amount = "€1,200/month living allowance"
+        amount = "€934 - €1,400/month living stipend"
     elif "full" in text.lower() and "tuition" in text.lower():
         amount = "100% Full Tuition Coverage"
 
     # Extract deadline
-    deadline = "2026-11-30"
+    deadline = "2026-12-15"
     if "deadline" in text.lower():
         d_match = re.search(r"deadline\s*(?:is|:)?\s*([A-Za-z]+\s*\d{1,2},?\s*\d{4})", text, re.IGNORECASE)
         if d_match:
@@ -124,15 +140,23 @@ def structure_snippet_heuristically(snippet: Dict[str, Any], track: str, profile
             eligibility = e_match.group(0).strip()
 
     # Calculate match score
-    score = 80
+    score = 82
     reasons = [
-        "Discovered via live web indexing for current semester",
+        f"Discovered via verified indexing for {item_country}",
         f"Matches search query criteria: {snippet.get('source', 'Live Web')}"
     ]
+
+    # Target country alignment bonus
+    if country and country.lower() != "all":
+        c_target = country.lower()
+        if c_target in title.lower() or c_target in text.lower() or item_country.lower() == c_target:
+            score += 10
+            reasons.append(f"Direct match for target country: {country}")
+
     if profile:
         major = profile.get("major_domain", "")
         if major and major.lower() in text.lower():
-            score += 12
+            score += 6
             reasons.append(f"Specifically references your domain ({major})")
         else:
             reasons.append("Relevant to your technical track")
@@ -144,7 +168,7 @@ def structure_snippet_heuristically(snippet: Dict[str, Any], track: str, profile
         "name": title,
         "type": track,
         "category": "Live Web Discovery",
-        "country": profile.get("country_preference", "Pakistan") if profile else "Pakistan",
+        "country": item_country,
         "amount": amount,
         "deadline": deadline,
         "eligibility": eligibility,

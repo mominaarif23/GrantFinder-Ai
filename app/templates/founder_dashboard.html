@@ -88,8 +88,37 @@
                     <label class="block font-bold text-slate-700 mb-1.5" for="country_preference">Target Region</label>
                     <select id="country_preference" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-navy-900 focus:bg-white focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 transition">
                         <option value="Pakistan" {% if not profile or profile.country_preference == 'Pakistan' %}selected{% endif %}>Pakistan (Ignite, NIC, Karandaaz, PSEB)</option>
+                        <option value="Germany" {% if profile and profile.country_preference == 'Germany' %}selected{% endif %}>Germany (EXIST, HTGF & Tech Founders)</option>
+                        <option value="United Kingdom" {% if profile and profile.country_preference == 'United Kingdom' %}selected{% endif %}>United Kingdom (Innovate UK & Techstars)</option>
+                        <option value="United States" {% if profile and profile.country_preference == 'United States' %}selected{% endif %}>United States (Y Combinator & NSF SBIR)</option>
+                        <option value="China" {% if profile and profile.country_preference == 'China' %}selected{% endif %}>China (Innoway & Zhongguancun Tech)</option>
+                        <option value="France" {% if profile and profile.country_preference == 'France' %}selected{% endif %}>France (Bpifrance & Station F)</option>
+                        <option value="Netherlands" {% if profile and profile.country_preference == 'Netherlands' %}selected{% endif %}>Netherlands (RVO Seed & StartupDelta)</option>
+                        <option value="Sweden" {% if profile and profile.country_preference == 'Sweden' %}selected{% endif %}>Sweden (Vinnova & Sting Accelerate)</option>
+                        <option value="Italy" {% if profile and profile.country_preference == 'Italy' %}selected{% endif %}>Italy (Smart&Start & CDP Venture)</option>
+                        <option value="Spain" {% if profile and profile.country_preference == 'Spain' %}selected{% endif %}>Spain (ENISA & South Summit)</option>
+                        <option value="Switzerland" {% if profile and profile.country_preference == 'Switzerland' %}selected{% endif %}>Switzerland (Innosuisse & Venture Kick)</option>
+                        <option value="Ireland" {% if profile and profile.country_preference == 'Ireland' %}selected{% endif %}>Ireland (Enterprise Ireland CSF)</option>
+                        <option value="Norway" {% if profile and profile.country_preference == 'Norway' %}selected{% endif %}>Norway (Innovation Norway Grants)</option>
+                        <option value="Finland" {% if profile and profile.country_preference == 'Finland' %}selected{% endif %}>Finland (Business Finland Seed Grants)</option>
+                        <option value="Denmark" {% if profile and profile.country_preference == 'Denmark' %}selected{% endif %}>Denmark (Innovation Fund Denmark)</option>
+                        <option value="Austria" {% if profile and profile.country_preference == 'Austria' %}selected{% endif %}>Austria (FFG & AWS Startup Grants)</option>
+                        <option value="Belgium" {% if profile and profile.country_preference == 'Belgium' %}selected{% endif %}>Belgium (Innoviris & PMV Grants)</option>
+                        <option value="Poland" {% if profile and profile.country_preference == 'Poland' %}selected{% endif %}>Poland (PARP Innovation Grants)</option>
+                        <option value="Hungary" {% if profile and profile.country_preference == 'Hungary' %}selected{% endif %}>Hungary (Hungarian Innovation Agency)</option>
+                        <option value="Czech Republic" {% if profile and profile.country_preference == 'Czech Republic' %}selected{% endif %}>Czech Republic (CzechInvest Grants)</option>
+                        <option value="Portugal" {% if profile and profile.country_preference == 'Portugal' %}selected{% endif %}>Portugal (Startup Portugal & IAPMEI)</option>
+                        <option value="Greece" {% if profile and profile.country_preference == 'Greece' %}selected{% endif %}>Greece (Elevate Greece Seed Fund)</option>
+                        <option value="Turkey" {% if profile and profile.country_preference == 'Turkey' %}selected{% endif %}>Turkey (TÜBİTAK 1512 BİGG Grant)</option>
+                        <option value="Canada" {% if profile and profile.country_preference == 'Canada' %}selected{% endif %}>Canada (NRC IRAP & BDC Venture)</option>
+                        <option value="Australia" {% if profile and profile.country_preference == 'Australia' %}selected{% endif %}>Australia (Accelerating Commercialisation)</option>
+                        <option value="Japan" {% if profile and profile.country_preference == 'Japan' %}selected{% endif %}>Japan (J-Startup & JETRO Support)</option>
+                        <option value="South Korea" {% if profile and profile.country_preference == 'South Korea' %}selected{% endif %}>South Korea (K-Startup Grand Challenge)</option>
+                        <option value="Singapore" {% if profile and profile.country_preference == 'Singapore' %}selected{% endif %}>Singapore (Enterprise SG Startup SG)</option>
+                        <option value="Malaysia" {% if profile and profile.country_preference == 'Malaysia' %}selected{% endif %}>Malaysia (Cradle Fund & MDEC)</option>
+                        <option value="Saudi Arabia" {% if profile and profile.country_preference == 'Saudi Arabia' %}selected{% endif %}>Saudi Arabia (Monsha'at & Taqadam)</option>
+                        <option value="United Arab Emirates" {% if profile and profile.country_preference == 'United Arab Emirates' %}selected{% endif %}>United Arab Emirates (Hub71 & Dubai Future)</option>
                         <option value="International" {% if profile and profile.country_preference == 'International' %}selected{% endif %}>International (Global Accelerators & Pre-Seed)</option>
-                        <option value="United States" {% if profile and profile.country_preference == 'United States' %}selected{% endif %}>North America (Y Combinator, Solve)</option>
                         <option value="all" {% if profile and profile.country_preference == 'all' %}selected{% endif %}>All Global Regions</option>
                     </select>
                 </div>
@@ -150,9 +179,37 @@
             <div>
                 <select id="searchCountry" data-track="grant" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs text-navy-900 focus:bg-white focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 transition">
                     <option value="Pakistan">Region: Pakistan</option>
-                    <option value="International">Region: International</option>
-                    <option value="United States">Region: United States</option>
+                    <option value="Germany">Region: Germany</option>
                     <option value="United Kingdom">Region: United Kingdom</option>
+                    <option value="United States">Region: United States</option>
+                    <option value="China">Region: China</option>
+                    <option value="France">Region: France</option>
+                    <option value="Netherlands">Region: Netherlands</option>
+                    <option value="Sweden">Region: Sweden</option>
+                    <option value="Italy">Region: Italy</option>
+                    <option value="Spain">Region: Spain</option>
+                    <option value="Switzerland">Region: Switzerland</option>
+                    <option value="Ireland">Region: Ireland</option>
+                    <option value="Norway">Region: Norway</option>
+                    <option value="Finland">Region: Finland</option>
+                    <option value="Denmark">Region: Denmark</option>
+                    <option value="Austria">Region: Austria</option>
+                    <option value="Belgium">Region: Belgium</option>
+                    <option value="Poland">Region: Poland</option>
+                    <option value="Hungary">Region: Hungary</option>
+                    <option value="Czech Republic">Region: Czech Republic</option>
+                    <option value="Portugal">Region: Portugal</option>
+                    <option value="Greece">Region: Greece</option>
+                    <option value="Turkey">Region: Turkey</option>
+                    <option value="Canada">Region: Canada</option>
+                    <option value="Australia">Region: Australia</option>
+                    <option value="Japan">Region: Japan</option>
+                    <option value="South Korea">Region: South Korea</option>
+                    <option value="Singapore">Region: Singapore</option>
+                    <option value="Malaysia">Region: Malaysia</option>
+                    <option value="Saudi Arabia">Region: Saudi Arabia</option>
+                    <option value="United Arab Emirates">Region: United Arab Emirates</option>
+                    <option value="International">Region: International</option>
                     <option value="all">Region: All</option>
                 </select>
             </div>
@@ -234,7 +291,13 @@
 <script>
 // Automatically run search on initial load
 document.addEventListener('DOMContentLoaded', () => {
-    triggerSearch('grant');
+    {% if profile and profile.country_preference %}
+    const searchCountryEl = document.getElementById('searchCountry');
+    if (searchCountryEl) {
+        searchCountryEl.value = "{{ profile.country_preference }}";
+    }
+    {% endif %}
+    triggerSearch('grant', true);
 });
 </script>
 {% endblock %}

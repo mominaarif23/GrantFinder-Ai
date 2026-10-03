@@ -29,6 +29,7 @@ class SearchRequest(BaseModel):
     track: str = Field(..., pattern="^(scholarship|grant)$")
     country: str = Field(default="Pakistan")
     keyword: Optional[str] = ""
+    is_initial: Optional[bool] = False
 
 class SaveOpportunityRequest(BaseModel):
     opportunity_name: str
