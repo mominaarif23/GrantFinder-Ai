@@ -82,6 +82,9 @@ async def test_supabase_freemium_notification_channels():
     assert reg_res.status_code == 201
     user_id = reg_res.json()["user"]["id"]
 
+    # Confirm double opt-in subscription to enable email channel
+    supabase_service.set_email_subscription(user_id, True)
+
     # Free user alert dispatch
     notify_user(user_id=user_id, message="Test free alert message", event_type="match")
     free_notifs = supabase_service.get_user_notifications(user_id)

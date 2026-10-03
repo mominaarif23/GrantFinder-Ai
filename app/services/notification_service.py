@@ -9,7 +9,14 @@ from app.services.supabase_service import supabase_service
 # Low-Level Dispatch Functions
 # ==============================================================================
 
-def send_smtp_email(recipient_email: str, subject: str, message: str) -> bool:
+def send_smtp_email(
+    recipient_email: str,
+    subject: str,
+    message: str,
+    unsubscribe_url: Optional[str] = None,
+    action_url: Optional[str] = None,
+    action_label: Optional[str] = None
+) -> bool:
     """Send email via SMTP if credentials are configured."""
     if not recipient_email or not settings.SMTP_USER or not settings.SMTP_PASS:
         return True
@@ -20,15 +27,39 @@ def send_smtp_email(recipient_email: str, subject: str, message: str) -> bool:
         msg["From"] = settings.NOTIFICATION_EMAIL_FROM
         msg["To"] = recipient_email
 
+        action_btn_html = ""
+        if action_url and action_label:
+            action_btn_html = f"""
+            <div style="margin: 25px 0; text-align: center;">
+                <a href="{action_url}" style="background-color: #0f172a; color: #ffffff; padding: 12px 24px; font-weight: bold; font-size: 13px; text-decoration: none; border-radius: 8px; display: inline-block;">
+                    {action_label}
+                </a>
+            </div>
+            """
+
+        unsub_html = ""
+        if unsubscribe_url:
+            unsub_html = f"""
+            <p style="font-size: 11px; color: #94a3b8; margin-top: 15px;">
+                You are receiving this automated email because you opted in to GrantFinder AI alerts.
+                <br>
+                <a href="{unsubscribe_url}" style="color: #64748b; text-decoration: underline;">Unsubscribe from email notifications</a>
+            </p>
+            """
+
         html_content = f"""
         <html>
-            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-                    <h2 style="color: #0f172a; border-bottom: 2px solid #3b82f6; padding-bottom: 8px;">GrantFinder AI Alert</h2>
-                    <h3 style="color: #1e293b;">{subject}</h3>
-                    <p>{message}</p>
-                    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
-                    <p style="font-size: 12px; color: #64748b;">This notification was dispatched automatically from your GrantFinder AI account.</p>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f8fafc; padding: 20px;">
+                <div style="max-width: 580px; margin: 0 auto; background: #ffffff; padding: 28px; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+                    <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 16px; margin-bottom: 20px; display: flex; align-items: center;">
+                        <h2 style="margin: 0; color: #0f172a; font-size: 18px; font-weight: 800;">GrantFinder AI</h2>
+                    </div>
+                    <h3 style="color: #0f172a; font-size: 16px; margin-top: 0;">{subject}</h3>
+                    <p style="color: #475569; font-size: 13px; line-height: 1.6;">{message}</p>
+                    {action_btn_html}
+                    <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 24px 0;">
+                    {unsub_html}
+                    <p style="font-size: 11px; color: #94a3b8; margin: 0;">GrantFinder AI &bull; Intelligent Funding Discovery Platform</p>
                 </div>
             </body>
         </html>
@@ -100,6 +131,32 @@ send_twilio_whatsapp = send_whatsapp_message
 # Unified Notification Function (All 3 Channels)
 # ==============================================================================
 
+def send_optin_confirmation_email(
+    user_id: str,
+    recipient_email: str,
+    user_name: str,
+    base_url: str = ""
+) -> bool:
+    """Send one-time double opt-in verification email with secure confirmation button."""
+    token = supabase_service.generate_subscription_token(user_id, recipient_email, action="confirm")
+    domain = base_url.rstrip('/') if base_url else "https://grantfinder-ai.onrender.com"
+    confirm_url = f"{domain}/api/notifications/confirm-email?token={token}"
+
+    subject = "Please Confirm Your Email Notifications"
+    message = (
+        f"Hello {user_name},<br><br>"
+        "Thank you for joining GrantFinder AI. To protect your inbox from unsolicited messages "
+        "and maintain double opt-in compliance, please confirm that you wish to receive "
+        "curated scholarship deadlines, grant match alerts, and application milestone reminders."
+    )
+    return send_smtp_email(
+        recipient_email=recipient_email,
+        subject=subject,
+        message=message,
+        action_url=confirm_url,
+        action_label="Confirm Email Notifications"
+    )
+
 def notify_user(
     user_id: str,
     message: str,
@@ -108,7 +165,7 @@ def notify_user(
 ) -> Dict[str, Any]:
     """Central unified notification function as specified in Supabase Integration Plan:
     1. in_app: Always created in public.notifications for all users.
-    2. email: Sent via SMTP and stored in public.notifications for all users.
+    2. email: Sent via SMTP ONLY if double opt-in confirmed (email_subscribed == True).
     3. whatsapp: Sent via WhatsApp API and stored in public.notifications for premium users only.
     """
     user = supabase_service.get_user_by_id(user_id)
@@ -122,14 +179,20 @@ def notify_user(
     except Exception:
         pass
 
-    # 2. Email notification - always sent, all users
+    # 2. Email notification - strictly gated behind double opt-in confirmation
     if user and user.get("email"):
-        send_smtp_email(user["email"], subject, message)
-        try:
-            supabase_service.insert_notification(user_id=user_id, message=message, channel="email")
-            results["email"] = True
-        except Exception:
-            pass
+        if supabase_service.is_email_subscribed(user_id):
+            unsub_token = supabase_service.generate_subscription_token(user_id, user["email"], action="unsubscribe")
+            unsub_url = f"https://grantfinder-ai.onrender.com/api/notifications/unsubscribe?token={unsub_token}"
+            send_smtp_email(user["email"], subject, message, unsubscribe_url=unsub_url)
+            try:
+                supabase_service.insert_notification(user_id=user_id, message=message, channel="email")
+                results["email"] = True
+            except Exception:
+                pass
+        else:
+            # Gated: user has not clicked confirmation link
+            results["email"] = False
 
     # 3. WhatsApp notification - premium users only
     if user and user.get("plan") == "premium":

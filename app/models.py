@@ -25,6 +25,16 @@ class ProfileUpdateRequest(BaseModel):
     country_preference: str = Field(default="Pakistan")
     extra_details: Optional[Dict[str, Any]] = None
 
+class ProfileDetailsUpdateRequest(BaseModel):
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    major_domain: Optional[str] = None
+    degree_level_stage: Optional[str] = None
+    gpa_funding: Optional[str] = None
+    country_preference: Optional[str] = "Pakistan"
+    type: Optional[str] = None
+    extra_details: Optional[Dict[str, Any]] = None
+
 class SearchRequest(BaseModel):
     track: str = Field(..., pattern="^(scholarship|grant)$")
     country: str = Field(default="Pakistan")

@@ -1213,4 +1213,284 @@ function renderInlineRecommendations(matches) {
     container.scrollTop = container.scrollHeight;
 }
 
+// ==============================================================================
+// Profile Management, Supabase Avatars & Double Opt-In Handlers
+// ==============================================================================
+
+async function handleAvatarFileSelected(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const statusEl = document.getElementById('avatarUploadStatus');
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    const maxSizeBytes = 2 * 1024 * 1024; // 2MB
+
+    if (!allowedTypes.includes(file.type)) {
+        if (statusEl) {
+            statusEl.className = 'text-xs font-semibold text-rose-600 block';
+            statusEl.innerText = 'Invalid format. Only JPG, PNG, and WEBP files are allowed.';
+        }
+        showToast('Invalid format. Only JPG, PNG, and WEBP are supported.', 'error');
+        event.target.value = '';
+        return;
+    }
+
+    if (file.size > maxSizeBytes) {
+        if (statusEl) {
+            statusEl.className = 'text-xs font-semibold text-rose-600 block';
+            statusEl.innerText = 'File exceeds maximum limit of 2MB.';
+        }
+        showToast('File size exceeds 2MB limit.', 'error');
+        event.target.value = '';
+        return;
+    }
+
+    if (statusEl) {
+        statusEl.className = 'text-xs font-semibold text-brand-600 block';
+        statusEl.innerText = 'Uploading to Supabase Storage...';
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const res = await fetch('/api/auth/profile/avatar', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            const newUrl = data.avatar_url;
+
+            // 1. Update Profile Card Preview
+            const previewImg = document.getElementById('profileAvatarPreviewImg');
+            const previewInitials = document.getElementById('profileAvatarPreviewInitials');
+            const removeBtn = document.getElementById('removeAvatarBtn');
+
+            if (previewImg) {
+                previewImg.src = newUrl;
+                previewImg.classList.remove('hidden');
+            }
+            if (previewInitials) {
+                previewInitials.classList.add('hidden');
+            }
+            if (removeBtn) {
+                removeBtn.classList.remove('hidden');
+            }
+
+            // 2. Immediate Reactivity: Update Navbar and Mobile Drawer DOM immediately
+            const navImg = document.getElementById('navUserAvatarImg');
+            const navInitials = document.getElementById('navUserAvatarInitials');
+            if (navImg) {
+                navImg.src = newUrl;
+                navImg.classList.remove('hidden');
+            }
+            if (navInitials) {
+                navInitials.classList.add('hidden');
+            }
+
+            const drawerImg = document.getElementById('drawerUserAvatarImg');
+            const drawerInitials = document.getElementById('drawerUserAvatarInitials');
+            if (drawerImg) {
+                drawerImg.src = newUrl;
+                drawerImg.classList.remove('hidden');
+            }
+            if (drawerInitials) {
+                drawerInitials.classList.add('hidden');
+            }
+
+            if (statusEl) {
+                statusEl.className = 'text-xs font-semibold text-emerald-600 block';
+                statusEl.innerText = 'Profile picture updated successfully.';
+                setTimeout(() => statusEl.classList.add('hidden'), 3000);
+            }
+            showToast('Profile picture uploaded successfully.', 'success');
+        } else {
+            const err = data.detail || 'Failed to upload photo.';
+            if (statusEl) {
+                statusEl.className = 'text-xs font-semibold text-rose-600 block';
+                statusEl.innerText = err;
+            }
+            showToast(err, 'error');
+        }
+    } catch (err) {
+        if (statusEl) {
+            statusEl.className = 'text-xs font-semibold text-rose-600 block';
+            statusEl.innerText = 'Network error while uploading photo.';
+        }
+        showToast('Network error while uploading photo.', 'error');
+    } finally {
+        event.target.value = '';
+    }
+}
+
+async function handleAvatarRemove() {
+    if (!confirm('Are you sure you want to remove your profile picture?')) return;
+
+    const statusEl = document.getElementById('avatarUploadStatus');
+    if (statusEl) {
+        statusEl.className = 'text-xs font-semibold text-brand-600 block';
+        statusEl.innerText = 'Removing avatar...';
+    }
+
+    try {
+        const res = await fetch('/api/auth/profile/avatar', {
+            method: 'DELETE'
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            // 1. Reset Profile Preview
+            const previewImg = document.getElementById('profileAvatarPreviewImg');
+            const previewInitials = document.getElementById('profileAvatarPreviewInitials');
+            const removeBtn = document.getElementById('removeAvatarBtn');
+
+            if (previewImg) {
+                previewImg.src = '';
+                previewImg.classList.add('hidden');
+            }
+            if (previewInitials) {
+                previewInitials.classList.remove('hidden');
+            }
+            if (removeBtn) {
+                removeBtn.classList.add('hidden');
+            }
+
+            // 2. Reset Navbar and Drawer
+            const navImg = document.getElementById('navUserAvatarImg');
+            const navInitials = document.getElementById('navUserAvatarInitials');
+            if (navImg) {
+                navImg.src = '';
+                navImg.classList.add('hidden');
+            }
+            if (navInitials) {
+                navInitials.classList.remove('hidden');
+            }
+
+            const drawerImg = document.getElementById('drawerUserAvatarImg');
+            const drawerInitials = document.getElementById('drawerUserAvatarInitials');
+            if (drawerImg) {
+                drawerImg.src = '';
+                drawerImg.classList.add('hidden');
+            }
+            if (drawerInitials) {
+                drawerInitials.classList.remove('hidden');
+            }
+
+            if (statusEl) {
+                statusEl.className = 'text-xs font-semibold text-emerald-600 block';
+                statusEl.innerText = 'Profile picture removed.';
+                setTimeout(() => statusEl.classList.add('hidden'), 3000);
+            }
+            showToast('Profile picture removed successfully.', 'info');
+        } else {
+            showToast('Could not remove avatar.', 'error');
+        }
+    } catch (err) {
+        showToast('Network error while removing photo.', 'error');
+    }
+}
+
+async function handleProfileSubmit(event) {
+    event.preventDefault();
+
+    const btn = document.getElementById('saveProfileBtn');
+    const btnText = document.getElementById('saveProfileBtnText');
+    const spinner = document.getElementById('saveProfileBtnSpinner');
+    const feedback = document.getElementById('profileFormFeedback');
+
+    if (btn) btn.disabled = true;
+    if (btnText) btnText.innerText = 'Saving changes...';
+    if (spinner) spinner.classList.remove('hidden');
+    if (feedback) feedback.className = 'text-xs font-medium text-slate-500';
+
+    const payload = {
+        name: document.getElementById('profileName').value.trim(),
+        email: document.getElementById('profileEmail').value.trim(),
+        type: document.getElementById('profileType').value,
+        major_domain: document.getElementById('profileMajorDomain').value.trim(),
+        degree_level_stage: document.getElementById('profileDegreeStage').value.trim(),
+        gpa_funding: document.getElementById('profileGpaFunding').value.trim(),
+        country_preference: document.getElementById('profileCountryPreference').value
+    };
+
+    try {
+        const res = await fetch('/api/auth/profile/details', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            if (feedback) {
+                feedback.className = 'text-xs font-semibold text-emerald-600';
+                feedback.innerText = 'Profile and preferences updated successfully.';
+            }
+            showToast('Profile and preferences updated.', 'success');
+        } else {
+            const err = data.detail || 'Failed to update profile.';
+            if (feedback) {
+                feedback.className = 'text-xs font-semibold text-rose-600';
+                feedback.innerText = err;
+            }
+            showToast(err, 'error');
+        }
+    } catch (err) {
+        if (feedback) {
+            feedback.className = 'text-xs font-semibold text-rose-600';
+            feedback.innerText = 'Network error while saving profile.';
+        }
+        showToast('Network error while saving profile.', 'error');
+    } finally {
+        if (btn) btn.disabled = false;
+        if (btnText) btnText.innerText = 'Save Profile & Preferences';
+        if (spinner) spinner.classList.add('hidden');
+    }
+}
+
+async function handleResendConfirmation() {
+    const btn = document.getElementById('resendOptInBtn');
+    const statusEl = document.getElementById('resendOptInStatus');
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Dispatching email...';
+    }
+
+    try {
+        const res = await fetch('/api/notifications/resend-confirmation', {
+            method: 'POST'
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            if (statusEl) {
+                statusEl.className = 'text-xs font-semibold text-emerald-600 block';
+                statusEl.innerText = data.message || 'Confirmation email dispatched. Check your inbox.';
+            }
+            showToast('Confirmation email sent to your inbox.', 'success');
+        } else {
+            const err = data.detail || 'Could not send confirmation email.';
+            if (statusEl) {
+                statusEl.className = 'text-xs font-semibold text-rose-600 block';
+                statusEl.innerText = err;
+            }
+            showToast(err, 'error');
+        }
+    } catch (err) {
+        if (statusEl) {
+            statusEl.className = 'text-xs font-semibold text-rose-600 block';
+            statusEl.innerText = 'Network error while requesting confirmation.';
+        }
+        showToast('Network error.', 'error');
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'Resend Confirmation Email';
+        }
+    }
+}
+
 

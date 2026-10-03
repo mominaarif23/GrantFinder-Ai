@@ -155,9 +155,15 @@ def structure_snippet_heuristically(
 
     if profile:
         major = profile.get("major_domain", "")
-        if major and major.lower() in text.lower():
-            score += 6
-            reasons.append(f"Specifically references your domain ({major})")
+        if major:
+            combined_text = (title + " " + text).lower()
+            major_clean = major.lower()
+            m_tokens = [t for t in re.findall(r"\w+", major_clean) if len(t) > 2]
+            if major_clean in combined_text or any(t in combined_text for t in m_tokens):
+                score += 8
+                reasons.append(f"Specifically matches your discipline or domain ({major})")
+            else:
+                reasons.append(f"Relevance calibrated for {major} track")
         else:
             reasons.append("Relevant to your technical track")
             

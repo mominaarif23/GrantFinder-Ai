@@ -93,25 +93,66 @@ def get_profile_by_user_id(user_id: str) -> Optional[Dict[str, Any]]:
     """Query user profile from Supabase public.profiles."""
     return supabase_service.get_profile_by_user_id(user_id)
 
+def update_user_details(user_id: str, name: Optional[str] = None, email: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    """Update user name and email in Supabase public.users."""
+    return supabase_service.update_user_details(user_id=user_id, name=name, email=email)
+
+def upload_avatar(user_id: str, file_bytes: bytes, file_ext: str, content_type: str = "image/png") -> str:
+    """Upload user avatar directly to Supabase Storage."""
+    return supabase_service.upload_avatar(user_id=user_id, file_bytes=file_bytes, file_ext=file_ext, content_type=content_type)
+
+def delete_avatar(user_id: str) -> bool:
+    """Delete user avatar from Supabase Storage."""
+    return supabase_service.delete_avatar(user_id=user_id)
+
+def get_avatar_url(user_id: str) -> Optional[str]:
+    """Get public avatar URL for user."""
+    return supabase_service.get_avatar_url(user_id=user_id)
+
+def set_email_subscription(user_id: str, subscribed: bool) -> bool:
+    """Update user email subscription state in Supabase."""
+    return supabase_service.set_email_subscription(user_id=user_id, subscribed=subscribed)
+
+def is_email_subscribed(user_id: str) -> bool:
+    """Check user email subscription double opt-in state."""
+    return supabase_service.is_email_subscribed(user_id=user_id)
+
+def generate_subscription_token(user_id: str, email: str, action: str = "confirm") -> str:
+    """Generate signed subscription token."""
+    return supabase_service.generate_subscription_token(user_id=user_id, email=email, action=action)
+
+def verify_subscription_token(token: str) -> Optional[Dict[str, Any]]:
+    """Verify signed subscription token."""
+    return supabase_service.verify_subscription_token(token=token)
+
 def upsert_profile(
     user_id: str,
-    ptype: str,
-    major_domain: str,
-    degree_level_stage: str, 
+    ptype: str = "academic",
+    major_domain: str = "Engineering & Computing",
+    degree_level_stage: str = "Undergraduate BS", 
     gpa_funding: Optional[str] = None,
     country_preference: str = "Pakistan",
-    extra_details: Optional[Dict[str, Any]] = None
+    extra_details: Optional[Dict[str, Any]] = None,
+    avatar_url: Optional[str] = None
 ) -> Dict[str, Any]:
     """Upsert profile directly into Supabase public.profiles."""
+    existing = get_profile_by_user_id(user_id) or {}
+    eff_ptype = ptype if ptype != "academic" or not existing.get("type") else existing.get("type", ptype)
+    eff_major = major_domain if major_domain != "Engineering & Computing" or not existing.get("major_domain") else existing.get("major_domain", major_domain)
+    eff_stage = degree_level_stage if degree_level_stage != "Undergraduate BS" or not existing.get("degree_level_stage") else existing.get("degree_level_stage", degree_level_stage)
+    eff_country = country_preference if country_preference != "Pakistan" or not existing.get("country_preference") else existing.get("country_preference", country_preference)
+    eff_gpa = gpa_funding if gpa_funding is not None else existing.get("gpa_funding")
+
     return supabase_service.upsert_profile(
         user_id=user_id,
-        profile_type=ptype,
-        major_or_domain=major_domain,
-        degree_level_or_stage=degree_level_stage,
-        semester=gpa_funding,
-        country_preference=country_preference,
-        gpa_funding=gpa_funding,
-        extra_details=extra_details
+        profile_type=eff_ptype,
+        major_or_domain=eff_major,
+        degree_level_or_stage=eff_stage,
+        semester=eff_gpa,
+        country_preference=eff_country,
+        gpa_funding=eff_gpa,
+        extra_details=extra_details or existing.get("extra_details"),
+        avatar_url=avatar_url if avatar_url is not None else existing.get("avatar_url")
     )
 
 def list_curated_opportunities(track: Optional[str] = None, country: Optional[str] = None) -> List[Dict[str, Any]]:

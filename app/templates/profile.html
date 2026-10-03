@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile & Preferences — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Top Header Banner -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-1.5">
+                <div class="flex items-center space-x-2.5">
+                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                        Account Settings
+                    </span>
+                    <span class="text-slate-300">&bull;</span>
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ user.role|capitalize }} Profile</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">Account & Opportunity Profile</h1>
+                <p class="text-xs sm:text-sm text-slate-600 max-w-2xl">
+                    Manage your personal details, profile picture, universal academic or startup disciplines, and double opt-in notification channels.
+                </p>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                {% if user.role == 'student' %}
+                    <a href="/dashboard/student" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition">
+                        Back to Portal &rarr;
+                    </a>
+                {% elif user.role == 'founder' %}
+                    <a href="/dashboard/founder" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition">
+                        Back to Portal &rarr;
+                    </a>
+                {% elif user.role == 'admin' %}
+                    <a href="/admin" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition">
+                        Governance Console &rarr;
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert / Confirmation Banners -->
+    {% if confirmed %}
+        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex items-center justify-between shadow-xs">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0"></span>
+                <span class="text-xs sm:text-sm font-semibold">Your double opt-in email subscription has been confirmed successfully. You will now receive automated high-match opportunities and deadline alerts in your inbox.</span>
+            </div>
+        </div>
+    {% elif unsubscribed %}
+        <div class="p-4 rounded-2xl bg-slate-100 border border-slate-300 text-slate-800 flex items-center justify-between shadow-xs">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 rounded-full bg-slate-500 shrink-0"></span>
+                <span class="text-xs sm:text-sm font-semibold">You have been unsubscribed from automated notification emails. You may re-enable them below anytime.</span>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Left Column: Avatar & Account Metadata -->
+        <div class="space-y-6">
+
+            <!-- Profile Picture Card -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-5">
+                <div class="border-b border-slate-100 pb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-navy-900">Profile Picture</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Stored securely in Supabase Storage</p>
+                </div>
+
+                <div class="flex flex-col items-center text-center space-y-4">
+                    <!-- Avatar Preview Box -->
+                    <div class="relative w-28 h-28 rounded-3xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden shadow-inner group">
+                        <img id="profileAvatarPreviewImg" 
+                             src="{{ avatar_url or '' }}" 
+                             alt="{{ user.name }}" 
+                             class="{% if not avatar_url %}hidden{% endif %} w-full h-full object-cover">
+                        <div id="profileAvatarPreviewInitials" 
+                             class="{% if avatar_url %}hidden{% endif %} text-3xl font-extrabold text-navy-900">
+                            {{ user.name[:2]|upper }}
+                        </div>
+                    </div>
+
+                    <!-- Hidden File Input -->
+                    <input type="file" 
+                           id="avatarFileInput" 
+                           accept="image/jpeg,image/png,image/webp" 
+                           class="hidden" 
+                           onchange="handleAvatarFileSelected(event)">
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center space-x-2">
+                        <button type="button" 
+                                onclick="document.getElementById('avatarFileInput').click()" 
+                                id="uploadAvatarBtn"
+                                class="px-3.5 py-2 rounded-xl text-xs font-bold bg-navy-900 hover:bg-navy-800 text-white shadow-xs transition">
+                            Upload Photo
+                        </button>
+                        <button type="button" 
+                                onclick="handleAvatarRemove()" 
+                                id="removeAvatarBtn"
+                                class="{% if not avatar_url %}hidden{% endif %} px-3.5 py-2 rounded-xl text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition">
+                            Remove
+                        </button>
+                    </div>
+
+                    <p class="text-[11px] text-slate-400 max-w-xs leading-relaxed">
+                        Allowed formats: JPG, PNG, WEBP.<br>Maximum size limit: 2MB.
+                    </p>
+
+                    <div id="avatarUploadStatus" class="hidden text-xs font-medium"></div>
+                </div>
+            </div>
+
+            <!-- Double Opt-In Email Notification Status Card -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
+                <div class="border-b border-slate-100 pb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-navy-900">Email Notifications</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Anti-Spam Double Opt-In Verification</p>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-600">Opt-In Status:</span>
+                        {% if email_subscribed %}
+                            <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                Active & Confirmed
+                            </span>
+                        {% else %}
+                            <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                                Pending Confirmation
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        {% if email_subscribed %}
+                            Your email notifications are verified. You will receive curated scholarship deadlines, grant match alerts, and application milestone reminders.
+                        {% else %}
+                            Confirmation email sent. Check your inbox to activate email alerts. To protect your inbox from spam, automated opportunity emails are paused until verified.
+                        {% endif %}
+                    </p>
+
+                    {% if not email_subscribed %}
+                        <div class="pt-2">
+                            <button type="button" 
+                                    id="resendOptInBtn"
+                                    onclick="handleResendConfirmation()"
+                                    class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 transition flex items-center justify-center space-x-1.5">
+                                <span>Resend Confirmation Email</span>
+                            </button>
+                        </div>
+                    {% endif %}
+
+                    <div id="resendOptInStatus" class="hidden text-xs font-medium text-center"></div>
+                </div>
+            </div>
+
+            <!-- Account Role & Plan Summary Card -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 text-xs">
+                <div class="border-b border-slate-100 pb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-navy-900">Subscription Tier</h2>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                    <span class="text-slate-500 font-medium">Account Role:</span>
+                    <span class="font-bold text-navy-900 capitalize">{{ user.role }}</span>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                    <span class="text-slate-500 font-medium">Current Plan:</span>
+                    <span class="font-bold uppercase text-navy-900">{{ user.plan }}</span>
+                </div>
+                {% if user.plan != 'premium' %}
+                    <div class="pt-2">
+                        <button onclick="openUpgradeModal()" class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition">
+                            Upgrade to Premium ($9)
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- Right Column: Universal Profile & Preferences Form -->
+        <div class="lg:col-span-2">
+            <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h2 class="text-base font-bold text-navy-900">Academic & Venture Preferences</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                        These parameters calibrate the live search engine and Google Gemini semantic matching model. Any free-text discipline or domain is fully supported.
+                    </p>
+                </div>
+
+                <form id="profileForm" onsubmit="handleProfileSubmit(event)" class="space-y-5">
+                    
+                    <!-- Basic User Credentials -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label for="profileName" class="text-xs font-bold text-navy-900 uppercase tracking-wider">Full Name</label>
+                            <input type="text" 
+                                   id="profileName" 
+                                   name="name" 
+                                   value="{{ user.name }}" 
+                                   required 
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label for="profileEmail" class="text-xs font-bold text-navy-900 uppercase tracking-wider">Email Address</label>
+                            <input type="email" 
+                                   id="profileEmail" 
+                                   name="email" 
+                                   value="{{ user.email }}" 
+                                   required 
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                        </div>
+                    </div>
+
+                    <!-- Profile Track / Type -->
+                    <div class="space-y-1.5">
+                        <label for="profileType" class="text-xs font-bold text-navy-900 uppercase tracking-wider">Opportunity Track</label>
+                        <select id="profileType" 
+                                name="type" 
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                            <option value="academic" {% if (profile and profile.type == 'academic') or user.role == 'student' %}selected{% endif %}>Academic Track (Scholarships & Fellowships)</option>
+                            <option value="startup" {% if (profile and profile.type == 'startup') or user.role == 'founder' %}selected{% endif %}>Venture Track (Startup Grants & Seed Funds)</option>
+                        </select>
+                    </div>
+
+                    <!-- Universal Discipline / Major / Domain -->
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label for="profileMajorDomain" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                Major, Discipline, or Startup Domain
+                            </label>
+                            <span class="text-[11px] text-slate-400 font-medium">Free-text input</span>
+                        </div>
+                        <input type="text" 
+                               id="profileMajorDomain" 
+                               name="major_domain" 
+                               value="{{ profile.major_domain if profile else 'Engineering & Computing' }}" 
+                               placeholder="e.g. Biomedical Engineering, Fashion Design, Agritech, FinTech, Data Science" 
+                               required 
+                               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                        
+                        <!-- Suggestion Quick Chips -->
+                        <div class="flex items-center flex-wrap gap-1.5 pt-1">
+                            <span class="text-[11px] text-slate-400 mr-1">Suggestions:</span>
+                            <button type="button" onclick="setMajorDomain('Biomedical Engineering')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Biomedical Engineering</button>
+                            <button type="button" onclick="setMajorDomain('Fashion Design')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Fashion Design</button>
+                            <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
+                            <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
+                            <button type="button" onclick="setMajorDomain('Computer Science')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Computer Science</button>
+                        </div>
+                    </div>
+
+                    <!-- Degree Level / Venture Stage -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label for="profileDegreeStage" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                Degree Level / Venture Stage
+                            </label>
+                            <input type="text" 
+                                   id="profileDegreeStage" 
+                                   name="degree_level_stage" 
+                                   value="{{ profile.degree_level_stage if profile else 'Undergraduate BS' }}" 
+                                   placeholder="e.g. Undergraduate BS, Master's, PhD, or Prototype Stage" 
+                                   required 
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label for="profileGpaFunding" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                CGPA / Funding Target
+                            </label>
+                            <input type="text" 
+                                   id="profileGpaFunding" 
+                                   name="gpa_funding" 
+                                   value="{{ profile.gpa_funding if profile else '3.6 CGPA' }}" 
+                                   placeholder="e.g. 3.7 CGPA or $50,000" 
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                        </div>
+                    </div>
+
+                    <!-- Destination Country Preference -->
+                    <div class="space-y-1.5">
+                        <label for="profileCountryPreference" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            Primary Destination Country Preference
+                        </label>
+                        <select id="profileCountryPreference" 
+                                name="country_preference" 
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                            {% set current_c = profile.country_preference if profile else 'Pakistan' %}
+                            <option value="Pakistan" {% if current_c == 'Pakistan' %}selected{% endif %}>Pakistan</option>
+                            <option value="Germany" {% if current_c == 'Germany' %}selected{% endif %}>Germany</option>
+                            <option value="United Kingdom" {% if current_c == 'United Kingdom' %}selected{% endif %}>United Kingdom</option>
+                            <option value="United States" {% if current_c == 'United States' %}selected{% endif %}>United States</option>
+                            <option value="China" {% if current_c == 'China' %}selected{% endif %}>China</option>
+                            <option value="France" {% if current_c == 'France' %}selected{% endif %}>France</option>
+                            <option value="Netherlands" {% if current_c == 'Netherlands' %}selected{% endif %}>Netherlands</option>
+                            <option value="Sweden" {% if current_c == 'Sweden' %}selected{% endif %}>Sweden</option>
+                            <option value="Italy" {% if current_c == 'Italy' %}selected{% endif %}>Italy</option>
+                            <option value="Spain" {% if current_c == 'Spain' %}selected{% endif %}>Spain</option>
+                            <option value="Switzerland" {% if current_c == 'Switzerland' %}selected{% endif %}>Switzerland</option>
+                            <option value="Canada" {% if current_c == 'Canada' %}selected{% endif %}>Canada</option>
+                            <option value="Australia" {% if current_c == 'Australia' %}selected{% endif %}>Australia</option>
+                            <option value="Turkey" {% if current_c == 'Turkey' %}selected{% endif %}>Turkey</option>
+                            <option value="all" {% if current_c == 'all' or current_c == 'International' %}selected{% endif %}>All Regions (Global / International)</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit & Feedback -->
+                    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div id="profileFormFeedback" class="text-xs font-medium"></div>
+
+                        <button type="submit" 
+                                id="saveProfileBtn"
+                                class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition flex items-center justify-center space-x-1.5 self-end">
+                            <span id="saveProfileBtnText">Save Profile & Preferences</span>
+                            <span id="saveProfileBtnSpinner" class="hidden w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function setMajorDomain(val) {
+    const input = document.getElementById('profileMajorDomain');
+    if (input) {
+        input.value = val;
+        input.focus();
+    }
+}
+</script>
+{% endblock %}

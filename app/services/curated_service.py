@@ -243,11 +243,19 @@ def generate_match_reasons(
     opp_domains = opp.get("domains", [])
     
     if major_or_domain:
-        matched_domain = next((d for d in opp_domains if major_or_domain.lower() in d.lower() or d.lower() in major_or_domain.lower()), None)
+        m_tokens = [t for t in re.findall(r"\w+", major_or_domain.lower()) if len(t) > 2]
+        matched_domain = next((
+            d for d in opp_domains 
+            if major_or_domain.lower() in d.lower() 
+            or d.lower() in major_or_domain.lower()
+            or any(t in d.lower() for t in m_tokens)
+        ), None)
         if matched_domain:
-            reasons.append(f"Direct discipline alignment with {matched_domain}")
-        elif "all disciplines" in opp.get("category", "").lower():
+            reasons.append(f"Discipline alignment with {matched_domain} and {major_or_domain}")
+        elif "all disciplines" in opp.get("category", "").lower() or "general" in opp.get("category", "").lower():
             reasons.append(f"Open across all fields including {major_or_domain}")
+        else:
+            reasons.append(f"Available for applicants in {major_or_domain}")
             
     if stage_or_level:
         reasons.append(f"Eligibility tailored for {stage_or_level} applicants")

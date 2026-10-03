@@ -407,7 +407,7 @@ def generate_mock_web_results(
             "united kingdom": [
                 {
                     "title": "Innovate UK Smart Grants (Non-dilutive Tech Innovation Fund)",
-                    "snippet": f"Government grants from £25,000 to £500,000 for disruptive early-stage technology startups led by UK university researchers and student founders.",
+                    "snippet": f"Government grants from £25,000 to £500,000 for disruptive early-stage {major} startups led by UK university researchers and student founders.",
                     "link": "https://www.ukri.org/councils/innovate-uk",
                     "source": "Innovate UK",
                     "country": "United Kingdom"
@@ -455,7 +455,7 @@ def generate_mock_web_results(
             "france": [
                 {
                     "title": "Bpifrance French Tech Seed Innovation Grant",
-                    "snippet": f"Matching grants and convertible subsidies up to €50,000 for early-stage deeptech and software ventures founded by university scholars in France.",
+                    "snippet": f"Matching grants and convertible subsidies up to €50,000 for early-stage {major} and software ventures founded by university scholars in France.",
                     "link": "https://www.bpifrance.fr",
                     "source": "Bpifrance",
                     "country": "France"
@@ -480,7 +480,7 @@ def generate_mock_web_results(
             "sweden": [
                 {
                     "title": "Vinnova Sweden's Innovation Agency Pre-Seed Grant",
-                    "snippet": f"Grants up to SEK 500,000 for innovative startup projects with significant technical risk and high potential impact founded in Sweden.",
+                    "snippet": f"Grants up to SEK 500,000 for innovative {major} startup projects with significant technical risk and high potential impact founded in Sweden.",
                     "link": "https://www.vinnova.se/en",
                     "source": "Vinnova Sweden",
                     "country": "Sweden"
@@ -489,7 +489,7 @@ def generate_mock_web_results(
             "italy": [
                 {
                     "title": "CDP Venture Capital Smart&Start Italia Grant",
-                    "snippet": f"Zero-interest loans and non-repayable grants up to €1,500,000 for innovative tech startups established in Italy by youth under 35.",
+                    "snippet": f"Zero-interest loans and non-repayable grants up to €1,500,000 for innovative {major} startups established in Italy by youth under 35.",
                     "link": "https://www.invitalia.it",
                     "source": "Invitalia",
                     "country": "Italy"
@@ -498,7 +498,7 @@ def generate_mock_web_results(
             "spain": [
                 {
                     "title": "ENISA Young Entrepreneurs Seed Grant (Spain)",
-                    "snippet": f"Participative loans up to €75,000 with no guarantees required for innovative startups founded by entrepreneurs aged 40 or under in Spain.",
+                    "snippet": f"Participative loans up to €75,000 with no guarantees required for innovative {major} startups founded by entrepreneurs aged 40 or under in Spain.",
                     "link": "https://www.enisa.es",
                     "source": "ENISA Spain",
                     "country": "Spain"
@@ -507,7 +507,7 @@ def generate_mock_web_results(
             "switzerland": [
                 {
                     "title": "Innosuisse Swiss Innovation Agency Initial Startup Grant",
-                    "snippet": f"Direct project funding and professional business coaching vouchers up to CHF 50,000 for science-based startups in Switzerland.",
+                    "snippet": f"Direct project funding and professional business coaching vouchers up to CHF 50,000 for {major} startups in Switzerland.",
                     "link": "https://www.innosuisse.ch",
                     "source": "Innosuisse",
                     "country": "Switzerland"

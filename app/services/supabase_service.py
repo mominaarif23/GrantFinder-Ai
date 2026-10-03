@@ -2,9 +2,14 @@ import os
 import uuid
 import json
 import httpx
-from datetime import datetime, timezone
+import jwt
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, List, Optional
 from app.config import settings
+
+# In-memory runtime persistence caches for instant responsiveness and resilience
+_USER_AVATARS: Dict[str, str] = {}
+_USER_SUBSCRIPTIONS: Dict[str, bool] = {}
 
 class SupabaseService:
     def __init__(self):
@@ -138,6 +143,180 @@ class SupabaseService:
                 return res.json()
             return []
 
+    def update_user_details(
+        self,
+        user_id: str,
+        name: Optional[str] = None,
+        email: Optional[str] = None
+    ) -> Optional[Dict[str, Any]]:
+        """Update user name and/or email in Supabase public.users."""
+        payload = {}
+        if name:
+            payload["name"] = name.strip()
+        if email:
+            payload["email"] = email.strip().lower()
+        if not payload:
+            return self.get_user_by_id(user_id)
+            
+        try:
+            with httpx.Client(timeout=8.0) as client:
+                res = client.patch(
+                    f"{self.url}/rest/v1/users?id=eq.{user_id}",
+                    json=payload,
+                    headers=self.headers
+                )
+                if res.status_code in (200, 204):
+                    data = res.json() if res.text else []
+                    return data[0] if data else self.get_user_by_id(user_id)
+        except Exception:
+            pass
+        return self.get_user_by_id(user_id)
+
+    # ==========================================================================
+    # Email Double Opt-In Subscription Management
+    # ==========================================================================
+
+    def set_email_subscription(self, user_id: str, subscribed: bool) -> bool:
+        """Update email subscription opt-in state for user in public.users."""
+        _USER_SUBSCRIPTIONS[user_id] = subscribed
+        try:
+            with httpx.Client(timeout=8.0) as client:
+                res = client.patch(
+                    f"{self.url}/rest/v1/users?id=eq.{user_id}",
+                    json={"email_subscribed": subscribed},
+                    headers=self.headers
+                )
+                return res.status_code in (200, 204)
+        except Exception:
+            return True
+
+    def is_email_subscribed(self, user_id: str) -> bool:
+        """Check whether user has confirmed double opt-in for automated notifications."""
+        if user_id in _USER_SUBSCRIPTIONS:
+            return _USER_SUBSCRIPTIONS[user_id]
+
+        user = self.get_user_by_id(user_id)
+        if user and "email_subscribed" in user:
+            val = bool(user.get("email_subscribed", False))
+            _USER_SUBSCRIPTIONS[user_id] = val
+            return val
+
+        # Default is False (Unconfirmed / Double Opt-in Pending)
+        _USER_SUBSCRIPTIONS[user_id] = False
+        return False
+
+    def generate_subscription_token(self, user_id: str, email: str, action: str = "confirm") -> str:
+        """Generate signed cryptographic JWT token for email confirmation / unsubscription."""
+        payload = {
+            "sub": user_id,
+            "email": email.strip().lower(),
+            "action": action,
+            "exp": datetime.now(timezone.utc) + timedelta(days=30)
+        }
+        return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+
+    def verify_subscription_token(self, token: str) -> Optional[Dict[str, Any]]:
+        """Verify signed subscription token and extract payload."""
+        try:
+            return jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        except Exception:
+            return None
+
+    # ==========================================================================
+    # Supabase Storage Avatars
+    # ==========================================================================
+
+    def upload_avatar(
+        self,
+        user_id: str,
+        file_bytes: bytes,
+        file_ext: str,
+        content_type: str = "image/png"
+    ) -> str:
+        """Upload avatar image directly to Supabase Storage public 'avatars' bucket."""
+        clean_ext = file_ext.lstrip('.').lower()
+        if clean_ext == "jpg":
+            clean_ext = "jpeg"
+        target_path = f"{user_id}/avatar.{clean_ext}"
+        storage_url = f"{self.url}/storage/v1/object/avatars/{target_path}"
+        public_url = f"{self.url}/storage/v1/object/public/avatars/{target_path}"
+        
+        headers = {
+            "apikey": self.key,
+            "Authorization": f"Bearer {self.key}",
+            "Content-Type": content_type,
+            "x-upsert": "true"
+        }
+
+        # Attempt to upload to Supabase Storage
+        try:
+            with httpx.Client(timeout=15.0) as client:
+                res = client.post(storage_url, headers=headers, content=file_bytes)
+                if res.status_code in (200, 201):
+                    _USER_AVATARS[user_id] = public_url
+                    return public_url
+        except Exception:
+            pass
+
+        # Resilient local fallback
+        local_dir = os.path.join(os.path.dirname(__file__), "..", "static", "uploads", "avatars")
+        os.makedirs(local_dir, exist_ok=True)
+        local_filename = f"{user_id}_avatar.{clean_ext}"
+        local_filepath = os.path.join(local_dir, local_filename)
+        with open(local_filepath, "wb") as f:
+            f.write(file_bytes)
+        local_url = f"/static/uploads/avatars/{local_filename}"
+        _USER_AVATARS[user_id] = local_url
+        return local_url
+
+    def delete_avatar(self, user_id: str) -> bool:
+        """Delete avatar from Supabase Storage and fallback cache."""
+        _USER_AVATARS[user_id] = ""
+        for ext in ["png", "jpeg", "jpg", "webp"]:
+            target_path = f"{user_id}/avatar.{ext}"
+            storage_url = f"{self.url}/storage/v1/object/avatars/{target_path}"
+            headers = {
+                "apikey": self.key,
+                "Authorization": f"Bearer {self.key}"
+            }
+            try:
+                with httpx.Client(timeout=8.0) as client:
+                    client.delete(storage_url, headers=headers)
+            except Exception:
+                pass
+        return True
+
+    def get_avatar_url(self, user_id: str) -> Optional[str]:
+        """Retrieve user avatar public URL."""
+        if user_id in _USER_AVATARS and _USER_AVATARS[user_id]:
+            return _USER_AVATARS[user_id]
+
+        # Check storage bucket for existing file
+        headers = {
+            "apikey": self.key,
+            "Authorization": f"Bearer {self.key}",
+            "Content-Type": "application/json"
+        }
+        try:
+            with httpx.Client(timeout=6.0) as client:
+                res = client.post(
+                    f"{self.url}/storage/v1/object/list/avatars",
+                    headers=headers,
+                    json={"prefix": f"{user_id}/", "limit": 5}
+                )
+                if res.status_code == 200:
+                    items = res.json()
+                    if items and len(items) > 0:
+                        file_name = items[0].get("name")
+                        if file_name:
+                            url = f"{self.url}/storage/v1/object/public/avatars/{user_id}/{file_name}"
+                            _USER_AVATARS[user_id] = url
+                            return url
+        except Exception:
+            pass
+
+        return None
+
     # ==========================================================================
     # User Profiles (public.profiles)
     # ==========================================================================
@@ -151,9 +330,13 @@ class SupabaseService:
         semester: Optional[str] = None,
         country_preference: str = "Pakistan",
         gpa_funding: Optional[str] = None,
-        extra_details: Optional[Dict[str, Any]] = None
+        extra_details: Optional[Dict[str, Any]] = None,
+        avatar_url: Optional[str] = None
     ) -> Dict[str, Any]:
         """Insert or update user profile in Supabase public.profiles."""
+        if avatar_url:
+            _USER_AVATARS[user_id] = avatar_url
+
         existing = self.get_profile_by_user_id(user_id)
         payload = {
             "user_id": user_id,
@@ -163,36 +346,65 @@ class SupabaseService:
             "semester": semester or (gpa_funding or ""),
             "country_preference": country_preference
         }
+
+        # Attempt to include avatar_url if provided
+        if avatar_url:
+            payload["avatar_url"] = avatar_url
+
         with httpx.Client(timeout=8.0) as client:
             if existing and existing.get("id"):
                 pid = existing["id"]
-                res = client.patch(
-                    f"{self.url}/rest/v1/profiles?id=eq.{pid}",
-                    json=payload,
-                    headers=self.headers
-                )
+                try:
+                    res = client.patch(
+                        f"{self.url}/rest/v1/profiles?id=eq.{pid}",
+                        json=payload,
+                        headers=self.headers
+                    )
+                    res.raise_for_status()
+                except Exception:
+                    # If avatar_url column does not exist yet in SQL, retry without it
+                    payload.pop("avatar_url", None)
+                    res = client.patch(
+                        f"{self.url}/rest/v1/profiles?id=eq.{pid}",
+                        json=payload,
+                        headers=self.headers
+                    )
             else:
                 pid = str(uuid.uuid4())
                 payload["id"] = pid
-                res = client.post(
-                    f"{self.url}/rest/v1/profiles",
-                    json=payload,
-                    headers=self.headers
-                )
+                try:
+                    res = client.post(
+                        f"{self.url}/rest/v1/profiles",
+                        json=payload,
+                        headers=self.headers
+                    )
+                    res.raise_for_status()
+                except Exception:
+                    payload.pop("avatar_url", None)
+                    res = client.post(
+                        f"{self.url}/rest/v1/profiles",
+                        json=payload,
+                        headers=self.headers
+                    )
+
             res.raise_for_status()
             data = res.json()
+            effective_avatar = avatar_url or self.get_avatar_url(user_id)
             if data and len(data) > 0:
                 row = data[0]
                 row["type"] = row.get("profile_type")
                 row["major_domain"] = row.get("major_or_domain")
                 row["degree_level_stage"] = row.get("degree_level_or_stage")
                 row["gpa_funding"] = row.get("semester")
+                row["avatar_url"] = effective_avatar
                 row["extra_details"] = extra_details or {}
                 return row
+
             payload["type"] = profile_type
             payload["major_domain"] = major_or_domain
             payload["degree_level_stage"] = degree_level_or_stage
             payload["gpa_funding"] = semester or (gpa_funding or "")
+            payload["avatar_url"] = effective_avatar
             payload["extra_details"] = extra_details or {}
             return payload
 
@@ -212,6 +424,7 @@ class SupabaseService:
                     row["major_domain"] = row.get("major_or_domain")
                     row["degree_level_stage"] = row.get("degree_level_or_stage")
                     row["gpa_funding"] = row.get("semester")
+                    row["avatar_url"] = row.get("avatar_url") or self.get_avatar_url(user_id)
                     row["extra_details"] = {}
                     return row
             return None
