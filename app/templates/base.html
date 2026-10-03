@@ -56,42 +56,14 @@
         <div class="absolute inset-0 bg-gradient-to-b from-slate-50/92 via-slate-50/85 to-slate-100/98 backdrop-blur-[2px]"></div>
     </div>
 
-    <!-- Atmospheric Landmark Indicator Floating Badge (Visible on Desktop only) -->
-    <div id="atmosphereBadge" class="fixed bottom-5 left-5 z-30 hidden lg:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-slate-200 shadow-sm text-xs text-slate-700 transition-all duration-300">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-        <span class="font-extrabold text-navy-900" id="atmosphereCountry">Pakistan</span>
-        <span class="text-slate-300">•</span>
-        <span class="text-slate-600 truncate max-w-xs font-medium" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
-    </div>
 
-    <!-- Institutional Utility Micro-Bar -->
-    <header class="w-full bg-navy-950 text-slate-300 text-[11px] border-b border-navy-900 relative z-50 py-1.5">
-        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col sm:flex-row items-center justify-between gap-1.5">
-            <div class="flex items-center space-x-2.5">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-900/90 text-brand-200 border border-brand-700/60">
-                    Institutional FYP Portal
-                </span>
-                <span class="text-slate-400 hidden sm:inline">Autonomous Opportunity Intelligence & Application Synthesis</span>
-            </div>
-            <div class="flex items-center space-x-4 text-slate-400">
-                <span class="inline-flex items-center space-x-1.5 text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-slate-300 font-medium">Curated Repositories & Real-Time Web Engine Active</span>
-                </span>
-                <span class="hidden md:inline text-slate-700">•</span>
-                <a href="/register?role=student" class="hidden md:inline text-slate-400 hover:text-white transition">Scholarships Track</a>
-                <span class="hidden md:inline text-slate-700">•</span>
-                <a href="/register?role=founder" class="hidden md:inline text-slate-400 hover:text-white transition">Startup Grants Track</a>
-            </div>
-        </div>
-    </header>
 
     <!-- Top Navigation Bar -->
     <nav class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/92 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <div class="flex items-center justify-between h-20">
                 <!-- Brand Logo -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 shrink-0">
                     <a href="/" class="flex items-center space-x-3 group">
                         <div class="h-10 w-8 shrink-0 group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
                             <img src="/static/img/logo.svg" alt="GrantFinder AI Minimal Mark" class="h-10 w-auto">
@@ -101,41 +73,41 @@
                                 <span class="font-extrabold text-xl tracking-tight text-navy-900 leading-none">GrantFinder</span>
                                 <span class="font-extrabold text-xl tracking-tight text-brand-600 leading-none">AI</span>
                             </div>
-                            <span class="hidden sm:block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">Autonomous Opportunity Intelligence</span>
+                            <span class="hidden sm:block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1 whitespace-nowrap">Autonomous Opportunity Intelligence</span>
                         </div>
                     </a>
                 </div>
 
                 <!-- Navigation Links (Desktop) -->
-                <div class="hidden lg:flex items-center space-x-1 text-xs font-bold text-slate-600">
-                    <a href="/" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Home</a>
-                    <button onclick="toggleAdvisorWidget()" class="px-3.5 py-2 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200 shadow-xs cursor-pointer">
+                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-slate-600">
+                    <a href="/" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Home</a>
+                    <button onclick="toggleAdvisorWidget()" class="px-3 py-2 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200 shadow-xs cursor-pointer">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                         <span>AI Assistant</span>
                     </button>
-                    <a href="/#destinations" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Destinations</a>
-                    <a href="/#services" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">AI Capabilities</a>
-                    <a href="/#why-us" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Why GrantFinder</a>
-                    <a href="/#repositories" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Verified Portals</a>
-                    <a href="/#faq" class="px-3.5 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">FAQ</a>
+                    <a href="/#destinations" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Destinations</a>
+                    <a href="/#services" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">AI Capabilities</a>
+                    <a href="/#why-us" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Why GrantFinder</a>
+                    <a href="/#repositories" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">Verified Portals</a>
+                    <a href="/#faq" class="px-3 py-2 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition">FAQ</a>
                 </div>
 
                 <!-- Right Nav Links -->
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
                     {% if user %}
                         <!-- Role Navigation -->
                         {% if user.role == 'student' %}
-                            <a href="/dashboard/student" class="text-xs font-bold text-brand-700 bg-brand-50 px-3.5 py-2 rounded-xl border border-brand-200 hover:bg-brand-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5">
+                            <a href="/dashboard/student" class="text-xs font-bold text-brand-700 bg-brand-50 px-3.5 py-2 rounded-xl border border-brand-200 hover:bg-brand-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5 whitespace-nowrap">
                                 <span>Scholarships Portal</span>
                                 <span class="text-brand-400">&rarr;</span>
                             </a>
                         {% elif user.role == 'founder' %}
-                            <a href="/dashboard/founder" class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-300 hover:bg-emerald-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5">
+                            <a href="/dashboard/founder" class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-300 hover:bg-emerald-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5 whitespace-nowrap">
                                 <span>Startup Grants Portal</span>
                                 <span class="text-emerald-500">&rarr;</span>
                             </a>
                         {% elif user.role == 'admin' %}
-                            <a href="/admin" class="text-xs font-bold text-amber-900 bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-300 hover:bg-amber-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5">
+                            <a href="/admin" class="text-xs font-bold text-amber-900 bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-300 hover:bg-amber-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1.5 whitespace-nowrap">
                                 <span>Governance Console</span>
                                 <span class="text-amber-500">&rarr;</span>
                             </a>
@@ -190,7 +162,7 @@
                         </div>
 
                         <!-- User Profile Avatar -->
-                        <div class="flex items-center space-x-2.5 pl-1.5 sm:pl-3 border-l border-slate-200">
+                        <div class="flex items-center space-x-2.5 pl-1.5 sm:pl-3 border-l border-slate-200 shrink-0">
                             <div class="w-8 h-8 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center shadow-xs shrink-0" title="{{ user.name }}">
                                 {{ user.name[:2]|upper }}
                             </div>
@@ -330,7 +302,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                        <span><strong>Twilio WhatsApp Alerts:</strong> Real-time instant messaging alerts</span>
+                        <span><strong>WhatsApp Instant Alerts:</strong> Real-time messaging alerts</span>
                     </div>
                 </div>
                 <div class="mb-5 flex items-center justify-between px-4 py-3 rounded-2xl bg-slate-100 border border-slate-200">
@@ -382,17 +354,17 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Zero-Cost Architecture</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-3">
-                        Built for university students and early-stage founders with zero vendor lock-in.
-                    </p>
-                    <div class="flex items-center space-x-2 text-[11px] text-slate-400">
-                        <span>FastAPI</span> &bull; <span>Gemini</span> &bull; <span>Serper</span> &bull; <span>Twilio</span>
-                    </div>
+                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Platform & Resources</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="/#faq" class="hover:text-white transition">Frequently Asked Questions</a></li>
+                        <li><a href="/login" class="hover:text-white transition">Member Sign In</a></li>
+                        <li><a href="/register" class="hover:text-white transition">Create Free Account</a></li>
+                        <li><a href="/#destinations" class="hover:text-white transition">Global Destination Coverage</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-3">
-                <p>&copy; 2026 GrantFinder AI — Agentic Systems Environment. All rights reserved.</p>
+                <p>&copy; 2026 GrantFinder AI. All rights reserved.</p>
                 <div class="flex items-center space-x-4">
                     <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
                     <span>&bull;</span>

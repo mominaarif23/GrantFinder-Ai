@@ -109,7 +109,7 @@ def notify_user(
     """Central unified notification function as specified in Supabase Integration Plan:
     1. in_app: Always created in public.notifications for all users.
     2. email: Sent via SMTP and stored in public.notifications for all users.
-    3. whatsapp: Sent via Twilio and stored in public.notifications for premium users only.
+    3. whatsapp: Sent via WhatsApp API and stored in public.notifications for premium users only.
     """
     user = supabase_service.get_user_by_id(user_id)
     subject = title or f"{event_type.capitalize()} Notification"
