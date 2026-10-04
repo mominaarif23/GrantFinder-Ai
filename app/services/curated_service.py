@@ -216,6 +216,48 @@ def calculate_base_match_score(
             gpa_val = float(gpa_match.group(1))
             if gpa_val >= 3.5 and ("merit" in opp_category or "fellowship" in opp_category or "daad" in opp_name):
                 base_score += 4
+
+    # 5. Enhanced Optional Profile Factors (Merit, Need, Institution, Test Scores)
+    if profile:
+        extra = profile.get("extra_details") if isinstance(profile.get("extra_details"), dict) else {}
+        university = profile.get("university") or extra.get("university", "")
+        cgpa = profile.get("cgpa") or extra.get("cgpa", "")
+        financial_need = profile.get("financial_need") or extra.get("financial_need", "")
+        test_scores = profile.get("test_scores") or extra.get("test_scores", "")
+        
+        # Partner University Alignment (+8)
+        if university:
+            u_lower = university.lower()
+            if any(u in opp_name or u in opp_eligibility for u in re.findall(r"\w+", u_lower) if len(u) > 3):
+                base_score += 8
+            elif "university" in opp_eligibility or "institution" in opp_eligibility or "hec" in opp_name or "partner" in opp_eligibility:
+                base_score += 6
+            else:
+                base_score += 4
+                
+        # Financial Need Alignment (+8)
+        if financial_need and "yes" in financial_need.lower():
+            if any(k in opp_name or k in opp_eligibility or k in opp_category for k in ["need", "ehsaas", "peef", "outreach", "hardship", "funded", "grant", "stipend"]):
+                base_score += 8
+            else:
+                base_score += 4
+                
+        # CGPA Merit Criteria (+5)
+        if cgpa:
+            cgpa_m = re.search(r"(\d\.\d+)", cgpa)
+            if cgpa_m and float(cgpa_m.group(1)) >= 3.0:
+                base_score += 5
+            elif "%" in cgpa:
+                pct_m = re.search(r"(\d+)", cgpa)
+                if pct_m and int(pct_m.group(1)) >= 70:
+                    base_score += 5
+                    
+        # Language Test Alignment (+4)
+        if test_scores and any(k in test_scores.lower() for k in ["ielts", "toefl", "pte", "duolingo", "exempt", "passed", "band", "7", "8"]):
+            if any(k in opp_name or k in opp_eligibility for k in ["international", "study abroad", "uk", "usa", "germany", "australia", "canada", "daad", "chevening", "fulbright", "erasmus"]):
+                base_score += 4
+            else:
+                base_score += 2
                 
     # Normalize bounds
     return min(98, max(50, base_score))
@@ -259,5 +301,20 @@ def generate_match_reasons(
             
     if stage_or_level:
         reasons.append(f"Eligibility tailored for {stage_or_level} applicants")
+
+    extra = profile.get("extra_details") if isinstance(profile.get("extra_details"), dict) else {}
+    university = profile.get("university") or extra.get("university", "")
+    cgpa = profile.get("cgpa") or extra.get("cgpa", "")
+    financial_need = profile.get("financial_need") or extra.get("financial_need", "")
+    test_scores = profile.get("test_scores") or extra.get("test_scores", "")
+
+    if university:
+        reasons.append(f"Institutional alignment: {university}")
+    if financial_need and "yes" in financial_need.lower():
+        reasons.append("Eligible for need-based priority funding allocation")
+    if cgpa:
+        reasons.append(f"Academic standing ({cgpa}) meets competitive threshold")
+    if test_scores:
+        reasons.append(f"Language / standardized test profile verified: {test_scores}")
             
     return reasons

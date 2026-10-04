@@ -151,7 +151,7 @@ async function handleRegisterSubmit(e) {
         if (res.ok && data.success) {
             showToast('Registration successful. Redirecting...', 'success');
             setTimeout(() => {
-                window.location.href = role === 'founder' ? '/dashboard/founder' : '/dashboard/student';
+                window.location.href = '/onboarding';
             }, 500);
         } else {
             errorBox.innerText = data.detail || 'Registration failed.';
@@ -1405,14 +1405,53 @@ async function handleProfileSubmit(event) {
     if (spinner) spinner.classList.remove('hidden');
     if (feedback) feedback.className = 'text-xs font-medium text-slate-500';
 
+    const cgpaVal = document.getElementById('profileCgpa')?.value.trim() || '';
+    if (cgpaVal) {
+        const cleanVal = cgpaVal.replace('%', '').trim();
+        const num = parseFloat(cleanVal);
+        if (!isNaN(num)) {
+            if (cgpaVal.includes('%')) {
+                if (num < 0 || num > 100) {
+                    if (feedback) {
+                        feedback.className = 'text-xs font-semibold text-rose-600';
+                        feedback.innerText = 'Percentage must be between 0% and 100%.';
+                    }
+                    if (btn) btn.disabled = false;
+                    if (btnText) btnText.innerText = 'Save Profile & Preferences';
+                    if (spinner) spinner.classList.add('hidden');
+                    return;
+                }
+            } else {
+                if (num < 0 || num > 4.0) {
+                    if (feedback) {
+                        feedback.className = 'text-xs font-semibold text-rose-600';
+                        feedback.innerText = 'CGPA must be between 0.0 and 4.0 (or append % for percentage).';
+                    }
+                    if (btn) btn.disabled = false;
+                    if (btnText) btnText.innerText = 'Save Profile & Preferences';
+                    if (spinner) spinner.classList.add('hidden');
+                    return;
+                }
+            }
+        }
+    }
+
     const payload = {
         name: document.getElementById('profileName').value.trim(),
         email: document.getElementById('profileEmail').value.trim(),
+        role: document.getElementById('profileRole')?.value || undefined,
         type: document.getElementById('profileType').value,
         major_domain: document.getElementById('profileMajorDomain').value.trim(),
         degree_level_stage: document.getElementById('profileDegreeStage').value.trim(),
         gpa_funding: document.getElementById('profileGpaFunding').value.trim(),
-        country_preference: document.getElementById('profileCountryPreference').value
+        country_preference: document.getElementById('profileCountryPreference').value,
+        university: document.getElementById('profileUniversity')?.value.trim() || '',
+        cgpa: cgpaVal,
+        city: document.getElementById('profileCity')?.value.trim() || '',
+        grad_year: document.getElementById('profileGradYear')?.value.trim() || '',
+        test_scores: document.getElementById('profileTestScores')?.value.trim() || '',
+        financial_need: document.getElementById('profileFinancialNeed')?.value || 'No',
+        notification_preference: document.getElementById('profileNotificationPref')?.value || 'in_app'
     };
 
     try {
@@ -1429,6 +1468,14 @@ async function handleProfileSubmit(event) {
                 feedback.innerText = 'Profile and preferences updated successfully.';
             }
             showToast('Profile and preferences updated.', 'success');
+
+            // Update completion percentage meter if returned
+            if (data.profile && typeof data.profile.completion_pct === 'number') {
+                const bar = document.getElementById('profileCompletionBar');
+                const pctLabel = document.getElementById('profileCompletionPctText');
+                if (bar) bar.style.width = data.profile.completion_pct + '%';
+                if (pctLabel) pctLabel.innerText = data.profile.completion_pct + '%';
+            }
         } else {
             const err = data.detail || 'Failed to update profile.';
             if (feedback) {

@@ -9,7 +9,7 @@ from app.db import (
     get_platform_analytics, list_curated_opportunities, list_all_users,
     add_curated_opportunity, delete_curated_opportunity, mark_notification_read,
     get_avatar_url, set_email_subscription, is_email_subscribed,
-    verify_subscription_token, get_user_by_id
+    verify_subscription_token, get_user_by_id, calculate_profile_completion_pct
 )
 from app.models import CuratedOpportunityCreate
 from app.services.notification_service import send_optin_confirmation_email
@@ -38,6 +38,24 @@ def register_view(request: Request):
         return RedirectResponse(url="/dashboard", status_code=302)
     return templates.TemplateResponse(request=request, name="register.html", context={"user": None})
 
+@router.get("/onboarding", response_class=HTMLResponse)
+def onboarding_view(request: Request):
+    user = get_current_user_optional(request)
+    if not user:
+        return RedirectResponse(url="/login?next=/onboarding", status_code=302)
+    if user.get("role") == "admin":
+        return RedirectResponse(url="/admin", status_code=302)
+    
+    profile = get_profile_by_user_id(user["id"])
+    avatar = (profile and profile.get("avatar_url")) or get_avatar_url(user["id"])
+    user["avatar_url"] = avatar
+    
+    return templates.TemplateResponse(request=request, name="onboarding.html", context={
+        "user": user,
+        "profile": profile,
+        "avatar_url": avatar
+    })
+
 @router.get("/dashboard")
 def dashboard_redirect(request: Request):
     user = get_current_user_optional(request)
@@ -45,7 +63,12 @@ def dashboard_redirect(request: Request):
         return RedirectResponse(url="/login", status_code=302)
     if user.get("role") == "admin":
         return RedirectResponse(url="/admin", status_code=302)
-    elif user.get("role") == "founder":
+        
+    profile = get_profile_by_user_id(user["id"])
+    if not profile:
+        return RedirectResponse(url="/onboarding", status_code=302)
+        
+    if user.get("role") == "founder":
         return RedirectResponse(url="/dashboard/founder", status_code=302)
     return RedirectResponse(url="/dashboard/student", status_code=302)
 
@@ -56,12 +79,17 @@ def student_dashboard_view(request: Request):
         return RedirectResponse(url="/login", status_code=302)
     
     profile = get_profile_by_user_id(user["id"])
+    if not profile:
+        return RedirectResponse(url="/onboarding", status_code=302)
+        
     notifications = get_user_notifications(user["id"])
     saved = get_saved_opportunities(user["id"])
+    completion_pct = profile.get("completion_pct") or calculate_profile_completion_pct(user, profile)
     
     return templates.TemplateResponse(request=request, name="student_dashboard.html", context={
         "user": user,
         "profile": profile,
+        "completion_pct": completion_pct,
         "notifications": notifications,
         "saved": saved
     })
@@ -73,12 +101,17 @@ def founder_dashboard_view(request: Request):
         return RedirectResponse(url="/login", status_code=302)
     
     profile = get_profile_by_user_id(user["id"])
+    if not profile:
+        return RedirectResponse(url="/onboarding", status_code=302)
+        
     notifications = get_user_notifications(user["id"])
     saved = get_saved_opportunities(user["id"])
+    completion_pct = profile.get("completion_pct") or calculate_profile_completion_pct(user, profile)
     
     return templates.TemplateResponse(request=request, name="founder_dashboard.html", context={
         "user": user,
         "profile": profile,
+        "completion_pct": completion_pct,
         "notifications": notifications,
         "saved": saved
     })
@@ -135,11 +168,13 @@ def profile_view(request: Request):
     user["avatar_url"] = avatar
     email_sub = is_email_subscribed(user["id"])
     notifications = get_user_notifications(user["id"])
+    completion_pct = (profile and profile.get("completion_pct")) or calculate_profile_completion_pct(user, profile)
     
     return templates.TemplateResponse(request=request, name="profile.html", context={
         "user": user,
         "profile": profile,
         "avatar_url": avatar,
+        "completion_pct": completion_pct,
         "email_subscribed": email_sub,
         "notifications": notifications,
         "active_tab": "profile",

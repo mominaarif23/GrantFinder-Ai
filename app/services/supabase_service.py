@@ -10,6 +10,7 @@ from app.config import settings
 # In-memory runtime persistence caches for instant responsiveness and resilience
 _USER_AVATARS: Dict[str, str] = {}
 _USER_SUBSCRIPTIONS: Dict[str, bool] = {}
+_USER_EXTRA_DETAILS: Dict[str, Dict[str, Any]] = {}
 
 class SupabaseService:
     def __init__(self):
@@ -147,14 +148,17 @@ class SupabaseService:
         self,
         user_id: str,
         name: Optional[str] = None,
-        email: Optional[str] = None
+        email: Optional[str] = None,
+        role: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
-        """Update user name and/or email in Supabase public.users."""
+        """Update user name, email, and/or role in Supabase public.users."""
         payload = {}
         if name:
             payload["name"] = name.strip()
         if email:
             payload["email"] = email.strip().lower()
+        if role:
+            payload["role"] = role.strip().lower()
         if not payload:
             return self.get_user_by_id(user_id)
             
@@ -338,9 +342,10 @@ class SupabaseService:
             _USER_AVATARS[user_id] = avatar_url
 
         existing = self.get_profile_by_user_id(user_id)
+        clean_ptype = "startup" if profile_type in ("founder", "startup") else "academic"
         payload = {
             "user_id": user_id,
-            "profile_type": profile_type,
+            "profile_type": clean_ptype,
             "major_or_domain": major_or_domain,
             "degree_level_or_stage": degree_level_or_stage,
             "semester": semester or (gpa_funding or ""),
@@ -350,6 +355,10 @@ class SupabaseService:
         # Attempt to include avatar_url if provided
         if avatar_url:
             payload["avatar_url"] = avatar_url
+
+        # Cache extra_details if provided
+        if extra_details:
+            _USER_EXTRA_DETAILS[user_id] = {**_USER_EXTRA_DETAILS.get(user_id, {}), **extra_details}
 
         with httpx.Client(timeout=8.0) as client:
             if existing and existing.get("id"):
@@ -390,6 +399,9 @@ class SupabaseService:
             res.raise_for_status()
             data = res.json()
             effective_avatar = avatar_url or self.get_avatar_url(user_id)
+            merged_extra = {**(extra_details or {}), **_USER_EXTRA_DETAILS.get(user_id, {})}
+            user = self.get_user_by_id(user_id) or {}
+
             if data and len(data) > 0:
                 row = data[0]
                 row["type"] = row.get("profile_type")
@@ -397,7 +409,15 @@ class SupabaseService:
                 row["degree_level_stage"] = row.get("degree_level_or_stage")
                 row["gpa_funding"] = row.get("semester")
                 row["avatar_url"] = effective_avatar
-                row["extra_details"] = extra_details or {}
+                row["extra_details"] = merged_extra
+                row["university"] = merged_extra.get("university", "")
+                row["cgpa"] = merged_extra.get("cgpa", "")
+                row["city"] = merged_extra.get("city", "")
+                row["grad_year"] = merged_extra.get("grad_year", "")
+                row["test_scores"] = merged_extra.get("test_scores", "")
+                row["financial_need"] = merged_extra.get("financial_need", "No")
+                row["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
+                row["completion_pct"] = self.calculate_profile_completion_pct(user, row)
                 return row
 
             payload["type"] = profile_type
@@ -405,8 +425,49 @@ class SupabaseService:
             payload["degree_level_stage"] = degree_level_or_stage
             payload["gpa_funding"] = semester or (gpa_funding or "")
             payload["avatar_url"] = effective_avatar
-            payload["extra_details"] = extra_details or {}
+            payload["extra_details"] = merged_extra
+            payload["university"] = merged_extra.get("university", "")
+            payload["cgpa"] = merged_extra.get("cgpa", "")
+            payload["city"] = merged_extra.get("city", "")
+            payload["grad_year"] = merged_extra.get("grad_year", "")
+            payload["test_scores"] = merged_extra.get("test_scores", "")
+            payload["financial_need"] = merged_extra.get("financial_need", "No")
+            payload["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
+            payload["completion_pct"] = self.calculate_profile_completion_pct(user, payload)
             return payload
+
+    def calculate_profile_completion_pct(self, user: Dict[str, Any], profile: Optional[Dict[str, Any]]) -> int:
+        """Calculate profile completion percentage (60% core baseline up to 100% full)."""
+        if not profile:
+            return 0
+        extra = profile.get("extra_details") or {}
+        
+        score = 0
+        # Core fields (60% total)
+        if user.get("name"):
+            score += 10
+        if user.get("email"):
+            score += 10
+        if profile.get("major_domain"):
+            score += 10
+        if profile.get("degree_level_stage"):
+            score += 10
+        if profile.get("semester") or profile.get("gpa_funding") or extra.get("semester_or_funding"):
+            score += 10
+        if profile.get("country_preference"):
+            score += 10
+            
+        # Optional fields (40% total)
+        if profile.get("avatar_url") or _USER_AVATARS.get(user.get("id")):
+            score += 10
+        if extra.get("university"):
+            score += 10
+        if extra.get("cgpa"):
+            score += 10
+        if extra.get("city") or extra.get("grad_year") or extra.get("test_scores") or (extra.get("financial_need") and extra.get("financial_need") != "No"):
+            score += 10
+            
+        return min(100, max(0, score))
 
     def get_profile_by_user_id(self, user_id: str) -> Optional[Dict[str, Any]]:
         """Query user profile from Supabase public.profiles."""
@@ -425,7 +486,20 @@ class SupabaseService:
                     row["degree_level_stage"] = row.get("degree_level_or_stage")
                     row["gpa_funding"] = row.get("semester")
                     row["avatar_url"] = row.get("avatar_url") or self.get_avatar_url(user_id)
-                    row["extra_details"] = {}
+                    
+                    extra = row.get("extra_details") if isinstance(row.get("extra_details"), dict) else {}
+                    merged_extra = {**extra, **_USER_EXTRA_DETAILS.get(user_id, {})}
+                    row["extra_details"] = merged_extra
+                    row["university"] = merged_extra.get("university", "")
+                    row["cgpa"] = merged_extra.get("cgpa", "")
+                    row["city"] = merged_extra.get("city", "")
+                    row["grad_year"] = merged_extra.get("grad_year", "")
+                    row["test_scores"] = merged_extra.get("test_scores", "")
+                    row["financial_need"] = merged_extra.get("financial_need", "No")
+                    row["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
+                    
+                    user = self.get_user_by_id(user_id) or {}
+                    row["completion_pct"] = self.calculate_profile_completion_pct(user, row)
                     return row
             return None
 

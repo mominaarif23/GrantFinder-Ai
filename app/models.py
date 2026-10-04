@@ -25,14 +25,35 @@ class ProfileUpdateRequest(BaseModel):
     country_preference: str = Field(default="Pakistan")
     extra_details: Optional[Dict[str, Any]] = None
 
+class OnboardingProfileRequest(BaseModel):
+    name: str = Field(..., min_length=2, max_length=120)
+    role: str = Field(default="student", pattern="^(student|founder)$")
+    avatar_url: Optional[str] = None
+    major_domain: str = Field(..., min_length=2)
+    degree_level_stage: str = Field(..., min_length=2)
+    semester_or_funding: Optional[str] = None
+    country_preference: str = Field(default="Both")
+    notification_preference: str = Field(default="in_app")
+
 class ProfileDetailsUpdateRequest(BaseModel):
     name: Optional[str] = None
     email: Optional[EmailStr] = None
+    role: Optional[str] = None
+    type: Optional[str] = None
     major_domain: Optional[str] = None
     degree_level_stage: Optional[str] = None
+    semester: Optional[str] = None
     gpa_funding: Optional[str] = None
     country_preference: Optional[str] = "Pakistan"
-    type: Optional[str] = None
+    notification_preference: Optional[str] = None
+    avatar_url: Optional[str] = None
+    # Optional fields for better matching
+    university: Optional[str] = None
+    cgpa: Optional[str] = None
+    city: Optional[str] = None
+    grad_year: Optional[str] = None
+    test_scores: Optional[str] = None
+    financial_need: Optional[str] = None
     extra_details: Optional[Dict[str, Any]] = None
 
 class SearchRequest(BaseModel):

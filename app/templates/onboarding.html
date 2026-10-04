@@ -1,0 +1,707 @@
+{% extends "base.html" %}
+
+{% block title %}Profile Setup Wizard — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- Wizard Header Container -->
+    <div class="text-center mb-8 space-y-2">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+            Initial Account Configuration
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
+            Welcome to GrantFinder AI
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
+            Complete this quick 4-step setup to calibrate our opportunity matching engine to your background.
+        </p>
+    </div>
+
+    <!-- Progress Indicator Bar -->
+    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs mb-8">
+        <div class="flex items-center justify-between text-xs font-bold text-navy-900 mb-2">
+            <span id="stepProgressLabel">Step 1 of 4</span>
+            <span id="stepProgressTitle" class="text-slate-500 font-medium">Basic Information</span>
+            <span id="stepProgressPct" class="text-brand-700">25%</span>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+            <div id="stepProgressBar" class="bg-brand-600 h-2.5 rounded-full transition-all duration-300" style="width: 25%"></div>
+        </div>
+
+        <!-- Step Pill Steps Indicator -->
+        <div class="grid grid-cols-4 gap-2 mt-4 text-center">
+            <div id="stepIndicator1" class="py-1 px-2 rounded-xl text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                1. Basic Info
+            </div>
+            <div id="stepIndicator2" class="py-1 px-2 rounded-xl text-[11px] font-semibold text-slate-400 bg-slate-50 border border-transparent">
+                2. Photo
+            </div>
+            <div id="stepIndicator3" class="py-1 px-2 rounded-xl text-[11px] font-semibold text-slate-400 bg-slate-50 border border-transparent">
+                3. Focus
+            </div>
+            <div id="stepIndicator4" class="py-1 px-2 rounded-xl text-[11px] font-semibold text-slate-400 bg-slate-50 border border-transparent">
+                4. Preferences
+            </div>
+        </div>
+    </div>
+
+    <!-- Wizard Card & Steps Form -->
+    <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+
+        <!-- ============================================================== -->
+        <!-- STEP 1: Basic Information & Role Context -->
+        <!-- ============================================================== -->
+        <div id="wizardStep1" class="wizard-step space-y-6">
+            <div class="border-b border-slate-100 pb-3">
+                <h2 class="text-base font-bold text-navy-900">Step 1: Confirm Basic Information</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Confirm your full name and select your primary role on GrantFinder AI.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="space-y-1.5">
+                    <label for="wizardName" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                        Full Name
+                    </label>
+                    <input type="text" 
+                           id="wizardName" 
+                           value="{{ user.name }}" 
+                           required 
+                           placeholder="Enter your full name" 
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <label class="text-xs font-bold text-navy-900 uppercase tracking-wider block">
+                        Select Role Context
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label id="roleCardStudent" class="relative flex flex-col p-4 rounded-2xl border-2 border-brand-600 bg-brand-50/50 cursor-pointer transition">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-navy-900">Student</span>
+                                <input type="radio" name="wizardRole" value="student" {% if user.role != 'founder' %}checked{% endif %} class="accent-brand-600" onchange="updateRoleSelection('student')">
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Seeking undergraduate, graduate, or doctoral scholarships, fellowships, and research exchange funding.
+                            </p>
+                        </label>
+
+                        <label id="roleCardFounder" class="relative flex flex-col p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white cursor-pointer transition">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-navy-900">Student Founder</span>
+                                <input type="radio" name="wizardRole" value="founder" {% if user.role == 'founder' %}checked{% endif %} class="accent-brand-600" onchange="updateRoleSelection('founder')">
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Building a venture, startup, or prototype seeking non-dilutive innovation grants, competitions, and seed funds.
+                            </p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step1Error" class="hidden text-xs font-semibold text-rose-600 pt-1"></div>
+
+            <div class="pt-4 border-t border-slate-100 flex justify-end">
+                <button type="button" onclick="goToStep(2)" class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition">
+                    Continue to Photo &rarr;
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- STEP 2: Profile Picture Upload (Optional & Preview) -->
+        <!-- ============================================================== -->
+        <div id="wizardStep2" class="wizard-step hidden space-y-6">
+            <div class="border-b border-slate-100 pb-3">
+                <h2 class="text-base font-bold text-navy-900">Step 2: Profile Picture</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Upload a photo for your student or founder profile. You can also skip this step.</p>
+            </div>
+
+            <div class="flex flex-col items-center text-center space-y-4 py-4">
+                <!-- Avatar Preview Box -->
+                <div class="relative w-32 h-32 rounded-3xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden shadow-inner group">
+                    <img id="wizardAvatarPreviewImg" 
+                         src="{{ avatar_url or '' }}" 
+                         alt="Preview" 
+                         class="{% if not avatar_url %}hidden{% endif %} w-full h-full object-cover">
+                    <div id="wizardAvatarPreviewInitials" 
+                         class="{% if avatar_url %}hidden{% endif %} text-3xl font-extrabold text-navy-900">
+                        {{ user.name[:2]|upper }}
+                    </div>
+                </div>
+
+                <!-- Hidden File Input -->
+                <input type="file" 
+                       id="wizardAvatarInput" 
+                       accept="image/jpeg,image/png,image/webp" 
+                       class="hidden" 
+                       onchange="handleWizardAvatarSelect(event)">
+
+                <div class="flex items-center space-x-2">
+                    <button type="button" 
+                            onclick="document.getElementById('wizardAvatarInput').click()" 
+                            class="px-4 py-2 rounded-xl text-xs font-bold bg-navy-900 hover:bg-navy-800 text-white shadow-xs transition">
+                        Select Image
+                    </button>
+                    <button type="button" 
+                            id="wizardRemovePhotoBtn" 
+                            onclick="handleWizardAvatarClear()" 
+                            class="hidden px-3.5 py-2 rounded-xl text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition">
+                        Clear Photo
+                    </button>
+                </div>
+
+                <p class="text-[11px] text-slate-400 max-w-xs leading-relaxed">
+                    Allowed file formats: JPG, PNG, WEBP. Maximum file size: 2MB.<br>
+                    Images are stored in Supabase Storage.
+                </p>
+
+                <div id="wizardAvatarError" class="hidden text-xs font-semibold text-rose-600"></div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <button type="button" onclick="goToStep(1)" class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+                    &larr; Back
+                </button>
+                <div class="flex items-center space-x-2">
+                    <button type="button" onclick="skipAvatarAndContinue()" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-navy-900 transition">
+                        Skip for now
+                    </button>
+                    <button type="button" onclick="goToStep(3)" class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition">
+                        Continue to Details &rarr;
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- STEP 3: Core Academic or Startup Details (Conditional) -->
+        <!-- ============================================================== -->
+        <div id="wizardStep3" class="wizard-step hidden space-y-6">
+            <div class="border-b border-slate-100 pb-3">
+                <h2 id="step3HeaderTitle" class="text-base font-bold text-navy-900">Step 3: Core Academic Details</h2>
+                <p id="step3HeaderDesc" class="text-xs text-slate-500 mt-0.5">Specify your core discipline and study stage to match relevant funding opportunities.</p>
+            </div>
+
+            <!-- Student Sub-Form -->
+            <div id="studentFieldsContainer" class="space-y-4">
+                <div class="space-y-1.5">
+                    <label for="wizardStudentMajor" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                        Major / Field of Study
+                    </label>
+                    <input type="text" 
+                           id="wizardStudentMajor" 
+                           placeholder="e.g. Computer Science, Public Health, Mechanical Engineering, Economics" 
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                    
+                    <div class="flex items-center flex-wrap gap-1.5 pt-1">
+                        <span class="text-[11px] text-slate-400 mr-1">Popular:</span>
+                        <button type="button" onclick="setWizardMajor('Computer Science')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Computer Science</button>
+                        <button type="button" onclick="setWizardMajor('Biomedical Sciences')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Biomedical Sciences</button>
+                        <button type="button" onclick="setWizardMajor('Business Administration')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Business Administration</button>
+                        <button type="button" onclick="setWizardMajor('Data Science')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Data Science</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label for="wizardStudentDegree" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            Degree Level
+                        </label>
+                        <select id="wizardStudentDegree" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                            <option value="Undergraduate BS">Undergraduate BS / Bachelor's</option>
+                            <option value="Master's MS">Master's MS / Graduate</option>
+                            <option value="Doctorate PhD">Doctorate PhD / Doctoral</option>
+                            <option value="Postdoctoral">Postdoctoral Fellowship</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="wizardStudentSemester" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            Current Semester / Year
+                        </label>
+                        <select id="wizardStudentSemester" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                            <option value="1st Semester">1st Semester (Freshman)</option>
+                            <option value="2nd Semester">2nd Semester</option>
+                            <option value="3rd Semester">3rd Semester (Sophomore)</option>
+                            <option value="4th Semester">4th Semester</option>
+                            <option value="5th Semester">5th Semester (Junior)</option>
+                            <option value="6th Semester" selected>6th Semester</option>
+                            <option value="7th Semester">7th Semester (Senior)</option>
+                            <option value="8th Semester">8th Semester (Final Year)</option>
+                            <option value="Graduated">Graduated / Alum</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Founder Sub-Form -->
+            <div id="founderFieldsContainer" class="hidden space-y-4">
+                <div class="space-y-1.5">
+                    <label for="wizardFounderDomain" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                        Startup Domain / Industry
+                    </label>
+                    <input type="text" 
+                           id="wizardFounderDomain" 
+                           placeholder="e.g. EdTech, FinTech, HealthTech, ClimateTech, AI/ML, Agritech" 
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                    
+                    <div class="flex items-center flex-wrap gap-1.5 pt-1">
+                        <span class="text-[11px] text-slate-400 mr-1">Popular:</span>
+                        <button type="button" onclick="setWizardDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
+                        <button type="button" onclick="setWizardDomain('HealthTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">HealthTech</button>
+                        <button type="button" onclick="setWizardDomain('ClimateTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">ClimateTech</button>
+                        <button type="button" onclick="setWizardDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label for="wizardFounderStage" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            Startup Stage
+                        </label>
+                        <select id="wizardFounderStage" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                            <option value="Idea Stage">Idea / Concept Stage</option>
+                            <option value="Prototype Stage" selected>Prototype / MVP Stage</option>
+                            <option value="Early Traction">Early Traction / Launched</option>
+                            <option value="Scaling">Growth / Scaling Stage</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="wizardFounderFunding" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            Funding Needed
+                        </label>
+                        <select id="wizardFounderFunding" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                            <option value="$5,000 - $25,000">$5,000 - $25,000 (Seed Grant)</option>
+                            <option value="$25,000 - $100,000" selected>$25,000 - $100,000 (Venture Grant)</option>
+                            <option value="$100,000+">$100,000+ (Institutional Round)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step3Error" class="hidden text-xs font-semibold text-rose-600 pt-1"></div>
+
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <button type="button" onclick="goToStep(2)" class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+                    &larr; Back
+                </button>
+                <button type="button" onclick="goToStep(4)" class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition">
+                    Continue to Preferences &rarr;
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- STEP 4: Preferences, Premium Qualities & Finish -->
+        <!-- ============================================================== -->
+        <div id="wizardStep4" class="wizard-step hidden space-y-6">
+            <div class="border-b border-slate-100 pb-3">
+                <h2 class="text-base font-bold text-navy-900">Step 4: Regional Preferences & Notifications</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Configure your target funding destinations and notification channels.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Country Preference -->
+                <div class="space-y-1.5">
+                    <label for="wizardCountryPref" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                        Destination Preference
+                    </label>
+                    <select id="wizardCountryPref" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                        <option value="Both" selected>Both (Pakistan & International Opportunities)</option>
+                        <option value="Pakistan">Pakistan Only</option>
+                        <option value="United States">United States</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="International">All International Regions</option>
+                    </select>
+                </div>
+
+                <!-- Notification Preference Selection -->
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-navy-900 uppercase tracking-wider block">
+                        Notification Delivery Channel
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="relative flex flex-col p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white cursor-pointer transition">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold text-navy-900">In-App Alerts</span>
+                                <input type="radio" name="wizardNotifPref" value="in_app" checked class="accent-brand-600">
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500 mb-1">Standard Free Tier</span>
+                            <p class="text-xs text-slate-600">
+                                View scholarship match notifications directly inside your dashboard portal.
+                            </p>
+                        </label>
+
+                        <label class="relative flex flex-col p-4 rounded-2xl border-2 border-brand-600 bg-brand-50/40 cursor-pointer transition">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold text-brand-900">Automated Email Alerts</span>
+                                <input type="radio" name="wizardNotifPref" value="email" class="accent-brand-600">
+                            </div>
+                            <span class="text-[10px] font-bold text-brand-700 mb-1">Premium Tier Feature</span>
+                            <p class="text-xs text-slate-600">
+                                Receive instant email notifications whenever new high-yield matching grants or deadlines open.
+                            </p>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Premium Features Box -->
+                <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-navy-950 border border-slate-800 text-white space-y-3 shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-950">
+                                Premium Features & Capabilities
+                            </span>
+                        </div>
+                        <span class="text-xs font-bold text-slate-300">$9 Demo Access</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs pt-1">
+                        <div class="flex items-start space-x-2">
+                            <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                            <div>
+                                <span class="font-bold text-slate-100">Automated Email Alerts:</span>
+                                <span class="text-slate-300 block text-[11px]">Direct inbox delivery for deadlines and matches.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                            <div>
+                                <span class="font-bold text-slate-100">Full Opportunity Unlocks:</span>
+                                <span class="text-slate-300 block text-[11px]">Unlimited access to all curated and live web discoveries.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                            <div>
+                                <span class="font-bold text-slate-100">AI Application Drafter:</span>
+                                <span class="text-slate-300 block text-[11px]">Generates high-yield SOPs, proposals, and pitch summaries.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                            <div>
+                                <span class="font-bold text-slate-100">Conversational AI Advisor:</span>
+                                <span class="text-slate-300 block text-[11px]">Context-aware guidance with memory of your academic track.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Future Scope Clarification -->
+                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                        <span>WhatsApp Notification Channel:</span>
+                        <span class="text-amber-400 font-semibold">Future Scope / Roadmap</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="step4Error" class="hidden text-xs font-semibold text-rose-600 pt-1"></div>
+
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <button type="button" onclick="goToStep(3)" class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+                    &larr; Back
+                </button>
+                <button type="button" 
+                        id="finishOnboardingBtn"
+                        onclick="handleFinishOnboarding()" 
+                        class="px-8 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition flex items-center space-x-2">
+                    <span id="finishBtnText">Finish Profile Setup &rarr;</span>
+                    <span id="finishBtnSpinner" class="hidden w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+// Wizard State (held entirely in memory until Step 4 finish)
+const wizardData = {
+    name: "{{ user.name }}",
+    role: "{{ user.role or 'student' }}",
+    avatarFile: null,
+    avatarUrl: "{{ avatar_url or '' }}",
+    major: "",
+    degree: "Undergraduate BS",
+    semester: "6th Semester",
+    countryPref: "Both",
+    notifPref: "in_app"
+};
+
+let currentStep = 1;
+
+function updateRoleSelection(selectedRole) {
+    wizardData.role = selectedRole;
+    const studentCard = document.getElementById('roleCardStudent');
+    const founderCard = document.getElementById('roleCardFounder');
+
+    if (selectedRole === 'student') {
+        studentCard.className = 'relative flex flex-col p-4 rounded-2xl border-2 border-brand-600 bg-brand-50/50 cursor-pointer transition';
+        founderCard.className = 'relative flex flex-col p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white cursor-pointer transition';
+    } else {
+        founderCard.className = 'relative flex flex-col p-4 rounded-2xl border-2 border-brand-600 bg-brand-50/50 cursor-pointer transition';
+        studentCard.className = 'relative flex flex-col p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white cursor-pointer transition';
+    }
+
+    // Update Step 3 View
+    updateStep3View();
+}
+
+function updateStep3View() {
+    const studentContainer = document.getElementById('studentFieldsContainer');
+    const founderContainer = document.getElementById('founderFieldsContainer');
+    const headerTitle = document.getElementById('step3HeaderTitle');
+    const headerDesc = document.getElementById('step3HeaderDesc');
+
+    if (wizardData.role === 'founder') {
+        headerTitle.innerText = 'Step 3: Core Startup Details';
+        headerDesc.innerText = 'Specify your startup domain, maturity stage, and target funding amount.';
+        studentContainer.classList.add('hidden');
+        founderContainer.classList.remove('hidden');
+    } else {
+        headerTitle.innerText = 'Step 3: Core Academic Details';
+        headerDesc.innerText = 'Specify your core discipline, degree level, and semester.';
+        founderContainer.classList.add('hidden');
+        studentContainer.classList.remove('hidden');
+    }
+}
+
+function setWizardMajor(val) {
+    const input = document.getElementById('wizardStudentMajor');
+    if (input) {
+        input.value = val;
+        input.focus();
+    }
+}
+
+function setWizardDomain(val) {
+    const input = document.getElementById('wizardFounderDomain');
+    if (input) {
+        input.value = val;
+        input.focus();
+    }
+}
+
+function handleWizardAvatarSelect(event) {
+    const file = event.target.files[0];
+    const errorEl = document.getElementById('wizardAvatarError');
+    if (!file) return;
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+        errorEl.innerText = 'Please select a valid image file (JPG, PNG, or WEBP).';
+        errorEl.classList.remove('hidden');
+        event.target.value = '';
+        return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+        errorEl.innerText = 'File size exceeds 2MB limit. Please select a smaller photo.';
+        errorEl.classList.remove('hidden');
+        event.target.value = '';
+        return;
+    }
+
+    errorEl.classList.add('hidden');
+    wizardData.avatarFile = file;
+
+    // Client-side instant live preview
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const previewImg = document.getElementById('wizardAvatarPreviewImg');
+        const previewInitials = document.getElementById('wizardAvatarPreviewInitials');
+        const removeBtn = document.getElementById('wizardRemovePhotoBtn');
+
+        previewImg.src = e.target.result;
+        previewImg.classList.remove('hidden');
+        previewInitials.classList.add('hidden');
+        if (removeBtn) removeBtn.classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+}
+
+function handleWizardAvatarClear() {
+    wizardData.avatarFile = null;
+    wizardData.avatarUrl = '';
+    const fileInput = document.getElementById('wizardAvatarInput');
+    if (fileInput) fileInput.value = '';
+
+    const previewImg = document.getElementById('wizardAvatarPreviewImg');
+    const previewInitials = document.getElementById('wizardAvatarPreviewInitials');
+    const removeBtn = document.getElementById('wizardRemovePhotoBtn');
+
+    if (previewImg) {
+        previewImg.src = '';
+        previewImg.classList.add('hidden');
+    }
+    if (previewInitials) previewInitials.classList.remove('hidden');
+    if (removeBtn) removeBtn.classList.add('hidden');
+}
+
+function skipAvatarAndContinue() {
+    handleWizardAvatarClear();
+    goToStep(3);
+}
+
+function goToStep(stepNum) {
+    // Step 1 Validation
+    if (currentStep === 1 && stepNum > 1) {
+        const nameVal = document.getElementById('wizardName').value.trim();
+        const errEl = document.getElementById('step1Error');
+        if (!nameVal) {
+            errEl.innerText = 'Please enter your full name.';
+            errEl.classList.remove('hidden');
+            return;
+        }
+        errEl.classList.add('hidden');
+        wizardData.name = nameVal;
+    }
+
+    // Step 3 Validation
+    if (currentStep === 3 && stepNum > 3) {
+        const errEl = document.getElementById('step3Error');
+        if (wizardData.role === 'founder') {
+            const domainVal = document.getElementById('wizardFounderDomain').value.trim();
+            if (!domainVal) {
+                errEl.innerText = 'Please enter your startup domain or industry.';
+                errEl.classList.remove('hidden');
+                return;
+            }
+            errEl.classList.add('hidden');
+            wizardData.major = domainVal;
+            wizardData.degree = document.getElementById('wizardFounderStage').value;
+            wizardData.semester = document.getElementById('wizardFounderFunding').value;
+        } else {
+            const majorVal = document.getElementById('wizardStudentMajor').value.trim();
+            if (!majorVal) {
+                errEl.innerText = 'Please enter your major or field of study.';
+                errEl.classList.remove('hidden');
+                return;
+            }
+            errEl.classList.add('hidden');
+            wizardData.major = majorVal;
+            wizardData.degree = document.getElementById('wizardStudentDegree').value;
+            wizardData.semester = document.getElementById('wizardStudentSemester').value;
+        }
+    }
+
+    // Hide all steps
+    document.querySelectorAll('.wizard-step').forEach(el => el.classList.add('hidden'));
+
+    // Show selected step
+    const targetStep = document.getElementById(`wizardStep${stepNum}`);
+    if (targetStep) targetStep.classList.remove('hidden');
+
+    currentStep = stepNum;
+
+    // Update progress bar & labels
+    const progressPcts = { 1: 25, 2: 50, 3: 75, 4: 100 };
+    const stepTitles = {
+        1: 'Basic Information',
+        2: 'Profile Picture',
+        3: wizardData.role === 'founder' ? 'Startup Details' : 'Academic Focus',
+        4: 'Preferences & Notifications'
+    };
+
+    document.getElementById('stepProgressLabel').innerText = `Step ${stepNum} of 4`;
+    document.getElementById('stepProgressTitle').innerText = stepTitles[stepNum];
+    document.getElementById('stepProgressPct').innerText = `${progressPcts[stepNum]}%`;
+    document.getElementById('stepProgressBar').style.width = `${progressPcts[stepNum]}%`;
+
+    // Update pill indicators
+    for (let i = 1; i <= 4; i++) {
+        const pill = document.getElementById(`stepIndicator${i}`);
+        if (i === stepNum) {
+            pill.className = 'py-1 px-2 rounded-xl text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200';
+        } else if (i < stepNum) {
+            pill.className = 'py-1 px-2 rounded-xl text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
+        } else {
+            pill.className = 'py-1 px-2 rounded-xl text-[11px] font-semibold text-slate-400 bg-slate-50 border border-transparent';
+        }
+    }
+}
+
+async function handleFinishOnboarding() {
+    const btn = document.getElementById('finishOnboardingBtn');
+    const btnText = document.getElementById('finishBtnText');
+    const spinner = document.getElementById('finishBtnSpinner');
+    const errorEl = document.getElementById('step4Error');
+
+    btn.disabled = true;
+    btnText.innerText = 'Finalizing profile...';
+    spinner.classList.remove('hidden');
+    errorEl.classList.add('hidden');
+
+    wizardData.countryPref = document.getElementById('wizardCountryPref').value;
+    wizardData.notifPref = document.querySelector('input[name="wizardNotifPref"]:checked')?.value || 'in_app';
+
+    try {
+        let uploadedAvatarUrl = wizardData.avatarUrl;
+
+        // 1. If user selected an avatar file in Step 2, upload now
+        if (wizardData.avatarFile) {
+            const formData = new FormData();
+            formData.append('avatar', wizardData.avatarFile);
+
+            const uploadRes = await fetch('/api/auth/profile/avatar', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (uploadRes.ok) {
+                const uploadData = await uploadRes.json();
+                if (uploadData.success && uploadData.avatar_url) {
+                    uploadedAvatarUrl = uploadData.avatar_url;
+                }
+            }
+        }
+
+        // 2. Perform atomic profile setup write
+        const payload = {
+            name: wizardData.name,
+            role: wizardData.role,
+            avatar_url: uploadedAvatarUrl,
+            major_domain: wizardData.major,
+            degree_level_stage: wizardData.degree,
+            semester_or_funding: wizardData.semester,
+            country_preference: wizardData.countryPref,
+            notification_preference: wizardData.notifPref
+        };
+
+        const res = await fetch('/api/auth/profile/onboarding', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            btnText.innerText = 'Profile Ready! Redirecting...';
+            setTimeout(() => {
+                window.location.href = data.redirect_url || '/dashboard';
+            }, 600);
+        } else {
+            const err = data.detail || 'Could not complete profile setup. Please try again.';
+            errorEl.innerText = err;
+            errorEl.classList.remove('hidden');
+            btn.disabled = false;
+            btnText.innerText = 'Finish Profile Setup \u2192';
+            spinner.classList.add('hidden');
+        }
+    } catch (err) {
+        errorEl.innerText = 'A network error occurred while finalizing setup.';
+        errorEl.classList.remove('hidden');
+        btn.disabled = false;
+        btnText.innerText = 'Finish Profile Setup \u2192';
+        spinner.classList.add('hidden');
+    }
+}
+</script>
+{% endblock %}

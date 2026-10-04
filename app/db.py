@@ -93,9 +93,13 @@ def get_profile_by_user_id(user_id: str) -> Optional[Dict[str, Any]]:
     """Query user profile from Supabase public.profiles."""
     return supabase_service.get_profile_by_user_id(user_id)
 
-def update_user_details(user_id: str, name: Optional[str] = None, email: Optional[str] = None) -> Optional[Dict[str, Any]]:
-    """Update user name and email in Supabase public.users."""
-    return supabase_service.update_user_details(user_id=user_id, name=name, email=email)
+def update_user_details(user_id: str, name: Optional[str] = None, email: Optional[str] = None, role: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    """Update user name, email, and role in Supabase public.users."""
+    return supabase_service.update_user_details(user_id=user_id, name=name, email=email, role=role)
+
+def calculate_profile_completion_pct(user: Optional[Dict[str, Any]], profile: Optional[Dict[str, Any]]) -> int:
+    """Calculate profile completion percentage directly via SupabaseService."""
+    return supabase_service.calculate_profile_completion_pct(user=user or {}, profile=profile)
 
 def upload_avatar(user_id: str, file_bytes: bytes, file_ext: str, content_type: str = "image/png") -> str:
     """Upload user avatar directly to Supabase Storage."""
