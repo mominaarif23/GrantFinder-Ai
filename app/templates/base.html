@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -41,7 +42,18 @@
                     }
                 }
             }
-        }
+        };
+        (function() {
+            try {
+                var storedTheme = localStorage.getItem('grantfinder_theme') || localStorage.getItem('theme');
+                var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (storedTheme === 'dark' || (!storedTheme && systemDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch(e) {}
+        })();
     </script>
     <link rel="stylesheet" href="/static/css/custom.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,10 +183,11 @@
 
                         <!-- User Profile (Single-Line Display, No Column Wrap) -->
                         <div class="flex items-center space-x-2 pl-2 border-l border-slate-200 shrink-0">
+                            {% set effective_nav_avatar = (user and user.avatar_url) or avatar_url or (profile and profile.avatar_url) or '' %}
                             <a href="/profile" class="flex items-center space-x-2 hover:opacity-85 transition group" title="Account & Profile Settings">
                                 <div id="navUserAvatarContainer" class="relative shrink-0">
-                                    <img id="navUserAvatarImg" src="{{ user.avatar_url or '' }}" alt="{{ user.name }}" class="{% if not user.avatar_url %}hidden{% endif %} w-8 h-8 rounded-xl object-cover ring-1 ring-slate-200 shadow-xs">
-                                    <div id="navUserAvatarInitials" class="{% if user.avatar_url %}hidden{% endif %} w-8 h-8 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center shadow-xs">
+                                    <img id="navUserAvatarImg" src="{{ effective_nav_avatar }}" alt="{{ user.name }}" class="{% if not effective_nav_avatar %}hidden{% endif %} w-8 h-8 rounded-xl object-cover ring-1 ring-slate-200 shadow-xs">
+                                    <div id="navUserAvatarInitials" class="{% if effective_nav_avatar %}hidden{% endif %} w-8 h-8 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center shadow-xs">
                                         {{ user.name[:2]|upper }}
                                     </div>
                                 </div>
@@ -194,6 +207,18 @@
                             <span class="ml-1.5 font-normal text-brand-200">&rarr;</span>
                         </a>
                     {% endif %}
+
+                    <!-- Dark / Light Theme Toggle Button -->
+                    <button id="themeToggleBtn" onclick="toggleThemeMode()" class="p-2 sm:p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-amber-300 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700 shrink-0" title="Toggle Light / Dark Theme" aria-label="Toggle theme">
+                        <!-- Sun icon (shown when dark mode is active) -->
+                        <svg id="themeSunIcon" class="w-5 h-5 hidden text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <!-- Moon icon (shown when light mode is active) -->
+                        <svg id="themeMoonIcon" class="w-5 h-5 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
 
                     <!-- Mobile Menu Hamburger Button -->
                     <button onclick="toggleMobileNav()" id="mobileNavToggleBtn" class="xl:hidden p-2 sm:p-2.5 rounded-xl text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition border border-slate-200 shrink-0">
@@ -223,8 +248,8 @@
                     <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                         <a href="/profile" class="flex items-center space-x-2.5 hover:opacity-85 transition">
                             <div class="relative shrink-0">
-                                <img id="drawerUserAvatarImg" src="{{ user.avatar_url or '' }}" alt="{{ user.name }}" class="{% if not user.avatar_url %}hidden{% endif %} w-9 h-9 rounded-xl object-cover ring-1 ring-slate-200 shadow-xs">
-                                <div id="drawerUserAvatarInitials" class="{% if user.avatar_url %}hidden{% endif %} w-9 h-9 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center">
+                                <img id="drawerUserAvatarImg" src="{{ effective_nav_avatar }}" alt="{{ user.name }}" class="{% if not effective_nav_avatar %}hidden{% endif %} w-9 h-9 rounded-xl object-cover ring-1 ring-slate-200 shadow-xs">
+                                <div id="drawerUserAvatarInitials" class="{% if effective_nav_avatar %}hidden{% endif %} w-9 h-9 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center">
                                     {{ user.name[:2]|upper }}
                                 </div>
                             </div>
@@ -276,6 +301,14 @@
                     <a href="/register?role=student" class="text-center py-2.5 rounded-xl bg-brand-700 text-white font-bold text-xs shadow-xs hover:bg-brand-800 transition">Student Scholarships Track &rarr;</a>
                     <a href="/register?role=founder" class="text-center py-2.5 rounded-xl bg-white text-emerald-800 font-bold text-xs border border-emerald-300 hover:bg-emerald-50 transition">Founder Grants Track &rarr;</a>
                 {% endif %}
+
+                <!-- Theme Toggle Button in Mobile Drawer -->
+                <button onclick="toggleThemeMode()" class="w-full text-center py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 transition flex items-center justify-center space-x-2">
+                    <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <span id="mobileThemeText">Toggle Light / Dark Mode</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -434,7 +467,7 @@
         window.SUPABASE_KEY = "sb_publishable_TmFlWjB6qeJwMMCY-NXEVQ_u2vt0j6j";
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="if(window.supabase){window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);}"></script>
-    <script src="/static/js/app.js?v=3.1"></script>
+    <script src="/static/js/app.js?v=3.2"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

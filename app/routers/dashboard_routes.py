@@ -84,11 +84,14 @@ def student_dashboard_view(request: Request):
         
     notifications = get_user_notifications(user["id"])
     saved = get_saved_opportunities(user["id"])
+    avatar = (profile and profile.get("avatar_url")) or get_avatar_url(user["id"])
+    user["avatar_url"] = avatar
     completion_pct = profile.get("completion_pct") or calculate_profile_completion_pct(user, profile)
     
     return templates.TemplateResponse(request=request, name="student_dashboard.html", context={
         "user": user,
         "profile": profile,
+        "avatar_url": avatar,
         "completion_pct": completion_pct,
         "notifications": notifications,
         "saved": saved
@@ -106,11 +109,14 @@ def founder_dashboard_view(request: Request):
         
     notifications = get_user_notifications(user["id"])
     saved = get_saved_opportunities(user["id"])
+    avatar = (profile and profile.get("avatar_url")) or get_avatar_url(user["id"])
+    user["avatar_url"] = avatar
     completion_pct = profile.get("completion_pct") or calculate_profile_completion_pct(user, profile)
     
     return templates.TemplateResponse(request=request, name="founder_dashboard.html", context={
         "user": user,
         "profile": profile,
+        "avatar_url": avatar,
         "completion_pct": completion_pct,
         "notifications": notifications,
         "saved": saved
@@ -122,12 +128,15 @@ def admin_dashboard_view(request: Request):
     if not user or user.get("role") != "admin":
         return RedirectResponse(url="/login?error=admin_required", status_code=302)
     
+    avatar = get_avatar_url(user["id"])
+    user["avatar_url"] = avatar
     analytics = get_platform_analytics()
     curated_items = list_curated_opportunities()
     users_list = list_all_users()
     
     return templates.TemplateResponse(request=request, name="admin_dashboard.html", context={
         "user": user,
+        "avatar_url": avatar,
         "analytics": analytics,
         "curated": curated_items,
         "users": users_list

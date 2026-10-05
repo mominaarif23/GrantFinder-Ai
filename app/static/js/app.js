@@ -3,6 +3,49 @@
 let currentSelectedCard = null;
 
 // ==============================================================================
+// Theme Toggle & State Synchronization (Light / Dark Mode)
+// ==============================================================================
+
+function syncThemeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const sunIcon = document.getElementById('themeSunIcon');
+    const moonIcon = document.getElementById('themeMoonIcon');
+    const mobileThemeText = document.getElementById('mobileThemeText');
+
+    if (sunIcon && moonIcon) {
+        if (isDark) {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        } else {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        }
+    }
+
+    if (mobileThemeText) {
+        mobileThemeText.textContent = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    }
+}
+
+function toggleThemeMode() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    const newTheme = isDark ? 'dark' : 'light';
+    try {
+        localStorage.setItem('grantfinder_theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    } catch (e) {}
+
+    syncThemeIcons();
+    showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled', 'info');
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncThemeIcons);
+} else {
+    syncThemeIcons();
+}
+
+// ==============================================================================
 // Notification Dropdown & Toasts
 // ==============================================================================
 

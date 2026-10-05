@@ -72,3 +72,243 @@
         padding-right: 2.5rem;
     }
 }
+
+/* ==============================================================================
+   Institutional Night / Dark Mode Architecture
+   ============================================================================== */
+
+html.dark {
+    color-scheme: dark;
+}
+
+html.dark,
+html.dark body {
+    background-color: #030712 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Atmospheric Backdrop in Dark Mode */
+html.dark #dynamicAtmosphere > div:last-child {
+    background: linear-gradient(to bottom, rgba(3, 7, 18, 0.94), rgba(15, 23, 42, 0.90), rgba(3, 7, 18, 0.98)) !important;
+}
+
+html.dark #atmosphereImage {
+    opacity: 0.14 !important;
+    filter: saturate(110%) brightness(0.85) !important;
+}
+
+/* Bottom-Left Country Landmark Badge in Dark Mode */
+html.dark #atmosphereBadge {
+    background-color: rgba(15, 23, 42, 0.92) !important;
+    border-color: rgba(51, 65, 85, 0.8) !important;
+    color: #cbd5e1 !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark #atmosphereBadge #atmosphereCountry {
+    color: #f8fafc !important;
+}
+
+html.dark #atmosphereBadge #atmosphereLandmark {
+    color: #94a3b8 !important;
+}
+
+/* Navigation Bar */
+html.dark nav {
+    background-color: rgba(11, 19, 41, 0.95) !important;
+    border-color: #1e293b !important;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark nav a {
+    color: #94a3b8;
+}
+
+html.dark nav a:hover {
+    color: #f8fafc !important;
+    background-color: rgba(30, 41, 59, 0.8) !important;
+}
+
+/* Mobile Nav Drawer */
+html.dark #mobileNavDrawer {
+    background-color: rgba(11, 19, 41, 0.98) !important;
+    border-color: #1e293b !important;
+}
+
+html.dark #mobileNavDrawer a {
+    background-color: #0f172a !important;
+    border-color: #1e293b !important;
+    color: #cbd5e1 !important;
+}
+
+html.dark #mobileNavDrawer button {
+    border-color: #1e293b !important;
+}
+
+/* Base Surfaces & Cards */
+html.dark .bg-white {
+    background-color: #0f172a !important;
+    color: #e2e8f0;
+}
+
+html.dark .bg-slate-50 {
+    background-color: #030712 !important;
+}
+
+html.dark .bg-slate-100 {
+    background-color: #1e293b !important;
+}
+
+html.dark .bg-slate-200 {
+    background-color: #334155 !important;
+}
+
+/* Borders */
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-200\/90 {
+    border-color: #1e293b !important;
+}
+
+html.dark .border-slate-300 {
+    border-color: #334155 !important;
+}
+
+/* Typography Overrides */
+html.dark .text-navy-900 {
+    color: #f8fafc !important;
+}
+
+html.dark .text-slate-900 {
+    color: #f1f5f9 !important;
+}
+
+html.dark .text-slate-800 {
+    color: #e2e8f0 !important;
+}
+
+html.dark .text-slate-700 {
+    color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-600 {
+    color: #94a3b8 !important;
+}
+
+html.dark .text-slate-500 {
+    color: #64748b !important;
+}
+
+html.dark .text-slate-400 {
+    color: #94a3b8 !important;
+}
+
+/* Soft Badges & Category Pills in Dark Mode */
+html.dark .bg-brand-50 {
+    background-color: rgba(30, 58, 138, 0.28) !important;
+    border-color: rgba(59, 130, 246, 0.35) !important;
+    color: #93c5fd !important;
+}
+
+html.dark .bg-emerald-50 {
+    background-color: rgba(6, 95, 70, 0.28) !important;
+    border-color: rgba(16, 185, 129, 0.35) !important;
+    color: #6ee7b7 !important;
+}
+
+html.dark .bg-amber-50 {
+    background-color: rgba(120, 53, 15, 0.28) !important;
+    border-color: rgba(245, 158, 11, 0.35) !important;
+    color: #fde68a !important;
+}
+
+html.dark .bg-rose-50 {
+    background-color: rgba(136, 19, 55, 0.28) !important;
+    border-color: rgba(244, 63, 94, 0.35) !important;
+    color: #fda4af !important;
+}
+
+html.dark .text-brand-700 {
+    color: #93c5fd !important;
+}
+
+html.dark .text-emerald-800,
+html.dark .text-emerald-700 {
+    color: #6ee7b7 !important;
+}
+
+html.dark .text-amber-900,
+html.dark .text-amber-800 {
+    color: #fde68a !important;
+}
+
+html.dark .text-rose-700,
+html.dark .text-rose-600 {
+    color: #fda4af !important;
+}
+
+/* Glassmorphism Panel in Dark Mode */
+html.dark .glass-panel-light {
+    background: rgba(15, 23, 42, 0.88) !important;
+    border: 1px solid rgba(51, 65, 85, 0.6) !important;
+}
+
+/* Form Controls & Inputs in Dark Mode */
+html.dark input[type="text"],
+html.dark input[type="email"],
+html.dark input[type="password"],
+html.dark input[type="number"],
+html.dark select,
+html.dark textarea {
+    background-color: #0b1329 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+    color: #64748b !important;
+}
+
+html.dark select option {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+/* Dropdowns, Chat Advisor & Modals in Dark Mode */
+html.dark #notifDropdown,
+html.dark #advisorChatWidget,
+html.dark #upgradeModal > div {
+    background-color: #0b1329 !important;
+    border-color: #1e293b !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark #advisorChatMessages {
+    background-color: #030712 !important;
+}
+
+html.dark #advisorChatMessages .bg-white {
+    background-color: #0f172a !important;
+    border-color: #1e293b !important;
+}
+
+html.dark #advisorChatWidget .bg-white {
+    background-color: #0b1329 !important;
+    border-color: #1e293b !important;
+}
+
+/* Dark Mode Scrollbars */
+html.dark ::-webkit-scrollbar-track {
+    background: #030712;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+    background: #334155;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+

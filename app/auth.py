@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, Any
 from fastapi import Request, HTTPException, status, Depends
 from app.config import settings
-from app.db import get_user_by_id
+from app.db import get_user_by_id, get_avatar_url
 
 # ==============================================================================
 # Password Hashing & Verification (Cryptographically secure PBKDF2-HMAC-SHA256)
@@ -77,6 +77,8 @@ def get_current_user_optional(request: Request) -> Optional[Dict[str, Any]]:
     if not payload or "sub" not in payload:
         return None
     user = get_user_by_id(payload["sub"])
+    if user:
+        user["avatar_url"] = get_avatar_url(user["id"])
     return user
 
 def get_current_user(request: Request) -> Dict[str, Any]:

@@ -117,6 +117,40 @@ def test_profile_view_and_details_update(auth_user):
     assert data["profile"]["major_domain"] == "Biomedical Engineering"
     assert data["profile"]["degree_level_stage"] == "Doctoral PhD"
 
+def test_portal_navbar_avatar_persistence(auth_user):
+    """Ensure user avatar picture remains visible in navbar when returning to student or founder portals."""
+    client.cookies.set("access_token", auth_user["token"])
+    
+    # 1. Upload valid avatar
+    dummy_img = b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xb4\x00\x00\x00\x00IEND\xaeB`\x82"
+    upload_res = client.post("/api/auth/profile/avatar", files={"file": ("avatar.png", io.BytesIO(dummy_img), "image/png")})
+    assert upload_res.status_code == 200
+    avatar_url = upload_res.json()["avatar_url"]
+    assert avatar_url
+    
+    # 2. Complete onboarding profile so dashboard allows access
+    client.post("/api/auth/profile/onboarding", json={
+        "name": auth_user["user"]["name"],
+        "role": "student",
+        "avatar_url": avatar_url,
+        "major_domain": "Computer Science",
+        "degree_level_stage": "Undergraduate BS",
+        "semester_or_funding": "6th Semester",
+        "country_preference": "Both",
+        "notification_preference": "in_app"
+    })
+    
+    # 3. Check /profile renders avatar image
+    profile_res = client.get("/profile")
+    assert profile_res.status_code == 200
+    assert avatar_url in profile_res.text
+    
+    # 4. Check /dashboard/student renders avatar image in navbar and does NOT hide it
+    student_res = client.get("/dashboard/student")
+    assert student_res.status_code == 200
+    assert avatar_url in student_res.text
+    assert f'src="{avatar_url}"' in student_res.text
+
 # ==============================================================================
 # Module B: Universal Major & Domain Matching Engine (4 Unseen Domains)
 # ==============================================================================
@@ -249,3 +283,48 @@ def test_resend_confirmation_endpoint(auth_user):
     assert res.status_code == 200
     assert res.json()["success"] is True
     assert "dispatched" in res.json()["message"]
+
+
+def test_dark_mode_theme_toggle_elements_and_markup(auth_user):
+    """
+    Verify that Dark Mode (Night Theme) elements and configuration are present:
+    1. Tailwind config includes darkMode: 'class'.
+    2. Theme toggle button (#themeToggleBtn) and sun/moon SVG icons exist in navbar.
+    3. Mobile theme toggle button exists in mobile drawer.
+    4. Inline FOUC prevention script is in <head>.
+    5. Custom CSS contains institutional dark mode rules.
+    6. App.js contains toggleThemeMode and syncThemeIcons handlers.
+    """
+    # 1. Landing page check
+    landing_res = client.get("/")
+    assert landing_res.status_code == 200
+    landing_html = landing_res.text
+    assert "darkMode: 'class'" in landing_html
+    assert 'id="themeToggleBtn"' in landing_html
+    assert 'id="themeSunIcon"' in landing_html
+    assert 'id="themeMoonIcon"' in landing_html
+    assert "toggleThemeMode()" in landing_html
+    assert "grantfinder_theme" in landing_html
+
+    # 2. Portal & Profile check
+    client.cookies.set("access_token", auth_user["token"])
+    profile_res = client.get("/profile")
+    assert profile_res.status_code == 200
+    assert 'id="themeToggleBtn"' in profile_res.text
+
+    portal_res = client.get("/dashboard/student")
+    assert portal_res.status_code == 200
+    assert 'id="themeToggleBtn"' in portal_res.text
+
+    # 3. CSS dark mode rules check
+    css_res = client.get("/static/css/custom.css")
+    assert css_res.status_code == 200
+    assert "html.dark" in css_res.text
+    assert "color-scheme: dark" in css_res.text
+
+    # 4. JS theme toggle script check
+    js_res = client.get("/static/js/app.js")
+    assert js_res.status_code == 200
+    assert "function toggleThemeMode" in js_res.text
+    assert "function syncThemeIcons" in js_res.text
+
