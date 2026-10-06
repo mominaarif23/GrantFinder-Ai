@@ -445,8 +445,8 @@
         <div id="advisorChatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50/60">
             <!-- Initial Greeting -->
             <div class="flex items-start space-x-2">
-                <div class="w-6 h-6 rounded-lg bg-navy-900 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                    G
+                <div class="w-6 h-6 rounded-lg bg-navy-950 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
+                    <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
                 </div>
                 <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed">
                     Hello! I am your GrantFinder AI Advisor. I help students discover fully funded scholarships and help student founders secure startup innovation grants. What academic field or venture domain are you pursuing?
@@ -474,7 +474,7 @@
         window.SUPABASE_KEY = "sb_publishable_TmFlWjB6qeJwMMCY-NXEVQ_u2vt0j6j";
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="if(window.supabase){window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);}"></script>
-    <script src="/static/js/app.js?v=3.4"></script>
+    <script src="/static/js/app.js?v=3.5"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

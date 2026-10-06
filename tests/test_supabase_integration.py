@@ -90,7 +90,7 @@ async def test_supabase_freemium_notification_channels():
     free_notifs = supabase_service.get_user_notifications(user_id)
     free_channels = [n.get("channel") for n in free_notifs]
     assert "in_app" in free_channels, "in_app channel missing for free user"
-    assert "email" in free_channels, "email channel missing for free user"
+    assert "email" not in free_channels, "email channel should be restricted to premium users"
     assert "whatsapp" not in free_channels, "whatsapp should NOT be recorded for free user"
 
     # Upgrade to premium

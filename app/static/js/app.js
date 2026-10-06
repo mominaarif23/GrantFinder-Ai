@@ -1047,8 +1047,8 @@ function appendAdvisorMessage(role, text) {
         `;
     } else {
         row.innerHTML = `
-            <div class="w-6 h-6 rounded-lg bg-navy-950 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                G
+            <div class="w-6 h-6 rounded-lg bg-navy-950 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
+                <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
             </div>
             <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed text-xs">
                 ${escapeHtml(text)}
@@ -1068,8 +1068,8 @@ function appendAdvisorTyping(id) {
     row.id = id;
     row.className = 'flex items-start space-x-2';
     row.innerHTML = `
-        <div class="w-6 h-6 rounded-lg bg-navy-950 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-            G
+        <div class="w-6 h-6 rounded-lg bg-navy-950 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
+            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
         </div>
         <div class="bg-white px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 text-slate-400 text-xs flex items-center space-x-1">
             <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>
@@ -1191,8 +1191,8 @@ function appendInlineMessage(role, text) {
         `;
     } else {
         row.innerHTML = `
-            <div class="w-6 h-6 rounded-lg bg-navy-950 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                G
+            <div class="w-6 h-6 rounded-lg bg-navy-950 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
+                <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
             </div>
             <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed text-xs">
                 ${escapeHtml(text)}
@@ -1212,8 +1212,8 @@ function appendInlineTyping(id) {
     row.id = id;
     row.className = 'flex items-start space-x-2';
     row.innerHTML = `
-        <div class="w-6 h-6 rounded-lg bg-navy-950 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-            G
+        <div class="w-6 h-6 rounded-lg bg-navy-950 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
+            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
         </div>
         <div class="bg-white px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 text-slate-400 text-xs flex items-center space-x-1">
             <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>

@@ -255,12 +255,19 @@ def test_double_optin_email_gating_and_delivery_lifecycle(auth_user):
     assert confirm_res.status_code in (200, 302)
     assert supabase_service.is_email_subscribed(user_id) is True
 
-    # 4. Dispatch automated alert: Both in_app and email should be recorded
-    notify_user(user_id=user_id, message="Alert 2: Post-confirmation test", event_type="deadline")
-    notifs_2 = supabase_service.get_user_notifications(user_id)
-    channels_2 = [n.get("channel") for n in notifs_2]
-    assert "in_app" in channels_2
-    assert "email" in channels_2, "Email notification suppressed even after opt-in confirmed!"
+    # 4a. Dispatch alert while user is on Free plan: Email channel should remain suppressed
+    notify_user(user_id=user_id, message="Alert 2a: Post-confirmation free plan test", event_type="deadline")
+    notifs_2a = supabase_service.get_user_notifications(user_id)
+    channels_2a = [n.get("channel") for n in notifs_2a]
+    assert "in_app" in channels_2a
+    assert "email" not in channels_2a, "Automated email sent to free user despite premium gate!"
+
+    # 4b. Upgrade user to Premium plan: Email channel should now be active
+    supabase_service.update_user_plan(user_id, "premium")
+    notify_user(user_id=user_id, message="Alert 2b: Post-confirmation premium plan test", event_type="deadline")
+    notifs_2b = supabase_service.get_user_notifications(user_id)
+    channels_2b = [n.get("channel") for n in notifs_2b]
+    assert "email" in channels_2b, "Email notification suppressed for confirmed premium user!"
 
     # 5. User clicks unsubscribe link in notification email
     unsub_token = supabase_service.generate_subscription_token(user_id=user_id, email=email, action="unsubscribe")
@@ -269,8 +276,7 @@ def test_double_optin_email_gating_and_delivery_lifecycle(auth_user):
     assert "Unsubscribed Successfully" in unsub_res.text
     assert supabase_service.is_email_subscribed(user_id) is False
 
-    # 6. Dispatch automated alert again: Email should be suppressed again
-    # Clear notifs or count new email rows
+    # 6. Dispatch automated alert again: Email should be suppressed again despite premium status
     pre_email_count = sum(1 for n in supabase_service.get_user_notifications(user_id) if n.get("channel") == "email")
     notify_user(user_id=user_id, message="Alert 3: Post-unsub test", event_type="match")
     post_email_count = sum(1 for n in supabase_service.get_user_notifications(user_id) if n.get("channel") == "email")

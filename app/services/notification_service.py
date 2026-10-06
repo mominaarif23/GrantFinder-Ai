@@ -259,9 +259,9 @@ def notify_user(
     except Exception:
         pass
 
-    # 2. Email notification - strictly gated behind double opt-in confirmation
+    # 2. Email notification - strictly gated behind double opt-in confirmation AND Premium subscription tier
     if user and user.get("email"):
-        if supabase_service.is_email_subscribed(user_id):
+        if supabase_service.is_email_subscribed(user_id) and user.get("plan") in ("premium", "admin"):
             unsub_token = supabase_service.generate_subscription_token(user_id, user["email"], action="unsubscribe")
             unsub_url = f"https://grantfinder-ai.onrender.com/api/notifications/unsubscribe?token={unsub_token}"
             send_smtp_email(user["email"], subject, message, unsubscribe_url=unsub_url)
@@ -271,7 +271,7 @@ def notify_user(
             except Exception:
                 pass
         else:
-            # Gated: user has not clicked confirmation link
+            # Gated: unconfirmed email OR non-premium plan (automated email alerts work only for Premium users)
             results["email"] = False
 
     # 3. WhatsApp notification - premium users only
