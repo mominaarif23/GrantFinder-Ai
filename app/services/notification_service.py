@@ -15,10 +15,19 @@ def send_smtp_email(
     message: str,
     unsubscribe_url: Optional[str] = None,
     action_url: Optional[str] = None,
-    action_label: Optional[str] = None
+    action_label: Optional[str] = None,
+    otp_code: Optional[str] = None
 ) -> bool:
-    """Send email via SMTP if credentials are configured."""
-    if not recipient_email or not settings.SMTP_USER or not settings.SMTP_PASS:
+    """Send email via SMTP if credentials are configured, with simulated dummy-domain bounce guard."""
+    if not recipient_email:
+        return True
+
+    # Guard against sending actual SMTP traffic to dummy/testing domains to prevent bounces
+    dummy_domains = ("@grantfinder.ai", "@example.com", "@test.com", "@localhost")
+    if any(recipient_email.lower().endswith(d) for d in dummy_domains):
+        return True
+
+    if not settings.SMTP_USER or not settings.SMTP_PASS:
         return True
 
     try:
@@ -27,12 +36,29 @@ def send_smtp_email(
         msg["From"] = settings.NOTIFICATION_EMAIL_FROM
         msg["To"] = recipient_email
 
+        otp_block_html = ""
+        if otp_code:
+            formatted_otp = f"{otp_code[:3]} {otp_code[3:]}" if len(otp_code) == 6 else otp_code
+            otp_block_html = f"""
+            <div style="margin: 28px 0; text-align: center; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 22px;">
+                <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #475569; display: block; margin-bottom: 10px;">
+                    Your 6-Digit Verification Code
+                </span>
+                <div style="display: inline-block; background-color: #0f172a; color: #38bdf8; font-size: 32px; font-weight: 800; letter-spacing: 8px; padding: 14px 32px; border-radius: 12px; font-family: 'SF Mono', 'Courier New', monospace; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    {formatted_otp}
+                </div>
+                <p style="font-size: 11px; color: #64748b; margin: 10px 0 0 0;">
+                    Code is valid for 15 minutes. Never share this code with anyone.
+                </p>
+            </div>
+            """
+
         action_btn_html = ""
         if action_url and action_label:
             action_btn_html = f"""
-            <div style="margin: 25px 0; text-align: center;">
-                <a href="{action_url}" style="background-color: #0f172a; color: #ffffff; padding: 12px 24px; font-weight: bold; font-size: 13px; text-decoration: none; border-radius: 8px; display: inline-block;">
-                    {action_label}
+            <div style="margin: 24px 0; text-align: center;">
+                <a href="{action_url}" style="background-color: #1d4ed8; color: #ffffff; padding: 14px 28px; font-weight: 700; font-size: 13px; text-decoration: none; border-radius: 10px; display: inline-block; box-shadow: 0 4px 10px rgba(29, 78, 216, 0.25);">
+                    {action_label} &rarr;
                 </a>
             </div>
             """
@@ -40,26 +66,51 @@ def send_smtp_email(
         unsub_html = ""
         if unsubscribe_url:
             unsub_html = f"""
-            <p style="font-size: 11px; color: #94a3b8; margin-top: 15px;">
-                You are receiving this automated email because you opted in to GrantFinder AI alerts.
+            <p style="font-size: 11px; color: #94a3b8; margin-top: 15px; line-height: 1.5;">
+                You are receiving this official alert because your email was registered on GrantFinder AI.
                 <br>
-                <a href="{unsubscribe_url}" style="color: #64748b; text-decoration: underline;">Unsubscribe from email notifications</a>
+                <a href="{unsubscribe_url}" style="color: #64748b; text-decoration: underline;">Unsubscribe from notification alerts</a>
             </p>
             """
 
         html_content = f"""
+        <!DOCTYPE html>
         <html>
-            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f8fafc; padding: 20px;">
-                <div style="max-width: 580px; margin: 0 auto; background: #ffffff; padding: 28px; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-                    <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 16px; margin-bottom: 20px; display: flex; align-items: center;">
-                        <h2 style="margin: 0; color: #0f172a; font-size: 18px; font-weight: 800;">GrantFinder AI</h2>
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f1f5f9; padding: 24px 12px; margin: 0;">
+                <div style="max-width: 580px; margin: 0 auto; background: #ffffff; padding: 32px; border: 1px solid #e2e8f0; border-radius: 18px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);">
+                    <!-- Header -->
+                    <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span style="font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">GrantFinder <span style="color: #2563eb;">AI</span></span>
+                            <span style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; margin-top: 2px;">Intelligent Funding Discovery</span>
+                        </div>
+                        <span style="display: inline-block; font-size: 10px; font-weight: 700; background-color: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 9999px; border: 1px solid #bfdbfe;">
+                            Verified Academic Portal
+                        </span>
                     </div>
-                    <h3 style="color: #0f172a; font-size: 16px; margin-top: 0;">{subject}</h3>
-                    <p style="color: #475569; font-size: 13px; line-height: 1.6;">{message}</p>
+
+                    <!-- Main Subject & Body -->
+                    <h2 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 14px 0; letter-spacing: -0.3px;">
+                        {subject}
+                    </h2>
+                    <div style="color: #334155; font-size: 13.5px; line-height: 1.65;">
+                        {message}
+                    </div>
+
+                    {otp_block_html}
+
                     {action_btn_html}
-                    <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 24px 0;">
+
+                    <!-- Footer -->
+                    <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 28px 0 18px 0;">
                     {unsub_html}
-                    <p style="font-size: 11px; color: #94a3b8; margin: 0;">GrantFinder AI &bull; Intelligent Funding Discovery Platform</p>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 12px;">
+                        &copy; 2026 GrantFinder AI &bull; Pakistan & Global Scholarships and Innovation Grants
+                    </div>
                 </div>
             </body>
         </html>
@@ -137,24 +188,25 @@ def send_optin_confirmation_email(
     user_name: str,
     base_url: str = ""
 ) -> bool:
-    """Send one-time double opt-in verification email with secure confirmation button."""
+    """Send one-time double opt-in verification email with secure 6-digit OTP code and confirmation button."""
     token = supabase_service.generate_subscription_token(user_id, recipient_email, action="confirm")
+    otp_code = supabase_service.generate_email_otp(user_id, recipient_email)
     domain = base_url.rstrip('/') if base_url else "https://grantfinder-ai.onrender.com"
     confirm_url = f"{domain}/api/notifications/confirm-email?token={token}"
 
-    subject = "Please Confirm Your Email Notifications"
+    subject = "Verify Your Email & Activate Scholarship Alerts"
     message = (
-        f"Hello {user_name},<br><br>"
-        "Thank you for joining GrantFinder AI. To protect your inbox from unsolicited messages "
-        "and maintain double opt-in compliance, please confirm that you wish to receive "
-        "curated scholarship deadlines, grant match alerts, and application milestone reminders."
+        f"Dear <strong>{user_name}</strong>,<br><br>"
+        "Thank you for joining <strong>GrantFinder AI</strong>. To activate your student scholarship and startup grant "
+        "notifications, please enter your 6-digit verification code below in your profile or click the one-click activation button."
     )
     return send_smtp_email(
         recipient_email=recipient_email,
         subject=subject,
         message=message,
         action_url=confirm_url,
-        action_label="Confirm Email Notifications"
+        action_label="Verify & Activate Email Alerts",
+        otp_code=otp_code
     )
 
 def notify_user(

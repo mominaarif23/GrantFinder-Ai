@@ -328,3 +328,89 @@ def test_dark_mode_theme_toggle_elements_and_markup(auth_user):
     assert "function toggleThemeMode" in js_res.text
     assert "function syncThemeIcons" in js_res.text
 
+
+def test_email_otp_generation_and_verification_flow(auth_user):
+    """
+    Verify 6-digit OTP email verification flow:
+    1. Unverified user initially has email_subscribed == False.
+    2. Resend confirmation dispatches email with a 6-digit numeric OTP.
+    3. Profile page renders 6-digit OTP input (#emailOtpInput) and verify button.
+    4. Submitting invalid OTP returns 400.
+    5. Submitting correct OTP marks email_subscribed == True.
+    """
+    user_id = auth_user["user"]["id"]
+    email = auth_user["email"]
+
+    # 1. Reset subscription to False
+    supabase_service.set_email_subscription(user_id, False)
+    assert supabase_service.is_email_subscribed(user_id) is False
+
+    # 2. Generate OTP
+    otp = supabase_service.generate_email_otp(user_id, email)
+    assert len(otp) == 6
+    assert otp.isdigit()
+
+    # 3. Check profile page markup for OTP controls
+    client.cookies.set("access_token", auth_user["token"])
+    prof_res = client.get("/profile")
+    assert prof_res.status_code == 200
+    assert 'id="emailOtpInput"' in prof_res.text
+    assert 'id="verifyOtpBtn"' in prof_res.text
+
+    # 4. Test invalid OTP submission
+    bad_res = client.post("/api/notifications/verify-otp", json={"otp": "000000"})
+    assert bad_res.status_code == 400
+    assert "Invalid or expired" in bad_res.json()["detail"]
+    assert supabase_service.is_email_subscribed(user_id) is False
+
+    # 5. Test valid OTP submission
+    good_res = client.post("/api/notifications/verify-otp", json={"otp": otp})
+    assert good_res.status_code == 200
+    assert good_res.json()["success"] is True
+    assert supabase_service.is_email_subscribed(user_id) is True
+
+
+def test_smtp_bounce_guard_for_test_domains():
+    """
+    Verify that notification service intercepts dummy/test domains (@grantfinder.ai, @example.com),
+    preventing real SMTP network socket calls and avoiding Mailer-Daemon delivery failure bounce emails.
+    """
+    from app.services.notification_service import send_smtp_email
+    
+    # Should safely return True without throwing or attempting SMTP connection
+    assert send_smtp_email("test.student@grantfinder.ai", "Test Subject", "Test Body") is True
+    assert send_smtp_email("applicant@example.com", "Test Subject", "Test Body") is True
+    assert send_smtp_email("user@test.com", "Test Subject", "Test Body") is True
+
+
+def test_enterprise_footer_elements_and_lines():
+    """
+    Verify that the enhanced enterprise 4-column footer architecture is present:
+    1. Weekly Opportunity Digest newsletter strip with email input and submit button.
+    2. Operational Platform Status indicator badge ("All Systems Operational").
+    3. Opportunity Tracks, Platform Capabilities, and Verified Portals columns.
+    4. Bottom legal disclosures and architectural divider lines.
+    """
+    res = client.get("/")
+    assert res.status_code == 200
+    html = res.text
+
+    # Newsletter / Alert strip
+    assert 'id="footerNewsletterForm"' in html
+    assert 'id="footerNewsletterEmail"' in html
+    assert 'id="footerNewsletterBtn"' in html
+    assert "Weekly Opportunity Digest" in html
+
+    # Operational status
+    assert "All Systems Operational" in html
+
+    # 4 columns & links
+    assert "Opportunity Tracks" in html
+    assert "Platform Capabilities" in html
+    assert "Verified Portals" in html
+    assert "HEC Higher Education Commission" in html
+    assert "Ignite National Technology Fund" in html
+    assert "DAAD Germany Exchange Service" in html
+    assert "Double Opt-In Anti-Spam Guarantee" in html
+
+

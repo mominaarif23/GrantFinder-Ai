@@ -3,6 +3,7 @@ import uuid
 import json
 import httpx
 import jwt
+import secrets
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, List, Optional
 from app.config import settings
@@ -11,6 +12,7 @@ from app.config import settings
 _USER_AVATARS: Dict[str, str] = {}
 _USER_SUBSCRIPTIONS: Dict[str, bool] = {}
 _USER_EXTRA_DETAILS: Dict[str, Dict[str, Any]] = {}
+_EMAIL_OTPS: Dict[str, Dict[str, Any]] = {}
 
 class SupabaseService:
     def __init__(self):
@@ -225,6 +227,45 @@ class SupabaseService:
             return jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         except Exception:
             return None
+
+    def generate_email_otp(self, user_id: str, email: str) -> str:
+        """Generate a secure 6-digit numeric OTP code for email verification (valid for 15 minutes)."""
+        code = f"{secrets.randbelow(900000) + 100000}"
+        expiry = datetime.now(timezone.utc) + timedelta(minutes=15)
+        clean_email = email.strip().lower()
+        entry = {"otp": code, "user_id": user_id, "email": clean_email, "exp": expiry}
+        _EMAIL_OTPS[user_id] = entry
+        _EMAIL_OTPS[clean_email] = entry
+        return code
+
+    def verify_email_otp(self, identifier: str, code: str) -> Optional[str]:
+        """Verify 6-digit OTP code by user_id or email address. Returns user_id if valid, else None."""
+        key = identifier.strip().lower()
+        record = _EMAIL_OTPS.get(key)
+        if not record and identifier in _EMAIL_OTPS:
+            record = _EMAIL_OTPS[identifier]
+        if not record:
+            return None
+
+        if datetime.now(timezone.utc) > record["exp"]:
+            _EMAIL_OTPS.pop(key, None)
+            return None
+
+        clean_code = "".join(ch for ch in code if ch.isdigit())
+        if record["otp"] == clean_code:
+            user_id = record.get("user_id") or key
+            self.set_email_subscription(user_id, True)
+            _EMAIL_OTPS.pop(key, None)
+            return user_id
+        return None
+
+    def get_latest_otp(self, identifier: str) -> Optional[str]:
+        """Return the latest active OTP code for testing and automated validation."""
+        key = identifier.strip().lower()
+        record = _EMAIL_OTPS.get(key) or _EMAIL_OTPS.get(identifier)
+        if record and datetime.now(timezone.utc) <= record["exp"]:
+            return record["otp"]
+        return None
 
     # ==========================================================================
     # Supabase Storage Avatars

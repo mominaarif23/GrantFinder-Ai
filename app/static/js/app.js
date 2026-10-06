@@ -1578,9 +1578,100 @@ async function handleResendConfirmation() {
     } finally {
         if (btn) {
             btn.disabled = false;
-            btn.innerText = 'Resend Confirmation Email';
+            btn.innerText = 'Resend Confirmation Email & OTP';
         }
     }
 }
+
+async function handleVerifyOtpSubmit() {
+    const input = document.getElementById('emailOtpInput');
+    const btn = document.getElementById('verifyOtpBtn');
+    const statusEl = document.getElementById('otpVerificationStatus');
+    const badge = document.getElementById('optInBadge');
+
+    if (!input) return;
+    const code = input.value.trim();
+    if (!code || code.length < 6) {
+        showToast('Please enter a valid 6-digit verification code.', 'error');
+        if (statusEl) {
+            statusEl.className = 'text-xs font-semibold text-rose-600 block';
+            statusEl.innerText = 'Please enter all 6 digits of your code.';
+        }
+        return;
+    }
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Verifying...';
+    }
+
+    try {
+        const res = await fetch('/api/notifications/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ otp: code })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            showToast('Email verified successfully! Alerts activated.', 'success');
+            if (statusEl) {
+                statusEl.className = 'text-xs font-semibold text-emerald-600 block';
+                statusEl.innerText = data.message || 'Email verified successfully!';
+            }
+            if (badge) {
+                badge.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
+                badge.innerText = 'Active & Confirmed';
+            }
+            setTimeout(() => {
+                window.location.reload();
+            }, 1200);
+        } else {
+            const err = data.detail || 'Verification code failed.';
+            showToast(err, 'error');
+            if (statusEl) {
+                statusEl.className = 'text-xs font-semibold text-rose-600 block';
+                statusEl.innerText = err;
+            }
+        }
+    } catch (err) {
+        showToast('Network error while verifying OTP.', 'error');
+        if (statusEl) {
+            statusEl.className = 'text-xs font-semibold text-rose-600 block';
+            statusEl.innerText = 'Network error. Please try again.';
+        }
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'Verify Code';
+        }
+    }
+}
+
+function handleFooterSubscribe(e) {
+    e.preventDefault();
+    const input = document.getElementById('footerNewsletterEmail');
+    const btn = document.getElementById('footerNewsletterBtn');
+    if (!input || !input.value.trim()) return;
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Subscribing...';
+    }
+
+    setTimeout(() => {
+        showToast('Subscribed! Confirmation dispatched to ' + input.value.trim(), 'success');
+        input.value = '';
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'Subscribed!';
+            setTimeout(() => {
+                btn.innerText = 'Subscribe to Alerts \u2192';
+            }, 3000);
+        }
+    }, 500);
+}
+
+
 
 

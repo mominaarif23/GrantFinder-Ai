@@ -250,3 +250,16 @@ def get_platform_analytics() -> Dict[str, Any]:
         "top_countries": top_countries or [{"country": "Pakistan", "cnt": 1}],
         "track_breakdown": track_breakdown or [{"track": "scholarship", "cnt": 1}]
     }
+
+def generate_email_otp(user_id: str, email: str) -> str:
+    """Generate 6-digit email verification OTP."""
+    return supabase_service.generate_email_otp(user_id, email)
+
+def verify_email_otp(identifier: str, code: str) -> Optional[str]:
+    """Verify 6-digit email OTP."""
+    return supabase_service.verify_email_otp(identifier, code)
+
+def get_latest_otp(identifier: str) -> Optional[str]:
+    """Retrieve active OTP for testing."""
+    return supabase_service.get_latest_otp(identifier)
+

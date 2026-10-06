@@ -9,7 +9,8 @@ from app.db import (
     get_platform_analytics, list_curated_opportunities, list_all_users,
     add_curated_opportunity, delete_curated_opportunity, mark_notification_read,
     get_avatar_url, set_email_subscription, is_email_subscribed,
-    verify_subscription_token, get_user_by_id, calculate_profile_completion_pct
+    verify_subscription_token, get_user_by_id, calculate_profile_completion_pct,
+    verify_email_otp
 )
 from app.models import CuratedOpportunityCreate
 from app.services.notification_service import send_optin_confirmation_email
@@ -279,3 +280,28 @@ def resend_confirmation(request: Request, user: Dict[str, Any] = Depends(get_cur
         "success": True,
         "message": "Confirmation email has been dispatched. Please check your inbox."
     }
+
+@router.post("/api/notifications/verify-otp")
+async def verify_otp_endpoint(request: Request):
+    try:
+        data = await request.json()
+    except Exception:
+        data = {}
+        
+    otp_code = str(data.get("otp", "")).strip()
+    user = get_current_user_optional(request)
+    identifier = (user and user.get("id")) or str(data.get("email", "")).strip()
+
+    if not otp_code or not identifier:
+        raise HTTPException(status_code=400, detail="Please provide both a valid 6-digit OTP code and account identifier.")
+
+    verified_user_id = verify_email_otp(identifier, otp_code)
+    if not verified_user_id:
+        raise HTTPException(status_code=400, detail="Invalid or expired 6-digit verification code. Please check your code or request a new one.")
+
+    return {
+        "success": True,
+        "message": "Email notifications confirmed and verified successfully!",
+        "user_id": verified_user_id
+    }
+

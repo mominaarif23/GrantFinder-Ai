@@ -170,12 +170,25 @@
                     </p>
 
                     {% if not email_subscribed %}
+                        <div class="mt-4 pt-4 border-t border-slate-100 space-y-2">
+                            <label class="block text-[11px] font-bold text-slate-700">Verify With 6-Digit OTP Code:</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" id="emailOtpInput" maxlength="6" placeholder="e.g. 582914" 
+                                       class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono tracking-widest text-center text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                                <button type="button" onclick="handleVerifyOtpSubmit()" id="verifyOtpBtn" 
+                                        class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-xs transition shrink-0">
+                                    Verify Code
+                                </button>
+                            </div>
+                            <div id="otpVerificationStatus" class="hidden text-xs font-medium text-center"></div>
+                        </div>
+
                         <div class="pt-2">
                             <button type="button" 
                                     id="resendOptInBtn"
                                     onclick="handleResendConfirmation()"
                                     class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 transition flex items-center justify-center space-x-1.5">
-                                <span>Resend Confirmation Email</span>
+                                <span>Resend Confirmation Email & OTP</span>
                             </button>
                         </div>
                     {% endif %}
