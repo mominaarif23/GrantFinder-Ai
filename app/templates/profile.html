@@ -318,9 +318,11 @@
         <div class="lg:col-span-2">
             <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
                 <div class="border-b border-slate-100 pb-4">
-                    <h2 class="text-base font-bold text-navy-900">Academic & Venture Preferences</h2>
-                    <p class="text-xs text-slate-500 mt-0.5">
-                        These parameters calibrate the live search engine and Google Gemini semantic matching model. Any free-text discipline or domain is fully supported.
+                    <h2 id="profileFormHeaderTitle" class="text-base font-bold text-navy-900">
+                        {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Student Founder Venture Preferences{% else %}Academic & Venture Preferences{% endif %}
+                    </h2>
+                    <p id="profileFormHeaderDesc" class="text-xs text-slate-500 mt-0.5">
+                        {% if (profile and profile.type == 'startup') or user.role == 'founder' %}These parameters calibrate the startup grant discovery engine and Gemini semantic matching model for your venture.{% else %}These parameters calibrate the live search engine and Google Gemini semantic matching model. Any free-text discipline or domain is fully supported.{% endif %}
                     </p>
                 </div>
 
@@ -354,64 +356,99 @@
                         <label for="profileType" class="text-xs font-bold text-navy-900 uppercase tracking-wider">Opportunity Track</label>
                         <select id="profileType" 
                                 name="type" 
+                                onchange="handleProfileTrackChange(this.value)"
                                 class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
-                            <option value="academic" {% if (profile and profile.type == 'academic') or user.role == 'student' %}selected{% endif %}>Academic Track (Scholarships & Fellowships)</option>
-                            <option value="startup" {% if (profile and profile.type == 'startup') or user.role == 'founder' %}selected{% endif %}>Venture Track (Startup Grants & Seed Funds)</option>
+                            <option value="academic" {% if (profile and profile.type == 'academic') or ((not profile or not profile.type) and user.role != 'founder') %}selected{% endif %}>Academic Track (Scholarships & Fellowships)</option>
+                            <option value="startup" {% if (profile and profile.type == 'startup') or ((not profile or not profile.type) and user.role == 'founder') %}selected{% endif %}>Venture Track (Startup Grants & Seed Funds)</option>
                         </select>
                     </div>
 
                     <!-- Universal Discipline / Major / Domain -->
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
-                            <label for="profileMajorDomain" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                Major, Discipline, or Startup Domain
+                            <label id="lblMajorDomain" for="profileMajorDomain" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Startup Domain or Industry Sector{% else %}Major, Discipline, or Startup Domain{% endif %}
                             </label>
                             <span class="text-[11px] text-slate-400 font-medium">Free-text input</span>
                         </div>
                         <input type="text" 
                                id="profileMajorDomain" 
                                name="major_domain" 
-                               value="{{ profile.major_domain if profile else 'Engineering & Computing' }}" 
-                               placeholder="e.g. Biomedical Engineering, Fashion Design, Agritech, FinTech, Data Science" 
+                               value="{{ profile.major_domain if profile else ('FinTech' if user.role == 'founder' else 'Engineering & Computing') }}" 
+                               placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. FinTech, Agritech, ClimateTech, HealthTech, AI & SaaS, EdTech{% else %}e.g. Biomedical Engineering, Fashion Design, Agritech, FinTech, Data Science{% endif %}" 
                                required 
                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
                         
                         <!-- Suggestion Quick Chips -->
-                        <div class="flex items-center flex-wrap gap-1.5 pt-1">
+                        <div id="domainSuggestionsContainer" class="flex items-center flex-wrap gap-1.5 pt-1">
                             <span class="text-[11px] text-slate-400 mr-1">Suggestions:</span>
+                            {% if (profile and profile.type == 'startup') or user.role == 'founder' %}
+                            <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
+                            <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
+                            <button type="button" onclick="setMajorDomain('ClimateTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">ClimateTech</button>
+                            <button type="button" onclick="setMajorDomain('HealthTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">HealthTech</button>
+                            <button type="button" onclick="setMajorDomain('AI & SaaS')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">AI & SaaS</button>
+                            {% else %}
                             <button type="button" onclick="setMajorDomain('Biomedical Engineering')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Biomedical Engineering</button>
                             <button type="button" onclick="setMajorDomain('Fashion Design')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Fashion Design</button>
                             <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
                             <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
                             <button type="button" onclick="setMajorDomain('Computer Science')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Computer Science</button>
+                            {% endif %}
                         </div>
                     </div>
 
                     <!-- Degree Level / Venture Stage -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
-                            <label for="profileDegreeStage" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                Degree Level / Venture Stage
+                            <label id="lblDegreeStage" for="profileDegreeStage" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Venture Maturity Stage{% else %}Degree Level / Stage{% endif %}
                             </label>
                             <input type="text" 
                                    id="profileDegreeStage" 
                                    name="degree_level_stage" 
-                                   value="{{ profile.degree_level_stage if profile else 'Undergraduate BS' }}" 
-                                   placeholder="e.g. Undergraduate BS, Master's, PhD, or Prototype Stage" 
+                                   value="{{ profile.degree_level_stage if profile else ('Prototype / MVP Stage' if user.role == 'founder' else 'Undergraduate BS') }}" 
+                                   placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. Idea Stage, Prototype / MVP Stage, Early Traction, Scaling{% else %}e.g. Undergraduate BS, Master's MS, Doctorate PhD{% endif %}" 
                                    required 
                                    class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                            
+                            <div id="stageQuickChips" class="flex items-center flex-wrap gap-1.5 pt-1">
+                                <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
+                                {% if (profile and profile.type == 'startup') or user.role == 'founder' %}
+                                <button type="button" onclick="setStage('Idea / Concept Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Idea Stage</button>
+                                <button type="button" onclick="setStage('Prototype / MVP Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Prototype Stage</button>
+                                <button type="button" onclick="setStage('Early Traction / Launched')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Launched</button>
+                                {% else %}
+                                <button type="button" onclick="setStage('Undergraduate BS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Undergraduate BS</button>
+                                <button type="button" onclick="setStage('Master\'s MS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Master's MS</button>
+                                <button type="button" onclick="setStage('Doctorate PhD')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Doctorate PhD</button>
+                                {% endif %}
+                            </div>
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="profileGpaFunding" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                CGPA / Funding Target
+                            <label id="lblGpaFunding" for="profileGpaFunding" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Funding Target / Capital Ask{% else %}Current Semester / Academic Standing{% endif %}
                             </label>
                             <input type="text" 
                                    id="profileGpaFunding" 
                                    name="gpa_funding" 
-                                   value="{{ profile.gpa_funding if profile else '3.6 CGPA' }}" 
-                                   placeholder="e.g. 3.7 CGPA or $50,000" 
+                                   value="{{ profile.gpa_funding if profile else ('$25,000 - $100,000' if user.role == 'founder' else '6th Semester') }}" 
+                                   placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. $5,000 - $25,000, $50,000, $100,000+{% else %}e.g. 6th Semester, 3.8 CGPA{% endif %}" 
                                    class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                            
+                            <div id="fundingQuickChips" class="flex items-center flex-wrap gap-1.5 pt-1">
+                                <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
+                                {% if (profile and profile.type == 'startup') or user.role == 'founder' %}
+                                <button type="button" onclick="setFunding('$5,000 - $25,000 (Seed Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$5k - $25k</button>
+                                <button type="button" onclick="setFunding('$25,000 - $100,000 (Venture Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$25k - $100k</button>
+                                <button type="button" onclick="setFunding('$100,000+ (Institutional Round)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$100k+</button>
+                                {% else %}
+                                <button type="button" onclick="setFunding('4th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">4th Semester</button>
+                                <button type="button" onclick="setFunding('6th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">6th Semester</button>
+                                <button type="button" onclick="setFunding('Final Year / 8th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Final Year</button>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
 
@@ -463,57 +500,59 @@
                                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-brand-100 text-brand-800">
                                     Matching Boost
                                 </span>
-                                <h3 class="text-sm font-bold text-navy-900">Complete your profile for better matches (Optional)</h3>
+                                <h3 id="optHeaderTitle" class="text-sm font-bold text-navy-900">
+                                    {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Complete your startup profile for higher grant matching (Optional){% else %}Complete your profile for better matches (Optional){% endif %}
+                                </h3>
                             </div>
-                            <p class="text-xs text-slate-500">
-                                Providing these optional details boosts matching accuracy up to +25 points and verifies institutional and need-based eligibility.
+                            <p id="optHeaderDesc" class="text-xs text-slate-500">
+                                {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Providing these startup details boosts grant match accuracy up to +25 points and verifies incubator, competition, and funding eligibility.{% else %}Providing these optional details boosts matching accuracy up to +25 points and verifies institutional and need-based eligibility.{% endif %}
                             </p>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                            <!-- University / Institution Name -->
+                            <!-- University / Incubator Affiliation -->
                             <div class="space-y-1.5">
-                                <label for="profileUniversity" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                    University / Institution Name
+                                <label id="lblUniversity" for="profileUniversity" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                    {% if (profile and profile.type == 'startup') or user.role == 'founder' %}University / Incubator Affiliation{% else %}University / Institution Name{% endif %}
                                 </label>
                                 <input type="text" 
                                        id="profileUniversity" 
                                        name="university" 
                                        value="{{ (profile and profile.university) or '' }}" 
-                                       placeholder="e.g. NUST, FAST-NUCES, LUMS, University of the Punjab" 
+                                       placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. NUST TIC, NIC, Plan9, LUMS LCE, or Independent{% else %}e.g. NUST, FAST-NUCES, LUMS, University of the Punjab{% endif %}" 
                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                             </div>
 
-                            <!-- CGPA or Percentage -->
+                            <!-- CGPA or Traction Metric -->
                             <div class="space-y-1.5">
-                                <label for="profileCgpa" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                    CGPA or Percentage
+                                <label id="lblCgpa" for="profileCgpa" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                    {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Traction or Revenue Metric{% else %}CGPA or Percentage{% endif %}
                                 </label>
                                 <input type="text" 
                                        id="profileCgpa" 
                                        name="cgpa" 
                                        value="{{ (profile and profile.cgpa) or '' }}" 
-                                       placeholder="e.g. 3.75 or 85%" 
+                                       placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. Pre-Revenue, 200 Beta Users, $1,500 MRR{% else %}e.g. 3.75 or 85%{% endif %}" 
                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                             </div>
 
-                            <!-- City / Region -->
+                            <!-- City / Startup Hub -->
                             <div class="space-y-1.5">
-                                <label for="profileCity" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                    City / Region
+                                <label id="lblCity" for="profileCity" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                    {% if (profile and profile.type == 'startup') or user.role == 'founder' %}City / Startup Hub{% else %}City / Region{% endif %}
                                 </label>
                                 <input type="text" 
                                        id="profileCity" 
                                        name="city" 
                                        value="{{ (profile and profile.city) or '' }}" 
-                                       placeholder="e.g. Lahore, Islamabad, Karachi, Peshawar" 
+                                       placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. Islamabad, Lahore, Karachi, Berlin, London{% else %}e.g. Lahore, Islamabad, Karachi, Peshawar{% endif %}" 
                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                             </div>
 
-                            <!-- Expected Graduation Year -->
+                            <!-- Expected Graduation Year / Launch Year -->
                             <div class="space-y-1.5">
-                                <label for="profileGradYear" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                    Expected Graduation Year
+                                <label id="lblGradYear" for="profileGradYear" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                    {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Target Launch / Funding Milestone Year{% else %}Expected Graduation Year{% endif %}
                                 </label>
                                 <select id="profileGradYear" 
                                         name="grad_year" 
@@ -529,31 +568,31 @@
                                 </select>
                             </div>
 
-                            <!-- Language Proficiency Test Scores -->
+                            <!-- Pitch Deck / Language Scores -->
                             <div class="space-y-1.5">
-                                <label for="profileTestScores" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                    Language Test Scores (IELTS / TOEFL)
+                                <label id="lblTestScores" for="profileTestScores" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                    {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Pitch Deck Link or Product Website URL{% else %}Language Test Scores (IELTS / TOEFL){% endif %}
                                 </label>
                                 <input type="text" 
                                        id="profileTestScores" 
                                        name="test_scores" 
                                        value="{{ (profile and profile.test_scores) or '' }}" 
-                                       placeholder="e.g. IELTS 7.5, TOEFL 100, or Exempt" 
+                                       placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. https://mydeck.com/pitch or https://startup.io{% else %}e.g. IELTS 7.5, TOEFL 100, or Exempt{% endif %}" 
                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                             </div>
 
-                            <!-- Financial Need Status -->
+                            <!-- Funding Model / Financial Need -->
                             <div class="space-y-1.5">
-                                <label for="profileFinancialNeed" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                                    Financial Need Status
+                                <label id="lblFinancialNeed" for="profileFinancialNeed" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                    {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Capital & Grant Model Preference{% else %}Financial Need Status{% endif %}
                                 </label>
                                 <select id="profileFinancialNeed" 
                                         name="financial_need" 
                                         class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                                     {% set current_fn = (profile and profile.financial_need) or 'No' %}
-                                    <option value="No" {% if current_fn == 'No' %}selected{% endif %}>No - Merit-Based Only</option>
-                                    <option value="Yes - Partial Need" {% if current_fn == 'Yes - Partial Need' %}selected{% endif %}>Yes - Partial Financial Need</option>
-                                    <option value="Yes - Full Need" {% if current_fn == 'Yes - Full Need' %}selected{% endif %}>Yes - Full Financial Need (Hardship)</option>
+                                    <option value="No" {% if current_fn == 'No' or current_fn == 'Non-Dilutive Grant Only' %}selected{% endif %}>Non-Dilutive Grant Only (Zero Equity)</option>
+                                    <option value="Yes - Partial Need" {% if current_fn == 'Yes - Partial Need' or current_fn == 'Open to Equity & Grants' %}selected{% endif %}>Open to Both Innovation Grants & Angel/Seed Equity</option>
+                                    <option value="Yes - Full Need" {% if current_fn == 'Yes - Full Need' or current_fn == 'Need Hardship Grant' %}selected{% endif %}>Early Pre-Seed Hardship / Incubation Grant</option>
                                 </select>
                             </div>
                         </div>
@@ -587,5 +626,182 @@ function setMajorDomain(val) {
         input.focus();
     }
 }
+
+function setStage(val) {
+    const input = document.getElementById('profileDegreeStage');
+    if (input) {
+        input.value = val;
+        input.focus();
+    }
+}
+
+function setFunding(val) {
+    const input = document.getElementById('profileGpaFunding');
+    if (input) {
+        input.value = val;
+        input.focus();
+    }
+}
+
+function handleProfileTrackChange(track) {
+    const isStartup = (track === 'startup');
+
+    const headerTitle = document.getElementById('profileFormHeaderTitle');
+    const headerDesc = document.getElementById('profileFormHeaderDesc');
+    if (headerTitle) {
+        headerTitle.innerText = isStartup ? 'Student Founder Venture Preferences' : 'Academic & Venture Preferences';
+    }
+    if (headerDesc) {
+        headerDesc.innerText = isStartup 
+            ? 'These parameters calibrate the startup grant discovery engine and Gemini semantic matching model for your venture.'
+            : 'These parameters calibrate the live search engine and Google Gemini semantic matching model. Any free-text discipline or domain is fully supported.';
+    }
+
+    const domainLabel = document.getElementById('lblMajorDomain');
+    const domainInput = document.getElementById('profileMajorDomain');
+    const domainChips = document.getElementById('domainSuggestionsContainer');
+    if (domainLabel) {
+        domainLabel.innerText = isStartup ? 'Startup Domain or Industry Sector' : 'Major, Discipline, or Startup Domain';
+    }
+    if (domainInput) {
+        domainInput.placeholder = isStartup 
+            ? 'e.g. FinTech, Agritech, ClimateTech, HealthTech, AI & SaaS, EdTech' 
+            : 'e.g. Biomedical Engineering, Fashion Design, Agritech, FinTech, Data Science';
+    }
+    if (domainChips) {
+        if (isStartup) {
+            domainChips.innerHTML = `
+                <span class="text-[11px] text-slate-400 mr-1">Suggestions:</span>
+                <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
+                <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
+                <button type="button" onclick="setMajorDomain('ClimateTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">ClimateTech</button>
+                <button type="button" onclick="setMajorDomain('HealthTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">HealthTech</button>
+                <button type="button" onclick="setMajorDomain('AI & SaaS')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">AI & SaaS</button>
+            `;
+        } else {
+            domainChips.innerHTML = `
+                <span class="text-[11px] text-slate-400 mr-1">Suggestions:</span>
+                <button type="button" onclick="setMajorDomain('Biomedical Engineering')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Biomedical Engineering</button>
+                <button type="button" onclick="setMajorDomain('Fashion Design')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Fashion Design</button>
+                <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
+                <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
+                <button type="button" onclick="setMajorDomain('Computer Science')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Computer Science</button>
+            `;
+        }
+    }
+
+    const degreeLabel = document.getElementById('lblDegreeStage');
+    const degreeInput = document.getElementById('profileDegreeStage');
+    const stageChips = document.getElementById('stageQuickChips');
+    if (degreeLabel) {
+        degreeLabel.innerText = isStartup ? 'Venture Maturity Stage' : 'Degree Level / Stage';
+    }
+    if (degreeInput) {
+        degreeInput.placeholder = isStartup ? 'e.g. Idea Stage, Prototype / MVP Stage, Early Traction, Scaling' : 'e.g. Undergraduate BS, Master\'s MS, Doctorate PhD';
+    }
+    if (stageChips) {
+        if (isStartup) {
+            stageChips.innerHTML = `
+                <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
+                <button type="button" onclick="setStage('Idea / Concept Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Idea Stage</button>
+                <button type="button" onclick="setStage('Prototype / MVP Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Prototype Stage</button>
+                <button type="button" onclick="setStage('Early Traction / Launched')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Launched</button>
+            `;
+        } else {
+            stageChips.innerHTML = `
+                <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
+                <button type="button" onclick="setStage('Undergraduate BS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Undergraduate BS</button>
+                <button type="button" onclick="setStage('Master\'s MS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Master's MS</button>
+                <button type="button" onclick="setStage('Doctorate PhD')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Doctorate PhD</button>
+            `;
+        }
+    }
+
+    const fundingLabel = document.getElementById('lblGpaFunding');
+    const fundingInput = document.getElementById('profileGpaFunding');
+    const fundingChips = document.getElementById('fundingQuickChips');
+    if (fundingLabel) {
+        fundingLabel.innerText = isStartup ? 'Funding Target / Capital Ask' : 'Current Semester / Academic Standing';
+    }
+    if (fundingInput) {
+        fundingInput.placeholder = isStartup ? 'e.g. $5,000 - $25,000, $50,000, $100,000+' : 'e.g. 6th Semester, 3.8 CGPA';
+    }
+    if (fundingChips) {
+        if (isStartup) {
+            fundingChips.innerHTML = `
+                <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
+                <button type="button" onclick="setFunding('$5,000 - $25,000 (Seed Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$5k - $25k</button>
+                <button type="button" onclick="setFunding('$25,000 - $100,000 (Venture Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$25k - $100k</button>
+                <button type="button" onclick="setFunding('$100,000+ (Institutional Round)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$100k+</button>
+            `;
+        } else {
+            fundingChips.innerHTML = `
+                <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
+                <button type="button" onclick="setFunding('4th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">4th Semester</button>
+                <button type="button" onclick="setFunding('6th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">6th Semester</button>
+                <button type="button" onclick="setFunding('Final Year / 8th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Final Year</button>
+            `;
+        }
+    }
+
+    const optHeaderTitle = document.getElementById('optHeaderTitle');
+    const optHeaderDesc = document.getElementById('optHeaderDesc');
+    const lblUniversity = document.getElementById('lblUniversity');
+    const inputUniversity = document.getElementById('profileUniversity');
+    const lblCgpa = document.getElementById('lblCgpa');
+    const inputCgpa = document.getElementById('profileCgpa');
+    const lblCity = document.getElementById('lblCity');
+    const inputCity = document.getElementById('profileCity');
+    const lblGradYear = document.getElementById('lblGradYear');
+    const lblTestScores = document.getElementById('lblTestScores');
+    const inputTestScores = document.getElementById('profileTestScores');
+    const lblFinancialNeed = document.getElementById('lblFinancialNeed');
+
+    if (optHeaderTitle) {
+        optHeaderTitle.innerText = isStartup ? 'Complete your startup profile for higher grant matching (Optional)' : 'Complete your profile for better matches (Optional)';
+    }
+    if (optHeaderDesc) {
+        optHeaderDesc.innerText = isStartup 
+            ? 'Providing these startup details boosts grant match accuracy up to +25 points and verifies incubator, competition, and funding eligibility.'
+            : 'Providing these optional details boosts matching accuracy up to +25 points and verifies institutional and need-based eligibility.';
+    }
+    if (lblUniversity) {
+        lblUniversity.innerText = isStartup ? 'University / Incubator Affiliation' : 'University / Institution Name';
+    }
+    if (inputUniversity) {
+        inputUniversity.placeholder = isStartup ? 'e.g. NUST TIC, NIC, Plan9, LUMS LCE, or Independent' : 'e.g. NUST, FAST-NUCES, LUMS, University of the Punjab';
+    }
+    if (lblCgpa) {
+        lblCgpa.innerText = isStartup ? 'Traction or Revenue Metric' : 'CGPA or Percentage';
+    }
+    if (inputCgpa) {
+        inputCgpa.placeholder = isStartup ? 'e.g. Pre-Revenue, 200 Beta Users, $1,500 MRR' : 'e.g. 3.75 or 85%';
+    }
+    if (lblCity) {
+        lblCity.innerText = isStartup ? 'City / Startup Hub' : 'City / Region';
+    }
+    if (inputCity) {
+        inputCity.placeholder = isStartup ? 'e.g. Islamabad, Lahore, Karachi, Berlin, London' : 'e.g. Lahore, Islamabad, Karachi, Peshawar';
+    }
+    if (lblGradYear) {
+        lblGradYear.innerText = isStartup ? 'Target Launch / Funding Milestone Year' : 'Expected Graduation Year';
+    }
+    if (lblTestScores) {
+        lblTestScores.innerText = isStartup ? 'Pitch Deck Link or Product Website URL' : 'Language Test Scores (IELTS / TOEFL)';
+    }
+    if (inputTestScores) {
+        inputTestScores.placeholder = isStartup ? 'e.g. https://mydeck.com/pitch or https://startup.io' : 'e.g. IELTS 7.5, TOEFL 100, or Exempt';
+    }
+    if (lblFinancialNeed) {
+        lblFinancialNeed.innerText = isStartup ? 'Capital & Grant Model Preference' : 'Financial Need Status';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const trackSelect = document.getElementById('profileType');
+    if (trackSelect) {
+        handleProfileTrackChange(trackSelect.value);
+    }
+});
 </script>
 {% endblock %}

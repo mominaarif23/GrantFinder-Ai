@@ -1448,8 +1448,9 @@ async function handleProfileSubmit(event) {
     if (spinner) spinner.classList.remove('hidden');
     if (feedback) feedback.className = 'text-xs font-medium text-slate-500';
 
+    const currentTrack = document.getElementById('profileType')?.value || 'academic';
     const cgpaVal = document.getElementById('profileCgpa')?.value.trim() || '';
-    if (cgpaVal) {
+    if (cgpaVal && currentTrack === 'academic') {
         const cleanVal = cgpaVal.replace('%', '').trim();
         const num = parseFloat(cleanVal);
         if (!isNaN(num)) {

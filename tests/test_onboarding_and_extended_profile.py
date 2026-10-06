@@ -189,3 +189,59 @@ def test_curated_match_score_boost_with_optional_fields():
     assert "Eligible for need-based priority funding allocation" in joined_reasons
     assert "Academic standing (3.9) meets competitive threshold" in joined_reasons
     assert "Language / standardized test profile verified: TOEFL 105" in joined_reasons
+
+def test_founder_onboarding_renders_startup_step3_by_default():
+    """Ensure that registering as a founder automatically displays Step 3: Core Startup Details."""
+    unique_suffix = uuid.uuid4().hex[:6]
+    email = f"founder_wizard_{unique_suffix}@example.com"
+    user = supabase_service.create_user(
+        name=f"Founder {unique_suffix}",
+        email=email,
+        password_hash="test_pwd_hash",
+        role="founder",
+        plan="free"
+    )
+    token = create_access_token({"sub": user["id"], "role": "founder", "plan": "free"})
+    client.cookies.set("access_token", token)
+
+    res = client.get("/onboarding")
+    assert res.status_code == 200
+    html = res.text
+    # Step 3 must render startup details title and description
+    assert "Step 3: Core Startup Details" in html
+    assert "Specify your startup domain, maturity stage, and target funding amount." in html
+    # Student container must be hidden, founder container must NOT be hidden
+    assert 'id="studentFieldsContainer" class="hidden space-y-4"' in html
+    assert 'id="founderFieldsContainer" class="space-y-4"' in html
+
+def test_founder_profile_management_page_renders_venture_mode():
+    """Ensure that the /profile management page renders tailored venture preferences for founders."""
+    unique_suffix = uuid.uuid4().hex[:6]
+    email = f"founder_prof_{unique_suffix}@example.com"
+    user = supabase_service.create_user(
+        name=f"Founder {unique_suffix}",
+        email=email,
+        password_hash="test_pwd_hash",
+        role="founder",
+        plan="free"
+    )
+    supabase_service.upsert_profile(
+        user_id=user["id"],
+        profile_type="startup",
+        major_or_domain="FinTech",
+        degree_level_or_stage="Prototype / MVP Stage",
+        semester="$25,000 - $100,000",
+        country_preference="Pakistan"
+    )
+    token = create_access_token({"sub": user["id"], "role": "founder", "plan": "free"})
+    client.cookies.set("access_token", token)
+
+    res = client.get("/profile")
+    assert res.status_code == 200
+    html = res.text
+    assert "Student Founder Venture Preferences" in html
+    assert "Startup Domain or Industry Sector" in html
+    assert "Venture Maturity Stage" in html
+    assert "Funding Target / Capital Ask" in html
+    assert "Complete your startup profile for higher grant matching" in html
+    assert "University / Incubator Affiliation" in html
