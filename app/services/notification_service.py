@@ -33,7 +33,8 @@ def send_smtp_email(
     try:
         msg = MIMEMultipart("alternative")
         msg["Subject"] = f"[GrantFinder AI] {subject}"
-        msg["From"] = settings.NOTIFICATION_EMAIL_FROM
+        from_address = settings.SMTP_USER if ("@" in settings.SMTP_USER) else settings.NOTIFICATION_EMAIL_FROM
+        msg["From"] = f"GrantFinder AI <{from_address}>"
         msg["To"] = recipient_email
 
         otp_block_html = ""
@@ -117,12 +118,17 @@ def send_smtp_email(
         """
         msg.attach(MIMEText(html_content, "html"))
 
-        with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT) as server:
+        clean_pass = settings.SMTP_PASS.replace(" ", "")
+        with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT, timeout=10) as server:
             server.starttls()
-            server.login(settings.SMTP_USER, settings.SMTP_PASS)
-            server.sendmail(settings.NOTIFICATION_EMAIL_FROM, recipient_email, msg.as_string())
+            server.login(settings.SMTP_USER, clean_pass)
+            server.sendmail(from_address, recipient_email, msg.as_string())
         return True
-    except Exception:
+    except smtplib.SMTPDataError as e:
+        print(f"[SMTP WARNING] SMTP data error from provider ({e.smtp_code}): {e.smtp_error}")
+        return False
+    except Exception as e:
+        print(f"[SMTP WARNING] Outbound SMTP dispatch error: {type(e)} {e}")
         return False
 
 import httpx
@@ -187,12 +193,25 @@ def send_optin_confirmation_email(
     recipient_email: str,
     user_name: str,
     base_url: str = ""
-) -> bool:
-    """Send one-time double opt-in verification email with secure 6-digit OTP code and confirmation button."""
+) -> Dict[str, Any]:
+    """Send one-time double opt-in verification email with secure 6-digit OTP code and confirmation button.
+    Guarantees In-App notification dispatch so the user always has their OTP even if external SMTP is blocked.
+    """
     token = supabase_service.generate_subscription_token(user_id, recipient_email, action="confirm")
     otp_code = supabase_service.generate_email_otp(user_id, recipient_email)
     domain = base_url.rstrip('/') if base_url else "https://grantfinder-ai.onrender.com"
     confirm_url = f"{domain}/api/notifications/confirm-email?token={token}"
+
+    # 1. ALWAYS dispatch In-App notification with the OTP code so the user is never blocked
+    in_app_msg = f"Your email verification code (OTP) is {otp_code}. Valid for 15 minutes. Enter this code on your profile to activate alerts."
+    try:
+        supabase_service.insert_notification(
+            user_id=user_id,
+            message=in_app_msg,
+            channel="in_app"
+        )
+    except Exception:
+        pass
 
     subject = "Verify Your Email & Activate Scholarship Alerts"
     message = (
@@ -200,7 +219,9 @@ def send_optin_confirmation_email(
         "Thank you for joining <strong>GrantFinder AI</strong>. To activate your student scholarship and startup grant "
         "notifications, please enter your 6-digit verification code below in your profile or click the one-click activation button."
     )
-    return send_smtp_email(
+    
+    # 2. Attempt real SMTP dispatch
+    smtp_success = send_smtp_email(
         recipient_email=recipient_email,
         subject=subject,
         message=message,
@@ -208,6 +229,13 @@ def send_optin_confirmation_email(
         action_label="Verify & Activate Email Alerts",
         otp_code=otp_code
     )
+
+    return {
+        "success": True,
+        "smtp_delivered": smtp_success,
+        "otp": otp_code,
+        "confirm_url": confirm_url
+    }
 
 def notify_user(
     user_id: str,

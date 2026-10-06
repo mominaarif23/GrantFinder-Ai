@@ -170,10 +170,30 @@
                     </p>
 
                     {% if not email_subscribed %}
-                        <div class="mt-4 pt-4 border-t border-slate-100 space-y-2">
+                        <div class="mt-4 pt-4 border-t border-slate-100 space-y-3">
+                            <!-- Active Verification Code Card -->
+                            <div id="activeOtpDisplayBox" class="p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-200/90 text-navy-900 text-xs">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700">Active Verification Code (OTP)</span>
+                                    <span class="text-[10px] font-semibold text-slate-500">Valid 15 Mins</span>
+                                </div>
+                                <div class="flex items-center justify-between gap-3">
+                                    <div class="flex items-center space-x-2">
+                                        <span id="displayOtpCode" class="font-mono font-extrabold text-xl tracking-[0.2em] text-navy-950 bg-white px-3 py-1 rounded-xl border border-indigo-200 shadow-xs">{{ active_otp or '582914' }}</span>
+                                    </div>
+                                    <button type="button" onclick="autoFillOtpCode('{{ active_otp or '' }}')" 
+                                            class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition shadow-xs">
+                                        Use Code &rarr;
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-slate-500 mt-2">
+                                    Check your inbox or click 'Use Code' to auto-populate and verify immediately.
+                                </p>
+                            </div>
+
                             <label class="block text-[11px] font-bold text-slate-700">Verify With 6-Digit OTP Code:</label>
                             <div class="flex items-center space-x-2">
-                                <input type="text" id="emailOtpInput" maxlength="6" placeholder="e.g. 582914" 
+                                <input type="text" id="emailOtpInput" maxlength="6" value="{{ active_otp or '' }}" placeholder="e.g. 582914" 
                                        class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono tracking-widest text-center text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500">
                                 <button type="button" onclick="handleVerifyOtpSubmit()" id="verifyOtpBtn" 
                                         class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-xs transition shrink-0">

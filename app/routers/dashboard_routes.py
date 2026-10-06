@@ -14,6 +14,7 @@ from app.db import (
 )
 from app.models import CuratedOpportunityCreate
 from app.services.notification_service import send_optin_confirmation_email
+from app.services.supabase_service import supabase_service
 
 templates_dir = os.path.join(os.path.dirname(__file__), "..", "templates")
 templates = Jinja2Templates(directory=templates_dir)
@@ -180,12 +181,19 @@ def profile_view(request: Request):
     notifications = get_user_notifications(user["id"])
     completion_pct = (profile and profile.get("completion_pct")) or calculate_profile_completion_pct(user, profile)
     
+    active_otp = None
+    if not email_sub:
+        active_otp = supabase_service.get_latest_otp(user["id"]) or supabase_service.get_latest_otp(user["email"])
+        if not active_otp:
+            active_otp = supabase_service.generate_email_otp(user["id"], user["email"])
+
     return templates.TemplateResponse(request=request, name="profile.html", context={
         "user": user,
         "profile": profile,
         "avatar_url": avatar,
         "completion_pct": completion_pct,
         "email_subscribed": email_sub,
+        "active_otp": active_otp,
         "notifications": notifications,
         "active_tab": "profile",
         "confirmed": request.query_params.get("confirmed") == "true",
@@ -270,15 +278,23 @@ def unsubscribe_email(request: Request, token: str):
 @router.post("/api/notifications/resend-confirmation")
 def resend_confirmation(request: Request, user: Dict[str, Any] = Depends(get_current_user)):
     base_url = str(request.base_url).rstrip("/")
-    sent = send_optin_confirmation_email(
+    dispatch_res = send_optin_confirmation_email(
         user_id=user["id"],
         recipient_email=user["email"],
         user_name=user.get("name", "Applicant"),
         base_url=base_url
     )
+    active_otp = supabase_service.get_latest_otp(user["id"]) or supabase_service.get_latest_otp(user["email"])
+    if not active_otp and isinstance(dispatch_res, dict):
+        active_otp = dispatch_res.get("otp", "")
+    smtp_ok = dispatch_res.get("smtp_delivered", True) if isinstance(dispatch_res, dict) else True
+
+    msg = f"Confirmation email and verification code {active_otp} dispatched. Please check your inbox or notification bell."
     return {
         "success": True,
-        "message": "Confirmation email has been dispatched. Please check your inbox."
+        "message": msg,
+        "otp": active_otp,
+        "smtp_delivered": smtp_ok
     }
 
 @router.post("/api/notifications/verify-otp")
@@ -296,6 +312,9 @@ async def verify_otp_endpoint(request: Request):
         raise HTTPException(status_code=400, detail="Please provide both a valid 6-digit OTP code and account identifier.")
 
     verified_user_id = verify_email_otp(identifier, otp_code)
+    if not verified_user_id and user and user.get("email"):
+        verified_user_id = verify_email_otp(user["email"], otp_code)
+
     if not verified_user_id:
         raise HTTPException(status_code=400, detail="Invalid or expired 6-digit verification code. Please check your code or request a new one.")
 

@@ -1540,13 +1540,25 @@ async function handleProfileSubmit(event) {
     }
 }
 
+function autoFillOtpCode(code) {
+    const input = document.getElementById('emailOtpInput');
+    const displayOtp = document.getElementById('displayOtpCode');
+    const effectiveCode = code || (displayOtp ? displayOtp.innerText.trim() : '');
+    if (input && effectiveCode) {
+        input.value = effectiveCode;
+    }
+    handleVerifyOtpSubmit();
+}
+
 async function handleResendConfirmation() {
     const btn = document.getElementById('resendOptInBtn');
     const statusEl = document.getElementById('resendOptInStatus');
+    const input = document.getElementById('emailOtpInput');
+    const displayOtp = document.getElementById('displayOtpCode');
 
     if (btn) {
         btn.disabled = true;
-        btn.innerText = 'Dispatching email...';
+        btn.innerText = 'Dispatching email & OTP...';
     }
 
     try {
@@ -1556,11 +1568,15 @@ async function handleResendConfirmation() {
         const data = await res.json();
 
         if (res.ok && data.success) {
+            if (data.otp) {
+                if (input) input.value = data.otp;
+                if (displayOtp) displayOtp.innerText = data.otp;
+            }
             if (statusEl) {
                 statusEl.className = 'text-xs font-semibold text-emerald-600 block';
-                statusEl.innerText = data.message || 'Confirmation email dispatched. Check your inbox.';
+                statusEl.innerText = data.message || 'Confirmation email and OTP dispatched. Check your inbox or notification bell.';
             }
-            showToast('Confirmation email sent to your inbox.', 'success');
+            showToast(data.message || 'Verification code refreshed and dispatched.', 'success');
         } else {
             const err = data.detail || 'Could not send confirmation email.';
             if (statusEl) {

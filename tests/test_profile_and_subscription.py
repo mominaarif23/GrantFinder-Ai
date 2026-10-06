@@ -356,6 +356,8 @@ def test_email_otp_generation_and_verification_flow(auth_user):
     assert prof_res.status_code == 200
     assert 'id="emailOtpInput"' in prof_res.text
     assert 'id="verifyOtpBtn"' in prof_res.text
+    assert 'id="activeOtpDisplayBox"' in prof_res.text
+    assert 'id="displayOtpCode"' in prof_res.text
 
     # 4. Test invalid OTP submission
     bad_res = client.post("/api/notifications/verify-otp", json={"otp": "000000"})
