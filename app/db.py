@@ -26,7 +26,7 @@ def init_db():
         supabase_service.create_user(
             name="System Administrator",
             email="admin@grantfinder.ai",
-            password_hash=hash_password("AdminPass123!"),
+            password_hash=hash_password("Pass@123"),
             role="admin",
             plan="premium"
         )
@@ -38,7 +38,7 @@ def init_db():
         u = supabase_service.create_user(
             name="Momina",
             email="momnaaa23@gmail.com",
-            password_hash=hash_password("Password123!"),
+            password_hash=hash_password("Pass@123"),
             role="student",
             plan="premium"
         )

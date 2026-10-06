@@ -114,7 +114,7 @@ def test_admin_portal_flow():
     # 1. Login as default pre-seeded admin
     login_payload = {
         "email": "admin@grantfinder.ai",
-        "password": "AdminPass123!"
+        "password": "Pass@123"
     }
     login_resp = client.post("/api/auth/login", json=login_payload)
     assert login_resp.status_code == 200
