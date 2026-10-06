@@ -371,103 +371,41 @@
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
 
-    <!-- Footer (Enterprise Academic Edition) -->
-    <footer class="w-full border-t border-slate-200 dark:border-slate-800 bg-navy-900 text-white py-16 text-xs relative z-10 mt-auto">
-        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 space-y-12">
+    <!-- Footer (Academic & Innovation Intelligence) -->
+    <footer class="w-full border-t border-slate-200 dark:border-slate-800 bg-navy-950 text-white py-14 text-xs relative z-10 mt-auto">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             
-            <!-- Top Alert & Newsletter Subscription Strip -->
-            <div class="p-6 sm:p-8 rounded-3xl bg-slate-950/80 border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl">
-                <div class="space-y-1 text-center lg:text-left">
-                    <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-brand-900/60 text-brand-300 border border-brand-700/60">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span>Weekly Opportunity Digest</span>
-                    </span>
-                    <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Never miss a scholarship or startup funding deadline.</h3>
-                    <p class="text-xs text-slate-400">Receive vetted weekly cohorts directly from government portals & verified global foundations.</p>
-                </div>
-                <form id="footerNewsletterForm" onsubmit="handleFooterSubscribe(event)" class="w-full lg:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                    <input type="email" id="footerNewsletterEmail" placeholder="Enter your academic or personal email" required
-                           class="w-full sm:w-80 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
-                    <button type="submit" id="footerNewsletterBtn" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-md transition shrink-0 whitespace-nowrap">
-                        Subscribe to Alerts &rarr;
-                    </button>
-                </form>
-            </div>
-
-            <!-- Main 4-Column Architectural Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-4">
-                
-                <!-- Column 1: Brand & Operational Status (Span 4) -->
-                <div class="lg:col-span-4 space-y-4">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-10 mb-12">
+                <!-- Brand & Mission (Left Column) -->
+                <div class="space-y-3 max-w-lg">
                     <div class="flex items-center space-x-3">
                         <img src="/static/img/logo.svg" alt="GrantFinder AI Emblem" class="w-9 h-9 shrink-0">
-                        <div class="flex flex-col">
-                            <span class="font-extrabold text-lg tracking-tight text-white leading-none">GrantFinder <span class="text-brand-400">AI</span></span>
-                            <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400 mt-1">Opportunity Intelligence Platform</span>
-                        </div>
+                        <span class="font-extrabold text-lg tracking-tight text-white">GrantFinder AI</span>
                     </div>
-                    <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
-                        Unified intelligent discovery engine connecting ambitious Pakistani students and student founders with verified government endowments, global fellowships, and pre-seed innovation grants.
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Your intelligent partner for academic scholarships and startup innovation grants across Pakistan and premier global destinations.
                     </p>
-                    <div class="pt-2 flex flex-col gap-2">
-                        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-950 border border-slate-800 text-[11px] text-slate-300 w-fit">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span>Platform Status: <strong>All Systems Operational</strong></span>
-                        </div>
-                        <p class="text-[10px] text-slate-400">Supabase Storage CDN &bull; Zero-Cost Architecture</p>
-                    </div>
                 </div>
 
-                <!-- Column 2: Opportunity Tracks (Span 2) -->
-                <div class="lg:col-span-2 space-y-3">
-                    <h4 class="font-bold text-white text-xs uppercase tracking-wider border-b border-slate-800 pb-2">Opportunity Tracks</h4>
-                    <ul class="space-y-2 text-slate-400 text-xs">
-                        <li><a href="/register?role=student" class="hover:text-white transition">Undergraduate Scholarships</a></li>
-                        <li><a href="/register?role=student" class="hover:text-white transition">Masters & PhD Fellowships</a></li>
+                <!-- Opportunity Tracks (Stepped forward to the right) -->
+                <div class="md:text-left min-w-[220px]">
+                    <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Opportunity Tracks</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="/register?role=student" class="hover:text-white transition">University Scholarships</a></li>
                         <li><a href="/register?role=founder" class="hover:text-white transition">Startup Innovation Grants</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">Need-Based Financial Aid</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">Women In Tech Funds</a></li>
+                        <li><a href="/#destinations" class="hover:text-white transition">Government Portals (HEC, Ignite)</a></li>
+                        <li><a href="/#destinations" class="hover:text-white transition">International Fellowships</a></li>
                     </ul>
                 </div>
-
-                <!-- Column 3: Platform & AI Engines (Span 3) -->
-                <div class="lg:col-span-3 space-y-3">
-                    <h4 class="font-bold text-white text-xs uppercase tracking-wider border-b border-slate-800 pb-2">Platform Capabilities</h4>
-                    <ul class="space-y-2 text-slate-400 text-xs">
-                        <li><a href="/#services" class="hover:text-white transition">Hybrid Serper Web Discovery</a></li>
-                        <li><a href="/#services" class="hover:text-white transition">Semantic Match Scoring (0-100%)</a></li>
-                        <li><a href="/#services" class="hover:text-white transition">AI Statement of Purpose Drafter</a></li>
-                        <li><a href="/#services" class="hover:text-white transition">AI Startup Pitch Proposal Builder</a></li>
-                        <li><button onclick="toggleAdvisorWidget()" class="hover:text-brand-400 transition text-left cursor-pointer">Interactive AI Advisor Chat</button></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Verified Portals & Regions (Span 3) -->
-                <div class="lg:col-span-3 space-y-3">
-                    <h4 class="font-bold text-white text-xs uppercase tracking-wider border-b border-slate-800 pb-2">Verified Portals</h4>
-                    <ul class="space-y-2 text-slate-400 text-xs">
-                        <li><a href="/#destinations" class="hover:text-white transition">HEC Higher Education Commission</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">Ignite National Technology Fund</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">DAAD Germany Exchange Service</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">USEFP Fulbright Commission (USA)</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">UK Chevening & Rhodes Trusts</a></li>
-                        <li><a href="/#destinations" class="hover:text-white transition">EU Erasmus Mundus Programs</a></li>
-                    </ul>
-                </div>
-
             </div>
 
             <!-- Bottom Horizontal Architectural Line & Legal Disclosures -->
-            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between text-slate-400 text-xs gap-4">
+            <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-3">
                 <p>&copy; 2026 GrantFinder AI. All rights reserved.</p>
-                <div class="flex flex-wrap items-center gap-4 text-[11px]">
-                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
                     <span>&bull;</span>
-                    <a href="#" class="hover:text-white transition">Terms of Service</a>
-                    <span>&bull;</span>
-                    <a href="#" class="hover:text-white transition">Academic Integrity</a>
-                    <span>&bull;</span>
-                    <a href="#" class="hover:text-white transition">Double Opt-In Anti-Spam Guarantee</a>
+                    <a href="#" class="hover:text-slate-400 transition">Terms of Service</a>
                 </div>
             </div>
 

@@ -385,32 +385,31 @@ def test_smtp_bounce_guard_for_test_domains():
 
 def test_enterprise_footer_elements_and_lines():
     """
-    Verify that the enhanced enterprise 4-column footer architecture is present:
-    1. Weekly Opportunity Digest newsletter strip with email input and submit button.
-    2. Operational Platform Status indicator badge ("All Systems Operational").
-    3. Opportunity Tracks, Platform Capabilities, and Verified Portals columns.
-    4. Bottom legal disclosures and architectural divider lines.
+    Verify that the footer architecture matches the clean specification:
+    1. Brand emblem and descriptive mission statement.
+    2. Opportunity Tracks column with core opportunity pathways.
+    3. Bottom horizontal divider line and legal disclosures (Privacy Policy, Terms of Service).
+    4. Copyright year and rights reservation.
     """
     res = client.get("/")
     assert res.status_code == 200
     html = res.text
 
-    # Newsletter / Alert strip
-    assert 'id="footerNewsletterForm"' in html
-    assert 'id="footerNewsletterEmail"' in html
-    assert 'id="footerNewsletterBtn"' in html
-    assert "Weekly Opportunity Digest" in html
+    # Brand emblem and statement
+    assert "GrantFinder AI" in html
+    assert "Your intelligent partner for academic scholarships" in html
 
-    # Operational status
-    assert "All Systems Operational" in html
-
-    # 4 columns & links
+    # Opportunity Tracks (stepped forward to right)
     assert "Opportunity Tracks" in html
-    assert "Platform Capabilities" in html
-    assert "Verified Portals" in html
-    assert "HEC Higher Education Commission" in html
-    assert "Ignite National Technology Fund" in html
-    assert "DAAD Germany Exchange Service" in html
-    assert "Double Opt-In Anti-Spam Guarantee" in html
+    assert "University Scholarships" in html
+    assert "Startup Innovation Grants" in html
+    assert "Government Portals (HEC, Ignite)" in html
+    assert "International Fellowships" in html
+
+    # Legal links & Copyright
+    assert "Privacy Policy" in html
+    assert "Terms of Service" in html
+    assert "All rights reserved" in html
+
 
 
