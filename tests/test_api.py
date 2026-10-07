@@ -203,3 +203,38 @@ def test_initial_search_deadline_filter_api():
         # None of the initial search results should have a passed deadline
         assert is_deadline_passed(r.get("deadline")) is False
 
+def test_destinations_hub_view():
+    """Verify that the dedicated /destinations hub page renders with full navbar and country dossiers."""
+    resp = client.get("/destinations")
+    assert resp.status_code == 200
+    text = resp.text
+    # Verify core page headings and content
+    assert "Funding Destinations &" in text or "Global Destinations Hub" in text
+    assert "Pakistan" in text
+    assert "United Kingdom" in text
+    assert "United States" in text
+    assert "Germany" in text
+    assert "Australia" in text
+    # Verify full navigation bar items are rendered
+    assert "Home" in text
+    assert "Destinations" in text
+    assert "AI Capabilities" in text
+    assert "Why GrantFinder" in text
+    assert "Verified Portals" in text
+    assert "FAQ" in text
+    assert "AI Assistant" in text
+
+def test_two_phase_registration_page_view():
+    """Verify that /register renders with two-phase track selection cards and full navbar."""
+    fresh_client = TestClient(app)
+    resp = fresh_client.get("/register")
+    assert resp.status_code == 200
+    text = resp.text
+    assert "Choose Your Funding Path" in text
+    assert "Student Scholar" in text
+    assert "Student Founder" in text
+    assert "trackSelectionStage" in text
+    assert "credentialsStage" in text
+    assert "Create Account" in text
+
+

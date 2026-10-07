@@ -25,7 +25,24 @@ router = APIRouter(tags=["Frontend Views & Dashboards"])
 @router.get("/", response_class=HTMLResponse)
 def index_view(request: Request):
     user = get_current_user_optional(request)
-    return templates.TemplateResponse(request=request, name="index.html", context={"user": user})
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="index.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
+@router.get("/destinations", response_class=HTMLResponse)
+def destinations_view(request: Request):
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="destinations.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
 
 @router.get("/login", response_class=HTMLResponse)
 def login_view(request: Request):

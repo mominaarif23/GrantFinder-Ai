@@ -1,0 +1,568 @@
+{% extends "base.html" %}
+
+{% block title %}Funding Destinations & Regional Portals — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="space-y-16 pb-24">
+
+    <!-- 1. Destinations Hero Section -->
+    <section class="relative pt-8 pb-14 border-b border-slate-200/90 dark:border-slate-800 bg-gradient-to-b from-brand-50/40 via-white/40 to-slate-50/70 dark:from-slate-950 dark:via-navy-950 dark:to-slate-950">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+            <!-- Breadcrumbs -->
+            <nav class="flex items-center space-x-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-6" aria-label="Breadcrumb">
+                <a href="/" class="hover:text-brand-700 dark:hover:text-brand-400 transition">Home</a>
+                <span>/</span>
+                <span class="text-navy-900 dark:text-white font-bold">Global Destinations Hub</span>
+            </nav>
+
+            <div class="max-w-3xl space-y-4 text-left">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-100/90 dark:bg-brand-950/70 border border-brand-200 dark:border-brand-800 text-brand-800 dark:text-brand-300">
+                    <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                    <span>Global Funding Directory & Regional Intelligence</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 dark:text-white tracking-tight leading-tight">
+                    Funding Destinations & <span class="font-serif italic font-normal text-brand-700 dark:text-brand-400">Institutional Portals</span>
+                </h1>
+
+                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Explore verified government funding frameworks, bilateral academic scholarships, and early-stage startup accelerators organized by regional ecosystems. Click any destination card to immerse the background in that nation's scenic imagery.
+                </p>
+            </div>
+
+            <!-- Interactive Filters Bar -->
+            <div class="mt-8 pt-6 border-t border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-2" id="destinationTrackFilters">
+                    <button type="button" onclick="filterDestinationsByTrack('all')" class="dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-navy-900 text-white dark:bg-brand-600 shadow-xs" data-filter="all">
+                        All Ecosystems
+                    </button>
+                    <button type="button" onclick="filterDestinationsByTrack('scholarship')" class="dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-700 shadow-xs" data-filter="scholarship">
+                        Student Scholarships (Academic)
+                    </button>
+                    <button type="button" onclick="filterDestinationsByTrack('grant')" class="dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-700 shadow-xs" data-filter="grant">
+                        Startup Grants (Founders)
+                    </button>
+                </div>
+
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    6 Primary Destinations · 26+ Verified Portals
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Detailed Country Dossiers Grid -->
+    <section class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="destinationCardsGrid">
+
+            <!-- Card 1: Pakistan -->
+            <div class="dest-dossier-card rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-brand-500 transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('Pakistan')">
+                <div class="space-y-4 text-left">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-2xl bg-emerald-700 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                                PK
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-extrabold text-navy-900 dark:text-white leading-tight">Pakistan</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">National & Provincial Ecosystem</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-800 border border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300">
+                            14+ Curated Portals
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Comprehensive government initiatives supporting local undergraduate and postgraduate degrees, merit stipends, and seed capital for high-tech campus entrepreneurs.
+                    </p>
+
+                    <!-- Key Programs -->
+                    <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <div class="font-bold text-navy-900 dark:text-white text-[11px] uppercase tracking-wider text-slate-400">Premier Programs:</div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">HEC Indigenous PhD</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">HEC Need-Based</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[11px]">Ignite Seed Fund</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[11px]">NIC Incubator</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Honhaar Scholarship</span>
+                        </div>
+                    </div>
+
+                    <!-- Coverage Metrics -->
+                    <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Academic Aid</span>
+                            <span class="font-bold text-navy-900 dark:text-white">100% Tuition + Stipend</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Startup Grants</span>
+                            <span class="font-bold text-emerald-700 dark:text-emerald-400">Up to PKR 5,000,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
+                    {% if user %}
+                        <a href="/dashboard/student?country=Pakistan" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                            <span>Search Pakistan Opportunities</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% else %}
+                        <a href="/register?country=Pakistan" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                            <span>Get Matched in Pakistan</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Card 2: United Kingdom -->
+            <div class="dest-dossier-card rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-brand-500 transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('United Kingdom')">
+                <div class="space-y-4 text-left">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-2xl bg-brand-700 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                                UK
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-extrabold text-navy-900 dark:text-white leading-tight">United Kingdom</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">British Council & FCDO Fellowships</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-brand-50 text-brand-800 border border-brand-200 dark:bg-brand-950 dark:text-brand-300">
+                            Fully Funded
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Prestigious bilateral government awards for one-year taught master's degrees and doctoral research across world-renowned British institutions including Oxford, Cambridge, and Russell Group universities.
+                    </p>
+
+                    <!-- Key Programs -->
+                    <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <div class="font-bold text-navy-900 dark:text-white text-[11px] uppercase tracking-wider text-slate-400">Premier Programs:</div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Chevening Scholarships</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Commonwealth Master's</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Rhodes Scholarships (Oxford)</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Gates Cambridge</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">GREAT Scholarships</span>
+                        </div>
+                    </div>
+
+                    <!-- Coverage Metrics -->
+                    <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Tuition Status</span>
+                            <span class="font-bold text-navy-900 dark:text-white">100% Full Tuition Waiver</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Monthly Stipend</span>
+                            <span class="font-bold text-brand-700 dark:text-brand-400">£1,347 - £1,650 / month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
+                    {% if user %}
+                        <a href="/dashboard/student?country=United%20Kingdom" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition">
+                            <span>Search UK Opportunities</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% else %}
+                        <a href="/register?country=United%20Kingdom" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition">
+                            <span>Get Matched in the UK</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Card 3: United States -->
+            <div class="dest-dossier-card rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-brand-500 transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('United States')">
+                <div class="space-y-4 text-left">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-2xl bg-indigo-700 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                                US
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-extrabold text-navy-900 dark:text-white leading-tight">United States</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">USEFP & Silicon Valley Accelerators</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-indigo-50 text-indigo-800 border border-indigo-200 dark:bg-indigo-950 dark:text-indigo-300">
+                            Global Benchmark
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Flagship Fulbright graduate fellowships covering comprehensive master's and PhD tracks, paired with world-class startup accelerators providing non-dilutive and seed funding.
+                    </p>
+
+                    <!-- Key Programs -->
+                    <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <div class="font-bold text-navy-900 dark:text-white text-[11px] uppercase tracking-wider text-slate-400">Premier Programs:</div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Fulbright Foreign Student</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Hubert Humphrey Fellowship</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[11px]">Y Combinator (Seed)</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[11px]">Techstars Global</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Global UGRAD (Semester)</span>
+                        </div>
+                    </div>
+
+                    <!-- Coverage Metrics -->
+                    <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Academic Grant</span>
+                            <span class="font-bold text-navy-900 dark:text-white">Full Tuition + Health</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Living / Seed Capital</span>
+                            <span class="font-bold text-indigo-700 dark:text-indigo-400">$25K - $500K</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
+                    {% if user %}
+                        <a href="/dashboard/student?country=United%20States" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs transition">
+                            <span>Search US Opportunities</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% else %}
+                        <a href="/register?country=United%20States" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs transition">
+                            <span>Get Matched in the US</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Card 4: Germany -->
+            <div class="dest-dossier-card rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-brand-500 transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('Germany')">
+                <div class="space-y-4 text-left">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-2xl bg-amber-600 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                                DE
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-extrabold text-navy-900 dark:text-white leading-tight">Germany</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">DAAD & European Research Grants</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950 dark:text-amber-300">
+                            Tuition-Free
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Tuition-free public universities with high-value DAAD scholarships covering monthly living stipends, language preparation, and research budgets for STEM and public policy students.
+                    </p>
+
+                    <!-- Key Programs -->
+                    <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <div class="font-bold text-navy-900 dark:text-white text-[11px] uppercase tracking-wider text-slate-400">Premier Programs:</div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">DAAD Helmut-Schmidt</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">DAAD EPOS (Development)</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Heinrich Böll Fellowship</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Konrad-Adenauer-Stiftung</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Deutschlandstipendium</span>
+                        </div>
+                    </div>
+
+                    <!-- Coverage Metrics -->
+                    <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Tuition Structure</span>
+                            <span class="font-bold text-navy-900 dark:text-white">Zero Public Tuition Fees</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Living Allowance</span>
+                            <span class="font-bold text-amber-700 dark:text-amber-400">€934 - €1,200 / month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
+                    {% if user %}
+                        <a href="/dashboard/student?country=Germany" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition">
+                            <span>Search Germany Opportunities</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% else %}
+                        <a href="/register?country=Germany" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition">
+                            <span>Get Matched in Germany</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Card 5: Australia -->
+            <div class="dest-dossier-card rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-brand-500 transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('Australia')">
+                <div class="space-y-4 text-left">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-2xl bg-teal-700 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                                AU
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-extrabold text-navy-900 dark:text-white leading-tight">Australia</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">DFAT Awards & Research RTP</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-teal-50 text-teal-800 border border-teal-200 dark:bg-teal-950 dark:text-teal-300">
+                            Govt Funded
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Australia Awards and Research Training Program (RTP) grants providing full fee coverage, return airfare, and establishment allowances for high-achieving emerging scholars.
+                    </p>
+
+                    <!-- Key Programs -->
+                    <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <div class="font-bold text-navy-900 dark:text-white text-[11px] uppercase tracking-wider text-slate-400">Premier Programs:</div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Australia Awards</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Research Training (RTP)</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Melbourne Research Schol.</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Sydney International Award</span>
+                        </div>
+                    </div>
+
+                    <!-- Coverage Metrics -->
+                    <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Tuition Coverage</span>
+                            <span class="font-bold text-navy-900 dark:text-white">100% Full + Return Airfare</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Living Allowance</span>
+                            <span class="font-bold text-teal-700 dark:text-teal-400">AUD $35,000 / year</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
+                    {% if user %}
+                        <a href="/dashboard/student?country=Australia" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs transition">
+                            <span>Search Australia Opportunities</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% else %}
+                        <a href="/register?country=Australia" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs transition">
+                            <span>Get Matched in Australia</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Card 6: Global & Multilateral Programs -->
+            <div class="dest-dossier-card rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-brand-500 transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('Global')">
+                <div class="space-y-4 text-left">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-2xl bg-navy-900 text-white font-extrabold text-sm flex items-center justify-center shadow-xs">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-extrabold text-navy-900 dark:text-white leading-tight">Global Consortia</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Erasmus Mundus, IsDB & World Bank</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-brand-50 text-brand-800 border border-brand-200 dark:bg-brand-950 dark:text-brand-300">
+                            Worldwide Mobility
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Multilateral international partnerships allowing scholars to study across multiple European and global universities, alongside worldwide social innovation challenges.
+                    </p>
+
+                    <!-- Key Programs -->
+                    <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                        <div class="font-bold text-navy-900 dark:text-white text-[11px] uppercase tracking-wider text-slate-400">Premier Programs:</div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Erasmus Mundus (EMJMD)</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Islamic Dev Bank (IsDB)</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">World Bank Graduate</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[11px]">MIT Solve Innovation</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px]">Aga Khan International</span>
+                        </div>
+                    </div>
+
+                    <!-- Coverage Metrics -->
+                    <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Mobility Plan</span>
+                            <span class="font-bold text-navy-900 dark:text-white">2 - 3 Global Countries</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold block">Full Scholarship</span>
+                            <span class="font-bold text-brand-700 dark:text-brand-400">Tuition + €1,400 / mo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
+                    {% if user %}
+                        <a href="/dashboard/student?country=Global" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                            <span>Search Global Opportunities</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% else %}
+                        <a href="/register?country=Global" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                            <span>Get Matched Worldwide</span>
+                            <span class="ml-1.5">&rarr;</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. Official Institutional Portals Verification Directory -->
+    <section class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-8">
+        <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 sm:p-10 shadow-xs text-left">
+            <div class="max-w-2xl mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-700 dark:text-brand-400">Institutional Governance</span>
+                <h2 class="text-2xl font-extrabold text-navy-900 dark:text-white mt-1">Verified Government Portals & Directory</h2>
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5">
+                    GrantFinder AI continuously syncs with these official statutory bodies and verified international commissions.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">HEC Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Higher Education Commission National Scholarship Gateway</p>
+                    <a href="https://hec.gov.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">USEFP Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">United States-Pakistan Educational Foundation (Fulbright)</p>
+                    <a href="https://usefp.org" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">DAAD Germany</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">German Academic Exchange Service Scholarship Database</p>
+                    <a href="https://www.daad.de" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">British Council UK</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Study UK & Chevening Secretariat Fellowships Portal</p>
+                    <a href="https://www.chevening.org" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">Ignite Fund</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Ministry of IT & Telecom National Technology Seed Grants</p>
+                    <a href="https://ignite.org.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">NIC Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">National Incubation Centers Network (Islamabad, Lahore, Karachi)</p>
+                    <a href="https://nicpakistan.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">Karandaaz Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Innovation Grants & Financial Inclusion Challenges</p>
+                    <a href="https://karandaaz.com.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-navy-900 dark:text-white text-xs">Australia Awards</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Verified</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">DFAT Department of Foreign Affairs and Trade Awards</p>
+                    <a href="https://australiaawards.gov.au" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand-700 dark:text-brand-400 hover:underline inline-block pt-1">Visit Portal &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Global Action Callout Banner -->
+    <section class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div class="rounded-3xl bg-gradient-to-r from-brand-900 via-navy-900 to-indigo-950 text-white p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 text-left border border-brand-800">
+            <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-300 bg-brand-950/80 px-3 py-1 rounded-full border border-brand-700">Calibrate Your Search</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold mt-3">Target Your Preferred Study or Venture Country.</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl leading-relaxed">
+                    Set up your applicant profile in under 2 minutes. Our AI matching model correlates your background with current open cohorts across all 6 destinations.
+                </p>
+            </div>
+            {% if user %}
+                <a href="/dashboard/{{ user.role }}" class="inline-flex px-6 py-3.5 rounded-xl bg-white text-navy-900 hover:bg-slate-100 font-bold text-sm shadow-md transition shrink-0">
+                    Open Your Dashboard &rarr;
+                </a>
+            {% else %}
+                <a href="/register" class="inline-flex px-6 py-3.5 rounded-xl bg-white text-navy-900 hover:bg-slate-100 font-bold text-sm shadow-md transition shrink-0">
+                    Select Your Track & Register &rarr;
+                </a>
+            {% endif %}
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function filterDestinationsByTrack(category) {
+    const cards = document.querySelectorAll('.dest-dossier-card');
+    const buttons = document.querySelectorAll('.dest-filter-btn');
+
+    buttons.forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+            btn.className = "dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-navy-900 text-white dark:bg-brand-600 shadow-xs";
+        } else {
+            btn.className = "dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-700 shadow-xs";
+        }
+    });
+
+    cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (category === 'all' || cat === 'both' || cat === category) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+</script>
+{% endblock %}

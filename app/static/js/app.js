@@ -184,7 +184,9 @@ async function handleRegisterSubmit(e) {
     btn.disabled = true;
     btn.innerText = 'Creating account...';
 
-    const role = document.querySelector('input[name="role"]:checked').value;
+    const roleRadio = document.querySelector('input[name="role"]:checked');
+    const roleHidden = document.getElementById('selectedRoleInput');
+    const role = (roleRadio ? roleRadio.value : (roleHidden ? roleHidden.value : 'student'));
     const payload = {
         name: document.getElementById('name').value.trim(),
         email: document.getElementById('email').value.trim(),
