@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from typing import Dict, Any, Optional
 from app.models import EssayDraftRequest, PitchDraftRequest, AdvisorChatRequest
 from app.db import get_profile_by_user_id
-from app.auth import get_current_user, get_current_user_optional
+from app.auth import get_current_user, get_current_user_optional, require_verified_user
 from app.services.ai_service import generate_scholarship_essay, generate_startup_pitch
 from app.services.advisor_service import run_advisor_turn
 
@@ -40,7 +40,7 @@ async def chat_with_advisor(
 
 
 @router.post("/essay")
-async def create_essay_draft(req: EssayDraftRequest, user: Dict[str, Any] = Depends(get_current_user)):
+async def create_essay_draft(req: EssayDraftRequest, user: Dict[str, Any] = Depends(require_verified_user)):
     # Freemium gating
     if user.get("plan") != "premium" and user.get("role") != "admin":
         raise HTTPException(
@@ -69,7 +69,7 @@ async def create_essay_draft(req: EssayDraftRequest, user: Dict[str, Any] = Depe
     }
 
 @router.post("/pitch")
-async def create_pitch_draft(req: PitchDraftRequest, user: Dict[str, Any] = Depends(get_current_user)):
+async def create_pitch_draft(req: PitchDraftRequest, user: Dict[str, Any] = Depends(require_verified_user)):
     # Freemium gating
     if user.get("plan") != "premium" and user.get("role") != "admin":
         raise HTTPException(

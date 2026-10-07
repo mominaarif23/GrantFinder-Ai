@@ -17,6 +17,21 @@ class UserLoginRequest(BaseModel):
     password: str
     remember_me: Optional[bool] = False
 
+class VerifyOtpRequest(BaseModel):
+    code: str = Field(..., min_length=6, max_length=6)
+    email: Optional[EmailStr] = None
+
+class ResendOtpRequest(BaseModel):
+    email: Optional[EmailStr] = None
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    code: str = Field(..., min_length=6, max_length=64)
+    new_password: str = Field(..., min_length=6)
+
 class ProfileUpdateRequest(BaseModel):
     type: str = Field(..., pattern="^(academic|startup)$")
     major_domain: str = Field(..., min_length=2)

@@ -1,16 +1,17 @@
+from datetime import datetime, timezone
 import os
 from fastapi import APIRouter, Request, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Dict, Any
-from app.auth import get_current_user_optional, get_current_user, require_admin
+from app.auth import get_current_user_optional, get_current_user, require_admin, is_user_email_verified
 from app.db import (
     get_profile_by_user_id, get_user_notifications, get_saved_opportunities,
     get_platform_analytics, list_curated_opportunities, list_all_users,
     add_curated_opportunity, delete_curated_opportunity, mark_notification_read,
     get_avatar_url, set_email_subscription, is_email_subscribed,
     verify_subscription_token, get_user_by_id, calculate_profile_completion_pct,
-    verify_email_otp
+    verify_email_otp, get_latest_registration_otp, generate_registration_otp
 )
 from app.models import CuratedOpportunityCreate
 from app.services.notification_service import send_optin_confirmation_email
@@ -30,6 +31,8 @@ def index_view(request: Request):
 def login_view(request: Request):
     user = get_current_user_optional(request)
     if user:
+        if not is_user_email_verified(user):
+            return RedirectResponse(url="/verify-otp", status_code=302)
         return RedirectResponse(url="/dashboard", status_code=302)
     return templates.TemplateResponse(request=request, name="login.html", context={"user": None})
 
@@ -37,14 +40,52 @@ def login_view(request: Request):
 def register_view(request: Request):
     user = get_current_user_optional(request)
     if user:
+        if not is_user_email_verified(user):
+            return RedirectResponse(url="/verify-otp", status_code=302)
         return RedirectResponse(url="/dashboard", status_code=302)
     return templates.TemplateResponse(request=request, name="register.html", context={"user": None})
+
+@router.get("/verify-otp", response_class=HTMLResponse)
+def verify_otp_view(request: Request):
+    user = get_current_user_optional(request)
+    if not user:
+        return RedirectResponse(url="/login?next=/verify-otp", status_code=302)
+    if is_user_email_verified(user):
+        return RedirectResponse(url="/dashboard", status_code=302)
+    
+    active_otp = get_latest_registration_otp(user["id"]) or get_latest_registration_otp(user["email"])
+    if not active_otp:
+        active_otp = generate_registration_otp(user["id"], user["email"])
+
+    return templates.TemplateResponse(request=request, name="verify_otp.html", context={
+        "user": user,
+        "active_otp": active_otp
+    })
+
+@router.get("/forgot-password", response_class=HTMLResponse)
+def forgot_password_view(request: Request):
+    user = get_current_user_optional(request)
+    if user and is_user_email_verified(user):
+        return RedirectResponse(url="/dashboard", status_code=302)
+    return templates.TemplateResponse(request=request, name="forgot_password.html", context={"user": user})
+
+@router.get("/reset-password", response_class=HTMLResponse)
+def reset_password_view(request: Request):
+    token = request.query_params.get("token", "")
+    email = request.query_params.get("email", "")
+    return templates.TemplateResponse(request=request, name="reset_password.html", context={
+        "user": None,
+        "token": token,
+        "email": email
+    })
 
 @router.get("/onboarding", response_class=HTMLResponse)
 def onboarding_view(request: Request):
     user = get_current_user_optional(request)
     if not user:
         return RedirectResponse(url="/login?next=/onboarding", status_code=302)
+    if not is_user_email_verified(user):
+        return RedirectResponse(url="/verify-otp", status_code=302)
     if user.get("role") == "admin":
         return RedirectResponse(url="/admin", status_code=302)
     
@@ -63,6 +104,8 @@ def dashboard_redirect(request: Request):
     user = get_current_user_optional(request)
     if not user:
         return RedirectResponse(url="/login", status_code=302)
+    if not is_user_email_verified(user):
+        return RedirectResponse(url="/verify-otp", status_code=302)
     if user.get("role") == "admin":
         return RedirectResponse(url="/admin", status_code=302)
         
@@ -79,6 +122,8 @@ def student_dashboard_view(request: Request):
     user = get_current_user_optional(request)
     if not user:
         return RedirectResponse(url="/login", status_code=302)
+    if not is_user_email_verified(user):
+        return RedirectResponse(url="/verify-otp", status_code=302)
     
     profile = get_profile_by_user_id(user["id"])
     if not profile:
@@ -104,6 +149,8 @@ def founder_dashboard_view(request: Request):
     user = get_current_user_optional(request)
     if not user:
         return RedirectResponse(url="/login", status_code=302)
+    if not is_user_email_verified(user):
+        return RedirectResponse(url="/verify-otp", status_code=302)
     
     profile = get_profile_by_user_id(user["id"])
     if not profile:
@@ -129,6 +176,8 @@ def admin_dashboard_view(request: Request):
     user = get_current_user_optional(request)
     if not user or user.get("role") != "admin":
         return RedirectResponse(url="/login?error=admin_required", status_code=302)
+    if not is_user_email_verified(user):
+        return RedirectResponse(url="/verify-otp", status_code=302)
     
     avatar = get_avatar_url(user["id"])
     user["avatar_url"] = avatar
@@ -173,6 +222,8 @@ def profile_view(request: Request):
     user = get_current_user_optional(request)
     if not user:
         return RedirectResponse(url="/login?next=/profile", status_code=302)
+    if not is_user_email_verified(user):
+        return RedirectResponse(url="/verify-otp", status_code=302)
     
     profile = get_profile_by_user_id(user["id"])
     avatar = (profile and profile.get("avatar_url")) or get_avatar_url(user["id"])

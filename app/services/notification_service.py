@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from typing import Optional, Dict, Any, List
 from app.config import settings
-from app.services.supabase_service import supabase_service
+from app.services.supabase_service import supabase_service, _IN_APP_NOTIFICATIONS
 
 # ==============================================================================
 # Low-Level Dispatch Functions
@@ -237,6 +237,186 @@ def send_optin_confirmation_email(
         "confirm_url": confirm_url
     }
 
+def send_registration_otp_email(
+    recipient_email: str,
+    user_name: str,
+    otp_code: str
+) -> bool:
+    """Send 6-digit account verification OTP email to any registering user (free or premium)."""
+    subject = "Verify Your Account - Security Verification Code"
+    message = (
+        f"Dear <strong>{user_name}</strong>,<br><br>"
+        "Thank you for registering on <strong>GrantFinder AI</strong>. To activate your account and start discovering "
+        "curated scholarships and startup grants, please verify your email address using the 6-digit code below.<br><br>"
+        "Enter this verification code on the security verification screen to complete your registration."
+    )
+    return send_smtp_email(
+        recipient_email=recipient_email,
+        subject=subject,
+        message=message,
+        otp_code=otp_code
+    )
+
+def send_password_reset_email(
+    recipient_email: str,
+    user_name: str,
+    reset_code: str,
+    reset_token: str,
+    base_url: str = ""
+) -> bool:
+    """Send password reset instructions with 6-digit reset code and secure direct link."""
+    domain = base_url.rstrip('/') if base_url else "https://grantfinder-ai.onrender.com"
+    reset_url = f"{domain}/reset-password?token={reset_token}&email={recipient_email}"
+    subject = "Password Reset Request"
+    message = (
+        f"Dear <strong>{user_name}</strong>,<br><br>"
+        "We received a request to reset your password for your <strong>GrantFinder AI</strong> account. "
+        "You can enter the 6-digit verification code below on the password reset page, or click the direct reset button below.<br><br>"
+        "<em>This code and link will expire in 15 minutes. If you did not request a password reset, you can safely ignore this email; your existing password will remain secure.</em>"
+    )
+    return send_smtp_email(
+        recipient_email=recipient_email,
+        subject=subject,
+        message=message,
+        action_url=reset_url,
+        action_label="Reset Your Password",
+        otp_code=reset_code
+    )
+
+def send_premium_match_notification_email(
+    recipient_email: str,
+    user_name: str,
+    opportunity_name: str,
+    opportunity_type: str,
+    match_score: int,
+    match_reason: str,
+    deadline: str,
+    funding_amount: str = "Funded",
+    source_link: Optional[str] = None,
+    base_url: str = ""
+) -> bool:
+    """Send branded, premium-only HTML match notification email. Free users never receive this email."""
+    if not recipient_email:
+        return True
+
+    # Guard against dummy test domains
+    dummy_domains = ("@grantfinder.ai", "@example.com", "@test.com", "@localhost")
+    if any(recipient_email.lower().endswith(d) for d in dummy_domains):
+        return True
+
+    if not settings.SMTP_USER or not settings.SMTP_PASS:
+        return True
+
+    try:
+        domain = base_url.rstrip('/') if base_url else "https://grantfinder-ai.onrender.com"
+        portal_url = source_link or f"{domain}/dashboard"
+        unsub_token = supabase_service.generate_subscription_token("premium-user", recipient_email, action="unsubscribe")
+        unsub_url = f"{domain}/api/notifications/unsubscribe?token={unsub_token}"
+
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = f"[GrantFinder AI] New {opportunity_type.capitalize()} Match: {opportunity_name}"
+        from_address = settings.SMTP_USER if ("@" in settings.SMTP_USER) else settings.NOTIFICATION_EMAIL_FROM
+        msg["From"] = f"GrantFinder AI Premium <{from_address}>"
+        msg["To"] = recipient_email
+
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f1f5f9; padding: 24px 12px; margin: 0;">
+                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 36px 32px; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+                    <!-- Brand Header -->
+                    <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 22px; margin-bottom: 26px; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span style="font-size: 22px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">GrantFinder <span style="color: #2563eb;">AI</span></span>
+                            <span style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; margin-top: 2px;">Curated Intelligence Gateway</span>
+                        </div>
+                        <span style="display: inline-block; font-size: 11px; font-weight: 800; background-color: #fef3c7; color: #b45309; padding: 5px 12px; border-radius: 9999px; border: 1px solid #fde68a; letter-spacing: 0.5px;">
+                            Premium Match Alert
+                        </span>
+                    </div>
+
+                    <!-- Greeting & Intro -->
+                    <p style="font-size: 14px; color: #334155; margin: 0 0 16px 0;">
+                        Dear <strong>{user_name}</strong>,
+                    </p>
+                    <p style="font-size: 14px; color: #334155; margin: 0 0 24px 0; line-height: 1.6;">
+                        Our semantic matching engine and live funding monitors have discovered a high-affinity opportunity calibrated specifically to your profile.
+                    </p>
+
+                    <!-- Feature Card -->
+                    <div style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid #cbd5e1; border-radius: 16px; padding: 24px; margin-bottom: 26px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #2563eb; background: #dbeafe; padding: 3px 10px; border-radius: 6px;">
+                                {opportunity_type.capitalize()}
+                            </span>
+                            <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #047857; background: #d1fae5; padding: 3px 10px; border-radius: 6px;">
+                                {match_score}% Compatibility Match
+                            </span>
+                        </div>
+                        <h3 style="font-size: 19px; font-weight: 800; color: #0f172a; margin: 8px 0 12px 0; line-height: 1.35;">
+                            {opportunity_name}
+                        </h3>
+
+                        <!-- Grid Details -->
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div style="background: #ffffff; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                                <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; display: block;">Funding Amount</span>
+                                <span style="font-size: 13px; font-weight: 800; color: #0f172a; margin-top: 2px; display: block;">{funding_amount}</span>
+                            </div>
+                            <div style="background: #ffffff; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                                <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; display: block;">Application Deadline</span>
+                                <span style="font-size: 13px; font-weight: 800; color: #dc2626; margin-top: 2px; display: block;">{deadline}</span>
+                            </div>
+                        </div>
+
+                        <!-- Match Reason -->
+                        <div style="margin-top: 16px; padding: 12px 14px; background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0;">
+                            <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;">Why You Were Matched</span>
+                            <p style="font-size: 12.5px; color: #334155; margin: 0; line-height: 1.5;">
+                                {match_reason}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action -->
+                    <div style="text-align: center; margin: 28px 0 20px 0;">
+                        <a href="{portal_url}" style="background-color: #1d4ed8; color: #ffffff; padding: 14px 32px; font-weight: 800; font-size: 14px; text-decoration: none; border-radius: 12px; display: inline-block; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);">
+                            View Opportunity Details & Apply &rarr;
+                        </a>
+                    </div>
+                    <p style="text-align: center; font-size: 11.5px; color: #64748b; margin-top: 8px;">
+                        Log in to use the AI Application Drafter to automatically generate tailored essays or pitch decks for this opportunity.
+                    </p>
+
+                    <!-- Footer -->
+                    <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 32px 0 18px 0;">
+                    <p style="font-size: 11px; color: #94a3b8; line-height: 1.5; margin: 0;">
+                        You are receiving this curated notification because you are a verified subscriber on the GrantFinder AI Premium Tier.
+                        <br>
+                        <a href="{unsub_url}" style="color: #64748b; text-decoration: underline;">Manage notification preferences or unsubscribe</a>
+                    </p>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 12px;">
+                        &copy; 2026 GrantFinder AI &bull; Intelligent Funding Discovery for Pakistan & Global Opportunities
+                    </div>
+                </div>
+            </body>
+        </html>
+        """
+        msg.attach(MIMEText(html_content, "html"))
+        clean_pass = settings.SMTP_PASS.replace(" ", "")
+        with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT, timeout=10) as server:
+            server.starttls()
+            server.login(settings.SMTP_USER, clean_pass)
+            server.sendmail(from_address, recipient_email, msg.as_string())
+        return True
+    except Exception as e:
+        print(f"[SMTP MATCH WARNING] Outbound match notification error: {e}")
+        return False
+
 def notify_user(
     user_id: str,
     message: str,
@@ -271,7 +451,6 @@ def notify_user(
             except Exception:
                 pass
         else:
-            # Gated: unconfirmed email OR non-premium plan (automated email alerts work only for Premium users)
             results["email"] = False
 
     # 3. WhatsApp notification - premium users only
@@ -293,16 +472,38 @@ def dispatch_opportunity_alert(
     opp_name: str,
     opp_type: str,
     deadline: str,
-    match_score: int
+    match_score: int,
+    match_reason: Optional[str] = None,
+    amount: Optional[str] = "Funded",
+    source_link: Optional[str] = None,
+    user_name: Optional[str] = "Applicant"
 ):
-    """Trigger an opportunity match alert across appropriate channels."""
+    """Trigger opportunity match alert: in-app notification for all users; branded email for verified PREMIUM users only."""
+    reason = match_reason or f"Aligned with your {opp_type} preferences and domain background with a {match_score}% match score."
     message = f"We matched you with '{opp_name}' with a {match_score}% match score. Upcoming deadline: {deadline}."
-    notify_user(
+    
+    # 1. ALWAYS dispatch in-app notification for all users (free and premium)
+    send_in_app_notification(
         user_id=user_id,
-        message=message,
-        event_type="opportunity_match",
-        title=f"New {opp_type.capitalize()} Match: {opp_name}"
+        title=f"New {opp_type.capitalize()} Match: {opp_name}",
+        message=message
     )
+
+    # 2. Match notification email sent ONLY to users on the premium plan (plan == 'premium')
+    if plan == "premium" or plan == "admin":
+        is_verified = supabase_service.is_user_verified(user_id) or supabase_service.is_user_verified(email)
+        if is_verified and email:
+            send_premium_match_notification_email(
+                recipient_email=email,
+                user_name=user_name or "Applicant",
+                opportunity_name=opp_name,
+                opportunity_type=opp_type,
+                match_score=match_score,
+                match_reason=reason,
+                deadline=deadline,
+                funding_amount=amount or "Funded",
+                source_link=source_link
+            )
 
 def send_in_app_notification(user_id: str, title: str, message: str) -> Dict[str, Any]:
     formatted = f"{title}: {message}" if title else message

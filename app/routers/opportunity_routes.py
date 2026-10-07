@@ -5,7 +5,7 @@ from app.db import (
     log_search, save_opportunity, get_saved_opportunities, delete_saved_opportunity,
     update_user_plan, get_profile_by_user_id
 )
-from app.auth import get_current_user, get_current_user_optional
+from app.auth import get_current_user, get_current_user_optional, require_verified_user
 from app.services.curated_service import get_curated_matches
 from app.services.search_service import execute_web_search
 from app.services.ai_service import extract_and_structure_web_results
@@ -137,7 +137,7 @@ async def search_opportunities(req: SearchRequest, request: Request):
     }
 
 @router.post("/save")
-def save_user_opportunity(req: SaveOpportunityRequest, user: Dict[str, Any] = Depends(get_current_user)):
+def save_user_opportunity(req: SaveOpportunityRequest, user: Dict[str, Any] = Depends(require_verified_user)):
     saved = save_opportunity(
         user_id=user["id"],
         name=req.opportunity_name,
@@ -148,31 +148,34 @@ def save_user_opportunity(req: SaveOpportunityRequest, user: Dict[str, Any] = De
         match_score=req.match_score
     )
     
-    # Dispatch notification alert
+    # Dispatch notification alert (with branded email for premium users)
     dispatch_opportunity_alert(
         user_id=user["id"],
         email=user["email"],
-        plan=user["plan"],
+        plan=user.get("plan", "free"),
         opp_name=req.opportunity_name,
         opp_type=req.opportunity_type,
         deadline=req.deadline,
-        match_score=req.match_score
+        match_score=req.match_score,
+        amount=req.amount,
+        source_link=req.source_link,
+        user_name=user.get("name", "Applicant")
     )
     
     return {"success": True, "saved": saved}
 
 @router.get("/saved")
-def list_user_saved(user: Dict[str, Any] = Depends(get_current_user)):
+def list_user_saved(user: Dict[str, Any] = Depends(require_verified_user)):
     items = get_saved_opportunities(user["id"])
     return {"success": True, "saved_opportunities": items}
 
 @router.delete("/saved/{saved_id}")
-def remove_saved(saved_id: str, user: Dict[str, Any] = Depends(get_current_user)):
+def remove_saved(saved_id: str, user: Dict[str, Any] = Depends(require_verified_user)):
     delete_saved_opportunity(user_id=user["id"], saved_id=saved_id)
     return {"success": True, "message": "Saved opportunity removed"}
 
 @router.post("/upgrade")
-def mock_upgrade_plan(user: Dict[str, Any] = Depends(get_current_user)):
+def mock_upgrade_plan(user: Dict[str, Any] = Depends(require_verified_user)):
     update_user_plan(user["id"], "premium")
     send_in_app_notification(
         user_id=user["id"],

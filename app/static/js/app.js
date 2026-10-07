@@ -150,9 +150,17 @@ async function handleLoginSubmit(e) {
                 localStorage.removeItem('grantfinder_remember_email');
             }
 
+            if (data.email_verified === false || data.redirect === '/verify-otp') {
+                showToast('Email verification required. Redirecting to verification...', 'info');
+                setTimeout(() => {
+                    window.location.href = data.redirect || '/verify-otp';
+                }, 400);
+                return;
+            }
+
             showToast('Login successful. Redirecting...', 'success');
             setTimeout(() => {
-                window.location.href = '/dashboard';
+                window.location.href = data.redirect || '/dashboard';
             }, 500);
         } else {
             errorBox.innerText = data.detail || 'Invalid email or password.';
@@ -192,15 +200,15 @@ async function handleRegisterSubmit(e) {
         });
         const data = await res.json();
         if (res.ok && data.success) {
-            showToast('Registration successful. Redirecting...', 'success');
+            showToast('Account created! Verification code sent to your email.', 'success');
             setTimeout(() => {
-                window.location.href = '/onboarding';
+                window.location.href = data.redirect || '/verify-otp';
             }, 500);
         } else {
             errorBox.innerText = data.detail || 'Registration failed.';
             errorBox.classList.remove('hidden');
             btn.disabled = false;
-            btn.innerText = 'Complete Registration';
+            btn.innerText = 'Create Account';
         }
     } catch (err) {
         errorBox.innerText = 'Server error occurred.';

@@ -79,7 +79,17 @@ def get_current_user_optional(request: Request) -> Optional[Dict[str, Any]]:
     user = get_user_by_id(payload["sub"])
     if user:
         user["avatar_url"] = get_avatar_url(user["id"])
+        user["email_verified"] = is_user_email_verified(user)
     return user
+
+def is_user_email_verified(user: Optional[Dict[str, Any]]) -> bool:
+    """Check whether user has completed email verification."""
+    if not user:
+        return False
+    from app.services.supabase_service import supabase_service
+    if user.get("role") == "admin":
+        return True
+    return supabase_service.is_user_verified(user.get("id")) or supabase_service.is_user_verified(user.get("email"))
 
 def get_current_user(request: Request) -> Dict[str, Any]:
     user = get_current_user_optional(request)
@@ -91,8 +101,18 @@ def get_current_user(request: Request) -> Dict[str, Any]:
         )
     return user
 
+def require_verified_user(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
+    """Strict backend gate enforcing that email_verified must be True."""
+    if not is_user_email_verified(user):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="EMAIL_NOT_VERIFIED",
+            headers={"X-Redirect-URL": "/verify-otp"}
+        )
+    return user
+
 def require_role(allowed_roles: list):
-    def role_checker(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
+    def role_checker(user: Dict[str, Any] = Depends(require_verified_user)) -> Dict[str, Any]:
         if user.get("role") not in allowed_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
@@ -109,7 +129,7 @@ def require_admin(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str,
         )
     return user
 
-def require_premium(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
+def require_premium(user: Dict[str, Any] = Depends(require_verified_user)) -> Dict[str, Any]:
     if user.get("plan") != "premium" and user.get("role") != "admin":
         raise HTTPException(
             status_code=status.HTTP_402_PAYMENT_REQUIRED,

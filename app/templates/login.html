@@ -23,11 +23,12 @@
             <div>
                 <div class="flex items-center justify-between mb-1.5">
                     <label class="block text-xs font-bold text-slate-700" for="password">Password</label>
+                    <a href="/forgot-password" class="text-xs font-semibold text-brand-700 hover:text-brand-800 hover:underline">Forgot Password?</a>
                 </div>
                 <div class="relative">
                     <input type="password" id="password" required placeholder="••••••••" 
-                        class="w-full px-3.5 py-2.5 pr-11 rounded-xl bg-slate-50 border border-slate-300 text-sm text-navy-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
-                    <button type="button" id="toggleLoginPasswordBtn" onclick="togglePasswordVisibility('password', 'toggleLoginPasswordBtn')" aria-label="Show password" class="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-navy-900 transition focus:outline-none rounded-lg hover:bg-slate-100">
+                        class="w-full px-3.5 py-2.5 pr-11 rounded-xl bg-slate-50 border border-slate-300 text-sm text-navy-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition min-h-[44px]">
+                    <button type="button" id="toggleLoginPasswordBtn" onclick="togglePasswordVisibility('password', 'toggleLoginPasswordBtn')" aria-label="Show password" class="absolute right-2.5 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-navy-900 transition focus:outline-none rounded-lg hover:bg-slate-100 min-h-[40px] min-w-[40px] flex items-center justify-center">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

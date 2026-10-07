@@ -11,6 +11,23 @@ _SEARCH_LOGS: List[Dict[str, Any]] = []
 
 def init_db():
     """Initialize database connection to Supabase and seed baseline data."""
+    # 0. Migrate SQLite users table to include email_verified column if needed
+    try:
+        import sqlite3
+        db_path = os.path.join(os.path.dirname(__file__), "..", "grantfinder.db")
+        if os.path.exists(db_path):
+            conn = sqlite3.connect(db_path)
+            cur = conn.cursor()
+            cur.execute("PRAGMA table_info(users)")
+            cols = [r[1] for r in cur.fetchall()]
+            if "email_verified" not in cols:
+                cur.execute("ALTER TABLE users ADD COLUMN email_verified BOOLEAN DEFAULT 0")
+            cur.execute("UPDATE users SET email_verified = 1 WHERE email IN ('admin@grantfinder.ai', 'momnaaa23@gmail.com')")
+            conn.commit()
+            conn.close()
+    except Exception:
+        pass
+
     # 1. Verify live connectivity to Supabase
     health = supabase_service.check_health_sync()
     
@@ -28,7 +45,8 @@ def init_db():
             email="admin@grantfinder.ai",
             password_hash=hash_password("Pass@123"),
             role="admin",
-            plan="premium"
+            plan="premium",
+            email_verified=True
         )
         
     # 4. Seed Momina account if not present
@@ -40,7 +58,8 @@ def init_db():
             email="momnaaa23@gmail.com",
             password_hash=hash_password("Pass@123"),
             role="student",
-            plan="premium"
+            plan="premium",
+            email_verified=True
         )
         supabase_service.upsert_profile(
             user_id=u["id"],
@@ -67,10 +86,10 @@ def seed_curated_data():
 # Direct Supabase Database Operations (Single Source of Truth)
 # ==============================================================================
 
-def create_user(name: str, email: str, password_hash: str, role: str = "student", plan: str = "free") -> Dict[str, Any]:
-    """Create a new user directly in Supabase public.users."""
+def create_user(name: str, email: str, password_hash: str, role: str = "student", plan: str = "free", email_verified: bool = True) -> Dict[str, Any]:
+    """Create a new user directly in Supabase public.users and SQLite."""
     return supabase_service.create_user(
-        name=name, email=email, password_hash=password_hash, role=role, plan=plan
+        name=name, email=email, password_hash=password_hash, role=role, plan=plan, email_verified=email_verified
     )
 
 def get_user_by_email(email: str) -> Optional[Dict[str, Any]]:
@@ -262,4 +281,40 @@ def verify_email_otp(identifier: str, code: str) -> Optional[str]:
 def get_latest_otp(identifier: str) -> Optional[str]:
     """Retrieve active OTP for testing."""
     return supabase_service.get_latest_otp(identifier)
+
+def is_user_verified(user_id_or_email: Optional[str]) -> bool:
+    """Check whether user has completed email verification."""
+    return supabase_service.is_user_verified(user_id_or_email)
+
+def set_user_verified(user_id_or_email: str, verified: bool = True) -> bool:
+    """Set user verification state."""
+    return supabase_service.set_user_verified(user_id_or_email, verified)
+
+def generate_registration_otp(user_id: str, email: str) -> str:
+    """Generate 6-digit registration OTP code."""
+    return supabase_service.generate_registration_otp(user_id, email)
+
+def verify_registration_otp(identifier: str, code: str) -> Dict[str, Any]:
+    """Verify 6-digit registration OTP code."""
+    return supabase_service.verify_registration_otp(identifier, code)
+
+def resend_registration_otp(identifier: str, cooldown_seconds: int = 60) -> Dict[str, Any]:
+    """Resend registration OTP code respecting cooldown."""
+    return supabase_service.resend_registration_otp(identifier, cooldown_seconds)
+
+def get_latest_registration_otp(identifier: str) -> Optional[str]:
+    """Get active registration OTP code."""
+    return supabase_service.get_latest_registration_otp(identifier)
+
+def generate_password_reset(email: str) -> Dict[str, Any]:
+    """Generate password reset code and token."""
+    return supabase_service.generate_password_reset(email)
+
+def verify_and_consume_password_reset(email: str, code_or_token: str) -> Dict[str, Any]:
+    """Verify and invalidate password reset code."""
+    return supabase_service.verify_and_consume_password_reset(email, code_or_token)
+
+def update_user_password(user_id: str, new_password_hash: str) -> bool:
+    """Update user password hash."""
+    return supabase_service.update_user_password(user_id, new_password_hash)
 

@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}Verify Your Account — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="min-h-[85vh] flex items-center justify-center px-4 py-12 sm:py-16">
+    <div class="w-full max-w-md rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-sm text-center">
+        <!-- Security Shield Icon -->
+        <div class="w-14 h-14 rounded-2xl bg-brand-50 border border-brand-200 text-brand-700 flex items-center justify-center mx-auto mb-5 shadow-xs">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+        </div>
+
+        <h2 class="text-2xl font-extrabold text-navy-900 tracking-tight">Verify Your Email</h2>
+        <p class="text-xs text-slate-500 mt-2 max-w-sm mx-auto leading-relaxed">
+            We sent a secure 6-digit verification code to
+            <span class="font-bold text-navy-900 block mt-0.5" id="userEmailDisplay">{{ user.email if user else 'your email address' }}</span>
+        </p>
+
+        <!-- Informational Badge -->
+        <div class="my-4 py-2 px-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center space-x-2 text-[11px] text-slate-500">
+            <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Code expires in <strong class="text-slate-700">10 minutes</strong>. 5 attempts maximum.</span>
+        </div>
+
+        <!-- 6-Digit OTP Form -->
+        <form id="verifyOtpForm" onsubmit="handleRegistrationOtpSubmit(event)" class="space-y-6 mt-6">
+            <!-- Hidden email holder -->
+            <input type="hidden" id="regOtpEmail" value="{{ user.email if user else '' }}">
+
+            <!-- Responsive 6-Box Input -->
+            <div class="flex justify-center items-center gap-2 sm:gap-3" id="otpBoxContainer">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otpDigit1" data-index="1"
+                    class="otp-digit w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-extrabold text-navy-900 bg-slate-50 border-2 border-slate-200 rounded-xl focus:bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition shadow-xs" autocomplete="off" autofocus>
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otpDigit2" data-index="2"
+                    class="otp-digit w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-extrabold text-navy-900 bg-slate-50 border-2 border-slate-200 rounded-xl focus:bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition shadow-xs" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otpDigit3" data-index="3"
+                    class="otp-digit w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-extrabold text-navy-900 bg-slate-50 border-2 border-slate-200 rounded-xl focus:bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition shadow-xs" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otpDigit4" data-index="4"
+                    class="otp-digit w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-extrabold text-navy-900 bg-slate-50 border-2 border-slate-200 rounded-xl focus:bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition shadow-xs" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otpDigit5" data-index="5"
+                    class="otp-digit w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-extrabold text-navy-900 bg-slate-50 border-2 border-slate-200 rounded-xl focus:bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition shadow-xs" autocomplete="off">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otpDigit6" data-index="6"
+                    class="otp-digit w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-extrabold text-navy-900 bg-slate-50 border-2 border-slate-200 rounded-xl focus:bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition shadow-xs" autocomplete="off">
+            </div>
+
+            <!-- Error and Status Messages -->
+            <div id="regOtpError" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-800 text-left"></div>
+            <div id="regOtpSuccess" class="hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 text-left"></div>
+
+            <!-- Primary Submission Button -->
+            <button type="submit" id="verifyOtpBtn" 
+                class="w-full min-h-[46px] py-3 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm transition shadow-xs flex items-center justify-center space-x-2">
+                <span id="verifyOtpBtnText">Verify & Activate Account</span>
+                <span id="verifyOtpSpinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+            </button>
+        </form>
+
+        <!-- Resend OTP Action with Cooldown Timer -->
+        <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col items-center justify-center space-y-2">
+            <p class="text-xs text-slate-500">Didn't receive the verification code?</p>
+            <button type="button" id="resendRegOtpBtn" onclick="handleResendRegistrationOtp()" 
+                class="text-xs font-bold text-brand-700 hover:text-brand-800 hover:underline py-1 px-3 transition rounded-lg min-h-[44px] flex items-center justify-center">
+                Resend Verification Code
+            </button>
+            <span id="regOtpCooldownText" class="hidden text-[11px] font-semibold text-slate-400"></span>
+        </div>
+
+        <!-- Exit / Switch Account Option -->
+        <div class="mt-4 pt-3 text-center">
+            <a href="/login" onclick="handleLogout()" class="text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition">
+                Sign in with another account
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Digit Auto-advance, backspace, and paste handlers
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = Array.from(document.querySelectorAll('.otp-digit'));
+
+    inputs.forEach((input, idx) => {
+        // Numeric input only
+        input.addEventListener('input', (e) => {
+            const val = e.target.value.replace(/\D/g, '');
+            e.target.value = val ? val.slice(-1) : '';
+
+            if (e.target.value && idx < inputs.length - 1) {
+                inputs[idx + 1].focus();
+            }
+
+            // Auto-submit when all 6 digits are filled
+            const fullCode = inputs.map(i => i.value).join('');
+            if (fullCode.length === 6) {
+                const form = document.getElementById('verifyOtpForm');
+                if (form) form.requestSubmit();
+            }
+        });
+
+        // Backspace navigation
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+                if (!input.value && idx > 0) {
+                    inputs[idx - 1].focus();
+                    inputs[idx - 1].value = '';
+                }
+            }
+        });
+
+        // Paste 6-digit code support
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pasted = (e.clipboardData || window.clipboardData).getData('text');
+            const cleanDigits = pasted.replace(/\D/g, '').slice(0, 6);
+            if (cleanDigits) {
+                cleanDigits.split('').forEach((char, i) => {
+                    if (inputs[i]) inputs[i].value = char;
+                });
+                const nextIdx = Math.min(cleanDigits.length, inputs.length - 1);
+                inputs[nextIdx].focus();
+
+                if (cleanDigits.length === 6) {
+                    const form = document.getElementById('verifyOtpForm');
+                    if (form) form.requestSubmit();
+                }
+            }
+        });
+    });
+
+    if (inputs[0]) inputs[0].focus();
+});
+
+// Cooldown state
+let resendCooldownRemaining = 0;
+let resendInterval = null;
+
+function startResendCooldown(seconds) {
+    resendCooldownRemaining = seconds;
+    const btn = document.getElementById('resendRegOtpBtn');
+    const label = document.getElementById('regOtpCooldownText');
+
+    if (btn) btn.disabled = true;
+    if (btn) btn.classList.add('opacity-50', 'cursor-not-allowed');
+    if (label) label.classList.remove('hidden');
+
+    if (resendInterval) clearInterval(resendInterval);
+
+    resendInterval = setInterval(() => {
+        resendCooldownRemaining--;
+        if (label) label.innerText = `You can request another code in ${resendCooldownRemaining}s`;
+
+        if (resendCooldownRemaining <= 0) {
+            clearInterval(resendInterval);
+            if (btn) btn.disabled = false;
+            if (btn) btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            if (label) label.classList.add('hidden');
+        }
+    }, 1000);
+}
+
+async function handleRegistrationOtpSubmit(e) {
+    e.preventDefault();
+    const inputs = Array.from(document.querySelectorAll('.otp-digit'));
+    const code = inputs.map(i => i.value).join('').trim();
+    const errorBox = document.getElementById('regOtpError');
+    const successBox = document.getElementById('regOtpSuccess');
+    const btn = document.getElementById('verifyOtpBtn');
+    const btnText = document.getElementById('verifyOtpBtnText');
+    const spinner = document.getElementById('verifyOtpSpinner');
+    const emailField = document.getElementById('regOtpEmail');
+
+    errorBox.classList.add('hidden');
+    successBox.classList.add('hidden');
+
+    if (code.length !== 6) {
+        errorBox.innerText = 'Please enter all 6 digits of the verification code.';
+        errorBox.classList.remove('hidden');
+        return;
+    }
+
+    if (btn) btn.disabled = true;
+    if (btnText) btnText.innerText = 'Verifying Code...';
+    if (spinner) spinner.classList.remove('hidden');
+
+    try {
+        const res = await fetch('/api/auth/verify-registration-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                code: code,
+                email: emailField ? emailField.value.trim() : null
+            })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+            successBox.innerText = data.message || 'Verification successful! Redirecting to setup...';
+            successBox.classList.remove('hidden');
+            showToast('Email verified successfully! Welcome to GrantFinder AI.', 'success');
+
+            setTimeout(() => {
+                window.location.href = data.redirect || '/onboarding';
+            }, 800);
+        } else {
+            errorBox.innerText = data.detail || data.message || 'Invalid verification code.';
+            errorBox.classList.remove('hidden');
+            showToast(data.detail || 'Verification code rejected.', 'error');
+            // Clear inputs for re-entry
+            inputs.forEach(i => i.value = '');
+            if (inputs[0]) inputs[0].focus();
+        }
+    } catch (err) {
+        errorBox.innerText = 'Network error while contacting verification server. Please try again.';
+        errorBox.classList.remove('hidden');
+        showToast('Network error while verifying.', 'error');
+    } finally {
+        if (btn) btn.disabled = false;
+        if (btnText) btnText.innerText = 'Verify & Activate Account';
+        if (spinner) spinner.classList.remove('hidden');
+        if (spinner) spinner.classList.add('hidden');
+    }
+}
+
+async function handleResendRegistrationOtp() {
+    if (resendCooldownRemaining > 0) return;
+
+    const btn = document.getElementById('resendRegOtpBtn');
+    const errorBox = document.getElementById('regOtpError');
+    const successBox = document.getElementById('regOtpSuccess');
+    const emailField = document.getElementById('regOtpEmail');
+
+    errorBox.classList.add('hidden');
+    successBox.classList.add('hidden');
+
+    if (btn) btn.innerText = 'Dispatching code...';
+
+    try {
+        const res = await fetch('/api/auth/resend-registration-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: emailField ? emailField.value.trim() : null
+            })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+            successBox.innerText = data.message || 'A new 6-digit code has been sent to your email.';
+            successBox.classList.remove('hidden');
+            showToast(data.message || 'New verification code dispatched.', 'success');
+            startResendCooldown(60);
+        } else {
+            const msg = data.detail || 'Could not resend code. Please try again.';
+            errorBox.innerText = msg;
+            errorBox.classList.remove('hidden');
+            showToast(msg, 'error');
+            if (data.status_code === 429 || res.status === 429) {
+                startResendCooldown(45);
+            }
+        }
+    } catch (err) {
+        errorBox.innerText = 'Network error while requesting new code.';
+        errorBox.classList.remove('hidden');
+        showToast('Network error.', 'error');
+    } finally {
+        if (btn) btn.innerText = 'Resend Verification Code';
+    }
+}
+</script>
+{% endblock %}

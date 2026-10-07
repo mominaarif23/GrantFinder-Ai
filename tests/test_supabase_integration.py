@@ -41,6 +41,9 @@ async def test_supabase_live_registration_and_table_presence():
     assert user_record["role"] == "student"
     assert user_record["plan"] == "free"
 
+    # Mark user as verified to access protected endpoints
+    supabase_service.set_user_verified(user_id, True)
+
     # 3. Verify user profile upsert writes to Supabase public.profiles
     prof_payload = {
         "type": "academic",
@@ -129,6 +132,7 @@ async def test_supabase_saved_opportunities_and_curated():
     assert reg_res.status_code == 201
     token = reg_res.json()["token"]
     user_id = reg_res.json()["user"]["id"]
+    supabase_service.set_user_verified(user_id, True)
 
     # 3. Save opportunity via API
     opp_payload = {

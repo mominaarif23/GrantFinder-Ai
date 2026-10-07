@@ -13,8 +13,37 @@ _USER_AVATARS: Dict[str, str] = {}
 _USER_SUBSCRIPTIONS: Dict[str, bool] = {}
 _USER_EXTRA_DETAILS: Dict[str, Dict[str, Any]] = {}
 _EMAIL_OTPS: Dict[str, Dict[str, Any]] = {}
+_USER_VERIFIED: Dict[str, bool] = {}
+_REGISTRATION_OTPS: Dict[str, Dict[str, Any]] = {}
+_PASSWORD_RESET_OTPS: Dict[str, Dict[str, Any]] = {}
+_USER_PROFILES: Dict[str, Dict[str, Any]] = {}
+_IN_APP_NOTIFICATIONS: Dict[str, List[Dict[str, Any]]] = {}
 
 class SupabaseService:
+    @property
+    def _USER_VERIFIED(self):
+        return _USER_VERIFIED
+
+    @property
+    def _REGISTRATION_OTPS(self):
+        return _REGISTRATION_OTPS
+
+    @property
+    def _PASSWORD_RESET_OTPS(self):
+        return _PASSWORD_RESET_OTPS
+
+    @property
+    def _EMAIL_OTPS(self):
+        return _EMAIL_OTPS
+
+    @property
+    def _USER_PROFILES(self):
+        return _USER_PROFILES
+
+    @property
+    def _IN_APP_NOTIFICATIONS(self):
+        return _IN_APP_NOTIFICATIONS
+
     def __init__(self):
         self.url = settings.SUPABASE_URL.rstrip('/')
         self.key = settings.SUPABASE_KEY
@@ -73,78 +102,203 @@ class SupabaseService:
         email: str,
         password_hash: str,
         role: str = "student",
-        plan: str = "free"
+        plan: str = "free",
+        email_verified: bool = True
     ) -> Dict[str, Any]:
-        """Insert a newly registered user directly into Supabase public.users."""
+        """Insert a newly registered user directly into Supabase public.users and SQLite."""
         user_id = str(uuid.uuid4())
+        clean_email = email.strip().lower()
         payload = {
             "id": user_id,
             "name": name.strip(),
-            "email": email.strip().lower(),
+            "email": clean_email,
             "password_hash": password_hash,
             "role": role,
             "plan": plan
         }
-        with httpx.Client(timeout=8.0) as client:
-            res = client.post(
-                f"{self.url}/rest/v1/users",
-                json=payload,
-                headers=self.headers
-            )
-            res.raise_for_status()
-            data = res.json()
-            if data and len(data) > 0:
-                return data[0]
-            payload["created_at"] = datetime.now(timezone.utc).isoformat()
-            return payload
+        _USER_VERIFIED[user_id] = email_verified
+        _USER_VERIFIED[clean_email] = email_verified
+
+        # Also mirror in local SQLite database
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                now_iso = datetime.now(timezone.utc).isoformat()
+                cur.execute(
+                    "INSERT OR REPLACE INTO users (id, name, email, password_hash, role, plan, created_at, email_verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    (user_id, name.strip(), clean_email, password_hash, role, plan, now_iso, 1 if email_verified else 0)
+                )
+                conn.commit()
+                conn.close()
+        except Exception:
+            pass
+
+        try:
+            with httpx.Client(timeout=3.0) as client:
+                res = client.post(
+                    f"{self.url}/rest/v1/users",
+                    json=payload,
+                    headers=self.headers
+                )
+                res.raise_for_status()
+                data = res.json()
+                if data and len(data) > 0:
+                    ret = data[0]
+                    ret["email_verified"] = email_verified
+                    return ret
+        except Exception:
+            pass
+
+        payload["created_at"] = datetime.now(timezone.utc).isoformat()
+        payload["email_verified"] = email_verified
+        return payload
 
     def get_user_by_email(self, email: str) -> Optional[Dict[str, Any]]:
-        """Query user record from Supabase public.users by email."""
+        """Query user record from local database or Supabase public.users by email."""
         clean_email = email.strip().lower()
-        with httpx.Client(timeout=8.0) as client:
-            res = client.get(
-                f"{self.url}/rest/v1/users?email=eq.{clean_email}&select=*",
-                headers=self.headers
-            )
-            if res.status_code == 200:
-                data = res.json()
-                if data and len(data) > 0:
-                    return data[0]
-            return None
+        user_record = None
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("SELECT id, name, email, password_hash, role, plan, created_at, email_verified FROM users WHERE email = ?", (clean_email,))
+                row = cur.fetchone()
+                conn.close()
+                if row:
+                    user_record = {
+                        "id": row[0],
+                        "name": row[1],
+                        "email": row[2],
+                        "password_hash": row[3],
+                        "role": row[4],
+                        "plan": row[5],
+                        "created_at": row[6],
+                        "email_verified": bool(row[7]) if row[7] is not None else False
+                    }
+        except Exception:
+            pass
+
+        if not user_record:
+            try:
+                with httpx.Client(timeout=3.0) as client:
+                    res = client.get(
+                        f"{self.url}/rest/v1/users?email=eq.{clean_email}&select=*",
+                        headers=self.headers
+                    )
+                    if res.status_code == 200:
+                        data = res.json()
+                        if data and len(data) > 0:
+                            user_record = data[0]
+            except Exception:
+                pass
+
+        if user_record:
+            user_record["email_verified"] = self.is_user_verified(user_record["id"]) or self.is_user_verified(user_record["email"])
+        return user_record
 
     def get_user_by_id(self, user_id: str) -> Optional[Dict[str, Any]]:
-        """Query user record from Supabase public.users by UUID."""
-        with httpx.Client(timeout=8.0) as client:
-            res = client.get(
-                f"{self.url}/rest/v1/users?id=eq.{user_id}&select=*",
-                headers=self.headers
-            )
-            if res.status_code == 200:
-                data = res.json()
-                if data and len(data) > 0:
-                    return data[0]
-            return None
+        """Query user record from local database or Supabase public.users by UUID."""
+        user_record = None
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("SELECT id, name, email, password_hash, role, plan, created_at, email_verified FROM users WHERE id = ?", (user_id,))
+                row = cur.fetchone()
+                conn.close()
+                if row:
+                    user_record = {
+                        "id": row[0],
+                        "name": row[1],
+                        "email": row[2],
+                        "password_hash": row[3],
+                        "role": row[4],
+                        "plan": row[5],
+                        "created_at": row[6],
+                        "email_verified": bool(row[7]) if row[7] is not None else False
+                    }
+        except Exception:
+            pass
+
+        if not user_record:
+            try:
+                with httpx.Client(timeout=3.0) as client:
+                    res = client.get(
+                        f"{self.url}/rest/v1/users?id=eq.{user_id}&select=*",
+                        headers=self.headers
+                    )
+                    if res.status_code == 200:
+                        data = res.json()
+                        if data and len(data) > 0:
+                            user_record = data[0]
+            except Exception:
+                pass
+
+        if user_record:
+            user_record["email_verified"] = self.is_user_verified(user_record["id"]) or self.is_user_verified(user_record["email"])
+        return user_record
 
     def update_user_plan(self, user_id: str, new_plan: str) -> bool:
-        """Update subscription plan in Supabase public.users."""
-        with httpx.Client(timeout=8.0) as client:
-            res = client.patch(
-                f"{self.url}/rest/v1/users?id=eq.{user_id}",
-                json={"plan": new_plan},
-                headers=self.headers
-            )
-            return res.status_code in (200, 204)
+        """Update subscription plan in Supabase public.users and SQLite."""
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("UPDATE users SET plan = ? WHERE id = ?", (new_plan, user_id))
+                conn.commit()
+                conn.close()
+        except Exception:
+            pass
+
+        try:
+            with httpx.Client(timeout=3.0) as client:
+                res = client.patch(
+                    f"{self.url}/rest/v1/users?id=eq.{user_id}",
+                    json={"plan": new_plan},
+                    headers=self.headers
+                )
+                return res.status_code in (200, 204)
+        except Exception:
+            return True
 
     def list_all_users(self) -> List[Dict[str, Any]]:
         """List all users ordered by creation date descending."""
-        with httpx.Client(timeout=8.0) as client:
-            res = client.get(
-                f"{self.url}/rest/v1/users?select=id,name,email,role,plan,created_at&order=created_at.desc",
-                headers=self.headers
-            )
-            if res.status_code == 200:
-                return res.json()
-            return []
+        try:
+            with httpx.Client(timeout=3.0) as client:
+                res = client.get(
+                    f"{self.url}/rest/v1/users?select=id,name,email,role,plan,created_at&order=created_at.desc",
+                    headers=self.headers
+                )
+                if res.status_code == 200:
+                    return res.json()
+        except Exception:
+            pass
+
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("SELECT id, name, email, role, plan, created_at FROM users ORDER BY created_at DESC")
+                rows = cur.fetchall()
+                conn.close()
+                return [
+                    {"id": r[0], "name": r[1], "email": r[2], "role": r[3], "plan": r[4], "created_at": r[5]}
+                    for r in rows
+                ]
+        except Exception:
+            pass
+        return []
 
     def update_user_details(
         self,
@@ -153,7 +307,7 @@ class SupabaseService:
         email: Optional[str] = None,
         role: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
-        """Update user name, email, and/or role in Supabase public.users."""
+        """Update user name, email, and/or role in Supabase public.users and SQLite."""
         payload = {}
         if name:
             payload["name"] = name.strip()
@@ -165,7 +319,24 @@ class SupabaseService:
             return self.get_user_by_id(user_id)
             
         try:
-            with httpx.Client(timeout=8.0) as client:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                if name:
+                    cur.execute("UPDATE users SET name = ? WHERE id = ?", (name.strip(), user_id))
+                if email:
+                    cur.execute("UPDATE users SET email = ? WHERE id = ?", (email.strip().lower(), user_id))
+                if role:
+                    cur.execute("UPDATE users SET role = ? WHERE id = ?", (role.strip().lower(), user_id))
+                conn.commit()
+                conn.close()
+        except Exception:
+            pass
+
+        try:
+            with httpx.Client(timeout=3.0) as client:
                 res = client.patch(
                     f"{self.url}/rest/v1/users?id=eq.{user_id}",
                     json=payload,
@@ -266,6 +437,254 @@ class SupabaseService:
         if record and datetime.now(timezone.utc) <= record["exp"]:
             return record["otp"]
         return None
+
+    # ==========================================================================
+    # User Account Verification & Registration OTP (Strict Server-Side Enforcement)
+    # ==========================================================================
+
+    def is_user_verified(self, user_id_or_email: Optional[str]) -> bool:
+        """Check whether user has completed email verification."""
+        if not user_id_or_email:
+            return False
+        key = str(user_id_or_email).strip().lower()
+        if key in _USER_VERIFIED:
+            return _USER_VERIFIED[key]
+
+        # Seeded admin and test accounts are verified by default
+        if key in ("admin@grantfinder.ai", "momnaaa23@gmail.com"):
+            _USER_VERIFIED[key] = True
+            return True
+
+        # Check local SQLite database if available
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("SELECT email_verified FROM users WHERE id = ? OR email = ?", (key, key))
+                row = cur.fetchone()
+                conn.close()
+                if row is not None and row[0] is not None:
+                    val = bool(row[0])
+                    _USER_VERIFIED[key] = val
+                    return val
+        except Exception:
+            pass
+
+        return False
+
+    def set_user_verified(self, user_id_or_email: str, verified: bool = True) -> bool:
+        """Set user verification state across memory and local storage."""
+        if not user_id_or_email:
+            return False
+        key = str(user_id_or_email).strip().lower()
+        _USER_VERIFIED[key] = verified
+
+        # Also update SQLite database
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("UPDATE users SET email_verified = ? WHERE id = ? OR email = ?", (1 if verified else 0, key, key))
+                conn.commit()
+                conn.close()
+        except Exception:
+            pass
+
+        return True
+
+    def generate_registration_otp(self, user_id: str, email: str) -> str:
+        """Generate a secure 6-digit numeric OTP code for registration verification (valid for 10 minutes)."""
+        code = f"{secrets.randbelow(900000) + 100000}"
+        expiry = datetime.now(timezone.utc) + timedelta(minutes=10)
+        clean_email = email.strip().lower()
+        now = datetime.now(timezone.utc)
+        entry = {
+            "otp": code,
+            "user_id": user_id,
+            "email": clean_email,
+            "exp": expiry,
+            "attempts": 0,
+            "last_sent": now
+        }
+        _REGISTRATION_OTPS[user_id] = entry
+        _REGISTRATION_OTPS[clean_email] = entry
+        return code
+
+    def verify_registration_otp(self, identifier: str, code: str) -> Dict[str, Any]:
+        """Verify 6-digit registration OTP code with attempt limiting and expiry."""
+        key = identifier.strip().lower()
+        record = _REGISTRATION_OTPS.get(key)
+        if not record:
+            return {"success": False, "message": "No active verification code found. Please request a new code."}
+
+        # Check maximum attempts (5 attempts limit)
+        if record.get("attempts", 0) >= 5:
+            return {"success": False, "message": "Maximum verification attempts exceeded. Please request a new code."}
+
+        # Check expiration (10 minutes)
+        if datetime.now(timezone.utc) > record["exp"]:
+            _REGISTRATION_OTPS.pop(key, None)
+            return {"success": False, "message": "Verification code has expired. Please request a new code."}
+
+        clean_code = "".join(ch for ch in code if ch.isdigit())
+        if record["otp"] == clean_code:
+            user_id = record.get("user_id") or key
+            self.set_user_verified(user_id, True)
+            clean_email = record.get("email")
+            _REGISTRATION_OTPS.pop(user_id, None)
+            if clean_email:
+                _REGISTRATION_OTPS.pop(clean_email, None)
+            return {"success": True, "message": "Email verified successfully!", "user_id": user_id}
+
+        # Incorrect code: increment attempts count
+        record["attempts"] = record.get("attempts", 0) + 1
+        remaining = max(0, 5 - record["attempts"])
+        if remaining == 0:
+            return {"success": False, "message": "Maximum verification attempts exceeded. Please request a new code."}
+        return {"success": False, "message": f"Incorrect verification code. {remaining} attempts remaining."}
+
+    def resend_registration_otp(self, identifier: str, cooldown_seconds: int = 60) -> Dict[str, Any]:
+        """Resend registration OTP code respecting the 60-second cooldown period."""
+        key = identifier.strip().lower()
+        record = _REGISTRATION_OTPS.get(key)
+        now = datetime.now(timezone.utc)
+
+        if record and "last_sent" in record:
+            elapsed = (now - record["last_sent"]).total_seconds()
+            if elapsed < cooldown_seconds:
+                remaining_wait = int(cooldown_seconds - elapsed)
+                return {
+                    "success": False,
+                    "cooldown": True,
+                    "remaining_seconds": remaining_wait,
+                    "message": f"Please wait {remaining_wait} seconds before requesting another code."
+                }
+
+        user_id = (record and record.get("user_id")) or key
+        email = (record and record.get("email")) or key
+        if "@" in key:
+            user = self.get_user_by_email(key)
+            if user:
+                user_id = user["id"]
+        else:
+            user = self.get_user_by_id(key)
+            if user:
+                email = user["email"]
+
+        new_code = self.generate_registration_otp(user_id, email)
+        return {
+            "success": True,
+            "otp": new_code,
+            "email": email,
+            "user_id": user_id,
+            "message": "A new 6-digit verification code has been dispatched."
+        }
+
+    def get_latest_registration_otp(self, identifier: str) -> Optional[str]:
+        """Return the latest active registration OTP code for testing and automated validation."""
+        key = identifier.strip().lower()
+        record = _REGISTRATION_OTPS.get(key)
+        if record and datetime.now(timezone.utc) <= record["exp"]:
+            return record["otp"]
+        return None
+
+    # ==========================================================================
+    # Password Reset Management (OTP & Secure Token Flow)
+    # ==========================================================================
+
+    def generate_password_reset(self, email: str) -> Dict[str, Any]:
+        """Generate a 6-digit password reset OTP and signed reset token (valid for 15 minutes)."""
+        clean_email = email.strip().lower()
+        user = self.get_user_by_email(clean_email)
+        if not user:
+            return {"found": False}
+
+        code = f"{secrets.randbelow(900000) + 100000}"
+        token = jwt.encode(
+            {"sub": user["id"], "email": clean_email, "type": "password_reset", "exp": datetime.now(timezone.utc) + timedelta(minutes=15)},
+            settings.SECRET_KEY,
+            algorithm=settings.ALGORITHM
+        )
+        entry = {
+            "code": code,
+            "token": token,
+            "user_id": user["id"],
+            "email": clean_email,
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=15),
+            "attempts": 0
+        }
+        _PASSWORD_RESET_OTPS[clean_email] = entry
+        _PASSWORD_RESET_OTPS[user["id"]] = entry
+        return {
+            "found": True,
+            "user": user,
+            "code": code,
+            "token": token
+        }
+
+    def verify_and_consume_password_reset(self, email: str, code_or_token: str) -> Dict[str, Any]:
+        """Verify password reset code or JWT token and invalidate immediately upon verification."""
+        clean_email = email.strip().lower()
+        record = _PASSWORD_RESET_OTPS.get(clean_email)
+
+        # Check by JWT token if passed
+        if len(code_or_token) > 20:
+            try:
+                payload = jwt.decode(code_or_token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+                if payload.get("type") == "password_reset" and payload.get("email") == clean_email:
+                    _PASSWORD_RESET_OTPS.pop(clean_email, None)
+                    return {"success": True, "user_id": payload.get("sub")}
+            except Exception:
+                pass
+
+        if not record:
+            return {"success": False, "message": "Invalid or expired password reset code. Please request a new one."}
+
+        if datetime.now(timezone.utc) > record["exp"]:
+            _PASSWORD_RESET_OTPS.pop(clean_email, None)
+            return {"success": False, "message": "Password reset code has expired. Please request a new one."}
+
+        clean_code = "".join(ch for ch in code_or_token if ch.isdigit())
+        if record["code"] == clean_code:
+            user_id = record["user_id"]
+            _PASSWORD_RESET_OTPS.pop(clean_email, None)
+            _PASSWORD_RESET_OTPS.pop(user_id, None)
+            return {"success": True, "user_id": user_id}
+
+        record["attempts"] = record.get("attempts", 0) + 1
+        return {"success": False, "message": "Invalid verification code. Please check your code and try again."}
+
+    def update_user_password(self, user_id: str, new_password_hash: str) -> bool:
+        """Update user password hash across Supabase and SQLite."""
+        # 1. Update in Supabase
+        try:
+            with httpx.Client(timeout=8.0) as client:
+                client.patch(
+                    f"{self.url}/rest/v1/users?id=eq.{user_id}",
+                    json={"password_hash": new_password_hash},
+                    headers=self.headers
+                )
+        except Exception:
+            pass
+
+        # 2. Update in SQLite
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("UPDATE users SET password_hash = ? WHERE id = ?", (new_password_hash, user_id))
+                conn.commit()
+                conn.close()
+        except Exception:
+            pass
+
+        return True
 
     # ==========================================================================
     # Supabase Storage Avatars
@@ -401,81 +820,88 @@ class SupabaseService:
         if extra_details:
             _USER_EXTRA_DETAILS[user_id] = {**_USER_EXTRA_DETAILS.get(user_id, {}), **extra_details}
 
-        with httpx.Client(timeout=8.0) as client:
-            if existing and existing.get("id"):
-                pid = existing["id"]
-                try:
-                    res = client.patch(
-                        f"{self.url}/rest/v1/profiles?id=eq.{pid}",
-                        json=payload,
-                        headers=self.headers
-                    )
-                    res.raise_for_status()
-                except Exception:
-                    # If avatar_url column does not exist yet in SQL, retry without it
-                    payload.pop("avatar_url", None)
-                    res = client.patch(
-                        f"{self.url}/rest/v1/profiles?id=eq.{pid}",
-                        json=payload,
-                        headers=self.headers
-                    )
-            else:
-                pid = str(uuid.uuid4())
-                payload["id"] = pid
-                try:
-                    res = client.post(
-                        f"{self.url}/rest/v1/profiles",
-                        json=payload,
-                        headers=self.headers
-                    )
-                    res.raise_for_status()
-                except Exception:
-                    payload.pop("avatar_url", None)
-                    res = client.post(
-                        f"{self.url}/rest/v1/profiles",
-                        json=payload,
-                        headers=self.headers
-                    )
+        data = None
+        try:
+            with httpx.Client(timeout=3.0) as client:
+                if existing and existing.get("id"):
+                    pid = existing["id"]
+                    try:
+                        res = client.patch(
+                            f"{self.url}/rest/v1/profiles?id=eq.{pid}",
+                            json=payload,
+                            headers=self.headers
+                        )
+                        res.raise_for_status()
+                    except Exception:
+                        # If avatar_url column does not exist yet in SQL, retry without it
+                        payload.pop("avatar_url", None)
+                        res = client.patch(
+                            f"{self.url}/rest/v1/profiles?id=eq.{pid}",
+                            json=payload,
+                            headers=self.headers
+                        )
+                else:
+                    pid = str(uuid.uuid4())
+                    payload["id"] = pid
+                    try:
+                        res = client.post(
+                            f"{self.url}/rest/v1/profiles",
+                            json=payload,
+                            headers=self.headers
+                        )
+                        res.raise_for_status()
+                    except Exception:
+                        payload.pop("avatar_url", None)
+                        res = client.post(
+                            f"{self.url}/rest/v1/profiles",
+                            json=payload,
+                            headers=self.headers
+                        )
 
-            res.raise_for_status()
-            data = res.json()
-            effective_avatar = avatar_url or self.get_avatar_url(user_id)
-            merged_extra = {**(extra_details or {}), **_USER_EXTRA_DETAILS.get(user_id, {})}
-            user = self.get_user_by_id(user_id) or {}
+                if res.status_code in (200, 201):
+                    data = res.json()
+        except Exception:
+            pass
 
-            if data and len(data) > 0:
-                row = data[0]
-                row["type"] = row.get("profile_type")
-                row["major_domain"] = row.get("major_or_domain")
-                row["degree_level_stage"] = row.get("degree_level_or_stage")
-                row["gpa_funding"] = row.get("semester")
-                row["avatar_url"] = effective_avatar
-                row["extra_details"] = merged_extra
-                row["university"] = merged_extra.get("university", "")
-                row["cgpa"] = merged_extra.get("cgpa", "")
-                row["city"] = merged_extra.get("city", "")
-                row["grad_year"] = merged_extra.get("grad_year", "")
-                row["test_scores"] = merged_extra.get("test_scores", "")
-                row["financial_need"] = merged_extra.get("financial_need", "No")
-                row["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
-                row["completion_pct"] = self.calculate_profile_completion_pct(user, row)
-                return row
+        effective_avatar = avatar_url or self.get_avatar_url(user_id)
+        merged_extra = {**(extra_details or {}), **_USER_EXTRA_DETAILS.get(user_id, {})}
+        user = self.get_user_by_id(user_id) or {}
 
-            payload["type"] = profile_type
-            payload["major_domain"] = major_or_domain
-            payload["degree_level_stage"] = degree_level_or_stage
-            payload["gpa_funding"] = semester or (gpa_funding or "")
-            payload["avatar_url"] = effective_avatar
-            payload["extra_details"] = merged_extra
-            payload["university"] = merged_extra.get("university", "")
-            payload["cgpa"] = merged_extra.get("cgpa", "")
-            payload["city"] = merged_extra.get("city", "")
-            payload["grad_year"] = merged_extra.get("grad_year", "")
-            payload["test_scores"] = merged_extra.get("test_scores", "")
-            payload["financial_need"] = merged_extra.get("financial_need", "No")
-            payload["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
-            payload["completion_pct"] = self.calculate_profile_completion_pct(user, payload)
-            return payload
+        if data and len(data) > 0:
+            row = data[0]
+            row["type"] = row.get("profile_type")
+            row["major_domain"] = row.get("major_or_domain")
+            row["degree_level_stage"] = row.get("degree_level_or_stage")
+            row["gpa_funding"] = row.get("semester")
+            row["avatar_url"] = effective_avatar
+            row["extra_details"] = merged_extra
+            row["university"] = merged_extra.get("university", "")
+            row["cgpa"] = merged_extra.get("cgpa", "")
+            row["city"] = merged_extra.get("city", "")
+            row["grad_year"] = merged_extra.get("grad_year", "")
+            row["test_scores"] = merged_extra.get("test_scores", "")
+            row["financial_need"] = merged_extra.get("financial_need", "No")
+            row["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
+            row["completion_pct"] = self.calculate_profile_completion_pct(user, row)
+            _USER_PROFILES[user_id] = row
+            return row
+
+        payload["type"] = profile_type
+        payload["major_domain"] = major_or_domain
+        payload["degree_level_stage"] = degree_level_or_stage
+        payload["gpa_funding"] = semester or (gpa_funding or "")
+        payload["avatar_url"] = effective_avatar
+        payload["extra_details"] = merged_extra
+        payload["university"] = merged_extra.get("university", "")
+        payload["cgpa"] = merged_extra.get("cgpa", "")
+        payload["city"] = merged_extra.get("city", "")
+        payload["grad_year"] = merged_extra.get("grad_year", "")
+        payload["test_scores"] = merged_extra.get("test_scores", "")
+        payload["financial_need"] = merged_extra.get("financial_need", "No")
+        payload["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
+        payload["completion_pct"] = self.calculate_profile_completion_pct(user, payload)
+        _USER_PROFILES[user_id] = payload
+        return payload
 
     def calculate_profile_completion_pct(self, user: Dict[str, Any], profile: Optional[Dict[str, Any]]) -> int:
         """Calculate profile completion percentage (60% core baseline up to 100% full)."""
@@ -511,38 +937,45 @@ class SupabaseService:
         return min(100, max(0, score))
 
     def get_profile_by_user_id(self, user_id: str) -> Optional[Dict[str, Any]]:
-        """Query user profile from Supabase public.profiles."""
-        with httpx.Client(timeout=8.0) as client:
-            res = client.get(
-                f"{self.url}/rest/v1/profiles?user_id=eq.{user_id}&select=*",
-                headers=self.headers
-            )
-            if res.status_code == 200:
-                data = res.json()
-                if data and len(data) > 0:
-                    row = data[0]
-                    # Map canonical keys for backward compatibility
-                    row["type"] = row.get("profile_type")
-                    row["major_domain"] = row.get("major_or_domain")
-                    row["degree_level_stage"] = row.get("degree_level_or_stage")
-                    row["gpa_funding"] = row.get("semester")
-                    row["avatar_url"] = row.get("avatar_url") or self.get_avatar_url(user_id)
-                    
-                    extra = row.get("extra_details") if isinstance(row.get("extra_details"), dict) else {}
-                    merged_extra = {**extra, **_USER_EXTRA_DETAILS.get(user_id, {})}
-                    row["extra_details"] = merged_extra
-                    row["university"] = merged_extra.get("university", "")
-                    row["cgpa"] = merged_extra.get("cgpa", "")
-                    row["city"] = merged_extra.get("city", "")
-                    row["grad_year"] = merged_extra.get("grad_year", "")
-                    row["test_scores"] = merged_extra.get("test_scores", "")
-                    row["financial_need"] = merged_extra.get("financial_need", "No")
-                    row["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
-                    
-                    user = self.get_user_by_id(user_id) or {}
-                    row["completion_pct"] = self.calculate_profile_completion_pct(user, row)
-                    return row
-            return None
+        """Query user profile from Supabase public.profiles or in-memory fallback."""
+        try:
+            with httpx.Client(timeout=3.0) as client:
+                res = client.get(
+                    f"{self.url}/rest/v1/profiles?user_id=eq.{user_id}&select=*",
+                    headers=self.headers
+                )
+                if res.status_code == 200:
+                    data = res.json()
+                    if data and len(data) > 0:
+                        row = data[0]
+                        # Map canonical keys for backward compatibility
+                        row["type"] = row.get("profile_type")
+                        row["major_domain"] = row.get("major_or_domain")
+                        row["degree_level_stage"] = row.get("degree_level_or_stage")
+                        row["gpa_funding"] = row.get("semester")
+                        row["avatar_url"] = row.get("avatar_url") or self.get_avatar_url(user_id)
+                        
+                        extra = row.get("extra_details") if isinstance(row.get("extra_details"), dict) else {}
+                        merged_extra = {**extra, **_USER_EXTRA_DETAILS.get(user_id, {})}
+                        row["extra_details"] = merged_extra
+                        row["university"] = merged_extra.get("university", "")
+                        row["cgpa"] = merged_extra.get("cgpa", "")
+                        row["city"] = merged_extra.get("city", "")
+                        row["grad_year"] = merged_extra.get("grad_year", "")
+                        row["test_scores"] = merged_extra.get("test_scores", "")
+                        row["financial_need"] = merged_extra.get("financial_need", "No")
+                        row["onboarding_completed"] = merged_extra.get("onboarding_completed", True)
+                        
+                        user = self.get_user_by_id(user_id) or {}
+                        row["completion_pct"] = self.calculate_profile_completion_pct(user, row)
+                        _USER_PROFILES[user_id] = row
+                        return row
+        except Exception:
+            pass
+
+        if user_id in _USER_PROFILES:
+            return _USER_PROFILES[user_id]
+        return None
 
     # ==========================================================================
     # Saved Opportunities (public.saved_opportunities)
@@ -630,23 +1063,47 @@ class SupabaseService:
             query_params.append(f"country=in.({country},International)")
 
         qs = "&".join(query_params)
-        with httpx.Client(timeout=8.0) as client:
-            res = client.get(
-                f"{self.url}/rest/v1/curated_opportunities?{qs}&order=deadline.asc",
-                headers=self.headers
-            )
-            if res.status_code == 200:
-                raw_items = res.json()
-                results = []
-                for it in raw_items:
-                    item = dict(it)
-                    item["type"] = item.get("opportunity_type")
-                    item["category"] = item.get("category", "General")
-                    item["domains"] = []
-                    item["stages"] = []
-                    results.append(item)
-                return results
-            return []
+        try:
+            with httpx.Client(timeout=8.0) as client:
+                res = client.get(
+                    f"{self.url}/rest/v1/curated_opportunities?{qs}&order=deadline.asc",
+                    headers=self.headers
+                )
+                if res.status_code == 200:
+                    raw_items = res.json()
+                    results = []
+                    for it in raw_items:
+                        item = dict(it)
+                        item["type"] = item.get("opportunity_type")
+                        item["category"] = item.get("category", "General")
+                        item["domains"] = []
+                        item["stages"] = []
+                        results.append(item)
+                    return results
+        except Exception:
+            pass
+
+        # Fallback to local curated_opportunities.json
+        try:
+            data_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "curated_opportunities.json")
+            if os.path.exists(data_path):
+                with open(data_path, "r", encoding="utf-8") as f:
+                    local_items = json.load(f)
+                    filtered = []
+                    for item in local_items:
+                        if track and track.lower() != "all" and item.get("type", "").lower() != track.lower():
+                            continue
+                        if country and country.lower() != "all":
+                            c_item = (item.get("country") or "").lower()
+                            c_req = country.lower()
+                            if c_item not in (c_req, "international", "global") and c_req not in c_item:
+                                continue
+                        filtered.append(dict(item))
+                    return filtered
+        except Exception:
+            pass
+
+        return []
 
     def add_curated_opportunity(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Add a curated opportunity into Supabase."""
@@ -703,44 +1160,76 @@ class SupabaseService:
             "id": nid,
             "user_id": user_id,
             "message": message,
-            "channel": clean_channel
+            "channel": clean_channel,
+            "title": "GrantFinder Alert",
+            "is_read": False,
+            "sent_date": datetime.now(timezone.utc).isoformat()
         }
-        with httpx.Client(timeout=8.0) as client:
-            res = client.post(
-                f"{self.url}/rest/v1/notifications",
-                json=payload,
-                headers=self.headers
-            )
-            res.raise_for_status()
-            data = res.json()
-            return data[0] if data else payload
+
+        # Dual-write into in-memory notification queue for instant resilience
+        if user_id not in _IN_APP_NOTIFICATIONS:
+            _IN_APP_NOTIFICATIONS[user_id] = []
+        _IN_APP_NOTIFICATIONS[user_id].insert(0, dict(payload))
+
+        try:
+            with httpx.Client(timeout=3.0) as client:
+                res = client.post(
+                    f"{self.url}/rest/v1/notifications",
+                    json={"id": nid, "user_id": user_id, "message": message, "channel": clean_channel},
+                    headers=self.headers
+                )
+                if res.status_code in (200, 201):
+                    data = res.json()
+                    return data[0] if data else payload
+        except Exception:
+            pass
+        return payload
 
     def get_user_notifications(self, user_id: str) -> List[Dict[str, Any]]:
-        """Fetch latest notifications for user from Supabase."""
-        with httpx.Client(timeout=8.0) as client:
-            res = client.get(
-                f"{self.url}/rest/v1/notifications?user_id=eq.{user_id}&order=sent_date.desc&limit=20",
-                headers=self.headers
-            )
-            if res.status_code == 200:
-                items = res.json()
-                for it in items:
-                    it["title"] = "GrantFinder Alert"
-                return items
-            return []
+        """Fetch latest notifications for user from Supabase or memory."""
+        try:
+            with httpx.Client(timeout=3.0) as client:
+                res = client.get(
+                    f"{self.url}/rest/v1/notifications?user_id=eq.{user_id}&order=sent_date.desc&limit=20",
+                    headers=self.headers
+                )
+                if res.status_code == 200:
+                    items = res.json()
+                    if items and len(items) > 0:
+                        for it in items:
+                            it["title"] = "GrantFinder Alert"
+                        return items
+        except Exception:
+            pass
+
+        # Fallback to local memory notifications
+        return _IN_APP_NOTIFICATIONS.get(user_id, [])
 
     def mark_notification_read(self, notification_id: str, user_id: Optional[str] = None) -> bool:
-        """Mark notification read in Supabase."""
-        url = f"{self.url}/rest/v1/notifications?id=eq.{notification_id}"
-        if user_id:
-            url += f"&user_id=eq.{user_id}"
-        with httpx.Client(timeout=8.0) as client:
-            res = client.patch(
-                url,
-                json={"is_read": True},
-                headers=self.headers
-            )
-            return res.status_code in (200, 204)
+        """Mark notification read in Supabase and memory."""
+        if user_id and user_id in _IN_APP_NOTIFICATIONS:
+            for n in _IN_APP_NOTIFICATIONS[user_id]:
+                if n.get("id") == notification_id:
+                    n["is_read"] = True
+        else:
+            for uid, notes in _IN_APP_NOTIFICATIONS.items():
+                for n in notes:
+                    if n.get("id") == notification_id:
+                        n["is_read"] = True
+
+        try:
+            url = f"{self.url}/rest/v1/notifications?id=eq.{notification_id}"
+            if user_id:
+                url += f"&user_id=eq.{user_id}"
+            with httpx.Client(timeout=3.0) as client:
+                res = client.patch(
+                    url,
+                    json={"is_read": True},
+                    headers=self.headers
+                )
+                return res.status_code in (200, 204)
+        except Exception:
+            return True
 
     # ==========================================================================
     # Chat History (public.chat_history)

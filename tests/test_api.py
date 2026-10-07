@@ -30,6 +30,12 @@ def test_full_student_lifecycle_and_freemium_flow():
     assert reg_resp.json()["user"]["role"] == "student"
     assert reg_resp.json()["user"]["plan"] == "free"
     
+    # Verify 6-digit registration OTP to activate account
+    otp_code = reg_resp.json().get("otp")
+    verify_resp = client.post("/api/auth/verify-registration-otp", json={"code": otp_code, "email": email})
+    assert verify_resp.status_code == 200
+    assert verify_resp.json()["success"] is True
+    
     # 2. Update Student Academic Profile
     prof_payload = {
         "type": "academic",
