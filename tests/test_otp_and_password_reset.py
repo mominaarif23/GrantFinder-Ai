@@ -29,8 +29,11 @@ def test_registration_creates_pending_verification_user():
     assert data["success"] is True
     assert data["email_verified"] is False
     assert data["redirect"] == "/verify-otp"
-    assert len(data["otp"]) == 6
-    assert data["otp"].isdigit()
+    assert "otp" not in data  # BUG-002: Verify zero plaintext token exposure in API responses
+    from app.db import get_latest_registration_otp
+    otp_code = get_latest_registration_otp(email)
+    assert len(otp_code) == 6
+    assert otp_code.isdigit()
 
     # Verify user cannot access dashboard or onboarding yet
     dash_res = client.get("/dashboard", follow_redirects=False)
@@ -77,7 +80,9 @@ def test_otp_verification_success_and_unlocks_features():
 
     reg_res = client.post("/api/auth/register", json=payload)
     assert reg_res.status_code == 201
-    otp_code = reg_res.json()["otp"]
+    assert "otp" not in reg_res.json()  # BUG-002: Zero plaintext token exposure
+    from app.db import get_latest_registration_otp
+    otp_code = get_latest_registration_otp(email)
 
     # Submit correct verification code
     verify_res = client.post("/api/auth/verify-registration-otp", json={"code": otp_code, "email": email})

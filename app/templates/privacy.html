@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+
+    <!-- Breadcrumb & Header -->
+    <div class="space-y-4 text-left">
+        <nav class="flex items-center space-x-2 text-xs font-semibold text-slate-500">
+            <a href="/" class="hover:text-navy-900 transition">Home</a>
+            <span>/</span>
+            <span class="text-brand-700">Privacy Policy</span>
+        </nav>
+
+        <div class="space-y-3 pb-6 border-b border-slate-200">
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                <span>Institutional Data Protection</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                Privacy <span class="font-serif italic font-normal text-brand-700">Policy</span>.
+            </h1>
+            <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+                Effective Date: October 8, 2026. GrantFinder AI is committed to safeguarding the personal, academic, and venture information entrusted to us by applicants, researchers, and student founders.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content Cards -->
+    <div class="space-y-8 text-left text-xs sm:text-sm text-slate-700 leading-relaxed">
+        
+        <!-- Section 1 -->
+        <section class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <h2 class="text-base sm:text-lg font-bold text-navy-900 flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                <span>1. Information We Collect</span>
+            </h2>
+            <p>
+                To provide targeted opportunity matching and AI-powered drafting assistance, we collect information you explicitly provide:
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                <li><strong>Account Credentials:</strong> Full name, verified institutional or personal email address, and cryptographically hashed passwords (using PBKDF2 with SHA-256).</li>
+                <li><strong>Academic & Venture Profiles:</strong> Field of study, major domain, degree level, GPA or academic standing, startup industry sector, venture stage, and target destination preferences.</li>
+                <li><strong>Application Artifacts:</strong> Draft Statements of Purpose, research summaries, and grant pitch narratives stored securely for your personal reference.</li>
+                <li><strong>Technical Telemetry:</strong> Log timestamps, HTTP security audit headers, and session identifiers necessary for platform security and rate limiting.</li>
+            </ul>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <h2 class="text-base sm:text-lg font-bold text-navy-900 flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                <span>2. How We Utilize Your Data</span>
+            </h2>
+            <p>
+                Your data is processed strictly for the following platform capabilities:
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                <li>Computing semantic compatibility scores between your profile and live scholarship or grant opportunities.</li>
+                <li>Delivering mandatory account verification codes (OTP) and critical system notifications via secure SMTP pipelines.</li>
+                <li>Synthesizing personalized application essays and grant proposals via isolated Google Gemini LLM API calls.</li>
+                <li>Preventing malicious bot activity, unauthorized access attempts, and brute-force authentication attacks.</li>
+            </ul>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <h2 class="text-base sm:text-lg font-bold text-navy-900 flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                <span>3. Zero Sale and Data Minimization Commitment</span>
+            </h2>
+            <p>
+                <strong>We do not sell, rent, monetize, or trade your personal or academic information to third-party advertisers or commercial brokers.</strong>
+            </p>
+            <p>
+                Data shared with underlying infrastructure providers (such as Supabase for persistent relational storage and Serper for web searches) is scoped strictly to the minimal parameters required to execute requested actions.
+            </p>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <h2 class="text-base sm:text-lg font-bold text-navy-900 flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                <span>4. Cryptographic Security & OTP Protection</span>
+            </h2>
+            <p>
+                All account verification one-time passwords (OTPs) are stored exclusively as SHA-256 cryptographic hashes and verified using constant-time string comparisons. Plaintext OTP tokens are immediately discarded from server memory and are never exposed in API payloads or browser logs.
+            </p>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <h2 class="text-base sm:text-lg font-bold text-navy-900 flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                <span>5. User Rights & Data Deletion</span>
+            </h2>
+            <p>
+                You retain complete control over your profile data. At any time, you may update your profile preferences, clear your saved bookmarks, or request complete account deletion by contacting our governance team at <code class="px-2 py-0.5 rounded bg-slate-100 font-mono text-navy-900">privacy@grantfinder.ai</code>.
+            </p>
+        </section>
+
+    </div>
+
+    <!-- Back to top or home -->
+    <div class="pt-6 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+        <span>GrantFinder AI Institutional Compliance</span>
+        <a href="/" class="text-brand-700 hover:text-navy-900 font-bold transition">Return to Home &rarr;</a>
+    </div>
+
+</div>
+{% endblock %}

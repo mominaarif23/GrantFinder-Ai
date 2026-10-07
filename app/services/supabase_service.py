@@ -4,6 +4,7 @@ import json
 import httpx
 import jwt
 import secrets
+import hashlib
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, List, Optional
 from app.config import settings
@@ -404,7 +405,14 @@ class SupabaseService:
         code = f"{secrets.randbelow(900000) + 100000}"
         expiry = datetime.now(timezone.utc) + timedelta(minutes=15)
         clean_email = email.strip().lower()
-        entry = {"otp": code, "user_id": user_id, "email": clean_email, "exp": expiry}
+        otp_hash = hashlib.sha256(code.encode("utf-8")).hexdigest()
+        entry = {
+            "otp_hash": otp_hash,
+            "_test_code": code,
+            "user_id": user_id,
+            "email": clean_email,
+            "exp": expiry
+        }
         _EMAIL_OTPS[user_id] = entry
         _EMAIL_OTPS[clean_email] = entry
         return code
@@ -423,19 +431,28 @@ class SupabaseService:
             return None
 
         clean_code = "".join(ch for ch in code if ch.isdigit())
-        if record["otp"] == clean_code:
+        candidate_hash = hashlib.sha256(clean_code.encode("utf-8")).hexdigest()
+        stored_hash = record.get("otp_hash")
+        is_match = False
+        if stored_hash:
+            is_match = secrets.compare_digest(stored_hash, candidate_hash)
+        elif "otp" in record:
+            is_match = secrets.compare_digest(record["otp"], clean_code)
+
+        if is_match:
             user_id = record.get("user_id") or key
             self.set_email_subscription(user_id, True)
+            self.set_user_verified(user_id, True)
             _EMAIL_OTPS.pop(key, None)
             return user_id
         return None
 
     def get_latest_otp(self, identifier: str) -> Optional[str]:
-        """Return the latest active OTP code for testing and automated validation."""
+        """Return the latest active OTP code for internal testing and automated validation."""
         key = identifier.strip().lower()
         record = _EMAIL_OTPS.get(key) or _EMAIL_OTPS.get(identifier)
         if record and datetime.now(timezone.utc) <= record["exp"]:
-            return record["otp"]
+            return record.get("_test_code") or record.get("otp")
         return None
 
     # ==========================================================================
@@ -502,8 +519,10 @@ class SupabaseService:
         expiry = datetime.now(timezone.utc) + timedelta(minutes=10)
         clean_email = email.strip().lower()
         now = datetime.now(timezone.utc)
+        otp_hash = hashlib.sha256(code.encode("utf-8")).hexdigest()
         entry = {
-            "otp": code,
+            "otp_hash": otp_hash,
+            "_test_code": code,
             "user_id": user_id,
             "email": clean_email,
             "exp": expiry,
@@ -531,7 +550,15 @@ class SupabaseService:
             return {"success": False, "message": "Verification code has expired. Please request a new code."}
 
         clean_code = "".join(ch for ch in code if ch.isdigit())
-        if record["otp"] == clean_code:
+        candidate_hash = hashlib.sha256(clean_code.encode("utf-8")).hexdigest()
+        stored_hash = record.get("otp_hash")
+        is_match = False
+        if stored_hash:
+            is_match = secrets.compare_digest(stored_hash, candidate_hash)
+        elif "otp" in record:
+            is_match = secrets.compare_digest(record["otp"], clean_code)
+
+        if is_match:
             user_id = record.get("user_id") or key
             self.set_user_verified(user_id, True)
             clean_email = record.get("email")
@@ -589,7 +616,7 @@ class SupabaseService:
         key = identifier.strip().lower()
         record = _REGISTRATION_OTPS.get(key)
         if record and datetime.now(timezone.utc) <= record["exp"]:
-            return record["otp"]
+            return record.get("_test_code") or record.get("otp")
         return None
 
     # ==========================================================================

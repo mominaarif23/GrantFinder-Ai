@@ -4,41 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}GrantFinder AI — Intelligent Scholarships & Startup Grants{% endblock %}</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN Configuration -->
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        navy: {
-                            800: '#1E293B',
-                            900: '#0F172A',
-                            950: '#0A192F',
+        window.tailwind = {
+            config: {
+                darkMode: 'class',
+                theme: {
+                    extend: {
+                        colors: {
+                            navy: {
+                                800: '#1E293B',
+                                900: '#0F172A',
+                                950: '#0A192F',
+                            },
+                            brand: {
+                                50: '#eff6ff',
+                                100: '#dbeafe',
+                                200: '#bfdbfe',
+                                500: '#3b82f6',
+                                600: '#2563eb',
+                                700: '#1d4ed8',
+                                800: '#1e40af',
+                                900: '#1e3a8a',
+                            },
+                            emerald: {
+                                50: '#ecfdf5',
+                                100: '#d1fae5',
+                                600: '#059669',
+                                700: '#047857',
+                                800: '#065f46',
+                            }
                         },
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        },
-                        emerald: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            600: '#059669',
-                            700: '#047857',
-                            800: '#065f46',
+                        fontFamily: {
+                            sans: ['Plus Jakarta Sans', 'sans-serif'],
+                            serif: ['Playfair Display', 'serif'],
+                            mono: ['JetBrains Mono', 'monospace'],
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
@@ -55,6 +56,7 @@
             } catch(e) {}
         })();
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/static/css/custom.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -69,7 +71,7 @@
     </div>
 
     <!-- Country Landmark Floating Indicator (Bottom-Left) -->
-    <div id="atmosphereBadge" class="fixed bottom-6 left-6 z-30 flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md text-xs text-slate-700 transition-all duration-300">
+    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md text-xs text-slate-700 transition-all duration-300">
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
         <span class="font-extrabold text-navy-900 whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
         <span class="text-slate-300">&bull;</span>
@@ -409,9 +411,9 @@
             <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-3">
                 <p>&copy; 2026 GrantFinder AI. All rights reserved.</p>
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="hover:text-slate-400 transition">Privacy Policy</a>
+                    <a href="/privacy" class="hover:text-slate-400 transition">Privacy Policy</a>
                     <span>&bull;</span>
-                    <a href="#" class="hover:text-slate-400 transition">Terms of Service</a>
+                    <a href="/terms" class="hover:text-slate-400 transition">Terms of Service</a>
                 </div>
             </div>
 
@@ -419,7 +421,7 @@
     </footer>
 
     <!-- Floating GrantFinder AI Advisor Trigger Button -->
-    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-6 right-6 z-40 flex items-center space-x-2.5 px-4 py-3 rounded-full bg-navy-950 text-white shadow-xl hover:bg-brand-900 border border-slate-700/60 transition-all duration-200 group hover:scale-105" title="Chat with GrantFinder AI Advisor">
+    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center space-x-2 sm:space-x-2.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-navy-950 text-white shadow-xl hover:bg-brand-900 border border-slate-700/60 transition-all duration-200 group hover:scale-105" title="Chat with GrantFinder AI Advisor">
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
         <span class="text-xs font-bold tracking-tight">AI Advisor</span>
         <svg class="w-4 h-4 text-brand-300 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

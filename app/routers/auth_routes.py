@@ -70,8 +70,7 @@ def register(req: UserRegisterRequest, response: Response, background_tasks: Bac
             "plan": user["plan"],
             "email_verified": False
         },
-        "token": token,
-        "otp": otp_code
+        "token": token
     }
 
 @router.post("/login")
@@ -124,8 +123,7 @@ def login(req: UserLoginRequest, response: Response, background_tasks: Backgroun
                 "plan": user["plan"],
                 "email_verified": False
             },
-            "token": token,
-            "otp": otp_code
+            "token": token
         }
     
     return {
@@ -144,7 +142,7 @@ def login(req: UserLoginRequest, response: Response, background_tasks: Backgroun
     }
 
 @router.post("/verify-registration-otp")
-async def verify_registration_otp_endpoint(req: VerifyOtpRequest, request: Request):
+async def verify_registration_otp_endpoint(req: VerifyOtpRequest, request: Request, response: Response):
     user = get_current_user_optional(request)
     identifier = (user and user.get("id")) or (req.email and str(req.email).strip().lower())
     if not identifier:
@@ -158,10 +156,33 @@ async def verify_registration_otp_endpoint(req: VerifyOtpRequest, request: Reque
     if user_id:
         set_user_verified(user_id, True)
 
+    target_user = (get_user_by_id(user_id) if user_id else None) or get_user_by_email(identifier)
+    if not target_user and user:
+        target_user = user
+
+    new_token = None
+    if target_user:
+        target_user["email_verified"] = True
+        new_token = create_access_token({
+            "sub": str(target_user["id"]),
+            "role": target_user["role"],
+            "plan": target_user["plan"],
+            "email_verified": True
+        })
+        response.set_cookie(
+            key="access_token",
+            value=new_token,
+            httponly=True,
+            max_age=86400 * 7,
+            samesite="lax"
+        )
+
     return {
         "success": True,
         "message": "Email verified successfully! Your account is now fully active.",
-        "redirect": "/onboarding"
+        "redirect": "/onboarding",
+        "token": new_token,
+        "user": target_user
     }
 
 @router.post("/resend-registration-otp")
@@ -192,8 +213,7 @@ async def resend_registration_otp_endpoint(req: ResendOtpRequest, request: Reque
 
     return {
         "success": True,
-        "message": "A new 6-digit verification code has been sent to your email.",
-        "otp": new_otp
+        "message": "A new 6-digit verification code has been sent to your email."
     }
 
 @router.post("/forgot-password")

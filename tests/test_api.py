@@ -31,7 +31,9 @@ def test_full_student_lifecycle_and_freemium_flow():
     assert reg_resp.json()["user"]["plan"] == "free"
     
     # Verify 6-digit registration OTP to activate account
-    otp_code = reg_resp.json().get("otp")
+    assert "otp" not in reg_resp.json()  # BUG-002: Verify zero plaintext token exposure in API responses
+    from app.db import get_latest_registration_otp
+    otp_code = get_latest_registration_otp(email)
     verify_resp = client.post("/api/auth/verify-registration-otp", json={"code": otp_code, "email": email})
     assert verify_resp.status_code == 200
     assert verify_resp.json()["success"] is True
@@ -301,6 +303,66 @@ def test_dedicated_ai_assistant_views():
         assert "inlineAdvisorForm" in text
         assert "inlineAdvisorInput" in text
         assert "Suggested Prompts" in text
+
+def test_dedicated_legal_views():
+    """Verify that /privacy and /terms render institutional legal disclosure templates."""
+    for path in ["/privacy", "/privacy-policy"]:
+        resp = client.get(path)
+        assert resp.status_code == 200
+        text = resp.text
+        assert "Privacy" in text
+        assert "Institutional Data Protection" in text
+        assert "Zero Sale and Data Minimization" in text
+
+    for path in ["/terms", "/terms-of-service"]:
+        resp = client.get(path)
+        assert resp.status_code == 200
+        text = resp.text
+        assert "Terms of" in text
+        assert "Institutional User Agreement" in text
+        assert "Academic Integrity" in text
+
+def test_deep_link_routes_unauthenticated():
+    """Verify that deep-link endpoints gracefully redirect rather than throwing 404 (BUG-003)."""
+    client.cookies.clear()
+    # /search redirects to /destinations for unauthenticated users
+    resp_search = client.get("/search", follow_redirects=False)
+    assert resp_search.status_code == 302
+    assert resp_search.headers["location"] == "/destinations"
+
+    # /drafter redirects to /ai-assistant for unauthenticated users
+    resp_drafter = client.get("/drafter", follow_redirects=False)
+    assert resp_drafter.status_code == 302
+    assert resp_drafter.headers["location"] == "/ai-assistant"
+
+    # /bookmarks and /saved redirect to /login?next=/bookmarks
+    for path in ["/bookmarks", "/saved"]:
+        resp_book = client.get(path, follow_redirects=False)
+        assert resp_book.status_code == 302
+        assert "/login?next=/bookmarks" in resp_book.headers["location"]
+
+def test_http_security_headers():
+    """Verify that institutional HTTP security headers are injected on all responses (BUG-006)."""
+    resp = client.get("/")
+    assert resp.status_code == 200
+    assert resp.headers.get("X-Frame-Options") == "DENY"
+    assert resp.headers.get("X-Content-Type-Options") == "nosniff"
+    assert "Strict-Transport-Security" in resp.headers
+    assert resp.headers.get("Referrer-Policy") == "strict-origin-when-cross-origin"
+
+def test_cors_options_preflight():
+    """Verify that CORS preflight OPTIONS requests are handled cleanly (BUG-008)."""
+    resp = client.options(
+        "/api/opportunities/search",
+        headers={
+            "Origin": "http://localhost:3000",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "Content-Type",
+        }
+    )
+    assert resp.status_code == 200
+    assert resp.headers.get("access-control-allow-origin") in ["*", "http://localhost:3000"]
+    assert "POST" in resp.headers.get("access-control-allow-methods", "")
 
 
 

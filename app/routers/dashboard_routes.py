@@ -1,17 +1,18 @@
 from datetime import datetime, timezone
 import os
-from fastapi import APIRouter, Request, Depends, HTTPException, status
+from fastapi import APIRouter, Request, Response, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Dict, Any
-from app.auth import get_current_user_optional, get_current_user, require_admin, is_user_email_verified
+from app.auth import get_current_user_optional, get_current_user, require_admin, is_user_email_verified, create_access_token
 from app.db import (
     get_profile_by_user_id, get_user_notifications, get_saved_opportunities,
     get_platform_analytics, list_curated_opportunities, list_all_users,
     add_curated_opportunity, delete_curated_opportunity, mark_notification_read,
     get_avatar_url, set_email_subscription, is_email_subscribed,
-    verify_subscription_token, get_user_by_id, calculate_profile_completion_pct,
-    verify_email_otp, get_latest_registration_otp, generate_registration_otp
+    verify_subscription_token, get_user_by_id, get_user_by_email, calculate_profile_completion_pct,
+    verify_email_otp, get_latest_registration_otp, generate_registration_otp,
+    set_user_verified, verify_registration_otp
 )
 from app.models import CuratedOpportunityCreate
 from app.services.notification_service import send_optin_confirmation_email
@@ -103,6 +104,63 @@ def ai_assistant_view(request: Request):
         "notifications": notifications,
         "avatar_url": avatar
     })
+
+@router.get("/privacy", response_class=HTMLResponse)
+@router.get("/privacy-policy", response_class=HTMLResponse)
+def privacy_view(request: Request):
+    """Institutional Privacy Policy disclosures."""
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="privacy.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
+@router.get("/terms", response_class=HTMLResponse)
+@router.get("/terms-of-service", response_class=HTMLResponse)
+def terms_view(request: Request):
+    """Institutional Terms of Service and user rights disclosures."""
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="terms.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
+@router.get("/search")
+def search_deep_link(request: Request):
+    """BUG-003: Graceful deep-link resolution for direct navigation to /search."""
+    user = get_current_user_optional(request)
+    if user:
+        if user.get("role") == "founder":
+            return RedirectResponse(url="/dashboard/founder", status_code=302)
+        return RedirectResponse(url="/dashboard/student", status_code=302)
+    return RedirectResponse(url="/destinations", status_code=302)
+
+@router.get("/drafter")
+def drafter_deep_link(request: Request):
+    """BUG-003: Graceful deep-link resolution for direct navigation to /drafter."""
+    user = get_current_user_optional(request)
+    if user:
+        if user.get("role") == "founder":
+            return RedirectResponse(url="/dashboard/founder#pitchDrafterCard", status_code=302)
+        return RedirectResponse(url="/dashboard/student#essayDrafterCard", status_code=302)
+    return RedirectResponse(url="/ai-assistant", status_code=302)
+
+@router.get("/bookmarks")
+@router.get("/saved")
+def bookmarks_deep_link(request: Request):
+    """BUG-003: Graceful deep-link resolution for direct navigation to /bookmarks."""
+    user = get_current_user_optional(request)
+    if user:
+        if user.get("role") == "founder":
+            return RedirectResponse(url="/dashboard/founder#savedOpportunities", status_code=302)
+        return RedirectResponse(url="/dashboard/student#savedOpportunities", status_code=302)
+    return RedirectResponse(url="/login?next=/bookmarks", status_code=302)
 
 @router.get("/login", response_class=HTMLResponse)
 def login_view(request: Request):
@@ -417,16 +475,15 @@ def resend_confirmation(request: Request, user: Dict[str, Any] = Depends(get_cur
         active_otp = dispatch_res.get("otp", "")
     smtp_ok = dispatch_res.get("smtp_delivered", True) if isinstance(dispatch_res, dict) else True
 
-    msg = f"Confirmation email and verification code {active_otp} dispatched. Please check your inbox or notification bell."
+    msg = "Confirmation email and verification code dispatched. Please check your inbox or notification bell."
     return {
         "success": True,
         "message": msg,
-        "otp": active_otp,
         "smtp_delivered": smtp_ok
     }
 
 @router.post("/api/notifications/verify-otp")
-async def verify_otp_endpoint(request: Request):
+async def verify_otp_endpoint(request: Request, response: Response):
     try:
         data = await request.json()
     except Exception:
@@ -444,11 +501,41 @@ async def verify_otp_endpoint(request: Request):
         verified_user_id = verify_email_otp(user["email"], otp_code)
 
     if not verified_user_id:
+        reg_res = verify_registration_otp(identifier, otp_code)
+        if reg_res.get("success"):
+            verified_user_id = reg_res.get("user_id") or identifier
+
+    if not verified_user_id:
         raise HTTPException(status_code=400, detail="Invalid or expired 6-digit verification code. Please check your code or request a new one.")
+
+    set_user_verified(verified_user_id, True)
+
+    target_user = (get_user_by_id(verified_user_id) if verified_user_id else None) or get_user_by_email(identifier)
+    if not target_user and user:
+        target_user = user
+
+    new_token = None
+    if target_user:
+        target_user["email_verified"] = True
+        new_token = create_access_token({
+            "sub": str(target_user["id"]),
+            "role": target_user["role"],
+            "plan": target_user["plan"],
+            "email_verified": True
+        })
+        response.set_cookie(
+            key="access_token",
+            value=new_token,
+            httponly=True,
+            max_age=86400 * 7,
+            samesite="lax"
+        )
 
     return {
         "success": True,
         "message": "Email notifications confirmed and verified successfully!",
-        "user_id": verified_user_id
+        "user_id": verified_user_id,
+        "redirect": "/onboarding",
+        "token": new_token
     }
 
