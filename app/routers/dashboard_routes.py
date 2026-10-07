@@ -44,6 +44,66 @@ def destinations_view(request: Request):
         "avatar_url": avatar
     })
 
+@router.get("/capabilities", response_class=HTMLResponse)
+@router.get("/ai-capabilities", response_class=HTMLResponse)
+def capabilities_view(request: Request):
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="capabilities.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
+@router.get("/why-grantfinder", response_class=HTMLResponse)
+@router.get("/why-us", response_class=HTMLResponse)
+def why_grantfinder_view(request: Request):
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="why_grantfinder.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
+@router.get("/verified-portals", response_class=HTMLResponse)
+@router.get("/portals", response_class=HTMLResponse)
+@router.get("/repositories", response_class=HTMLResponse)
+def portals_view(request: Request):
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="portals.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
+@router.get("/faq", response_class=HTMLResponse)
+def faq_view(request: Request):
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="faq.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
+@router.get("/ai-assistant", response_class=HTMLResponse)
+@router.get("/assistant", response_class=HTMLResponse)
+def ai_assistant_view(request: Request):
+    user = get_current_user_optional(request)
+    notifications = get_user_notifications(user["id"]) if user else []
+    avatar = get_avatar_url(user["id"]) if user else None
+    return templates.TemplateResponse(request=request, name="ai_assistant.html", context={
+        "user": user,
+        "notifications": notifications,
+        "avatar_url": avatar
+    })
+
 @router.get("/login", response_class=HTMLResponse)
 def login_view(request: Request):
     user = get_current_user_optional(request)

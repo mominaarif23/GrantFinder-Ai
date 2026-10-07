@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Frequently Asked Questions & Knowledge Base — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+
+    <!-- Breadcrumb & Header -->
+    <div class="space-y-4 text-left">
+        <nav class="flex items-center space-x-2 text-xs font-semibold text-slate-500">
+            <a href="/" class="hover:text-navy-900 transition">Home</a>
+            <span>/</span>
+            <span class="text-brand-700">FAQ</span>
+        </nav>
+
+        <div class="space-y-3 pb-6 border-b border-slate-200">
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                <span>Platform Knowledge Base</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                Frequently Asked <span class="font-serif italic font-normal text-brand-700">Questions</span>.
+            </h1>
+            <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
+                Explore comprehensive answers to common questions about our hybrid search pipeline, Gemini semantic scoring, application drafting assistants, and account security.
+            </p>
+        </div>
+    </div>
+
+    <!-- Quick Category Jump Pills -->
+    <div class="flex flex-wrap gap-2 text-xs font-bold text-slate-600 text-left">
+        <a href="#cat-general" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 transition">General & Architecture</a>
+        <a href="#cat-students" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 transition">Student Scholarships</a>
+        <a href="#cat-founders" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 transition">Startup & Founder Grants</a>
+        <a href="#cat-security" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 transition">Security & Email OTP</a>
+        <a href="#cat-pricing" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 transition">Plans & Pricing</a>
+    </div>
+
+    <!-- 1. General & Architecture -->
+    <div id="cat-general" class="space-y-4 text-left">
+        <div class="flex items-center space-x-2 border-b border-slate-200 pb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Category 01</span>
+            <span class="text-xs text-slate-400">&bull;</span>
+            <h2 class="text-lg font-bold text-navy-900">General & Search Architecture</h2>
+        </div>
+
+        <div class="space-y-3">
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group" open>
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>How does GrantFinder AI discover opportunities without returning expired listings?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    GrantFinder AI deploys a hybrid retrieval architecture. A core relational database caches verified institutional programs (such as HEC, Ignite, USEFP, and DAAD) that are reviewed periodically. Whenever you trigger a search, the system concurrently queries live Serper.dev web indexes to extract recently announced cohorts and active deadlines. This guarantees you never rely on stale forum threads or dead links.
+                </p>
+            </details>
+
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>How is the 0-100% Match Score calculated?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    The platform evaluates your profile across multiple orthogonal factors: field of study or venture industry, target degree stage or venture maturity, geographic eligibility, GPA cutoff alignment, and financial need. Google Gemini analyzes these parameters against the opportunity criteria and returns a deterministic percentage score alongside a written rationale explaining why you qualify.
+                </p>
+            </details>
+        </div>
+    </div>
+
+    <!-- 2. Student Scholarships -->
+    <div id="cat-students" class="space-y-4 text-left">
+        <div class="flex items-center space-x-2 border-b border-slate-200 pb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Category 02</span>
+            <span class="text-xs text-slate-400">&bull;</span>
+            <h2 class="text-lg font-bold text-navy-900">Student Scholarships</h2>
+        </div>
+
+        <div class="space-y-3">
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>What degree levels and programs are supported?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    The platform supports Undergraduate (Bachelor's), Postgraduate (Master's), Doctoral (PhD), and Post-Doctoral research fellowships. Fields span Computer Science, Engineering, Medicine, Business, Humanities, Arts, and Social Sciences.
+                </p>
+            </details>
+
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>How does the AI Statement of Purpose (SOP) Drafter work?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    When you select a scholarship opportunity, our AI drafting engine ingests your academic milestones, target program, research aspirations, and background. It structures a tailored 4-paragraph academic statement formatted according to international university admission standards.
+                </p>
+            </details>
+        </div>
+    </div>
+
+    <!-- 3. Founder Grants -->
+    <div id="cat-founders" class="space-y-4 text-left">
+        <div class="flex items-center space-x-2 border-b border-slate-200 pb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Category 03</span>
+            <span class="text-xs text-slate-400">&bull;</span>
+            <h2 class="text-lg font-bold text-navy-900">Startup & Founder Grants</h2>
+        </div>
+
+        <div class="space-y-3">
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>What does non-dilutive equity-free grant mean?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    Non-dilutive capital refers to financial awards and prototype development grants that do not require you to surrender equity, board seats, or future ownership in your company. Programs from bodies like Ignite, NIC, and Karandaaz award these grants to foster technological innovation without taking founder equity.
+                </p>
+            </details>
+
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>How does the AI Pitch Proposal Drafter assist early-stage founders?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    The Pitch Drafter formats your raw venture concept into a 5-section executive proposal meeting committee grant standards: Executive Summary, Problem Validation, Solution & Technology, Traction & Milestones, and Fund Utilization & Budget Breakdown.
+                </p>
+            </details>
+        </div>
+    </div>
+
+    <!-- 4. Security & Email OTP -->
+    <div id="cat-security" class="space-y-4 text-left">
+        <div class="flex items-center space-x-2 border-b border-slate-200 pb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Category 04</span>
+            <span class="text-xs text-slate-400">&bull;</span>
+            <h2 class="text-lg font-bold text-navy-900">Account Security & Verification</h2>
+        </div>
+
+        <div class="space-y-3">
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>Why is 6-digit email OTP verification mandatory upon registration?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    To prevent malicious account creation and protect your saved opportunities and application drafts, all registrations require email verification. A secure 6-digit code is dispatched via Gmail SMTP. Unverified users cannot bypass the verification screen or access portal features until their email ownership is confirmed.
+                </p>
+            </details>
+
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>What happens if my OTP code expires or is incorrect?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    Each OTP code remains valid for 10 minutes. If entered incorrectly 5 times, it is invalidated to prevent brute force attempts. You can click "Resend Code" after a 60-second cooldown timer to receive a fresh verification code.
+                </p>
+            </details>
+
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>How can I reset my password if I forget it?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    Navigate to the Login page and click "Forgot Password?". Enter your registered email to receive a secure, time-limited reset link. The reset token expires in 15 minutes and automatically invalidates your prior credentials upon completion.
+                </p>
+            </details>
+        </div>
+    </div>
+
+    <!-- 5. Plans & Pricing -->
+    <div id="cat-pricing" class="space-y-4 text-left">
+        <div class="flex items-center space-x-2 border-b border-slate-200 pb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Category 05</span>
+            <span class="text-xs text-slate-400">&bull;</span>
+            <h2 class="text-lg font-bold text-navy-900">Plans & Demonstration Freemium Tier</h2>
+        </div>
+
+        <div class="space-y-3">
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>What is included in the Free plan?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    The Free plan provides access to the full opportunity search engine with the top 3 highest-match results displayed per query, full destination directories, institutional portal links, in-app notifications, and account bookmarks.
+                </p>
+            </details>
+
+            <details class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs group">
+                <summary class="font-bold text-navy-900 text-sm cursor-pointer flex items-center justify-between list-none">
+                    <span>What does the $9 demonstration Premium upgrade provide?</span>
+                    <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                    The Premium demonstration tier removes the 3-opportunity cutoff, provides unlimited search results, unlocks the AI Statement of Purpose and Pitch Proposal generation tools, activates instant branded email match alerts, and enables WhatsApp notification dispatch.
+                </p>
+            </details>
+        </div>
+    </div>
+
+    <!-- Still Have Questions Callout -->
+    <div class="rounded-3xl bg-slate-50 border border-slate-200 p-8 text-center space-y-4">
+        <h3 class="text-xl font-extrabold text-navy-900">Still have questions?</h3>
+        <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto">
+            Our conversational AI Assistant can evaluate your specific degree, grades, or startup venture and provide customized recommendations.
+        </p>
+        <div class="pt-2">
+            <a href="/ai-assistant" class="inline-flex px-6 py-3 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition shadow-sm">
+                Chat with AI Assistant &rarr;
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

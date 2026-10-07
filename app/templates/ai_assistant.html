@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}AI Opportunity Assistant & Conversational Guidance — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 space-y-8">
+
+    <!-- Breadcrumb & Header -->
+    <div class="space-y-4 text-left">
+        <nav class="flex items-center space-x-2 text-xs font-semibold text-slate-500">
+            <a href="/" class="hover:text-navy-900 transition">Home</a>
+            <span>/</span>
+            <span class="text-brand-700">AI Assistant</span>
+        </nav>
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200">
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Conversational Opportunity Intelligence</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                    GrantFinder <span class="font-serif italic font-normal text-brand-700">AI Assistant</span>.
+                </h1>
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                    Have an interactive conversation with our specialized funding advisor. Receive personalized scholarship recommendations, understand qualification rubrics, discover startup grant deadlines, or explore global academic pathways.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+                <a href="/destinations" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 font-bold text-xs border border-slate-200 transition">
+                    View Destinations Hub &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Interactive Workspace -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left">
+
+        <!-- Left Controls & Prompts Column (5 cols) -->
+        <div class="lg:col-span-5 space-y-6">
+
+            <!-- System Telemetry Badge Card -->
+            <div class="p-6 rounded-3xl bg-navy-950 text-white shadow-xl space-y-4 border border-navy-800">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] uppercase font-bold tracking-wider text-brand-300">Live Agent Console</span>
+                    <span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Online</span>
+                    </span>
+                </div>
+                <h3 class="text-lg font-bold">Autonomous Advisor</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Connected directly to verified government repositories (HEC, Ignite, DAAD, Fulbright, Chevening) with real-time web discovery and Google Gemini semantic reasoning.
+                </p>
+
+                <div class="pt-3 border-t border-navy-800 grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                        <span class="text-slate-400 text-[11px] block">Database Status</span>
+                        <span class="font-bold text-white">26+ Seeded Portals</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 text-[11px] block">Live Web Retrieval</span>
+                        <span class="font-bold text-emerald-400">Serper.dev Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pre-configured Quick Prompts Card -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-5">
+                <div>
+                    <h4 class="font-bold text-navy-900 text-sm">Suggested Prompts</h4>
+                    <p class="text-xs text-slate-500 mt-0.5">Click any prompt to instantly query the advisor.</p>
+                </div>
+
+                <!-- Academic Section -->
+                <div class="space-y-2">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 block">Student Scholarships</span>
+                    <div class="space-y-1.5">
+                        <button type="button" onclick="sendQuickPrompt('I am a Computer Science undergrad looking for scholarships in Pakistan')" class="w-full text-left p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-800 text-slate-700 border border-slate-200/80 hover:border-brand-300 transition text-xs font-medium cursor-pointer">
+                            &rarr; CS Undergraduate in Pakistan (HEC / PEEF)
+                        </button>
+                        <button type="button" onclick="sendQuickPrompt('Looking for fully funded Master scholarships in Germany DAAD')" class="w-full text-left p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-800 text-slate-700 border border-slate-200/80 hover:border-brand-300 transition text-xs font-medium cursor-pointer">
+                            &rarr; DAAD Germany Fully Funded Master's
+                        </button>
+                        <button type="button" onclick="sendQuickPrompt('Chevening and Commonwealth scholarships in the UK for 2026')" class="w-full text-left p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-800 text-slate-700 border border-slate-200/80 hover:border-brand-300 transition text-xs font-medium cursor-pointer">
+                            &rarr; UK Chevening & Commonwealth Guidelines
+                        </button>
+                        <button type="button" onclick="sendQuickPrompt('Fulbright USA requirements for Pakistani engineering students')" class="w-full text-left p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-800 text-slate-700 border border-slate-200/80 hover:border-brand-300 transition text-xs font-medium cursor-pointer">
+                            &rarr; Fulbright USA Criteria for Engineering
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Startup Section -->
+                <div class="space-y-2 pt-2 border-t border-slate-100">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 block">Startup & Founder Grants</span>
+                    <div class="space-y-1.5">
+                        <button type="button" onclick="sendQuickPrompt('I have an AI startup prototype seeking seed grants in Pakistan')" class="w-full text-left p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-900 text-slate-700 border border-slate-200/80 hover:border-emerald-300 transition text-xs font-medium cursor-pointer">
+                            &rarr; AI Startup Prototype Seed Grants (Ignite)
+                        </button>
+                        <button type="button" onclick="sendQuickPrompt('Ignite NGIRI funding for Final Year Projects in IoT or Software')" class="w-full text-left p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-900 text-slate-700 border border-slate-200/80 hover:border-emerald-300 transition text-xs font-medium cursor-pointer">
+                            &rarr; NGIRI Final Year Project (FYP) Grants
+                        </button>
+                        <button type="button" onclick="sendQuickPrompt('Non-dilutive pre-seed grants for women-led startups in South Asia')" class="w-full text-left p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-900 text-slate-700 border border-slate-200/80 hover:border-emerald-300 transition text-xs font-medium cursor-pointer">
+                            &rarr; Karandaaz Women Entrepreneurship Grants
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portal Shortcuts Card -->
+            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs font-bold text-slate-600">
+                <span>Looking for specific portals?</span>
+                <a href="/verified-portals" class="text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Directory</span>
+                    <span>&rarr;</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Right Conversational Chat Window (7 cols) -->
+        <div class="lg:col-span-7">
+            <div class="rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden flex flex-col h-[600px] sm:h-[660px]">
+
+                <!-- Chat Header -->
+                <div class="px-5 py-4 bg-slate-100/90 border-b border-slate-200 flex items-center justify-between shrink-0">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-xl bg-navy-950 flex items-center justify-center p-1.5 shadow-xs">
+                            <img src="/static/img/logo.svg" alt="Advisor" class="w-5 h-5">
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-bold text-navy-900 leading-tight">GrantFinder AI Advisor</h3>
+                            <p class="text-[10px] text-slate-500">Autonomous Reasoning Session</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button type="button" onclick="clearAdvisorConversation()" class="text-[11px] font-bold text-slate-500 hover:text-rose-700 bg-white hover:bg-rose-50 px-3 py-1.5 rounded-xl border border-slate-200 transition cursor-pointer">
+                            Clear Chat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Message Stream -->
+                <div id="inlineAdvisorMessages" class="flex-1 p-5 overflow-y-auto space-y-4 text-xs bg-slate-50/60">
+                    <div class="flex items-start space-x-2.5">
+                        <div class="w-7 h-7 rounded-xl bg-navy-950 flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
+                            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-200 shadow-xs max-w-[88%] text-slate-700 leading-relaxed space-y-2">
+                            <p class="font-bold text-navy-900">Welcome to the GrantFinder AI Assistant.</p>
+                            <p>
+                                I am calibrated to analyze your academic degree or startup venture against thousands of verified opportunities.
+                            </p>
+                            <p class="text-[11px] text-slate-500">
+                                To begin, tell me: What degree or venture stage are you pursuing, and what country or funding type do you prefer?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Form -->
+                <div class="p-4 bg-white border-t border-slate-200 shrink-0">
+                    <form id="inlineAdvisorForm" onsubmit="handleInlineAdvisorSubmit(event)" class="flex items-center space-x-2">
+                        <input id="inlineAdvisorInput" type="text" placeholder="Ask about scholarships, grants, eligibility, or deadlines..." 
+                               class="flex-1 px-4 py-3 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition"
+                               autocomplete="off">
+                        <button type="submit" class="px-5 py-3 rounded-xl bg-navy-950 hover:bg-brand-900 text-white font-bold text-xs transition shrink-0 shadow-sm flex items-center space-x-1.5 cursor-pointer">
+                            <span>Send</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function clearAdvisorConversation() {
+    const container = document.getElementById('inlineAdvisorMessages');
+    if (container) {
+        container.innerHTML = `
+            <div class="flex items-start space-x-2.5">
+                <div class="w-7 h-7 rounded-xl bg-navy-950 flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
+                    <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-200 shadow-xs max-w-[88%] text-slate-700 leading-relaxed">
+                    <p class="font-bold text-navy-900">Conversation reset.</p>
+                    <p class="text-xs text-slate-600 mt-1">What degree program or startup sector would you like to explore?</p>
+                </div>
+            </div>
+        `;
+    }
+    if (typeof advisorChatHistory !== 'undefined') {
+        advisorChatHistory = [];
+    }
+}
+</script>
+{% endblock %}

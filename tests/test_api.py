@@ -237,4 +237,70 @@ def test_two_phase_registration_page_view():
     assert "credentialsStage" in text
     assert "Create Account" in text
 
+def test_dedicated_capabilities_views():
+    """Verify that /capabilities and /ai-capabilities render the full capabilities architecture view."""
+    for path in ["/capabilities", "/ai-capabilities"]:
+        resp = client.get(path)
+        assert resp.status_code == 200
+        text = resp.text
+        assert "AI Capabilities" in text
+        assert "Opportunity Intelligence Engine" in text
+        assert "Student Scholar Intelligence" in text
+        assert "Student Founder Intelligence" in text
+        assert "Eight Core System Capabilities" in text
+        assert "Hybrid Search Pipeline" in text
+        assert "Gemini Semantic Scoring" in text
+
+def test_dedicated_why_grantfinder_views():
+    """Verify that /why-grantfinder and /why-us render mission, matrix, and values."""
+    for path in ["/why-grantfinder", "/why-us"]:
+        resp = client.get(path)
+        assert resp.status_code == 200
+        text = resp.text
+        assert "Why GrantFinder AI" in text
+        assert "Institutional Mission & Mandate" in text
+        assert "Why Current Discovery Is Broken" in text
+        assert "Platform Comparison Matrix" in text
+        assert "Measurable Impact Across Higher Education" in text
+
+def test_dedicated_portals_views():
+    """Verify that /verified-portals, /portals, and /repositories render official government portal directory."""
+    for path in ["/verified-portals", "/portals", "/repositories"]:
+        resp = client.get(path)
+        assert resp.status_code == 200
+        text = resp.text
+        assert "Verified Portals" in text
+        assert "Official Government &" in text
+        assert "Higher Education Commission (HEC)" in text
+        assert "Ignite National Technology Fund" in text
+        assert "German Academic Exchange Service" in text
+        assert "USEFP Fulbright USA" in text
+
+def test_dedicated_faq_view():
+    """Verify that /faq renders the complete categorized knowledge base."""
+    resp = client.get("/faq")
+    assert resp.status_code == 200
+    text = resp.text
+    assert "Frequently Asked Questions" in text
+    assert "Platform Knowledge Base" in text
+    assert "General & Search Architecture" in text
+    assert "Student Scholarships" in text
+    assert "Startup & Founder Grants" in text
+    assert "Account Security & Verification" in text
+
+def test_dedicated_ai_assistant_views():
+    """Verify that /ai-assistant and /assistant render the dedicated AI Advisor console."""
+    for path in ["/ai-assistant", "/assistant"]:
+        resp = client.get(path)
+        assert resp.status_code == 200
+        text = resp.text
+        assert "GrantFinder" in text
+        assert "AI Assistant" in text
+        assert "Conversational Opportunity Intelligence" in text
+        assert "inlineAdvisorMessages" in text
+        assert "inlineAdvisorForm" in text
+        assert "inlineAdvisorInput" in text
+        assert "Suggested Prompts" in text
+
+
 

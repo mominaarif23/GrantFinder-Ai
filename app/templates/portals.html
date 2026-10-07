@@ -1,0 +1,414 @@
+{% extends "base.html" %}
+
+{% block title %}Verified Government & Institutional Portals — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 space-y-16">
+
+    <!-- Breadcrumb & Header -->
+    <div class="space-y-4 text-left">
+        <nav class="flex items-center space-x-2 text-xs font-semibold text-slate-500">
+            <a href="/" class="hover:text-navy-900 transition">Home</a>
+            <span>/</span>
+            <span class="text-brand-700">Verified Portals</span>
+        </nav>
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200">
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                    <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                    <span>Verified Institutional Directory</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                    Official Government & <span class="font-serif italic font-normal text-brand-700">Institutional Portals</span>.
+                </h1>
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                    Direct access to official funding authorities indexed by GrantFinder AI. Every portal listed is authenticated for legitimate scholarship disbursements, fully funded overseas study, or non-dilutive startup capital.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+                <a href="/destinations" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 font-bold text-xs border border-slate-200 transition">
+                    Explore Destinations Hub &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="flex flex-wrap gap-2 text-xs font-bold text-slate-600">
+        <button onclick="filterPortals('all', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-brand-700 text-white shadow-xs transition cursor-pointer">
+            All Portals (14)
+        </button>
+        <button onclick="filterPortals('pakistan', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition cursor-pointer">
+            Pakistan National (6)
+        </button>
+        <button onclick="filterPortals('global-academic', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition cursor-pointer">
+            Global Academic (5)
+        </button>
+        <button onclick="filterPortals('startup-grants', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition cursor-pointer">
+            Startup & Innovation (3)
+        </button>
+    </div>
+
+    <!-- Portals Grid -->
+    <div id="portalsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+
+        <!-- 1. HEC -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="pakistan">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xs">
+                    HEC
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Verified Govt</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Higher Education Commission (HEC)</h3>
+                <p class="text-[11px] font-semibold text-brand-700">Federal Government of Pakistan</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Primary higher education body offering Need-Based Undergraduate Scholarships, Indigenous PhD fellowships, and Overseas Phase-II programs.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Academic Scholarships</span>
+                <a href="https://www.hec.gov.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2. Ignite -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="pakistan">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
+                    IGN
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Verified Govt</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Ignite National Technology Fund</h3>
+                <p class="text-[11px] font-semibold text-emerald-700">Ministry of IT & Telecom, Pakistan</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Funds startup innovations, the NGIRI Final Year Project fund, and national incubation centers across major metropolitan hubs.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Startup & Tech Grants</span>
+                <a href="https://ignite.net.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 3. NIC -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="pakistan">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-navy-100 text-navy-800 flex items-center justify-center font-bold text-xs">
+                    NIC
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">National Network</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">National Incubation Centers (NIC)</h3>
+                <p class="text-[11px] font-semibold text-navy-700">Islamabad, Lahore, Karachi, Peshawar, Quetta</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Incubation programs providing mentorship, prototyping grants, co-working infrastructure, and direct investor demo days.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Incubation & Pre-Seed</span>
+                <a href="https://nicpakistan.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 4. Karandaaz -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="pakistan">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-xs">
+                    KRD
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Institutional Grant</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Karandaaz Pakistan</h3>
+                <p class="text-[11px] font-semibold text-amber-700">Digital Finance & SME Enterprise Fund</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Offers competitive Innovation Challenge Funds and Women Entrepreneurship challenges with non-dilutive equity-free grant rounds.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">FinTech & SME Grants</span>
+                <a href="https://karandaaz.com.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 5. PEEF -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="pakistan">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-xs">
+                    PEEF
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Provincial Govt</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Punjab Educational Endowment Fund</h3>
+                <p class="text-[11px] font-semibold text-teal-700">Government of the Punjab</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Merit and need-based financial scholarships for intermediate, graduation, and Master's programs across Punjab and other provinces.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Scholarships</span>
+                <a href="https://peef.org.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 6. PSEB -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="pakistan">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center font-bold text-xs">
+                    PSEB
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">National Board</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Pakistan Software Export Board</h3>
+                <p class="text-[11px] font-semibold text-blue-700">Ministry of IT & Telecom</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Subsidized student internship stipends, tech certifications, and startup delegations to international technology expos.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Tech Internships & Grants</span>
+                <a href="https://pseb.org.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 7. DAAD Germany -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="global-academic">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold text-xs">
+                    DAAD
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Germany Official</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">German Academic Exchange Service</h3>
+                <p class="text-[11px] font-semibold text-rose-700">Federal Republic of Germany</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Fully funded postgraduate master's scholarships (EPOS), PhD grants, and research fellowships across public German universities.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Tuition-Free & Fellowships</span>
+                <a href="https://www.daad.de" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 8. USEFP Fulbright -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="global-academic">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-xs">
+                    US
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">USA Official</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">USEFP Fulbright USA</h3>
+                <p class="text-[11px] font-semibold text-indigo-700">United States Educational Foundation</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                The world's premier scholarship program, funding full tuition, airfare, textbooks, and living stipends for Master's and PhD programs in the US.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Fully Funded US Degree</span>
+                <a href="https://usefp.org" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 9. Chevening UK -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="global-academic">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-800 flex items-center justify-center font-bold text-xs">
+                    UK
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">UK Government</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Chevening Scholarships (UK)</h3>
+                <p class="text-[11px] font-semibold text-purple-700">Foreign, Commonwealth & Development Office</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                UK government global scholarship program funding full one-year Master's degrees at any top UK university for emerging global leaders.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Fully Funded UK Master's</span>
+                <a href="https://www.chevening.org" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 10. Australia Awards -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="global-academic">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
+                    AU
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Australia Official</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Australia Awards (DFAT)</h3>
+                <p class="text-[11px] font-semibold text-emerald-700">Department of Foreign Affairs and Trade</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Prestige international scholarships covering full tuition, return travel, establishment allowance, and health insurance across Australia.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Fully Funded Australian Degree</span>
+                <a href="https://www.australiaawards.gov.au" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 11. Erasmus Mundus -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="global-academic">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-xs">
+                    EU
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">European Union</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Erasmus Mundus Joint Masters</h3>
+                <p class="text-[11px] font-semibold text-sky-700">European Commission</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Prestigious integrated study programs delivered by consortia of European universities with complete EU funded grants.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Consortium Degrees</span>
+                <a href="https://erasmus-plus.ec.europa.eu" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 12. Y Combinator Startup School -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="startup-grants">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-orange-100 text-orange-800 flex items-center justify-center font-bold text-xs">
+                    YC
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Global Accelerator</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Y Combinator Startup School Grants</h3>
+                <p class="text-[11px] font-semibold text-orange-700">Silicon Valley, USA</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Equity-free equity-free non-dilutive prototype grants ($10,000 USD) and free educational platform for university and early-stage founders.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Non-Dilutive Grants</span>
+                <a href="https://www.startupschool.org" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 13. MIT Solve -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="startup-grants">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-slate-200 text-navy-900 flex items-center justify-center font-bold text-xs">
+                    MIT
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">University Challenge</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">MIT Solve Global Challenges</h3>
+                <p class="text-[11px] font-semibold text-slate-700">Massachusetts Institute of Technology</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                More than $1M in non-dilutive prize funding each year for tech-based social and environmental entrepreneurs solving global challenges.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Equity-Free Prize Capital</span>
+                <a href="https://solve.mit.edu" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 14. Gates Foundation -->
+        <div class="portal-card p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-md transition space-y-4" data-category="startup-grants">
+            <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-800 flex items-center justify-center font-bold text-xs">
+                    GF
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Global Philanthropy</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-navy-900 text-base">Grand Challenges Explorations</h3>
+                <p class="text-[11px] font-semibold text-cyan-700">Bill & Melinda Gates Foundation</p>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                $100,000 USD initial non-dilutive seed grants for innovative global health and development solutions led by young researchers and founders.
+            </p>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Seed Discovery Grants</span>
+                <a href="https://gcgh.grandchallenges.org" target="_blank" rel="noopener noreferrer" class="font-bold text-brand-700 hover:text-brand-900 transition flex items-center space-x-1">
+                    <span>Visit Portal</span>
+                    <span class="text-[11px]">&nearr;</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function filterPortals(category, btn) {
+    document.querySelectorAll('.portal-filter-btn').forEach(b => {
+        b.className = 'portal-filter-btn px-4 py-2 rounded-xl bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition cursor-pointer';
+    });
+    btn.className = 'portal-filter-btn px-4 py-2 rounded-xl bg-brand-700 text-white shadow-xs transition cursor-pointer';
+
+    const cards = document.querySelectorAll('.portal-card');
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+</script>
+{% endblock %}

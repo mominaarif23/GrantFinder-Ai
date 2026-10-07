@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+
+{% block title %}AI Capabilities & Opportunity Architecture — GrantFinder AI{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 space-y-16">
+
+    <!-- Breadcrumb & Header -->
+    <div class="space-y-4 text-left">
+        <nav class="flex items-center space-x-2 text-xs font-semibold text-slate-500">
+            <a href="/" class="hover:text-navy-900 transition">Home</a>
+            <span>/</span>
+            <span class="text-brand-700">AI Capabilities</span>
+        </nav>
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200">
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                    <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+                    <span>Opportunity Intelligence Engine</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                    Autonomous Intelligence for <span class="font-serif italic font-normal text-brand-700">Scholarships & Grants</span>.
+                </h1>
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                    Explore the full technical architecture of GrantFinder AI. From real-time hybrid web discovery to Gemini-powered eligibility matching and custom document generation, every subsystem is engineered for maximum acceptance rates.
+                </p>
+            </div>
+
+            <!-- Quick Action CTAs -->
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+                <a href="/register?role=student" class="px-5 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition">
+                    Try Scholarship Matcher &rarr;
+                </a>
+                <a href="/register?role=founder" class="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-emerald-800 font-bold text-xs border border-emerald-300 shadow-xs transition">
+                    Try Founder Grant Matcher &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dual-Track Architecture Overview -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-left">
+        <!-- Student Track Card -->
+        <div class="p-8 rounded-3xl bg-white border border-brand-200/80 shadow-xs hover:shadow-md transition space-y-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-50 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                </div>
+                <div>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">Academic Track</span>
+                    <h2 class="text-xl font-extrabold text-navy-900">Student Scholar Intelligence</h2>
+                </div>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Trained on international scholarship rubrics, degree program curricula, and criteria from DAAD, Fulbright, Chevening, and HEC.
+            </p>
+            <ul class="space-y-3 text-xs text-slate-700">
+                <li class="flex items-start space-x-2">
+                    <span class="w-4 h-4 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 mt-0.5 font-bold text-[10px]">&check;</span>
+                    <span><strong>Degree & GPA Alignment</strong>: Evaluates academic compatibility against university cutoff thresholds.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                    <span class="w-4 h-4 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 mt-0.5 font-bold text-[10px]">&check;</span>
+                    <span><strong>Autonomous SOP Generation</strong>: Drafts complete Statements of Purpose addressing research motivations.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                    <span class="w-4 h-4 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 mt-0.5 font-bold text-[10px]">&check;</span>
+                    <span><strong>Living Allowance & Stipend Tracking</strong>: Identifies full vs. partial tuition and monthly living allowances.</span>
+                </li>
+            </ul>
+            <div class="pt-2">
+                <a href="/dashboard/student" class="inline-flex items-center text-xs font-bold text-brand-700 hover:text-brand-900 transition">
+                    <span>View Student Portal</span>
+                    <span class="ml-1">&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Founder Track Card -->
+        <div class="p-8 rounded-3xl bg-white border border-emerald-200/80 shadow-xs hover:shadow-md transition space-y-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700">Innovation Track</span>
+                    <h2 class="text-xl font-extrabold text-navy-900">Student Founder Intelligence</h2>
+                </div>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Calibrated for university entrepreneurs, pre-seed prototyping grants, innovation contests, and incubation programs (Ignite, NIC, Karandaaz).
+            </p>
+            <ul class="space-y-3 text-xs text-slate-700">
+                <li class="flex items-start space-x-2">
+                    <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold text-[10px]">&check;</span>
+                    <span><strong>Venture Stage & Sector Matching</strong>: Indexes funds for Idea, MVP, Prototype, and Seed stages across tech sectors.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                    <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold text-[10px]">&check;</span>
+                    <span><strong>Autonomous Grant Pitch Drafter</strong>: Creates 5-section executive proposals including traction and budget milestones.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                    <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold text-[10px]">&check;</span>
+                    <span><strong>Equity-Free Capital Filtering</strong>: Excludes dilutive debt in favor of pure non-dilutive government and institutional grants.</span>
+                </li>
+            </ul>
+            <div class="pt-2">
+                <a href="/dashboard/founder" class="inline-flex items-center text-xs font-bold text-emerald-800 hover:text-emerald-950 transition">
+                    <span>View Founder Portal</span>
+                    <span class="ml-1">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8 Core Architectural Capabilities Grid -->
+    <div class="space-y-8 text-left">
+        <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Technical Foundation</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-1">Eight Core System Capabilities</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Every layer of the platform is designed to guarantee high-fidelity opportunity discovery and application acceleration.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Feature 1 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Hybrid Search Pipeline</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Dual query engine merging pre-seeded verified government portals with real-time web discovery to eliminate stale listings.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-brand-700">Curated + Live Indexing</div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Gemini Semantic Scoring</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Multifactor algorithm calculating precise 0-100% eligibility scores with contextual rationales based on user qualifications.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-emerald-700">0 - 100% Precision Match</div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Autonomous SOP Drafter</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Generates cohesive 4-paragraph Statements of Purpose tailored specifically to committee rubrics and candidate milestones.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-indigo-700">Academic SOP Engine</div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Autonomous Pitch Drafter</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Produces structured 5-section executive proposals complete with problem statements, traction metrics, and budget breakdowns.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-amber-700">Executive Pitch Engine</div>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Multi-Channel Alerts</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Immediate notification dispatch via In-App message centers, Gmail SMTP delivery, and automated WhatsApp alert triggers.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-teal-700">Real-Time Dispatch</div>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Opportunity Safe</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Persistent cloud vault to bookmark, organize, track deadlines, and monitor application submission statuses.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-sky-700">Cloud Bookmarks</div>
+            </div>
+
+            <!-- Feature 7 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Governance & Telemetry</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        SuperAdmin oversight portal providing query telemetry, program curation, user distribution statistics, and audit trails.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-rose-700">Institutional Governance</div>
+            </div>
+
+            <!-- Feature 8 -->
+            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-2xl bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 font-bold mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                    </div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-2">Zero-Cost Cloud Persistence</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Architected on high-throughput asynchronous FastAPI with resilient local SQLite and automated Supabase cloud sync.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-slate-700">Resilient Architecture</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Five-Phase Processing Pipeline -->
+    <div class="p-8 sm:p-10 rounded-3xl bg-navy-950 text-white shadow-xl space-y-6 text-left">
+        <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-brand-400">Execution Lifecycle</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold mt-1">End-to-End Processing Pipeline</h2>
+            <p class="text-xs text-slate-300 mt-1">From profile ingestion to final grant application submission.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 pt-4">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <span class="text-xs font-mono font-bold text-brand-400">01. INGESTION</span>
+                <h4 class="font-bold text-xs text-white">Profile Synthesis</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Captures degree stage, GPA, venture sector, and target geography.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <span class="text-xs font-mono font-bold text-brand-400">02. DISCOVERY</span>
+                <h4 class="font-bold text-xs text-white">Hybrid Retrieval</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Scans curated government database & queries live Serper.dev web indexes.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <span class="text-xs font-mono font-bold text-brand-400">03. REASONING</span>
+                <h4 class="font-bold text-xs text-white">Semantic Match</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Gemini AI evaluates eligibility criteria and assigns 0-100% scores.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <span class="text-xs font-mono font-bold text-brand-400">04. DRAFTING</span>
+                <h4 class="font-bold text-xs text-white">Document Generation</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Drafts customized Statements of Purpose or executive venture proposals.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <span class="text-xs font-mono font-bold text-emerald-400">05. DISPATCH</span>
+                <h4 class="font-bold text-xs text-white">Multi-Channel Alerts</h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Sends verified deadline alerts via in-app feeds, SMTP, and WhatsApp.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Banner -->
+    <div class="rounded-3xl bg-gradient-to-r from-brand-800 via-brand-700 to-indigo-800 text-white p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 text-left">
+        <div>
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-200 bg-brand-900/60 px-3 py-1 rounded-full">Get Started Today</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold mt-3">Ready to Leverage Autonomous Opportunity Intelligence?</h3>
+            <p class="text-xs sm:text-sm text-brand-100 mt-1 max-w-xl">Create your account in under 60 seconds and access verified scholarships and non-dilutive grants.</p>
+        </div>
+        <a href="/register" class="inline-flex px-6 py-3.5 rounded-xl bg-white text-brand-800 hover:bg-brand-50 font-bold text-sm shadow-md transition shrink-0">
+            Create Free Account &rarr;
+        </a>
+    </div>
+
+</div>
+{% endblock %}
