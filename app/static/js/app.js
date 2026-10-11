@@ -323,9 +323,9 @@ function renderOpportunityCards(cards, isUnlimited, plan, track) {
 
     if (!cards || cards.length === 0) {
         container.innerHTML = `
-            <div class="col-span-full text-center py-12 p-8 rounded-3xl bg-white border border-slate-200 shadow-xs">
-                <p class="text-sm font-bold text-navy-900">No matching opportunities found for your criteria.</p>
-                <p class="text-xs text-slate-500 mt-1">Try broadening your keywords or selecting 'All Regions'.</p>
+            <div class="col-span-full text-center py-12 p-8 rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] shadow-xs">
+                <p class="text-sm font-bold text-[#121E1B] dark:text-[#FFFDF9]">No matching opportunities found for your criteria.</p>
+                <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-1">Try broadening your keywords or selecting 'All Regions'.</p>
             </div>
         `;
         return;
@@ -337,7 +337,7 @@ function renderOpportunityCards(cards, isUnlimited, plan, track) {
 
         if (isLocked) {
             // Blurred Locked Card for Free Tier (Botanical Earth Style)
-            cardEl.className = 'relative rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 flex flex-col justify-between overflow-hidden shadow-xs';
+            cardEl.className = 'card-prominent opportunity-card relative rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 flex flex-col justify-between overflow-hidden shadow-xs';
             cardEl.innerHTML = `
                 <div class="absolute inset-0 bg-[#FFFDF9]/92 dark:bg-[#162521]/92 backdrop-blur-md z-20 flex flex-col items-center justify-center p-6 text-center">
                     <div class="w-11 h-11 rounded-2xl bg-[#F4E0C8]/50 border border-[#A05E22]/30 flex items-center justify-center text-[#A05E22] font-bold mb-3 shadow-xs">
@@ -376,7 +376,7 @@ function renderOpportunityCards(cards, isUnlimited, plan, track) {
                 ? `openEssayModal(${JSON.stringify(card).replace(/"/g, '&quot;')})`
                 : `openPitchModal(${JSON.stringify(card).replace(/"/g, '&quot;')})`;
 
-            cardEl.className = 'rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 flex flex-col justify-between hover:border-[#B1AB86]/70 hover:shadow-md transition shadow-xs group';
+            cardEl.className = 'card-prominent opportunity-card rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 flex flex-col justify-between hover:border-[#B1AB86]/70 transition shadow-xs group';
             cardEl.innerHTML = `
                 <div>
                     <!-- Header Badges -->
@@ -481,16 +481,16 @@ function appendSavedOppToUI(saved) {
     }
 
     const item = document.createElement('div');
-    item.className = 'p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2';
+    item.className = 'p-3 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] flex items-center justify-between gap-2 transition hover:border-[#2A5A4D]';
     item.id = `saved-card-${saved.id}`;
     item.innerHTML = `
         <div class="truncate">
-            <p class="font-bold text-navy-900 truncate">${saved.opportunity_name}</p>
-            <p class="text-[11px] text-slate-500 mt-0.5">${saved.amount} · Score: ${saved.match_score}%</p>
+            <p class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] truncate">${saved.opportunity_name}</p>
+            <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4] mt-0.5">${saved.amount} · Score: ${saved.match_score}%</p>
         </div>
         <div class="flex items-center space-x-1 shrink-0">
-            <a href="${saved.source_link}" target="_blank" class="p-1.5 text-slate-500 hover:text-brand-700" title="Open Link">&rarr;</a>
-            <button onclick="removeSavedOpp('${saved.id}')" class="p-1.5 text-slate-400 hover:text-rose-600 font-bold" title="Delete">&times;</button>
+            <a href="${saved.source_link}" target="_blank" class="p-1.5 text-[#2A5A4D] dark:text-[#F4E0C8] hover:text-[#1C2F2A] dark:hover:text-[#FFFDF9]" title="Open Link">&rarr;</a>
+            <button onclick="removeSavedOpp('${saved.id}')" class="p-1.5 text-[#6B7C72] dark:text-[#95AFA4] hover:text-rose-600 font-bold" title="Delete">&times;</button>
         </div>
     `;
     list.prepend(item);
@@ -1103,15 +1103,15 @@ function renderAdvisorRecommendations(matches) {
     const wrapper = document.createElement('div');
     wrapper.className = 'space-y-1.5 pl-8 pr-2';
     
-    let html = '<div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Top Advisor Matches:</div>';
+    let html = '<div class="text-[10px] font-bold uppercase tracking-wider text-[#6B7C72] dark:text-[#95AFA4] mb-1">Top Advisor Matches:</div>';
     matches.slice(0, 2).forEach(m => {
         html += `
-            <div class="p-2.5 rounded-xl bg-white border border-brand-200/80 shadow-xs flex items-center justify-between text-[11px]">
+            <div class="card-prominent p-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-xs flex items-center justify-between text-[11px] transition">
                 <div class="truncate pr-2">
-                    <p class="font-bold text-navy-900 truncate">${escapeHtml(m.name)}</p>
-                    <p class="text-[10px] text-slate-500">${escapeHtml(m.amount)} &bull; ${escapeHtml(m.country)}</p>
+                    <p class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] truncate">${escapeHtml(m.name)}</p>
+                    <p class="text-[10px] text-[#6B7C72] dark:text-[#95AFA4]">${escapeHtml(m.amount)} &bull; ${escapeHtml(m.country)}</p>
                 </div>
-                <span class="shrink-0 px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 font-bold text-[10px] border border-brand-200">
+                <span class="shrink-0 px-2 py-0.5 rounded-full bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] font-bold text-[10px] border border-[#2A5A4D]/30 dark:border-[#2D453E]">
                     ${m.match_score}% Fit
                 </span>
             </div>
@@ -1247,15 +1247,15 @@ function renderInlineRecommendations(matches) {
     const wrapper = document.createElement('div');
     wrapper.className = 'space-y-1.5 pl-8 pr-2';
     
-    let html = '<div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Top Advisor Matches:</div>';
+    let html = '<div class="text-[10px] font-bold uppercase tracking-wider text-[#6B7C72] dark:text-[#95AFA4] mb-1">Top Advisor Matches:</div>';
     matches.slice(0, 2).forEach(m => {
         html += `
-            <div class="p-2.5 rounded-xl bg-white border border-brand-200/80 shadow-xs flex items-center justify-between text-[11px]">
+            <div class="card-prominent p-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-xs flex items-center justify-between text-[11px] transition">
                 <div class="truncate pr-2">
-                    <p class="font-bold text-navy-900 truncate">${escapeHtml(m.name)}</p>
-                    <p class="text-[10px] text-slate-500">${escapeHtml(m.amount)} &bull; ${escapeHtml(m.country)}</p>
+                    <p class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] truncate">${escapeHtml(m.name)}</p>
+                    <p class="text-[10px] text-[#6B7C72] dark:text-[#95AFA4]">${escapeHtml(m.amount)} &bull; ${escapeHtml(m.country)}</p>
                 </div>
-                <span class="shrink-0 px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 font-bold text-[10px] border border-brand-200">
+                <span class="shrink-0 px-2 py-0.5 rounded-full bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] font-bold text-[10px] border border-[#2A5A4D]/30 dark:border-[#2D453E]">
                     ${m.match_score}% Fit
                 </span>
             </div>

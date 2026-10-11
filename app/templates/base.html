@@ -104,31 +104,31 @@
         })();
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/static/css/custom.css?v=7.0">
+    <link rel="stylesheet" href="/static/css/custom.css?v=9.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
 </head>
-<body class="min-h-screen flex flex-col bg-[#FBF9F5] text-slate-800 antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans">
+<body class="min-h-screen flex flex-col bg-[#FBF9F5] dark:bg-[#0E1715] text-[#1C2F2A] dark:text-[#E1EBE6] antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans transition-colors duration-300">
 
     <!-- Dynamic Atmospheric Country Backdrop -->
     <div id="dynamicAtmosphere" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-5 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
-        <div class="absolute inset-0 bg-[#FBF9F5]/98 backdrop-blur-[2px]"></div>
+        <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-5 dark:opacity-10 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="absolute inset-0 bg-[#FBF9F5]/98 dark:bg-[#0E1715]/98 backdrop-blur-[2px] transition-colors duration-300"></div>
     </div>
 
     <!-- Country Landmark Floating Indicator (Bottom-Left) -->
-    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-[#FFFDF9]/98 backdrop-blur-md border border-[#B1AB86]/40 shadow-md text-xs text-[#1C2F2A] transition-all duration-300">
-        <span class="w-2.5 h-2.5 rounded-full bg-[#2A5A4D] animate-pulse shrink-0"></span>
-        <span class="font-extrabold text-[#1C2F2A] whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
-        <span class="text-[#B1AB86]">&bull;</span>
-        <span class="text-[#6B7C72] truncate max-w-[160px] sm:max-w-xs font-medium whitespace-nowrap" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
+    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-[#FFFDF9]/98 dark:bg-[#162621]/98 backdrop-blur-md border border-[#B1AB86]/40 dark:border-[#2D453E] shadow-md text-xs text-[#1C2F2A] dark:text-[#F2F6F4] transition-all duration-300">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8] animate-pulse shrink-0"></span>
+        <span class="font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
+        <span class="text-[#B1AB86] dark:text-[#3B5C51]">&bull;</span>
+        <span class="text-[#6B7C72] dark:text-[#95AFA4] truncate max-w-[160px] sm:max-w-xs font-medium whitespace-nowrap" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
     </div>
 
 
 
     <!-- Top Navigation Bar -->
-    <nav class="sticky top-0 z-40 w-full border-b border-[#B1AB86]/30 bg-[#FFFDF9]/98 backdrop-blur-xl shadow-[0_4px_20px_rgba(28,47,42,0.03)]">
+    <nav class="sticky top-0 z-40 w-full border-b border-[#B1AB86]/30 dark:border-[#233831] bg-[#FFFDF9]/98 dark:bg-[#121E1B]/98 backdrop-blur-xl shadow-[0_4px_20px_rgba(28,47,42,0.03)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.5)] transition-colors duration-300">
         <div class="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-2">
                 <!-- Brand Logo -->
@@ -139,24 +139,24 @@
                         </div>
                         <div class="flex flex-col">
                             <div class="flex items-center space-x-1 whitespace-nowrap">
-                                <span class="font-extrabold text-xl tracking-tight text-[#1C2F2A] leading-none">GrantFinder</span>
-                                <span class="font-extrabold text-xl tracking-tight text-[#2A5A4D] leading-none">AI</span>
+                                <span class="font-extrabold text-xl tracking-tight text-[#1C2F2A] dark:text-[#FFFDF9] leading-none">GrantFinder</span>
+                                <span class="font-extrabold text-xl tracking-tight text-[#2A5A4D] dark:text-[#F4E0C8] leading-none">AI</span>
                             </div>
-                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-[#6B7C72] mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
+                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-[#6B7C72] dark:text-[#95AFA4] mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
                         </div>
                     </a>
                 </div>
 
                 <!-- Navigation Links (Identical across Landing & Logged-In, Strictly One Line, Zero Up-and-Down Wrapping) -->
-                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-[#2D453E] shrink-0">
-                    <a href="/" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Home</a>
-                    <a href="/destinations" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Destinations</a>
-                    <a href="/capabilities" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">AI Capabilities</a>
-                    <a href="/why-grantfinder" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Why GrantFinder</a>
-                    <a href="/verified-portals" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Verified Portals</a>
-                    <a href="/faq" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">FAQ</a>
-                    <a href="/ai-assistant" class="px-2.5 py-1.5 rounded-xl text-[#2A5A4D] bg-[#F2F6F4] hover:bg-[#E1EBE6] transition flex items-center space-x-1.5 border border-[#C3D7CE] shadow-xs cursor-pointer whitespace-nowrap">
-                        <span class="w-2 h-2 rounded-full bg-[#2A5A4D] animate-pulse"></span>
+                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-[#2D453E] dark:text-[#C3D7CE] shrink-0">
+                    <a href="/" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Home</a>
+                    <a href="/destinations" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Destinations</a>
+                    <a href="/capabilities" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">AI Capabilities</a>
+                    <a href="/why-grantfinder" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Why GrantFinder</a>
+                    <a href="/verified-portals" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Verified Portals</a>
+                    <a href="/faq" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">FAQ</a>
+                    <a href="/ai-assistant" class="px-2.5 py-1.5 rounded-xl text-[#2A5A4D] dark:text-[#F4E0C8] bg-[#F2F6F4] dark:bg-[#162621] hover:bg-[#E1EBE6] dark:hover:bg-[#1F3830] transition flex items-center space-x-1.5 border border-[#C3D7CE] dark:border-[#2D453E] shadow-xs cursor-pointer whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8] animate-pulse"></span>
                         <span>AI Assistant</span>
                     </a>
                 </div>
@@ -250,7 +250,7 @@
                             </button>
                         </div>
                     {% else %}
-                        <a href="/login" class="text-xs font-bold text-[#1C2F2A] hover:text-[#2A5A4D] transition px-3 py-2 rounded-xl hover:bg-[#F2F6F4] shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/login" class="text-xs font-bold text-[#1C2F2A] dark:text-[#C3D7CE] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition px-3 py-2 rounded-xl hover:bg-[#F2F6F4] dark:hover:bg-[#162621] shrink-0 whitespace-nowrap">Sign in</a>
                         <a href="/register" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold bg-[#2A5A4D] text-[#FFFDF9] hover:bg-[#1C3B32] shadow-sm shadow-[#2A5A4D]/25 transition shrink-0 whitespace-nowrap">
                             <span>Explore Funding</span>
                             <span class="ml-1.5 font-normal text-[#F4E0C8]">&rarr;</span>

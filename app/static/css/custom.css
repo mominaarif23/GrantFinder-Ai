@@ -88,9 +88,57 @@
    Editorial Luxury & Botanical Earth Architecture (Light Mode Flagship)
    ============================================================================== */
 
-body {
+html:not(.dark) body {
     background-color: #FBF9F5 !important;
     color: #1C2F2A;
+}
+
+/* ==============================================================================
+   Universal Prominent Card Protocol (Cursor Hover Elevation & Glow)
+   ============================================================================== */
+
+.card-prominent,
+.portal-card,
+.dest-dossier-card,
+.destination-card,
+.opportunity-card,
+.academic-card,
+.feature-card {
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.28s ease, 
+                background-color 0.28s ease !important;
+    cursor: pointer;
+    position: relative;
+    will-change: transform, box-shadow;
+}
+
+.card-prominent:hover,
+.portal-card:hover,
+.dest-dossier-card:hover,
+.destination-card:hover,
+.opportunity-card:hover,
+.academic-card:hover,
+.feature-card:hover {
+    transform: translateY(-6px) scale(1.015) !important;
+    box-shadow: 0 20px 35px -8px rgba(28, 47, 42, 0.16), 0 0 0 2px rgba(42, 90, 77, 0.45) !important;
+    border-color: #2A5A4D !important;
+    background-color: #FFFDF9 !important;
+    z-index: 10;
+}
+
+html.dark .card-prominent:hover,
+html.dark .portal-card:hover,
+html.dark .dest-dossier-card:hover,
+html.dark .destination-card:hover,
+html.dark .opportunity-card:hover,
+html.dark .academic-card:hover,
+html.dark .feature-card:hover {
+    transform: translateY(-6px) scale(1.015) !important;
+    background-color: #1F3830 !important;
+    box-shadow: 0 24px 45px -10px rgba(0, 0, 0, 0.85), 0 0 0 2px rgba(244, 224, 200, 0.6) !important;
+    border-color: #F4E0C8 !important;
+    z-index: 10;
 }
 
 #atmosphereImage {
@@ -163,7 +211,8 @@ html.dark body {
 
 /* Atmospheric Backdrop in Dark Mode */
 html.dark #dynamicAtmosphere > div:last-child {
-    background: linear-gradient(to bottom, rgba(14, 23, 21, 0.95), rgba(22, 38, 33, 0.92), rgba(14, 23, 21, 0.98)) !important;
+    background: #0E1715 !important;
+    background-color: rgba(14, 23, 21, 0.98) !important;
 }
 
 html.dark #atmosphereImage {
@@ -173,33 +222,33 @@ html.dark #atmosphereImage {
 
 /* Bottom-Left Country Landmark Badge in Dark Mode */
 html.dark #atmosphereBadge {
-    background-color: rgba(22, 38, 33, 0.92) !important;
+    background-color: rgba(22, 38, 33, 0.96) !important;
     border-color: rgba(42, 90, 77, 0.6) !important;
     color: #C3D7CE !important;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
 }
 
 html.dark #atmosphereBadge #atmosphereCountry {
-    color: #F2F6F4 !important;
+    color: #FFFDF9 !important;
 }
 
 html.dark #atmosphereBadge #atmosphereLandmark {
-    color: #95AFA4 !important;
+    color: #A8C5B9 !important;
 }
 
 /* Navigation Bar */
 html.dark nav {
-    background-color: rgba(18, 30, 27, 0.96) !important;
+    background-color: rgba(18, 30, 27, 0.98) !important;
     border-color: #233831 !important;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5) !important;
 }
 
 html.dark nav a {
-    color: #95AFA4;
+    color: #A8C5B9;
 }
 
 html.dark nav a:hover {
-    color: #F2F6F4 !important;
+    color: #FFFDF9 !important;
     background-color: rgba(35, 56, 49, 0.8) !important;
 }
 
@@ -254,33 +303,111 @@ html.dark [class*="border-slate-300/"] {
     border-color: #2E4B42 !important;
 }
 
-/* Typography Overrides */
-html.dark .text-navy-900 {
-    color: #F2F6F4 !important;
+/* Guaranteed Ultra-High Contrast Dark Mode Typography */
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark .text-navy-900,
+html.dark .text-navy-950,
+html.dark .text-slate-900,
+html.dark .text-[#1C2F2A],
+html.dark .text-[#121E1B] {
+    color: #FFFDF9 !important;
 }
 
-html.dark .text-slate-900 {
-    color: #F2F6F4 !important;
-}
-
-html.dark .text-slate-800 {
+html.dark .text-slate-800,
+html.dark .text-slate-700,
+html.dark .text-[#2D453E],
+html.dark .text-[#2D3748] {
     color: #E1EBE6 !important;
 }
 
-html.dark .text-slate-700 {
+html.dark p,
+html.dark .text-slate-600,
+html.dark .text-[#4A5D54] {
     color: #C3D7CE !important;
 }
 
-html.dark .text-slate-600 {
-    color: #95AFA4 !important;
+html.dark .text-slate-500,
+html.dark .text-slate-400,
+html.dark .text-[#6B7C72] {
+    color: #A8C5B9 !important;
 }
 
-html.dark .text-slate-500 {
-    color: #748D83 !important;
+html.dark .text-brand-700,
+html.dark .text-brand-800,
+html.dark .text-brand-900 {
+    color: #F4E0C8 !important;
 }
 
-html.dark .text-slate-400 {
-    color: #95AFA4 !important;
+html.dark .text-emerald-700,
+html.dark .text-emerald-800 {
+    color: #6ee7b7 !important;
+}
+
+html.dark .text-amber-700,
+html.dark .text-amber-800,
+html.dark .text-amber-900 {
+    color: #F4E0C8 !important;
+}
+
+/* Card & Accordion Surfaces in Dark Mode */
+html.dark .portal-card,
+html.dark .dest-dossier-card,
+html.dark .destination-card,
+html.dark .opportunity-card,
+html.dark .card-prominent,
+html.dark details {
+    background-color: #162621 !important;
+    border-color: #233831 !important;
+}
+
+html.dark details[open] {
+    border-color: #2D453E !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+html.dark details summary {
+    color: #FFFDF9 !important;
+}
+
+html.dark details p {
+    color: #C3D7CE !important;
+}
+
+html.dark .portal-card a,
+html.dark .portal-card a,
+html.dark .dest-dossier-card a,
+html.dark .card-prominent a {
+    color: #F4E0C8 !important;
+}
+
+html.dark .portal-card a:hover,
+html.dark .dest-dossier-card a:hover,
+html.dark .card-prominent a:hover {
+    color: #FFFDF9 !important;
+}
+
+/* Card action buttons in Dark Mode */
+html.dark .dest-dossier-card a[class*="bg-navy-900"],
+html.dark .dest-dossier-card a[class*="bg-brand-700"],
+html.dark .dest-dossier-card a[class*="bg-indigo-700"],
+html.dark .dest-dossier-card a[class*="bg-amber-600"],
+html.dark .dest-dossier-card a[class*="bg-teal-700"] {
+    background-color: #2A5A4D !important;
+    color: #FFFDF9 !important;
+    border: 1px solid #3B5C51 !important;
+}
+
+html.dark .dest-dossier-card a[class*="bg-navy-900"]:hover,
+html.dark .dest-dossier-card a[class*="bg-brand-700"]:hover,
+html.dark .dest-dossier-card a[class*="bg-indigo-700"]:hover,
+html.dark .dest-dossier-card a[class*="bg-amber-600"]:hover,
+html.dark .dest-dossier-card a[class*="bg-teal-700"]:hover {
+    background-color: #387363 !important;
+    color: #FFFDF9 !important;
+    border-color: #F4E0C8 !important;
 }
 
 /* Soft Badges & Category Pills in Dark Mode */
