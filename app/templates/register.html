@@ -9,15 +9,15 @@
         <!-- Phase 1: Track Selection Cards (Interactive Stage 1) -->
         <div id="trackSelectionStage" class="space-y-8">
             <div class="text-center max-w-xl mx-auto space-y-2">
-                <div class="w-12 h-12 rounded-2xl bg-brand-700 text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                <div class="w-12 h-12 rounded-2xl bg-[#1C2F2A] dark:bg-[#2A5A4D] text-[#FFFDF9] font-extrabold text-xl flex items-center justify-center mx-auto mb-3 shadow-sm border border-[#3B5C51]">
                     G
                 </div>
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200">
-                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-[11px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#C3D7CE] border border-[#C3D7CE] dark:border-[#3B5C51]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8]"></span>
                     <span>Step 1 of 2: Select Your Track</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">Choose Your Funding Path</h2>
-                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] tracking-tight">Choose Your Funding Path</h2>
+                <p class="text-xs sm:text-sm text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                     GrantFinder AI calibrates search algorithms, eligibility filters, and AI drafting engines based on your primary track.
                 </p>
             </div>
@@ -26,49 +26,49 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 <!-- Card 1: Student Scholar (Academic Track) -->
-                <div onclick="chooseTrack('student')" class="cursor-pointer rounded-3xl bg-white border-2 border-slate-200 hover:border-brand-600 p-6 sm:p-8 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1">
+                <div onclick="chooseTrack('student')" class="cursor-pointer rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border-2 border-[#B1AB86]/40 hover:border-[#2A5A4D] dark:border-[#233831] dark:hover:border-[#2A5A4D] p-6 sm:p-8 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1">
                     <div class="space-y-4 text-left">
                         <div class="flex items-center justify-between">
-                            <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-100 text-brand-700 flex items-center justify-center group-hover:bg-brand-700 group-hover:text-white transition-colors duration-200 shadow-xs">
+                            <div class="w-12 h-12 rounded-2xl bg-[#E1EBE6] border border-[#C3D7CE] text-[#1C2F2A] flex items-center justify-center group-hover:bg-[#1C2F2A] group-hover:text-white transition-colors duration-200 shadow-xs dark:bg-[#1C3B32] dark:text-[#C3D7CE]">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
                             </div>
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-50 text-brand-800 border border-brand-200">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#E1EBE6] text-[#1C2F2A] border border-[#C3D7CE] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">
                                 Academic Focus
                             </span>
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-extrabold text-navy-900 group-hover:text-brand-700 transition-colors">Student Scholar</h3>
-                            <p class="text-xs text-slate-500 mt-1">Scholarships, Fellowships & University Aid</p>
+                            <h3 class="text-xl font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] group-hover:text-[#2A5A4D] transition-colors">Student Scholar</h3>
+                            <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-1">Scholarships, Fellowships & University Aid</p>
                         </div>
 
-                        <p class="text-xs text-slate-600 leading-relaxed">
+                        <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                             For undergraduate, master's, and doctoral applicants seeking tuition waivers, research fellowships, and global study grants.
                         </p>
 
                         <!-- Key Features Checklist -->
-                        <ul class="space-y-2 pt-3 border-t border-slate-100 text-xs text-slate-600">
+                        <ul class="space-y-2 pt-3 border-t border-[#B1AB86]/20 dark:border-[#233831] text-xs text-[#4A5D54] dark:text-[#C3D7CE]">
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-brand-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#2A5A4D] dark:text-[#6ee7b7] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>Fully funded degrees & living stipends</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-brand-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#2A5A4D] dark:text-[#6ee7b7] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>Automated GPA, major & degree matching</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-brand-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#2A5A4D] dark:text-[#6ee7b7] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>AI Statement of Purpose (SOP) Drafter</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-brand-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#2A5A4D] dark:text-[#6ee7b7] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>HEC, DAAD, Fulbright, Chevening & Global funds</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="pt-6 mt-4 border-t border-slate-100">
-                        <button type="button" class="w-full py-3 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition shadow-xs flex items-center justify-center space-x-1.5">
+                    <div class="pt-6 mt-4 border-t border-[#B1AB86]/20 dark:border-[#233831]">
+                        <button type="button" class="w-full py-3 rounded-xl bg-[#1C2F2A] hover:bg-[#2A5A4D] text-[#FFFDF9] font-bold text-xs transition shadow-xs flex items-center justify-center space-x-1.5 border border-[#3B5C51]">
                             <span>Continue as Student Scholar</span>
                             <span>&rarr;</span>
                         </button>
@@ -76,49 +76,49 @@
                 </div>
 
                 <!-- Card 2: Student Founder (Startup Track) -->
-                <div onclick="chooseTrack('founder')" class="cursor-pointer rounded-3xl bg-white border-2 border-slate-200 hover:border-emerald-600 p-6 sm:p-8 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1">
+                <div onclick="chooseTrack('founder')" class="cursor-pointer rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border-2 border-[#B1AB86]/40 hover:border-[#A05E22] dark:border-[#233831] dark:hover:border-[#A05E22] p-6 sm:p-8 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1">
                     <div class="space-y-4 text-left">
                         <div class="flex items-center justify-between">
-                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center group-hover:bg-emerald-700 group-hover:text-white transition-colors duration-200 shadow-xs">
+                            <div class="w-12 h-12 rounded-2xl bg-[#F4E0C8]/40 border border-[#B1AB86]/40 text-[#A05E22] flex items-center justify-center group-hover:bg-[#A05E22] group-hover:text-white transition-colors duration-200 shadow-xs dark:bg-[#233831] dark:text-[#F4E0C8]">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             </div>
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#F4E0C8] text-[#A05E22] border border-[#B1AB86]/40 dark:bg-[#233831] dark:text-[#F4E0C8]">
                                 Venture Focus
                             </span>
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-extrabold text-navy-900 group-hover:text-emerald-700 transition-colors">Student Founder</h3>
-                            <p class="text-xs text-slate-500 mt-1">Startup Grants, Seed Capital & Incubation</p>
+                            <h3 class="text-xl font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] group-hover:text-[#A05E22] transition-colors">Student Founder</h3>
+                            <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-1">Startup Grants, Seed Capital & Incubation</p>
                         </div>
 
-                        <p class="text-xs text-slate-600 leading-relaxed">
+                        <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                             For university entrepreneurs and early-stage builders seeking non-dilutive innovation grants, incubation, and accelerator cohorts.
                         </p>
 
                         <!-- Key Features Checklist -->
-                        <ul class="space-y-2 pt-3 border-t border-slate-100 text-xs text-slate-600">
+                        <ul class="space-y-2 pt-3 border-t border-[#B1AB86]/20 dark:border-[#233831] text-xs text-[#4A5D54] dark:text-[#C3D7CE]">
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#A05E22] dark:text-[#F4E0C8] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>Equity-free seed grants & innovation awards</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#A05E22] dark:text-[#F4E0C8] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>Prototype stage, sector & traction matching</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#A05E22] dark:text-[#F4E0C8] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>AI Executive Pitch & Grant Proposal Drafter</span>
                             </li>
                             <li class="flex items-start space-x-2">
-                                <svg class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <svg class="w-4 h-4 text-[#A05E22] dark:text-[#F4E0C8] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span>Ignite, NIC, Karandaaz & Global YC cohorts</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="pt-6 mt-4 border-t border-slate-100">
-                        <button type="button" class="w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs transition shadow-xs flex items-center justify-center space-x-1.5">
+                    <div class="pt-6 mt-4 border-t border-[#B1AB86]/20 dark:border-[#233831]">
+                        <button type="button" class="w-full py-3 rounded-xl bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFDF9] font-bold text-xs transition shadow-xs flex items-center justify-center space-x-1.5 border border-[#874E1A]">
                             <span>Continue as Student Founder</span>
                             <span>&rarr;</span>
                         </button>
@@ -127,33 +127,33 @@
 
             </div>
 
-            <p class="text-center text-xs text-slate-500 pt-4">
-                Already have an account? <a href="/login" class="text-brand-700 font-bold hover:underline">Sign in here</a>
+            <p class="text-center text-xs text-[#6B7C72] dark:text-[#95AFA4] pt-4">
+                Already have an account? <a href="/login" class="text-[#2A5A4D] dark:text-[#F4E0C8] font-bold hover:underline">Sign in here</a>
             </p>
         </div>
 
         <!-- Phase 2: Credentials Entry Stage (Revealed after Track Selection) -->
-        <div id="credentialsStage" class="hidden max-w-lg mx-auto rounded-3xl bg-white border border-slate-200 p-8 sm:p-10 shadow-sm">
+        <div id="credentialsStage" class="hidden max-w-lg mx-auto rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-8 sm:p-10 shadow-sm relative overflow-hidden">
             <div class="text-center mb-6">
-                <div class="w-12 h-12 rounded-2xl bg-brand-700 text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                <div class="w-12 h-12 rounded-2xl bg-[#1C2F2A] dark:bg-[#2A5A4D] text-[#FFFDF9] font-extrabold text-xl flex items-center justify-center mx-auto mb-3 shadow-xs border border-[#B1AB86]/30">
                     G
                 </div>
-                <h2 class="text-2xl font-extrabold text-navy-900 tracking-tight">Create Your Account</h2>
-                <p class="text-xs text-slate-500 mt-1">Step 2 of 2: Enter your basic credentials to initiate verification</p>
+                <h2 class="text-2xl font-extrabold text-[#121E1B] dark:text-[#FFFDF9] tracking-tight">Create Your Account</h2>
+                <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-1 font-serif italic">Step 2 of 2: Enter your basic credentials to initiate verification</p>
             </div>
 
             <!-- Selected Track Banner with Change Option -->
-            <div id="trackBannerContainer" class="mb-6 p-3.5 rounded-2xl border flex items-center justify-between text-xs bg-brand-50 border-brand-200">
+            <div id="trackBannerContainer" class="mb-6 p-3.5 rounded-2xl border flex items-center justify-between text-xs bg-[#E1EBE6] dark:bg-[#1C2F2A]/60 border-[#2A5A4D]/30 dark:border-[#2A5A4D]">
                 <div class="flex items-center space-x-2.5">
-                    <span id="trackBannerIcon" class="w-7 h-7 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold">
+                    <span id="trackBannerIcon" class="w-7 h-7 rounded-xl bg-[#2A5A4D] text-[#FFFDF9] flex items-center justify-center font-bold">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/></svg>
                     </span>
                     <div>
-                        <span class="text-[10px] text-slate-500 uppercase font-bold block">Selected Track</span>
-                        <span id="trackBannerText" class="font-extrabold text-navy-900">Student Scholar</span>
+                        <span class="text-[10px] text-[#6B7C72] dark:text-[#95AFA4] uppercase tracking-wider font-bold block">Selected Track</span>
+                        <span id="trackBannerText" class="font-extrabold text-[#121E1B] dark:text-[#FFFDF9]">Student Scholar</span>
                     </div>
                 </div>
-                <button type="button" onclick="showTrackSelection()" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-navy-900 hover:bg-slate-50 font-bold text-[11px] transition">
+                <button type="button" onclick="showTrackSelection()" class="px-2.5 py-1 rounded-lg bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#1C2F2A] dark:text-[#F4E0C8] hover:bg-[#F7F5EE] dark:hover:bg-[#162521] font-bold text-[11px] transition">
                     Change Track
                 </button>
             </div>
@@ -165,23 +165,23 @@
                 <input type="radio" name="role" value="founder" id="roleRadioFounder" class="sr-only">
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5" for="name">Full Legal Name</label>
+                    <label class="block text-xs font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1.5" for="name">Full Legal Name</label>
                     <input type="text" id="name" required placeholder="e.g. Momina Arif" 
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-sm text-navy-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-sm text-[#121E1B] dark:text-[#FFFDF9] placeholder-[#6B7C72] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#2A5A4D] focus:ring-1 focus:ring-[#2A5A4D] transition">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5" for="email">Institutional or Personal Email</label>
+                    <label class="block text-xs font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1.5" for="email">Institutional or Personal Email</label>
                     <input type="email" id="email" required placeholder="name@university.edu" 
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-sm text-navy-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-sm text-[#121E1B] dark:text-[#FFFDF9] placeholder-[#6B7C72] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#2A5A4D] focus:ring-1 focus:ring-[#2A5A4D] transition">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5" for="password">Password (minimum 6 characters)</label>
+                    <label class="block text-xs font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1.5" for="password">Password (minimum 6 characters)</label>
                     <div class="relative">
                         <input type="password" id="password" minlength="6" required placeholder="••••••••" 
-                            class="w-full px-3.5 py-2.5 pr-11 rounded-xl bg-slate-50 border border-slate-300 text-sm text-navy-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition">
-                        <button type="button" id="toggleRegisterPasswordBtn" onclick="togglePasswordVisibility('password', 'toggleRegisterPasswordBtn')" aria-label="Show password" class="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-navy-900 transition focus:outline-none rounded-lg hover:bg-slate-100">
+                            class="w-full px-3.5 py-2.5 pr-11 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-sm text-[#121E1B] dark:text-[#FFFDF9] placeholder-[#6B7C72] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#2A5A4D] focus:ring-1 focus:ring-[#2A5A4D] transition">
+                        <button type="button" id="toggleRegisterPasswordBtn" onclick="togglePasswordVisibility('password', 'toggleRegisterPasswordBtn')" aria-label="Show password" class="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 text-[#6B7C72] hover:text-[#121E1B] dark:hover:text-[#FFFDF9] transition focus:outline-none rounded-lg hover:bg-[#E1EBE6]/50 dark:hover:bg-[#1C2F2A]">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -190,15 +190,15 @@
                     </div>
                 </div>
 
-                <div id="registerError" class="hidden p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-800"></div>
+                <div id="registerError" class="hidden p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-xs font-semibold text-rose-800 dark:text-rose-300"></div>
 
-                <button type="submit" id="registerBtn" class="w-full py-3 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm transition shadow-xs">
+                <button type="submit" id="registerBtn" class="w-full py-3 rounded-xl bg-[#1C2F2A] hover:bg-[#121E1B] text-[#FFFDF9] font-bold text-sm transition shadow-xs border border-[#121E1B]">
                     Create Account & Verify Email &rarr;
                 </button>
             </form>
 
-            <p class="text-center text-xs text-slate-500 mt-6 pt-6 border-t border-slate-100">
-                Already registered? <a href="/login" class="text-brand-700 font-bold hover:underline">Sign in here</a>
+            <p class="text-center text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-6 pt-6 border-t border-[#B1AB86]/20 dark:border-[#233831]">
+                Already registered? <a href="/login" class="text-[#2A5A4D] dark:text-[#F4E0C8] font-bold hover:underline">Sign in here</a>
             </p>
         </div>
 
@@ -223,16 +223,16 @@ function chooseTrack(role) {
     if (role === 'founder') {
         radioFounder.checked = true;
         radioStudent.checked = false;
-        bannerContainer.className = "mb-6 p-3.5 rounded-2xl border flex items-center justify-between text-xs bg-emerald-50 border-emerald-200";
+        bannerContainer.className = "mb-6 p-3.5 rounded-2xl border flex items-center justify-between text-xs bg-[#F4E0C8]/50 dark:bg-[#A05E22]/20 border-[#A05E22]/40 dark:border-[#A05E22]";
         bannerText.textContent = "Student Founder (Startup Track)";
-        bannerIcon.className = "w-7 h-7 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold";
+        bannerIcon.className = "w-7 h-7 rounded-xl bg-[#A05E22] text-[#FFFDF9] flex items-center justify-center font-bold";
         bannerIcon.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
     } else {
         radioStudent.checked = true;
         radioFounder.checked = false;
-        bannerContainer.className = "mb-6 p-3.5 rounded-2xl border flex items-center justify-between text-xs bg-brand-50 border-brand-200";
+        bannerContainer.className = "mb-6 p-3.5 rounded-2xl border flex items-center justify-between text-xs bg-[#E1EBE6] dark:bg-[#1C2F2A]/60 border-[#2A5A4D]/30 dark:border-[#2A5A4D]";
         bannerText.textContent = "Student Scholar (Academic Track)";
-        bannerIcon.className = "w-7 h-7 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold";
+        bannerIcon.className = "w-7 h-7 rounded-xl bg-[#2A5A4D] text-[#FFFDF9] flex items-center justify-center font-bold";
         bannerIcon.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/></svg>';
     }
 

@@ -6,33 +6,33 @@
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
     <!-- Top Header Banner -->
-    <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden">
+    <div class="p-6 sm:p-8 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm relative overflow-hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="space-y-1.5">
                 <div class="flex items-center space-x-2.5">
-                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-[#1C2F2A]/10 text-[#1C2F2A] dark:bg-[#F4E0C8]/10 dark:text-[#F4E0C8] border border-[#B1AB86]/40">
                         Account Settings
                     </span>
-                    <span class="text-slate-300">&bull;</span>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ user.role|capitalize }} Profile</span>
+                    <span class="text-[#B1AB86]">&bull;</span>
+                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ user.role|capitalize }} Profile</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">Account & Opportunity Profile</h1>
-                <p class="text-xs sm:text-sm text-slate-600 max-w-2xl">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-[#121E1B] dark:text-[#FBF9F5] tracking-tight">Account & Opportunity Profile</h1>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl">
                     Manage your personal details, profile picture, universal academic or startup disciplines, and double opt-in notification channels.
                 </p>
             </div>
 
             <div class="flex items-center space-x-3">
                 {% if user.role == 'student' %}
-                    <a href="/dashboard/student" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition">
+                    <a href="/dashboard/student" class="px-4 py-2 rounded-xl text-xs font-bold text-[#121E1B] bg-[#FBF9F5] hover:bg-[#F7F5EE] border border-[#B1AB86]/40 dark:bg-[#1C2F2A] dark:hover:bg-[#1C2F2A]/80 dark:text-[#FBF9F5] transition">
                         Back to Portal &rarr;
                     </a>
                 {% elif user.role == 'founder' %}
-                    <a href="/dashboard/founder" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition">
+                    <a href="/dashboard/founder" class="px-4 py-2 rounded-xl text-xs font-bold text-[#121E1B] bg-[#FBF9F5] hover:bg-[#F7F5EE] border border-[#B1AB86]/40 dark:bg-[#1C2F2A] dark:hover:bg-[#1C2F2A]/80 dark:text-[#FBF9F5] transition">
                         Back to Portal &rarr;
                     </a>
                 {% elif user.role == 'admin' %}
-                    <a href="/admin" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition">
+                    <a href="/admin" class="px-4 py-2 rounded-xl text-xs font-bold text-[#121E1B] bg-[#FBF9F5] hover:bg-[#F7F5EE] border border-[#B1AB86]/40 dark:bg-[#1C2F2A] dark:hover:bg-[#1C2F2A]/80 dark:text-[#FBF9F5] transition">
                         Governance Console &rarr;
                     </a>
                 {% endif %}
@@ -42,14 +42,14 @@
 
     <!-- Alert / Confirmation Banners -->
     {% if confirmed %}
-        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex items-center justify-between shadow-xs">
+        <div class="p-4 rounded-2xl bg-[#1C2F2A]/10 border border-[#1C2F2A]/30 text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:border-[#B1AB86]/40 dark:text-[#FBF9F5] flex items-center justify-between shadow-xs">
             <div class="flex items-center space-x-3">
-                <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0"></span>
+                <span class="w-3 h-3 rounded-full bg-[#1C2F2A] dark:bg-[#F4E0C8] shrink-0"></span>
                 <span class="text-xs sm:text-sm font-semibold">Your double opt-in email subscription has been confirmed successfully. You will now receive automated high-match opportunities and deadline alerts in your inbox.</span>
             </div>
         </div>
     {% elif unsubscribed %}
-        <div class="p-4 rounded-2xl bg-slate-100 border border-slate-300 text-slate-800 flex items-center justify-between shadow-xs">
+        <div class="p-4 rounded-2xl bg-[#FBF9F5] border border-[#B1AB86]/40 text-[#2D3748] dark:bg-[#121E1B] dark:border-[#B1AB86]/30 dark:text-[#FBF9F5] flex items-center justify-between shadow-xs">
             <div class="flex items-center space-x-3">
                 <span class="w-3 h-3 rounded-full bg-slate-500 shrink-0"></span>
                 <span class="text-xs sm:text-sm font-semibold">You have been unsubscribed from automated notification emails. You may re-enable them below anytime.</span>
@@ -58,15 +58,15 @@
     {% endif %}
 
     <!-- Profile Completion Meter Banner -->
-    <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
+    <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div class="flex items-center space-x-3.5">
-                <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-700 font-extrabold text-sm shrink-0">
+                <div class="w-12 h-12 rounded-2xl bg-[#1C2F2A]/10 border border-[#B1AB86]/40 flex items-center justify-center text-[#1C2F2A] dark:text-[#F4E0C8] font-extrabold text-sm shrink-0">
                     <span id="profileCompletionPctText">{{ completion_pct or 60 }}%</span>
                 </div>
                 <div>
-                    <h2 class="text-sm font-bold text-navy-900">Profile Completion Status</h2>
-                    <p class="text-xs text-slate-500">
+                    <h2 class="text-sm font-bold text-[#121E1B] dark:text-[#FBF9F5]">Profile Completion Status</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">
                         {% if (completion_pct or 60) >= 100 %}
                             All core and optional profile dimensions completed. Maximum matching fidelity active.
                         {% else %}
@@ -75,12 +75,12 @@
                     </p>
                 </div>
             </div>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {% if (completion_pct or 60) >= 100 %}bg-emerald-50 text-emerald-800 border border-emerald-200{% else %}bg-brand-50 text-brand-700 border border-brand-200{% endif %}">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {% if (completion_pct or 60) >= 100 %}bg-[#1C2F2A]/15 text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#1C2F2A]/30{% else %}bg-[#A05E22]/15 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30{% endif %}">
                 {% if (completion_pct or 60) >= 100 %}Fully Optimized{% else %}{{ completion_pct or 60 }}% Completed{% endif %}
             </span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-            <div id="profileCompletionBar" class="bg-brand-600 h-2.5 rounded-full transition-all duration-300" style="width: {{ completion_pct or 60 }}%"></div>
+        <div class="w-full bg-[#F1ECE1] dark:bg-[#1C2F2A]/50 rounded-full h-2.5 overflow-hidden">
+            <div id="profileCompletionBar" class="bg-[#1C2F2A] dark:bg-[#A05E22] h-2.5 rounded-full transition-all duration-300" style="width: {{ completion_pct or 60 }}%"></div>
         </div>
     </div>
 
@@ -90,21 +90,21 @@
         <div class="space-y-6">
 
             <!-- Profile Picture Card -->
-            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-5">
-                <div class="border-b border-slate-100 pb-3">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-navy-900">Profile Picture</h2>
-                    <p class="text-xs text-slate-500 mt-0.5">Stored securely in Supabase Storage</p>
+            <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm space-y-5">
+                <div class="border-b border-[#B1AB86]/20 pb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-[#121E1B] dark:text-[#FBF9F5]">Profile Picture</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Stored securely in Supabase Storage</p>
                 </div>
 
                 <div class="flex flex-col items-center text-center space-y-4">
                     <!-- Avatar Preview Box -->
-                    <div class="relative w-28 h-28 rounded-3xl bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden shadow-inner group">
+                    <div class="relative w-28 h-28 rounded-3xl bg-[#FBF9F5] dark:bg-[#1C2F2A]/40 border-2 border-dashed border-[#B1AB86]/50 flex items-center justify-center overflow-hidden shadow-inner group">
                         <img id="profileAvatarPreviewImg" 
                              src="{{ avatar_url or '' }}" 
                              alt="{{ user.name }}" 
                              class="{% if not avatar_url %}hidden{% endif %} w-full h-full object-cover">
                         <div id="profileAvatarPreviewInitials" 
-                             class="{% if avatar_url %}hidden{% endif %} text-3xl font-extrabold text-navy-900">
+                             class="{% if avatar_url %}hidden{% endif %} text-3xl font-extrabold text-[#121E1B] dark:text-[#FBF9F5]">
                             {{ user.name[:2]|upper }}
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         <button type="button" 
                                 onclick="document.getElementById('avatarFileInput').click()" 
                                 id="uploadAvatarBtn"
-                                class="px-3.5 py-2 rounded-xl text-xs font-bold bg-navy-900 hover:bg-navy-800 text-white shadow-xs transition">
+                                class="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#1C2F2A] hover:bg-[#121E1B] dark:bg-[#A05E22] dark:hover:bg-[#834918] text-[#FFFDF9] shadow-xs transition">
                             Upload Photo
                         </button>
                         <button type="button" 
@@ -141,33 +141,33 @@
             </div>
 
             <!-- Double Opt-In Email Notification Status Card -->
-            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
-                <div class="border-b border-slate-100 pb-3">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-navy-900">Email Notifications</h2>
-                    <p class="text-xs text-slate-500 mt-0.5">Anti-Spam Double Opt-In Verification</p>
+            <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm space-y-4">
+                <div class="border-b border-[#B1AB86]/20 pb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-[#121E1B] dark:text-[#FBF9F5]">Email Notifications</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Anti-Spam Double Opt-In Verification</p>
                 </div>
 
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold text-slate-600">Opt-In Status:</span>
+                        <span class="text-xs font-semibold text-slate-600 dark:text-slate-300">Opt-In Status:</span>
                         {% if email_subscribed %}
                             {% if user.plan in ['premium', 'admin'] %}
-                                <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#1C2F2A]/15 text-[#1C2F2A] dark:bg-[#1C2F2A]/50 dark:text-[#F4E0C8] border border-[#1C2F2A]/30">
                                     Active & Confirmed (Premium)
                                 </span>
                             {% else %}
-                                <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-300">
+                                <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#F1ECE1] text-[#121E1B] border border-[#B1AB86]/40 dark:bg-[#1C2F2A]/30 dark:text-[#FBF9F5]">
                                     Email Confirmed &bull; Free Plan
                                 </span>
                             {% endif %}
                         {% else %}
-                            <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                            <span id="optInBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#A05E22]/15 text-[#A05E22] border border-[#A05E22]/30 dark:text-[#F4E0C8]">
                                 Pending Confirmation
                             </span>
                         {% endif %}
                     </div>
 
-                    <p class="text-xs text-slate-500 leading-relaxed">
+                    <p class="text-xs text-slate-500 dark:text-slate-300 leading-relaxed">
                         {% if email_subscribed %}
                             {% if user.plan in ['premium', 'admin'] %}
                                 Your email notifications are verified. You will receive curated scholarship deadlines, grant match alerts, and application milestone reminders directly to your inbox.
@@ -181,40 +181,40 @@
 
                     {% if email_subscribed and user.plan not in ['premium', 'admin'] %}
                         <div class="pt-1">
-                            <button onclick="openUpgradeModal()" class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-navy-950 transition shadow-xs flex items-center justify-center space-x-1">
+                            <button onclick="openUpgradeModal()" class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-[#A05E22] hover:bg-[#834918] text-[#FFFDF9] transition shadow-xs flex items-center justify-center space-x-1">
                                 <span>Upgrade to Premium to Activate Inbox Alerts ($9)</span>
                             </button>
                         </div>
                     {% endif %}
 
                     {% if not email_subscribed %}
-                        <div class="mt-4 pt-4 border-t border-slate-100 space-y-3">
+                        <div class="mt-4 pt-4 border-t border-[#B1AB86]/20 space-y-3">
                             <!-- Active Verification Code Card -->
-                            <div id="activeOtpDisplayBox" class="p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-200/90 text-navy-900 text-xs">
+                            <div id="activeOtpDisplayBox" class="p-3.5 rounded-2xl bg-[#F7F5EE] dark:bg-[#1C2F2A]/40 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] text-xs">
                                 <div class="flex items-center justify-between mb-1.5">
-                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700">Active Verification Code (OTP)</span>
-                                    <span class="text-[10px] font-semibold text-slate-500">Valid 15 Mins</span>
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#1C2F2A] dark:text-[#F4E0C8]">Active Verification Code (OTP)</span>
+                                    <span class="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Valid 15 Mins</span>
                                 </div>
                                 <div class="flex items-center justify-between gap-3">
                                     <div class="flex items-center space-x-2">
-                                        <span id="displayOtpCode" class="font-mono font-extrabold text-xl tracking-[0.2em] text-navy-950 bg-white px-3 py-1 rounded-xl border border-indigo-200 shadow-xs">{{ active_otp or '582914' }}</span>
+                                        <span id="displayOtpCode" class="font-mono font-extrabold text-xl tracking-[0.2em] text-[#121E1B] dark:text-[#F4E0C8] bg-[#FFFDF9] dark:bg-[#121E1B] px-3 py-1 rounded-xl border border-[#B1AB86]/40 shadow-xs">{{ active_otp or '582914' }}</span>
                                     </div>
                                     <button type="button" onclick="autoFillOtpCode('{{ active_otp or '' }}')" 
-                                            class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition shadow-xs">
+                                            class="px-3 py-1.5 rounded-xl bg-[#1C2F2A] hover:bg-[#121E1B] text-[#FFFDF9] dark:bg-[#A05E22] dark:hover:bg-[#834918] font-bold text-xs transition shadow-xs">
                                         Use Code &rarr;
                                     </button>
                                 </div>
-                                <p class="text-[10px] text-slate-500 mt-2">
+                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-2">
                                     Check your inbox or click 'Use Code' to auto-populate and verify immediately.
                                 </p>
                             </div>
 
-                            <label class="block text-[11px] font-bold text-slate-700">Verify With 6-Digit OTP Code:</label>
+                            <label class="block text-[11px] font-bold text-[#121E1B] dark:text-[#FBF9F5]">Verify With 6-Digit OTP Code:</label>
                             <div class="flex items-center space-x-2">
                                 <input type="text" id="emailOtpInput" maxlength="6" value="{{ active_otp or '' }}" placeholder="e.g. 582914" 
-                                       class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono tracking-widest text-center text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                                       class="flex-1 px-3 py-2 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-xs font-mono tracking-widest text-center text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A]">
                                 <button type="button" onclick="handleVerifyOtpSubmit()" id="verifyOtpBtn" 
-                                        class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-xs transition shrink-0">
+                                        class="px-4 py-2 rounded-xl bg-[#1C2F2A] hover:bg-[#121E1B] text-[#FFFDF9] dark:bg-[#A05E22] dark:hover:bg-[#834918] font-bold text-xs shadow-xs transition shrink-0">
                                     Verify Code
                                 </button>
                             </div>
@@ -225,7 +225,7 @@
                             <button type="button" 
                                     id="resendOptInBtn"
                                     onclick="handleResendConfirmation()"
-                                    class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 transition flex items-center justify-center space-x-1.5">
+                                    class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-[#FBF9F5] hover:bg-[#F7F5EE] text-[#1C2F2A] border border-[#B1AB86]/40 dark:bg-[#1C2F2A] dark:text-[#FBF9F5] transition flex items-center justify-center space-x-1.5">
                                 <span>Resend Confirmation Email & OTP</span>
                             </button>
                         </div>
@@ -236,21 +236,21 @@
             </div>
 
             <!-- Account Role & Plan Summary Card -->
-            <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 text-xs">
-                <div class="border-b border-slate-100 pb-3">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-navy-900">Subscription Tier</h2>
+            <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm space-y-3 text-xs">
+                <div class="border-b border-[#B1AB86]/20 pb-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-[#121E1B] dark:text-[#FBF9F5]">Subscription Tier</h2>
                 </div>
                 <div class="flex items-center justify-between py-1">
-                    <span class="text-slate-500 font-medium">Account Role:</span>
-                    <span class="font-bold text-navy-900 capitalize">{{ user.role }}</span>
+                    <span class="text-slate-500 dark:text-slate-400 font-medium">Account Role:</span>
+                    <span class="font-bold text-[#121E1B] dark:text-[#FBF9F5] capitalize">{{ user.role }}</span>
                 </div>
                 <div class="flex items-center justify-between py-1">
-                    <span class="text-slate-500 font-medium">Current Plan:</span>
-                    <span class="font-bold uppercase text-navy-900">{{ user.plan }}</span>
+                    <span class="text-slate-500 dark:text-slate-400 font-medium">Current Plan:</span>
+                    <span class="font-bold uppercase text-[#121E1B] dark:text-[#FBF9F5]">{{ user.plan }}</span>
                 </div>
                 {% if user.plan != 'premium' %}
                     <div class="pt-2">
-                        <button onclick="openUpgradeModal()" class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition">
+                        <button onclick="openUpgradeModal()" class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-[#A05E22]/15 hover:bg-[#A05E22]/25 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30 transition">
                             Upgrade to Premium ($9)
                         </button>
                     </div>
@@ -258,55 +258,55 @@
             </div>
 
             <!-- Premium Features & Capabilities Card -->
-            <div class="p-6 rounded-3xl bg-gradient-to-br from-slate-900 to-navy-950 border border-slate-800 text-white shadow-sm space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="p-6 rounded-3xl bg-gradient-to-br from-[#121E1B] to-[#1C2F2A] border border-[#B1AB86]/40 text-[#FBF9F5] shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-[#B1AB86]/20 pb-3">
                     <div class="space-y-0.5">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-950">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#A05E22] text-[#FFFDF9]">
                             Premium Qualities
                         </span>
-                        <h3 class="text-sm font-bold text-white">Advanced Platform Capabilities</h3>
+                        <h3 class="text-sm font-bold text-[#FBF9F5]">Advanced Platform Capabilities</h3>
                     </div>
-                    <span class="text-xs font-bold text-amber-300">$9 Demo Tier</span>
+                    <span class="text-xs font-bold text-[#F4E0C8]">$9 Demo Tier</span>
                 </div>
 
                 <div class="space-y-3 text-xs">
                     <div class="flex items-start space-x-2.5">
-                        <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                        <span class="text-[#A05E22] font-bold text-sm leading-none">&check;</span>
                         <div>
-                            <span class="font-bold text-slate-100">Automated Email Alerts:</span>
+                            <span class="font-bold text-[#FFFDF9]">Automated Email Alerts:</span>
                             <p class="text-[11px] text-slate-300 leading-relaxed">Direct inbox delivery for newly matched grants and upcoming deadlines.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-2.5">
-                        <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                        <span class="text-[#A05E22] font-bold text-sm leading-none">&check;</span>
                         <div>
-                            <span class="font-bold text-slate-100">Full Opportunity Unlocks:</span>
+                            <span class="font-bold text-[#FFFDF9]">Full Opportunity Unlocks:</span>
                             <p class="text-[11px] text-slate-300 leading-relaxed">Unlimited viewing of all curated and live web-discovered opportunities.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-2.5">
-                        <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                        <span class="text-[#A05E22] font-bold text-sm leading-none">&check;</span>
                         <div>
-                            <span class="font-bold text-slate-100">AI Application Drafter:</span>
+                            <span class="font-bold text-[#FFFDF9]">AI Application Drafter:</span>
                             <p class="text-[11px] text-slate-300 leading-relaxed">Contextual Statements of Purpose, research proposals, and startup pitch decks.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-2.5">
-                        <span class="text-emerald-400 font-bold text-sm leading-none">&check;</span>
+                        <span class="text-[#A05E22] font-bold text-sm leading-none">&check;</span>
                         <div>
-                            <span class="font-bold text-slate-100">Conversational AI Advisor:</span>
+                            <span class="font-bold text-[#FFFDF9]">Conversational AI Advisor:</span>
                             <p class="text-[11px] text-slate-300 leading-relaxed">Interactive guidance with contextual memory of your academic track and constraints.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+                <div class="pt-3 border-t border-[#B1AB86]/20 text-[11px] text-slate-300 flex items-center justify-between">
                     <span>WhatsApp Notification Channel:</span>
-                    <span class="text-amber-400 font-semibold">Future Scope / Roadmap</span>
+                    <span class="text-[#F4E0C8] font-semibold">Future Scope / Roadmap</span>
                 </div>
 
                 {% if user.plan != 'premium' %}
-                    <button onclick="openUpgradeModal()" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-sm transition">
+                    <button onclick="openUpgradeModal()" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-[#A05E22] hover:bg-[#834918] text-[#FFFDF9] shadow-sm transition">
                         Unlock Premium Qualities
                     </button>
                 {% endif %}
@@ -316,12 +316,12 @@
 
         <!-- Right Column: Universal Profile & Preferences Form -->
         <div class="lg:col-span-2">
-            <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <h2 id="profileFormHeaderTitle" class="text-base font-bold text-navy-900">
+            <div class="p-6 sm:p-8 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm space-y-6">
+                <div class="border-b border-[#B1AB86]/20 pb-4">
+                    <h2 id="profileFormHeaderTitle" class="text-base font-bold text-[#121E1B] dark:text-[#FBF9F5]">
                         {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Student Founder Venture Preferences{% else %}Academic & Venture Preferences{% endif %}
                     </h2>
-                    <p id="profileFormHeaderDesc" class="text-xs text-slate-500 mt-0.5">
+                    <p id="profileFormHeaderDesc" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         {% if (profile and profile.type == 'startup') or user.role == 'founder' %}These parameters calibrate the startup grant discovery engine and Gemini semantic matching model for your venture.{% else %}These parameters calibrate the live search engine and Google Gemini semantic matching model. Any free-text discipline or domain is fully supported.{% endif %}
                     </p>
                 </div>
@@ -331,33 +331,33 @@
                     <!-- Basic User Credentials -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
-                            <label for="profileName" class="text-xs font-bold text-navy-900 uppercase tracking-wider">Full Name</label>
+                            <label for="profileName" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">Full Name</label>
                             <input type="text" 
                                    id="profileName" 
                                    name="name" 
                                    value="{{ user.name }}" 
                                    required 
-                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] focus:border-[#1C2F2A] transition">
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="profileEmail" class="text-xs font-bold text-navy-900 uppercase tracking-wider">Email Address</label>
+                            <label for="profileEmail" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">Email Address</label>
                             <input type="email" 
                                    id="profileEmail" 
                                    name="email" 
                                    value="{{ user.email }}" 
                                    required 
-                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] focus:border-[#1C2F2A] transition">
                         </div>
                     </div>
 
                     <!-- Profile Track / Type -->
                     <div class="space-y-1.5">
-                        <label for="profileType" class="text-xs font-bold text-navy-900 uppercase tracking-wider">Opportunity Track</label>
+                        <label for="profileType" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">Opportunity Track</label>
                         <select id="profileType" 
                                 name="type" 
                                 onchange="handleProfileTrackChange(this.value)"
-                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] focus:border-[#1C2F2A] transition">
                             <option value="academic" {% if (profile and profile.type == 'academic') or ((not profile or not profile.type) and user.role != 'founder') %}selected{% endif %}>Academic Track (Scholarships & Fellowships)</option>
                             <option value="startup" {% if (profile and profile.type == 'startup') or ((not profile or not profile.type) and user.role == 'founder') %}selected{% endif %}>Venture Track (Startup Grants & Seed Funds)</option>
                         </select>
@@ -366,7 +366,7 @@
                     <!-- Universal Discipline / Major / Domain -->
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
-                            <label id="lblMajorDomain" for="profileMajorDomain" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            <label id="lblMajorDomain" for="profileMajorDomain" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                 {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Startup Domain or Industry Sector{% else %}Major, Discipline, or Startup Domain{% endif %}
                             </label>
                             <span class="text-[11px] text-slate-400 font-medium">Free-text input</span>
@@ -377,23 +377,23 @@
                                value="{{ profile.major_domain if profile else ('FinTech' if user.role == 'founder' else 'Engineering & Computing') }}" 
                                placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. FinTech, Agritech, ClimateTech, HealthTech, AI & SaaS, EdTech{% else %}e.g. Biomedical Engineering, Fashion Design, Agritech, FinTech, Data Science{% endif %}" 
                                required 
-                               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                               class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] focus:border-[#1C2F2A] transition">
                         
                         <!-- Suggestion Quick Chips -->
                         <div id="domainSuggestionsContainer" class="flex items-center flex-wrap gap-1.5 pt-1">
                             <span class="text-[11px] text-slate-400 mr-1">Suggestions:</span>
                             {% if (profile and profile.type == 'startup') or user.role == 'founder' %}
-                            <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
-                            <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
-                            <button type="button" onclick="setMajorDomain('ClimateTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">ClimateTech</button>
-                            <button type="button" onclick="setMajorDomain('HealthTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">HealthTech</button>
-                            <button type="button" onclick="setMajorDomain('AI & SaaS')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">AI & SaaS</button>
+                            <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">FinTech</button>
+                            <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Agritech</button>
+                            <button type="button" onclick="setMajorDomain('ClimateTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">ClimateTech</button>
+                            <button type="button" onclick="setMajorDomain('HealthTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">HealthTech</button>
+                            <button type="button" onclick="setMajorDomain('AI & SaaS')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">AI & SaaS</button>
                             {% else %}
-                            <button type="button" onclick="setMajorDomain('Biomedical Engineering')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Biomedical Engineering</button>
-                            <button type="button" onclick="setMajorDomain('Fashion Design')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Fashion Design</button>
-                            <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
-                            <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
-                            <button type="button" onclick="setMajorDomain('Computer Science')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Computer Science</button>
+                            <button type="button" onclick="setMajorDomain('Biomedical Engineering')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Biomedical Engineering</button>
+                            <button type="button" onclick="setMajorDomain('Fashion Design')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Fashion Design</button>
+                            <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Agritech</button>
+                            <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">FinTech</button>
+                            <button type="button" onclick="setMajorDomain('Computer Science')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Computer Science</button>
                             {% endif %}
                         </div>
                     </div>
@@ -401,7 +401,7 @@
                     <!-- Degree Level / Venture Stage -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
-                            <label id="lblDegreeStage" for="profileDegreeStage" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            <label id="lblDegreeStage" for="profileDegreeStage" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                 {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Venture Maturity Stage{% else %}Degree Level / Stage{% endif %}
                             </label>
                             <input type="text" 
@@ -410,24 +410,24 @@
                                    value="{{ profile.degree_level_stage if profile else ('Prototype / MVP Stage' if user.role == 'founder' else 'Undergraduate BS') }}" 
                                    placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. Idea Stage, Prototype / MVP Stage, Early Traction, Scaling{% else %}e.g. Undergraduate BS, Master's MS, Doctorate PhD{% endif %}" 
                                    required 
-                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] focus:border-[#1C2F2A] transition">
                             
                             <div id="stageQuickChips" class="flex items-center flex-wrap gap-1.5 pt-1">
                                 <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
                                 {% if (profile and profile.type == 'startup') or user.role == 'founder' %}
-                                <button type="button" onclick="setStage('Idea / Concept Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Idea Stage</button>
-                                <button type="button" onclick="setStage('Prototype / MVP Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Prototype Stage</button>
-                                <button type="button" onclick="setStage('Early Traction / Launched')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Launched</button>
+                                <button type="button" onclick="setStage('Idea / Concept Stage')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Idea Stage</button>
+                                <button type="button" onclick="setStage('Prototype / MVP Stage')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Prototype Stage</button>
+                                <button type="button" onclick="setStage('Early Traction / Launched')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Launched</button>
                                 {% else %}
-                                <button type="button" onclick="setStage('Undergraduate BS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Undergraduate BS</button>
-                                <button type="button" onclick="setStage('Master\'s MS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Master's MS</button>
-                                <button type="button" onclick="setStage('Doctorate PhD')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Doctorate PhD</button>
+                                <button type="button" onclick="setStage('Undergraduate BS')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Undergraduate BS</button>
+                                <button type="button" onclick="setStage('Master\'s MS')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Master's MS</button>
+                                <button type="button" onclick="setStage('Doctorate PhD')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Doctorate PhD</button>
                                 {% endif %}
                             </div>
                         </div>
 
                         <div class="space-y-1.5">
-                            <label id="lblGpaFunding" for="profileGpaFunding" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                            <label id="lblGpaFunding" for="profileGpaFunding" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                 {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Funding Target / Capital Ask{% else %}Current Semester / Academic Standing{% endif %}
                             </label>
                             <input type="text" 
@@ -435,18 +435,18 @@
                                    name="gpa_funding" 
                                    value="{{ profile.gpa_funding if profile else ('$25,000 - $100,000' if user.role == 'founder' else '6th Semester') }}" 
                                    placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. $5,000 - $25,000, $50,000, $100,000+{% else %}e.g. 6th Semester, 3.8 CGPA{% endif %}" 
-                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] focus:border-[#1C2F2A] transition">
                             
                             <div id="fundingQuickChips" class="flex items-center flex-wrap gap-1.5 pt-1">
                                 <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
                                 {% if (profile and profile.type == 'startup') or user.role == 'founder' %}
-                                <button type="button" onclick="setFunding('$5,000 - $25,000 (Seed Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$5k - $25k</button>
-                                <button type="button" onclick="setFunding('$25,000 - $100,000 (Venture Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$25k - $100k</button>
-                                <button type="button" onclick="setFunding('$100,000+ (Institutional Round)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$100k+</button>
+                                <button type="button" onclick="setFunding('$5,000 - $25,000 (Seed Grant)')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">$5k - $25k</button>
+                                <button type="button" onclick="setFunding('$25,000 - $100,000 (Venture Grant)')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">$25k - $100k</button>
+                                <button type="button" onclick="setFunding('$100,000+ (Institutional Round)')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">$100k+</button>
                                 {% else %}
-                                <button type="button" onclick="setFunding('4th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">4th Semester</button>
-                                <button type="button" onclick="setFunding('6th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">6th Semester</button>
-                                <button type="button" onclick="setFunding('Final Year / 8th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Final Year</button>
+                                <button type="button" onclick="setFunding('4th Semester')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">4th Semester</button>
+                                <button type="button" onclick="setFunding('6th Semester')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">6th Semester</button>
+                                <button type="button" onclick="setFunding('Final Year / 8th Semester')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Final Year</button>
                                 {% endif %}
                             </div>
                         </div>
@@ -454,12 +454,12 @@
 
                     <!-- Destination Country Preference -->
                     <div class="space-y-1.5">
-                        <label for="profileCountryPreference" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                        <label for="profileCountryPreference" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                             Primary Destination Country Preference
                         </label>
                         <select id="profileCountryPreference" 
                                 name="country_preference" 
-                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] focus:border-[#1C2F2A] transition">
                             {% set current_c = profile.country_preference if profile else 'Pakistan' %}
                             <option value="Pakistan" {% if current_c == 'Pakistan' %}selected{% endif %}>Pakistan</option>
                             <option value="Germany" {% if current_c == 'Germany' %}selected{% endif %}>Germany</option>
@@ -481,12 +481,12 @@
 
                     <!-- Notification Channel Preference -->
                     <div class="space-y-1.5">
-                        <label for="profileNotificationPref" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                        <label for="profileNotificationPref" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                             Notification Delivery Channel
                         </label>
                         <select id="profileNotificationPref" 
                                 name="notification_preference" 
-                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
                             {% set current_np = (profile and profile.extra_details and profile.extra_details.notification_preference) or ('email' if email_subscribed else 'in_app') %}
                             <option value="in_app" {% if current_np == 'in_app' %}selected{% endif %}>In-App Portal Notifications (Free)</option>
                             <option value="email" {% if current_np == 'email' %}selected{% endif %}>Automated Email Alerts (Premium Tier)</option>
@@ -494,17 +494,17 @@
                     </div>
 
                     <!-- Optional Details Section for Enhanced Matching -->
-                    <div class="mt-8 pt-6 border-t border-slate-200 space-y-4 bg-slate-50/70 p-5 sm:p-6 rounded-2xl border">
+                    <div class="mt-8 pt-6 border-t border-[#B1AB86]/20 space-y-4 bg-[#F7F5EE] dark:bg-[#1C2F2A]/30 p-5 sm:p-6 rounded-2xl border border-[#B1AB86]/30">
                         <div class="space-y-1">
                             <div class="flex items-center space-x-2">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-brand-100 text-brand-800">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#1C2F2A]/10 text-[#1C2F2A] dark:bg-[#F4E0C8]/10 dark:text-[#F4E0C8] border border-[#B1AB86]/30">
                                     Matching Boost
                                 </span>
-                                <h3 id="optHeaderTitle" class="text-sm font-bold text-navy-900">
+                                <h3 id="optHeaderTitle" class="text-sm font-bold text-[#121E1B] dark:text-[#FBF9F5]">
                                     {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Complete your startup profile for higher grant matching (Optional){% else %}Complete your profile for better matches (Optional){% endif %}
                                 </h3>
                             </div>
-                            <p id="optHeaderDesc" class="text-xs text-slate-500">
+                            <p id="optHeaderDesc" class="text-xs text-slate-500 dark:text-slate-400">
                                 {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Providing these startup details boosts grant match accuracy up to +25 points and verifies incubator, competition, and funding eligibility.{% else %}Providing these optional details boosts matching accuracy up to +25 points and verifies institutional and need-based eligibility.{% endif %}
                             </p>
                         </div>
@@ -512,7 +512,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             <!-- University / Incubator Affiliation -->
                             <div class="space-y-1.5">
-                                <label id="lblUniversity" for="profileUniversity" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                <label id="lblUniversity" for="profileUniversity" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                     {% if (profile and profile.type == 'startup') or user.role == 'founder' %}University / Incubator Affiliation{% else %}University / Institution Name{% endif %}
                                 </label>
                                 <input type="text" 
@@ -520,12 +520,12 @@
                                        name="university" 
                                        value="{{ (profile and profile.university) or '' }}" 
                                        placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. NUST TIC, NIC, Plan9, LUMS LCE, or Independent{% else %}e.g. NUST, FAST-NUCES, LUMS, University of the Punjab{% endif %}" 
-                                       class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                       class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
                             </div>
 
                             <!-- CGPA or Traction Metric -->
                             <div class="space-y-1.5">
-                                <label id="lblCgpa" for="profileCgpa" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                <label id="lblCgpa" for="profileCgpa" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                     {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Traction or Revenue Metric{% else %}CGPA or Percentage{% endif %}
                                 </label>
                                 <input type="text" 
@@ -533,12 +533,12 @@
                                        name="cgpa" 
                                        value="{{ (profile and profile.cgpa) or '' }}" 
                                        placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. Pre-Revenue, 200 Beta Users, $1,500 MRR{% else %}e.g. 3.75 or 85%{% endif %}" 
-                                       class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                       class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
                             </div>
 
                             <!-- City / Startup Hub -->
                             <div class="space-y-1.5">
-                                <label id="lblCity" for="profileCity" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                <label id="lblCity" for="profileCity" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                     {% if (profile and profile.type == 'startup') or user.role == 'founder' %}City / Startup Hub{% else %}City / Region{% endif %}
                                 </label>
                                 <input type="text" 
@@ -546,17 +546,17 @@
                                        name="city" 
                                        value="{{ (profile and profile.city) or '' }}" 
                                        placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. Islamabad, Lahore, Karachi, Berlin, London{% else %}e.g. Lahore, Islamabad, Karachi, Peshawar{% endif %}" 
-                                       class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                       class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
                             </div>
 
                             <!-- Expected Graduation Year / Launch Year -->
                             <div class="space-y-1.5">
-                                <label id="lblGradYear" for="profileGradYear" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                <label id="lblGradYear" for="profileGradYear" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                     {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Target Launch / Funding Milestone Year{% else %}Expected Graduation Year{% endif %}
                                 </label>
                                 <select id="profileGradYear" 
                                         name="grad_year" 
-                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
                                     {% set current_gy = (profile and profile.grad_year) or '2026' %}
                                     <option value="">Select Year (Optional)</option>
                                     <option value="2024" {% if current_gy == '2024' %}selected{% endif %}>2024</option>
@@ -570,7 +570,7 @@
 
                             <!-- Pitch Deck / Language Scores -->
                             <div class="space-y-1.5">
-                                <label id="lblTestScores" for="profileTestScores" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                <label id="lblTestScores" for="profileTestScores" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                     {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Pitch Deck Link or Product Website URL{% else %}Language Test Scores (IELTS / TOEFL){% endif %}
                                 </label>
                                 <input type="text" 
@@ -578,17 +578,17 @@
                                        name="test_scores" 
                                        value="{{ (profile and profile.test_scores) or '' }}" 
                                        placeholder="{% if (profile and profile.type == 'startup') or user.role == 'founder' %}e.g. https://mydeck.com/pitch or https://startup.io{% else %}e.g. IELTS 7.5, TOEFL 100, or Exempt{% endif %}" 
-                                       class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                       class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
                             </div>
 
                             <!-- Funding Model / Financial Need -->
                             <div class="space-y-1.5">
-                                <label id="lblFinancialNeed" for="profileFinancialNeed" class="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                                <label id="lblFinancialNeed" for="profileFinancialNeed" class="text-xs font-bold text-[#121E1B] dark:text-[#FBF9F5] uppercase tracking-wider">
                                     {% if (profile and profile.type == 'startup') or user.role == 'founder' %}Capital & Grant Model Preference{% else %}Financial Need Status{% endif %}
                                 </label>
                                 <select id="profileFinancialNeed" 
                                         name="financial_need" 
-                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-navy-900 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                        class="w-full px-3.5 py-2.5 rounded-xl border border-[#B1AB86]/40 text-xs sm:text-sm text-[#121E1B] dark:text-[#FBF9F5] bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
                                     {% set current_fn = (profile and profile.financial_need) or 'No' %}
                                     <option value="No" {% if current_fn == 'No' or current_fn == 'Non-Dilutive Grant Only' %}selected{% endif %}>Non-Dilutive Grant Only (Zero Equity)</option>
                                     <option value="Yes - Partial Need" {% if current_fn == 'Yes - Partial Need' or current_fn == 'Open to Equity & Grants' %}selected{% endif %}>Open to Both Innovation Grants & Angel/Seed Equity</option>
@@ -599,12 +599,12 @@
                     </div>
 
                     <!-- Submit & Feedback -->
-                    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="pt-4 border-t border-[#B1AB86]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div id="profileFormFeedback" class="text-xs font-medium"></div>
 
                         <button type="submit" 
                                 id="saveProfileBtn"
-                                class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition flex items-center justify-center space-x-1.5 self-end">
+                                class="px-6 py-2.5 rounded-xl bg-[#1C2F2A] hover:bg-[#121E1B] text-[#FFFDF9] dark:bg-[#A05E22] dark:hover:bg-[#834918] font-bold text-xs shadow-sm transition flex items-center justify-center space-x-1.5 self-end">
                             <span id="saveProfileBtnText">Save Profile & Preferences</span>
                             <span id="saveProfileBtnSpinner" class="hidden w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
                         </button>
@@ -672,20 +672,20 @@ function handleProfileTrackChange(track) {
         if (isStartup) {
             domainChips.innerHTML = `
                 <span class="text-[11px] text-slate-400 mr-1">Suggestions:</span>
-                <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
-                <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
-                <button type="button" onclick="setMajorDomain('ClimateTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">ClimateTech</button>
-                <button type="button" onclick="setMajorDomain('HealthTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">HealthTech</button>
-                <button type="button" onclick="setMajorDomain('AI & SaaS')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">AI & SaaS</button>
+                <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">FinTech</button>
+                <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Agritech</button>
+                <button type="button" onclick="setMajorDomain('ClimateTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">ClimateTech</button>
+                <button type="button" onclick="setMajorDomain('HealthTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">HealthTech</button>
+                <button type="button" onclick="setMajorDomain('AI & SaaS')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">AI & SaaS</button>
             `;
         } else {
             domainChips.innerHTML = `
                 <span class="text-[11px] text-slate-400 mr-1">Suggestions:</span>
-                <button type="button" onclick="setMajorDomain('Biomedical Engineering')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Biomedical Engineering</button>
-                <button type="button" onclick="setMajorDomain('Fashion Design')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Fashion Design</button>
-                <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Agritech</button>
-                <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">FinTech</button>
-                <button type="button" onclick="setMajorDomain('Computer Science')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[11px] font-medium transition">Computer Science</button>
+                <button type="button" onclick="setMajorDomain('Biomedical Engineering')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Biomedical Engineering</button>
+                <button type="button" onclick="setMajorDomain('Fashion Design')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Fashion Design</button>
+                <button type="button" onclick="setMajorDomain('Agritech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Agritech</button>
+                <button type="button" onclick="setMajorDomain('FinTech')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">FinTech</button>
+                <button type="button" onclick="setMajorDomain('Computer Science')" class="px-2.5 py-1 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[11px] font-medium transition">Computer Science</button>
             `;
         }
     }
@@ -703,16 +703,16 @@ function handleProfileTrackChange(track) {
         if (isStartup) {
             stageChips.innerHTML = `
                 <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
-                <button type="button" onclick="setStage('Idea / Concept Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Idea Stage</button>
-                <button type="button" onclick="setStage('Prototype / MVP Stage')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Prototype Stage</button>
-                <button type="button" onclick="setStage('Early Traction / Launched')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Launched</button>
+                <button type="button" onclick="setStage('Idea / Concept Stage')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Idea Stage</button>
+                <button type="button" onclick="setStage('Prototype / MVP Stage')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Prototype Stage</button>
+                <button type="button" onclick="setStage('Early Traction / Launched')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Launched</button>
             `;
         } else {
             stageChips.innerHTML = `
                 <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
-                <button type="button" onclick="setStage('Undergraduate BS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Undergraduate BS</button>
-                <button type="button" onclick="setStage('Master\'s MS')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Master's MS</button>
-                <button type="button" onclick="setStage('Doctorate PhD')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Doctorate PhD</button>
+                <button type="button" onclick="setStage('Undergraduate BS')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Undergraduate BS</button>
+                <button type="button" onclick="setStage('Master\'s MS')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Master's MS</button>
+                <button type="button" onclick="setStage('Doctorate PhD')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Doctorate PhD</button>
             `;
         }
     }
@@ -730,16 +730,16 @@ function handleProfileTrackChange(track) {
         if (isStartup) {
             fundingChips.innerHTML = `
                 <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
-                <button type="button" onclick="setFunding('$5,000 - $25,000 (Seed Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$5k - $25k</button>
-                <button type="button" onclick="setFunding('$25,000 - $100,000 (Venture Grant)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$25k - $100k</button>
-                <button type="button" onclick="setFunding('$100,000+ (Institutional Round)')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">$100k+</button>
+                <button type="button" onclick="setFunding('$5,000 - $25,000 (Seed Grant)')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">$5k - $25k</button>
+                <button type="button" onclick="setFunding('$25,000 - $100,000 (Venture Grant)')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">$25k - $100k</button>
+                <button type="button" onclick="setFunding('$100,000+ (Institutional Round)')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">$100k+</button>
             `;
         } else {
             fundingChips.innerHTML = `
                 <span class="text-[10px] text-slate-400 mr-1">Presets:</span>
-                <button type="button" onclick="setFunding('4th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">4th Semester</button>
-                <button type="button" onclick="setFunding('6th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">6th Semester</button>
-                <button type="button" onclick="setFunding('Final Year / 8th Semester')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-slate-600 text-[10px] font-medium transition">Final Year</button>
+                <button type="button" onclick="setFunding('4th Semester')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">4th Semester</button>
+                <button type="button" onclick="setFunding('6th Semester')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">6th Semester</button>
+                <button type="button" onclick="setFunding('Final Year / 8th Semester')" class="px-2 py-0.5 rounded-lg bg-[#F1ECE1] hover:bg-[#1C2F2A] hover:text-[#FFFDF9] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:hover:bg-[#A05E22] dark:text-[#FBF9F5] text-[10px] font-medium transition">Final Year</button>
             `;
         }
     }

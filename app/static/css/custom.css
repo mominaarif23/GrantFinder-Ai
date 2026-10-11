@@ -85,6 +85,69 @@
 }
 
 /* ==============================================================================
+   Editorial Luxury & Botanical Earth Architecture (Light Mode Flagship)
+   ============================================================================== */
+
+body {
+    background-color: #FBF9F5 !important;
+    color: #1C2F2A;
+}
+
+#atmosphereImage {
+    opacity: 0.05 !important;
+}
+
+/* Light mode card surfaces: Warm Alabaster Ivory */
+.bg-white,
+[class*="bg-white/"] {
+    background-color: #FFFDF9;
+}
+
+/* Solidify container backgrounds to eliminate atmospheric photo bleed */
+.bg-slate-50,
+[class*="bg-slate-50/"] {
+    background-color: #F7F5EE;
+}
+
+/* Light mode border tone: Khaki Sand */
+.border-slate-200,
+[class*="border-slate-200/"] {
+    border-color: rgba(177, 171, 134, 0.45);
+}
+
+.border-slate-100,
+[class*="border-slate-100/"] {
+    border-color: rgba(177, 171, 134, 0.3);
+}
+
+/* Secondary CTA buttons on dark banners */
+.bg-white.text-navy-900,
+.bg-white.text-brand-800,
+.bg-white.text-brand-700 {
+    background-color: #FFFDF9 !important;
+    color: #1C2F2A !important;
+    border: 1.5px solid #B1AB86 !important;
+}
+
+.bg-white.text-navy-900:hover,
+.bg-white.text-brand-800:hover,
+.bg-white.text-brand-700:hover {
+    background-color: #F4E0C8 !important;
+    color: #1C2F2A !important;
+    border-color: #A05E22 !important;
+}
+
+/* Callout and Hero Action Banners */
+.editorial-callout-banner,
+[class*="from-brand-900"][class*="via-navy-900"],
+[class*="from-brand-800"][class*="via-brand-700"],
+[class*="from-brand-800"][class*="via-indigo-800"] {
+    background: linear-gradient(135deg, #121E1B 0%, #1C2F2A 50%, #233831 100%) !important;
+    color: #FFFDF9 !important;
+    border: 1px solid #3B5C51 !important;
+}
+
+/* ==============================================================================
    Institutional Night / Dark Mode Architecture
    ============================================================================== */
 
@@ -330,5 +393,22 @@ html.dark ::-webkit-scrollbar-thumb {
 
 html.dark ::-webkit-scrollbar-thumb:hover {
     background: #3B5C51;
+}
+
+/* Secondary CTA buttons on dark banners in dark mode */
+html.dark .bg-white.text-navy-900,
+html.dark .bg-white.text-brand-800,
+html.dark .bg-white.text-brand-700 {
+    background-color: #F4E0C8 !important;
+    color: #121E1B !important;
+    border: 1px solid #B1AB86 !important;
+}
+
+html.dark .bg-white.text-navy-900:hover,
+html.dark .bg-white.text-brand-800:hover,
+html.dark .bg-white.text-brand-700:hover {
+    background-color: #FFFDF9 !important;
+    color: #121E1B !important;
+    border-color: #C87A36 !important;
 }
 

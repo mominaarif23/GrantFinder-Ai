@@ -336,54 +336,54 @@ function renderOpportunityCards(cards, isUnlimited, plan, track) {
         const isLocked = card.is_locked;
 
         if (isLocked) {
-            // Blurred Locked Card for Free Tier (Institutional Style)
-            cardEl.className = 'relative rounded-3xl bg-white border border-slate-200 p-6 sm:p-7 flex flex-col justify-between overflow-hidden shadow-xs';
+            // Blurred Locked Card for Free Tier (Botanical Earth Style)
+            cardEl.className = 'relative rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 flex flex-col justify-between overflow-hidden shadow-xs';
             cardEl.innerHTML = `
-                <div class="absolute inset-0 bg-white/85 backdrop-blur-md z-20 flex flex-col items-center justify-center p-6 text-center">
-                    <div class="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 font-bold mb-3 shadow-xs">
+                <div class="absolute inset-0 bg-[#FFFDF9]/92 dark:bg-[#162521]/92 backdrop-blur-md z-20 flex flex-col items-center justify-center p-6 text-center">
+                    <div class="w-11 h-11 rounded-2xl bg-[#F4E0C8]/50 border border-[#A05E22]/30 flex items-center justify-center text-[#A05E22] font-bold mb-3 shadow-xs">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     </div>
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-200 mb-2">Premium Gated</span>
-                    <h4 class="text-sm font-bold text-navy-900 mb-1 max-w-xs">${card.name}</h4>
-                    <p class="text-xs text-slate-500 mb-4 max-w-xs">Match #${idx + 1} locked under Free Tier. Unlock complete eligibility parameters, award amounts, and AI statement generation.</p>
-                    <button onclick="openUpgradeModal()" class="px-4 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-sm transition">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#F4E0C8]/60 text-[#A05E22] border border-[#A05E22]/30 mb-2">Premium Gated</span>
+                    <h4 class="text-sm font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1 max-w-xs">${card.name}</h4>
+                    <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mb-4 max-w-xs">Match #${idx + 1} locked under Free Tier. Unlock complete eligibility parameters, award amounts, and AI statement generation.</p>
+                    <button onclick="openUpgradeModal()" class="px-4 py-2.5 rounded-xl bg-[#1C2F2A] hover:bg-[#121E1B] text-[#FFFDF9] font-bold text-xs shadow-xs border border-[#121E1B] transition">
                         Unlock All Matches ($9 Demo)
                     </button>
                 </div>
                 <div class="filter blur-xs select-none opacity-40">
-                    <h4 class="text-base font-bold text-navy-900 mb-1">${card.name}</h4>
-                    <p class="text-xs text-slate-500">Curated institutional funding opportunity</p>
+                    <h4 class="text-base font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1">${card.name}</h4>
+                    <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4]">Curated institutional funding opportunity</p>
                 </div>
             `;
         } else {
             // Fully Unlocked Institutional Card
             const scoreColor = card.match_score >= 85 
-                ? 'text-emerald-800 bg-emerald-50 border-emerald-200' 
+                ? 'text-[#2A5A4D] bg-[#E1EBE6] border-[#2A5A4D]/30 dark:bg-[#1C2F2A] dark:text-[#F4E0C8]' 
                 : card.match_score >= 70
-                    ? 'text-brand-800 bg-brand-50 border-brand-200'
-                    : 'text-slate-700 bg-slate-100 border-slate-200';
+                    ? 'text-[#A05E22] bg-[#F4E0C8]/50 border-[#A05E22]/30 dark:bg-[#A05E22]/20 dark:text-[#F4E0C8]'
+                    : 'text-[#6B7C72] bg-[#FBF9F5] border-[#B1AB86]/30 dark:bg-[#121E1B] dark:text-[#95AFA4]';
 
             const badgeType = card.is_curated 
-                ? '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200">Curated Repository</span>'
-                : '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200">Live AI Discovery</span>';
+                ? '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#F4E0C8]/50 text-[#A05E22] border border-[#A05E22]/30">Curated Repository</span>'
+                : '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 dark:bg-[#1C2F2A] dark:text-[#F4E0C8]">Live AI Discovery</span>';
 
             const assistantBtnText = track === 'scholarship' ? 'Draft AI Statement' : 'Draft AI Pitch';
             const assistantBtnClass = track === 'scholarship'
-                ? 'bg-brand-700 hover:bg-brand-800 text-white'
-                : 'bg-emerald-700 hover:bg-emerald-800 text-white';
+                ? 'bg-[#1C2F2A] hover:bg-[#121E1B] text-[#FFFDF9] border border-[#121E1B]'
+                : 'bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFDF9] border border-[#874E1A]';
 
             const assistantAction = track === 'scholarship' 
                 ? `openEssayModal(${JSON.stringify(card).replace(/"/g, '&quot;')})`
                 : `openPitchModal(${JSON.stringify(card).replace(/"/g, '&quot;')})`;
 
-            cardEl.className = 'rounded-3xl bg-white border border-slate-200 p-6 sm:p-7 flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition shadow-xs group';
+            cardEl.className = 'rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 flex flex-col justify-between hover:border-[#B1AB86]/70 hover:shadow-md transition shadow-xs group';
             cardEl.innerHTML = `
                 <div>
                     <!-- Header Badges -->
                     <div class="flex items-center justify-between gap-2 mb-3">
                         <div class="flex items-center space-x-1.5 flex-wrap gap-y-1">
                             ${badgeType}
-                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">${card.country}</span>
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FBF9F5] dark:bg-[#121E1B] text-[#121E1B] dark:text-[#FFFDF9] border border-[#B1AB86]/30">${card.country}</span>
                         </div>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${scoreColor}">
                             ${card.match_score}% Match
@@ -391,40 +391,40 @@ function renderOpportunityCards(cards, isUnlimited, plan, track) {
                     </div>
 
                     <!-- Title -->
-                    <h4 class="text-base sm:text-lg font-bold text-navy-900 mb-2 line-clamp-2 leading-snug group-hover:text-brand-700 transition">${card.name}</h4>
+                    <h4 class="text-base sm:text-lg font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-2 line-clamp-2 leading-snug group-hover:text-[#2A5A4D] dark:group-hover:text-[#F4E0C8] transition">${card.name}</h4>
 
                     <!-- Key Metadata -->
-                    <div class="space-y-1.5 text-xs text-slate-600 mb-4 pb-3 border-b border-slate-100">
+                    <div class="space-y-1.5 text-xs text-[#6B7C72] dark:text-[#95AFA4] mb-4 pb-3 border-b border-[#B1AB86]/20 dark:border-[#233831]">
                         <p class="flex items-center justify-between">
-                            <span class="text-slate-400 font-medium">Funding:</span>
-                            <span class="font-extrabold text-emerald-700">${card.amount}</span>
+                            <span class="text-[#6B7C72] dark:text-[#95AFA4] font-medium">Funding:</span>
+                            <span class="font-extrabold text-[#2A5A4D] dark:text-[#F4E0C8]">${card.amount}</span>
                         </p>
                         <p class="flex items-center justify-between">
-                            <span class="text-slate-400 font-medium">Deadline:</span>
-                            <span class="font-mono text-slate-700 font-semibold">${card.deadline}</span>
+                            <span class="text-[#6B7C72] dark:text-[#95AFA4] font-medium">Deadline:</span>
+                            <span class="font-mono text-[#121E1B] dark:text-[#FFFDF9] font-semibold">${card.deadline}</span>
                         </p>
                     </div>
 
                     <!-- Eligibility -->
-                    <div class="text-xs text-slate-600 mb-4">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Eligibility Criteria</p>
-                        <p class="line-clamp-3 leading-relaxed text-slate-600">${card.eligibility}</p>
+                    <div class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mb-4">
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-[#6B7C72] dark:text-[#95AFA4] mb-1">Eligibility Criteria</p>
+                        <p class="line-clamp-3 leading-relaxed text-[#6B7C72] dark:text-[#95AFA4]">${card.eligibility}</p>
                     </div>
 
                     <!-- Match Reasons -->
-                    <div class="text-[11px] text-slate-500 mb-4 space-y-1 bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                        ${card.match_reasons.map(r => `<p class="flex items-start space-x-1.5"><span class="text-brand-700 font-bold shrink-0">•</span><span>${r}</span></p>`).join('')}
+                    <div class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4] mb-4 space-y-1 bg-[#FBF9F5] dark:bg-[#121E1B] p-3 rounded-2xl border border-[#B1AB86]/20 dark:border-[#233831]">
+                        ${card.match_reasons.map(r => `<p class="flex items-start space-x-1.5"><span class="text-[#2A5A4D] font-bold shrink-0">•</span><span>${r}</span></p>`).join('')}
                     </div>
                 </div>
 
                 <!-- Action Footer -->
-                <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-                    <a href="${card.source_link}" target="_blank" class="inline-flex items-center text-xs font-bold text-brand-700 hover:text-brand-800 transition">
+                <div class="pt-4 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between gap-2">
+                    <a href="${card.source_link}" target="_blank" class="inline-flex items-center text-xs font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline transition">
                         <span>Official Portal</span>
                         <span class="ml-1 text-[11px]">&rarr;</span>
                     </a>
                     <div class="flex items-center space-x-2">
-                        <button onclick="saveOpportunityDirect(${JSON.stringify(card).replace(/"/g, '&quot;')})" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition border border-slate-200">
+                        <button onclick="saveOpportunityDirect(${JSON.stringify(card).replace(/"/g, '&quot;')})" class="px-3 py-1.5 rounded-xl bg-[#E1EBE6] dark:bg-[#1C2F2A] hover:bg-[#B1AB86]/30 text-[#1C2F2A] dark:text-[#FFFDF9] text-xs font-bold transition border border-[#B1AB86]/30 dark:border-[#233831]">
                             Save
                         </button>
                         <button onclick="${assistantAction}" class="px-3.5 py-1.5 rounded-xl ${assistantBtnClass} text-xs font-bold transition shadow-xs">
@@ -886,7 +886,7 @@ function setAtmosphereCountry(rawCountry) {
         atmosphereImage.style.opacity = '0';
         setTimeout(() => {
             atmosphereImage.style.backgroundImage = `url('${data.url}')`;
-            atmosphereImage.style.opacity = '0.22';
+            atmosphereImage.style.opacity = '0.06';
         }, 300);
     }
 
