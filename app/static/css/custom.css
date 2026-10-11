@@ -7,24 +7,24 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #f8fafc;
+    background: #FBF9F5;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #B1AB86;
     border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: #819067;
 }
 
 /* Institutional Glassmorphism helper */
 .glass-panel-light {
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 253, 249, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(226, 232, 240, 0.85);
+    border: 1px solid rgba(177, 171, 134, 0.35);
 }
 
 /* Atmospheric Backdrop Transition */
@@ -83,88 +83,88 @@ html.dark {
 
 html.dark,
 html.dark body {
-    background-color: #030712 !important;
-    color: #e2e8f0 !important;
+    background-color: #0E1715 !important;
+    color: #E1EBE6 !important;
 }
 
 /* Atmospheric Backdrop in Dark Mode */
 html.dark #dynamicAtmosphere > div:last-child {
-    background: linear-gradient(to bottom, rgba(3, 7, 18, 0.94), rgba(15, 23, 42, 0.90), rgba(3, 7, 18, 0.98)) !important;
+    background: linear-gradient(to bottom, rgba(14, 23, 21, 0.95), rgba(22, 38, 33, 0.92), rgba(14, 23, 21, 0.98)) !important;
 }
 
 html.dark #atmosphereImage {
-    opacity: 0.14 !important;
-    filter: saturate(110%) brightness(0.85) !important;
+    opacity: 0.16 !important;
+    filter: saturate(115%) brightness(0.85) !important;
 }
 
 /* Bottom-Left Country Landmark Badge in Dark Mode */
 html.dark #atmosphereBadge {
-    background-color: rgba(15, 23, 42, 0.92) !important;
-    border-color: rgba(51, 65, 85, 0.8) !important;
-    color: #cbd5e1 !important;
+    background-color: rgba(22, 38, 33, 0.92) !important;
+    border-color: rgba(42, 90, 77, 0.6) !important;
+    color: #C3D7CE !important;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
 }
 
 html.dark #atmosphereBadge #atmosphereCountry {
-    color: #f8fafc !important;
+    color: #F2F6F4 !important;
 }
 
 html.dark #atmosphereBadge #atmosphereLandmark {
-    color: #94a3b8 !important;
+    color: #95AFA4 !important;
 }
 
 /* Navigation Bar */
 html.dark nav {
-    background-color: rgba(11, 19, 41, 0.95) !important;
-    border-color: #1e293b !important;
+    background-color: rgba(18, 30, 27, 0.96) !important;
+    border-color: #233831 !important;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important;
 }
 
 html.dark nav a {
-    color: #94a3b8;
+    color: #95AFA4;
 }
 
 html.dark nav a:hover {
-    color: #f8fafc !important;
-    background-color: rgba(30, 41, 59, 0.8) !important;
+    color: #F2F6F4 !important;
+    background-color: rgba(35, 56, 49, 0.8) !important;
 }
 
 /* Mobile Nav Drawer */
 html.dark #mobileNavDrawer {
-    background-color: rgba(11, 19, 41, 0.98) !important;
-    border-color: #1e293b !important;
+    background-color: rgba(18, 30, 27, 0.98) !important;
+    border-color: #233831 !important;
 }
 
 html.dark #mobileNavDrawer a {
-    background-color: #0f172a !important;
-    border-color: #1e293b !important;
-    color: #cbd5e1 !important;
+    background-color: #162621 !important;
+    border-color: #233831 !important;
+    color: #C3D7CE !important;
 }
 
 html.dark #mobileNavDrawer button {
-    border-color: #1e293b !important;
+    border-color: #233831 !important;
 }
 
 /* Base Surfaces & Cards */
 html.dark .bg-white,
 html.dark [class*="bg-white/"] {
-    background-color: #0f172a !important;
-    color: #e2e8f0 !important;
+    background-color: #162621 !important;
+    color: #E1EBE6 !important;
 }
 
 html.dark .bg-slate-50,
 html.dark [class*="bg-slate-50/"] {
-    background-color: #030712 !important;
+    background-color: #0E1715 !important;
 }
 
 html.dark .bg-slate-100,
 html.dark [class*="bg-slate-100/"] {
-    background-color: #1e293b !important;
+    background-color: #1E332D !important;
 }
 
 html.dark .bg-slate-200,
 html.dark [class*="bg-slate-200/"] {
-    background-color: #334155 !important;
+    background-color: #28443C !important;
 }
 
 /* Borders */
@@ -172,49 +172,49 @@ html.dark .border-slate-100,
 html.dark .border-slate-200,
 html.dark [class*="border-slate-100/"],
 html.dark [class*="border-slate-200/"] {
-    border-color: #1e293b !important;
+    border-color: #233831 !important;
 }
 
 html.dark .border-slate-300,
 html.dark [class*="border-slate-300/"] {
-    border-color: #334155 !important;
+    border-color: #2E4B42 !important;
 }
 
 /* Typography Overrides */
 html.dark .text-navy-900 {
-    color: #f8fafc !important;
+    color: #F2F6F4 !important;
 }
 
 html.dark .text-slate-900 {
-    color: #f1f5f9 !important;
+    color: #F2F6F4 !important;
 }
 
 html.dark .text-slate-800 {
-    color: #e2e8f0 !important;
+    color: #E1EBE6 !important;
 }
 
 html.dark .text-slate-700 {
-    color: #cbd5e1 !important;
+    color: #C3D7CE !important;
 }
 
 html.dark .text-slate-600 {
-    color: #94a3b8 !important;
+    color: #95AFA4 !important;
 }
 
 html.dark .text-slate-500 {
-    color: #64748b !important;
+    color: #748D83 !important;
 }
 
 html.dark .text-slate-400 {
-    color: #94a3b8 !important;
+    color: #95AFA4 !important;
 }
 
 /* Soft Badges & Category Pills in Dark Mode */
 html.dark .bg-brand-50,
 html.dark [class*="bg-brand-50/"] {
-    background-color: rgba(30, 58, 138, 0.35) !important;
-    border-color: rgba(59, 130, 246, 0.4) !important;
-    color: #93c5fd !important;
+    background-color: rgba(42, 90, 77, 0.35) !important;
+    border-color: rgba(59, 92, 81, 0.5) !important;
+    color: #C3D7CE !important;
 }
 
 html.dark .bg-emerald-50,
@@ -226,20 +226,20 @@ html.dark [class*="bg-emerald-50/"] {
 
 html.dark .bg-amber-50,
 html.dark [class*="bg-amber-50/"] {
-    background-color: rgba(120, 53, 15, 0.35) !important;
-    border-color: rgba(245, 158, 11, 0.4) !important;
-    color: #fde68a !important;
+    background-color: rgba(160, 94, 34, 0.35) !important;
+    border-color: rgba(200, 122, 54, 0.5) !important;
+    color: #EED5BE !important;
 }
 
 html.dark .bg-rose-50,
 html.dark [class*="bg-rose-50/"] {
-    background-color: rgba(136, 19, 55, 0.35) !important;
-    border-color: rgba(244, 63, 94, 0.4) !important;
-    color: #fda4af !important;
+    background-color: rgba(83, 22, 29, 0.35) !important;
+    border-color: rgba(122, 34, 45, 0.5) !important;
+    color: #F7D0D4 !important;
 }
 
 html.dark .text-brand-700 {
-    color: #93c5fd !important;
+    color: #92BFB1 !important;
 }
 
 html.dark .text-emerald-800,
@@ -249,18 +249,18 @@ html.dark .text-emerald-700 {
 
 html.dark .text-amber-900,
 html.dark .text-amber-800 {
-    color: #fde68a !important;
+    color: #EED5BE !important;
 }
 
 html.dark .text-rose-700,
 html.dark .text-rose-600 {
-    color: #fda4af !important;
+    color: #F7D0D4 !important;
 }
 
 /* Glassmorphism Panel in Dark Mode */
 html.dark .glass-panel-light {
-    background: rgba(15, 23, 42, 0.88) !important;
-    border: 1px solid rgba(51, 65, 85, 0.6) !important;
+    background: rgba(22, 38, 33, 0.90) !important;
+    border: 1px solid rgba(42, 90, 77, 0.6) !important;
 }
 
 /* Form Controls & Inputs in Dark Mode */
@@ -270,54 +270,54 @@ html.dark input[type="password"],
 html.dark input[type="number"],
 html.dark select,
 html.dark textarea {
-    background-color: #0b1329 !important;
-    color: #f8fafc !important;
-    border-color: #334155 !important;
+    background-color: #121E1B !important;
+    color: #F2F6F4 !important;
+    border-color: #28443C !important;
 }
 
 html.dark input::placeholder,
 html.dark textarea::placeholder {
-    color: #64748b !important;
+    color: #748D83 !important;
 }
 
 html.dark select option {
-    background-color: #0f172a !important;
-    color: #f8fafc !important;
+    background-color: #162621 !important;
+    color: #F2F6F4 !important;
 }
 
 /* Dropdowns, Chat Advisor & Modals in Dark Mode */
 html.dark #notifDropdown,
 html.dark #advisorChatWidget,
 html.dark #upgradeModal > div {
-    background-color: #0b1329 !important;
-    border-color: #1e293b !important;
+    background-color: #121E1B !important;
+    border-color: #233831 !important;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
 }
 
 html.dark #advisorChatMessages {
-    background-color: #030712 !important;
+    background-color: #0E1715 !important;
 }
 
 html.dark #advisorChatMessages .bg-white {
-    background-color: #0f172a !important;
-    border-color: #1e293b !important;
+    background-color: #162621 !important;
+    border-color: #233831 !important;
 }
 
 html.dark #advisorChatWidget .bg-white {
-    background-color: #0b1329 !important;
-    border-color: #1e293b !important;
+    background-color: #121E1B !important;
+    border-color: #233831 !important;
 }
 
 /* Dark Mode Scrollbars */
 html.dark ::-webkit-scrollbar-track {
-    background: #030712;
+    background: #0E1715;
 }
 
 html.dark ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: #28443C;
 }
 
 html.dark ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: #3B5C51;
 }
 

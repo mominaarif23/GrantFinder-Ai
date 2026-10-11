@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-50 text-slate-900">
+<html lang="en" class="h-full bg-[#FBF9F5] text-slate-900">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,19 +13,19 @@
                     extend: {
                         colors: {
                             navy: {
-                                800: '#1E293B',
-                                900: '#0F172A',
-                                950: '#0A192F',
+                                800: '#233831',
+                                900: '#1C2F2A',
+                                950: '#121E1B',
                             },
                             brand: {
-                                50: '#eff6ff',
-                                100: '#dbeafe',
-                                200: '#bfdbfe',
-                                500: '#3b82f6',
-                                600: '#2563eb',
-                                700: '#1d4ed8',
-                                800: '#1e40af',
-                                900: '#1e3a8a',
+                                50: '#F2F6F4',
+                                100: '#E1EBE6',
+                                200: '#C3D7CE',
+                                500: '#3B5C51',
+                                600: '#2A5A4D',
+                                700: '#21473D',
+                                800: '#1C3B32',
+                                900: '#162E27',
                             },
                             emerald: {
                                 50: '#ecfdf5',
@@ -33,6 +33,40 @@
                                 600: '#059669',
                                 700: '#047857',
                                 800: '#065f46',
+                            },
+                            cognac: {
+                                50: '#FDF8F3',
+                                100: '#F7ECE0',
+                                200: '#EED5BE',
+                                500: '#C87A36',
+                                600: '#A05E22',
+                                700: '#874E1A',
+                                800: '#6F3E13',
+                                900: '#542E0C',
+                            },
+                            khaki: {
+                                100: '#F4E0C8',
+                                200: '#E5D0B5',
+                                300: '#D1BA9C',
+                                400: '#B1AB86',
+                                500: '#9C936A',
+                                600: '#819067',
+                            },
+                            cream: {
+                                50: '#FFFDF9',
+                                100: '#FFFBF0',
+                                200: '#FEFAED',
+                                300: '#F7F2DF',
+                            },
+                            bordeaux: {
+                                500: '#7A222D',
+                                600: '#53161D',
+                                700: '#421117',
+                            },
+                            amethyst: {
+                                400: '#C3B1D2',
+                                500: '#AB92BF',
+                                600: '#9275A8',
                             }
                         },
                         fontFamily: {
@@ -62,16 +96,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
 </head>
-<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans">
+<body class="min-h-screen flex flex-col bg-[#FBF9F5] text-slate-800 antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans">
 
     <!-- Dynamic Atmospheric Country Backdrop -->
     <div id="dynamicAtmosphere" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-20 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-50/92 via-slate-50/85 to-slate-100/98 backdrop-blur-[2px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#FBF9F5]/94 via-[#FBF9F5]/88 to-[#F4E0C8]/40 backdrop-blur-[2px]"></div>
     </div>
 
     <!-- Country Landmark Floating Indicator (Bottom-Left) -->
-    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md text-xs text-slate-700 transition-all duration-300">
+    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-[#FFFDF9]/95 backdrop-blur-md border border-stone-200/90 shadow-md text-xs text-slate-700 transition-all duration-300">
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
         <span class="font-extrabold text-navy-900 whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
         <span class="text-slate-300">&bull;</span>
@@ -81,7 +115,7 @@
 
 
     <!-- Top Navigation Bar -->
-    <nav class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+    <nav class="sticky top-0 z-40 w-full border-b border-stone-200/90 bg-[#FFFDF9]/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(28,47,42,0.03)]">
         <div class="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-2">
                 <!-- Brand Logo -->
