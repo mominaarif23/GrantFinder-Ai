@@ -80,9 +80,15 @@
         };
         (function() {
             try {
+                // Editorial Luxury & Botanical Earth flagship theme migration
+                var migrationKey = 'grantfinder_v3_editorial_theme';
+                if (!localStorage.getItem(migrationKey)) {
+                    localStorage.setItem('grantfinder_theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    localStorage.setItem(migrationKey, 'true');
+                }
                 var storedTheme = localStorage.getItem('grantfinder_theme') || localStorage.getItem('theme');
-                var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (storedTheme === 'dark' || (!storedTheme && systemDark)) {
+                if (storedTheme === 'dark') {
                     document.documentElement.classList.add('dark');
                 } else {
                     document.documentElement.classList.remove('dark');
@@ -91,7 +97,7 @@
         })();
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/static/css/custom.css">
+    <link rel="stylesheet" href="/static/css/custom.css?v=6.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
@@ -100,22 +106,22 @@
 
     <!-- Dynamic Atmospheric Country Backdrop -->
     <div id="dynamicAtmosphere" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-20 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-[#FBF9F5]/94 via-[#FBF9F5]/88 to-[#F4E0C8]/40 backdrop-blur-[2px]"></div>
+        <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-8 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#FBF9F5]/98 via-[#FBF9F5]/94 to-[#F4E0C8]/40 backdrop-blur-[2px]"></div>
     </div>
 
     <!-- Country Landmark Floating Indicator (Bottom-Left) -->
-    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-[#FFFDF9]/95 backdrop-blur-md border border-stone-200/90 shadow-md text-xs text-slate-700 transition-all duration-300">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-        <span class="font-extrabold text-navy-900 whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
-        <span class="text-slate-300">&bull;</span>
-        <span class="text-slate-600 truncate max-w-[160px] sm:max-w-xs font-medium whitespace-nowrap" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
+    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-[#FFFDF9]/98 backdrop-blur-md border border-[#B1AB86]/40 shadow-md text-xs text-[#1C2F2A] transition-all duration-300">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#2A5A4D] animate-pulse shrink-0"></span>
+        <span class="font-extrabold text-[#1C2F2A] whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
+        <span class="text-[#B1AB86]">&bull;</span>
+        <span class="text-[#6B7C72] truncate max-w-[160px] sm:max-w-xs font-medium whitespace-nowrap" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
     </div>
 
 
 
     <!-- Top Navigation Bar -->
-    <nav class="sticky top-0 z-40 w-full border-b border-stone-200/90 bg-[#FFFDF9]/95 backdrop-blur-xl shadow-[0_4px_20px_rgba(28,47,42,0.03)]">
+    <nav class="sticky top-0 z-40 w-full border-b border-[#B1AB86]/30 bg-[#FFFDF9]/98 backdrop-blur-xl shadow-[0_4px_20px_rgba(28,47,42,0.03)]">
         <div class="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-2">
                 <!-- Brand Logo -->
@@ -126,24 +132,24 @@
                         </div>
                         <div class="flex flex-col">
                             <div class="flex items-center space-x-1 whitespace-nowrap">
-                                <span class="font-extrabold text-xl tracking-tight text-navy-900 leading-none">GrantFinder</span>
-                                <span class="font-extrabold text-xl tracking-tight text-brand-600 leading-none">AI</span>
+                                <span class="font-extrabold text-xl tracking-tight text-[#1C2F2A] leading-none">GrantFinder</span>
+                                <span class="font-extrabold text-xl tracking-tight text-[#2A5A4D] leading-none">AI</span>
                             </div>
-                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-slate-400 mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
+                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-[#6B7C72] mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
                         </div>
                     </a>
                 </div>
 
                 <!-- Navigation Links (Identical across Landing & Logged-In, Strictly One Line, Zero Up-and-Down Wrapping) -->
-                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-slate-600 shrink-0">
-                    <a href="/" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Home</a>
-                    <a href="/destinations" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Destinations</a>
-                    <a href="/capabilities" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">AI Capabilities</a>
-                    <a href="/why-grantfinder" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Why GrantFinder</a>
-                    <a href="/verified-portals" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">Verified Portals</a>
-                    <a href="/faq" class="px-2.5 py-1.5 rounded-xl hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">FAQ</a>
-                    <a href="/ai-assistant" class="px-2.5 py-1.5 rounded-xl text-brand-700 bg-brand-50 hover:bg-brand-100 transition flex items-center space-x-1.5 border border-brand-200/80 shadow-xs cursor-pointer whitespace-nowrap">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-[#2D453E] shrink-0">
+                    <a href="/" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Home</a>
+                    <a href="/destinations" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Destinations</a>
+                    <a href="/capabilities" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">AI Capabilities</a>
+                    <a href="/why-grantfinder" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Why GrantFinder</a>
+                    <a href="/verified-portals" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">Verified Portals</a>
+                    <a href="/faq" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] transition whitespace-nowrap">FAQ</a>
+                    <a href="/ai-assistant" class="px-2.5 py-1.5 rounded-xl text-[#2A5A4D] bg-[#F2F6F4] hover:bg-[#E1EBE6] transition flex items-center space-x-1.5 border border-[#C3D7CE] shadow-xs cursor-pointer whitespace-nowrap">
+                        <span class="w-2 h-2 rounded-full bg-[#2A5A4D] animate-pulse"></span>
                         <span>AI Assistant</span>
                     </a>
                 </div>
@@ -237,10 +243,10 @@
                             </button>
                         </div>
                     {% else %}
-                        <a href="/login" class="text-xs font-bold text-slate-700 hover:text-brand-700 transition px-3 py-2 rounded-xl hover:bg-slate-100 shrink-0 whitespace-nowrap">Sign in</a>
-                        <a href="/register" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold bg-brand-700 text-white hover:bg-brand-800 shadow-sm transition shrink-0 whitespace-nowrap">
+                        <a href="/login" class="text-xs font-bold text-[#1C2F2A] hover:text-[#2A5A4D] transition px-3 py-2 rounded-xl hover:bg-[#F2F6F4] shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/register" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold bg-[#2A5A4D] text-[#FFFDF9] hover:bg-[#1C3B32] shadow-sm shadow-[#2A5A4D]/25 transition shrink-0 whitespace-nowrap">
                             <span>Explore Funding</span>
-                            <span class="ml-1.5 font-normal text-brand-200">&rarr;</span>
+                            <span class="ml-1.5 font-normal text-[#F4E0C8]">&rarr;</span>
                         </a>
                     {% endif %}
 

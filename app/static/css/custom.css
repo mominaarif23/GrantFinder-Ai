@@ -1,4 +1,15 @@
-/* GrantFinder AI Custom Stylesheet — Institutional Academic Edition */
+:root {
+    --color-jungle: #1C2F2A;
+    --color-moss: #2A5A4D;
+    --color-spruce: #3B5C51;
+    --color-parchment: #FBF9F5;
+    --color-ivory: #FFFDF9;
+    --color-khaki: #B1AB86;
+    --color-sand: #F4E0C8;
+    --color-cognac: #A05E22;
+    --color-amethyst: #AB92BF;
+    --color-bordeaux: #53161D;
+}
 
 /* Subtle academic scrollbar */
 ::-webkit-scrollbar {
