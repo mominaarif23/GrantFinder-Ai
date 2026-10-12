@@ -90,6 +90,40 @@
 
 html:not(.dark) body {
     background-color: #FBF9F5 !important;
+    color: #1C2F2A !important;
+}
+
+/* Light Mode Guaranteed High-Contrast Typography Shield */
+html:not(.dark) h1:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
+html:not(.dark) h2:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
+html:not(.dark) h3:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
+html:not(.dark) h4:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
+html:not(.dark) h5:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
+html:not(.dark) h6:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]) {
+    color: #1C2F2A;
+}
+
+/* Navbar Brand & Floating Atmosphere Badge in Light Mode */
+html:not(.dark) #atmosphereBadge {
+    background-color: rgba(255, 253, 249, 0.98) !important;
+    border-color: rgba(177, 171, 134, 0.4) !important;
+    color: #1C2F2A !important;
+}
+
+html:not(.dark) #atmosphereBadge #atmosphereCountry {
+    color: #1C2F2A !important;
+}
+
+html:not(.dark) #atmosphereBadge #atmosphereLandmark {
+    color: #6B7C72 !important;
+}
+
+/* Destination & Portal Card Titles & Links in Light Mode */
+html:not(.dark) .dest-dossier-card h3,
+html:not(.dark) .portal-card h3,
+html:not(.dark) .opportunity-card h4,
+html:not(.dark) .card-prominent h3,
+html:not(.dark) .card-prominent h4 {
     color: #1C2F2A;
 }
 
@@ -103,7 +137,8 @@ html:not(.dark) body {
 .destination-card,
 .opportunity-card,
 .academic-card,
-.feature-card {
+.feature-card,
+[onclick*="chooseTrack"] {
     transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
                 box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
                 border-color 0.28s ease, 
@@ -119,7 +154,8 @@ html:not(.dark) body {
 .destination-card:hover,
 .opportunity-card:hover,
 .academic-card:hover,
-.feature-card:hover {
+.feature-card:hover,
+[onclick*="chooseTrack"]:hover {
     transform: translateY(-6px) scale(1.015) !important;
     box-shadow: 0 20px 35px -8px rgba(28, 47, 42, 0.16), 0 0 0 2px rgba(42, 90, 77, 0.45) !important;
     border-color: #2A5A4D !important;
@@ -133,7 +169,8 @@ html.dark .dest-dossier-card:hover,
 html.dark .destination-card:hover,
 html.dark .opportunity-card:hover,
 html.dark .academic-card:hover,
-html.dark .feature-card:hover {
+html.dark .feature-card:hover,
+html.dark [onclick*="chooseTrack"]:hover {
     transform: translateY(-6px) scale(1.015) !important;
     background-color: #1F3830 !important;
     box-shadow: 0 24px 45px -10px rgba(0, 0, 0, 0.85), 0 0 0 2px rgba(244, 224, 200, 0.6) !important;
@@ -311,27 +348,27 @@ html.dark h4,
 html.dark .text-navy-900,
 html.dark .text-navy-950,
 html.dark .text-slate-900,
-html.dark .text-[#1C2F2A],
-html.dark .text-[#121E1B] {
+html.dark [class*="text-[#1C2F2A]"],
+html.dark [class*="text-[#121E1B]"] {
     color: #FFFDF9 !important;
 }
 
 html.dark .text-slate-800,
 html.dark .text-slate-700,
-html.dark .text-[#2D453E],
-html.dark .text-[#2D3748] {
+html.dark [class*="text-[#2D453E]"],
+html.dark [class*="text-[#2D3748]"] {
     color: #E1EBE6 !important;
 }
 
 html.dark p,
 html.dark .text-slate-600,
-html.dark .text-[#4A5D54] {
+html.dark [class*="text-[#4A5D54]"] {
     color: #C3D7CE !important;
 }
 
 html.dark .text-slate-500,
 html.dark .text-slate-400,
-html.dark .text-[#6B7C72] {
+html.dark [class*="text-[#6B7C72]"] {
     color: #A8C5B9 !important;
 }
 

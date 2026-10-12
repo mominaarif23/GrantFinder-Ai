@@ -4,90 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}GrantFinder AI — Intelligent Scholarships & Startup Grants{% endblock %}</title>
-    <!-- Tailwind CSS CDN Configuration -->
+    <!-- Early Theme Initialization (Guarantees class sync before CSS rendering) -->
     <script>
-        window.tailwind = {
-            config: {
-                darkMode: 'class',
-                theme: {
-                    extend: {
-                        colors: {
-                            indigo: {
-                                50: '#F2F6F4',
-                                100: '#E1EBE6',
-                                800: '#233831',
-                                900: '#1C2F2A',
-                                950: '#121E1B',
-                            },
-                            navy: {
-                                800: '#233831',
-                                900: '#1C2F2A',
-                                950: '#121E1B',
-                            },
-                            brand: {
-                                50: '#F2F6F4',
-                                100: '#E1EBE6',
-                                200: '#C3D7CE',
-                                500: '#3B5C51',
-                                600: '#2A5A4D',
-                                700: '#21473D',
-                                800: '#1C3B32',
-                                900: '#162E27',
-                            },
-                            emerald: {
-                                50: '#ecfdf5',
-                                100: '#d1fae5',
-                                600: '#059669',
-                                700: '#047857',
-                                800: '#065f46',
-                            },
-                            cognac: {
-                                50: '#FDF8F3',
-                                100: '#F7ECE0',
-                                200: '#EED5BE',
-                                500: '#C87A36',
-                                600: '#A05E22',
-                                700: '#874E1A',
-                                800: '#6F3E13',
-                                900: '#542E0C',
-                            },
-                            khaki: {
-                                100: '#F4E0C8',
-                                200: '#E5D0B5',
-                                300: '#D1BA9C',
-                                400: '#B1AB86',
-                                500: '#9C936A',
-                                600: '#819067',
-                            },
-                            cream: {
-                                50: '#FFFDF9',
-                                100: '#FFFBF0',
-                                200: '#FEFAED',
-                                300: '#F7F2DF',
-                            },
-                            bordeaux: {
-                                500: '#7A222D',
-                                600: '#53161D',
-                                700: '#421117',
-                            },
-                            amethyst: {
-                                400: '#C3B1D2',
-                                500: '#AB92BF',
-                                600: '#9275A8',
-                            }
-                        },
-                        fontFamily: {
-                            sans: ['Plus Jakarta Sans', 'sans-serif'],
-                            serif: ['Playfair Display', 'serif'],
-                            mono: ['JetBrains Mono', 'monospace'],
-                        }
-                    }
-                }
-            }
-        };
         (function() {
             try {
-                // Editorial Luxury & Botanical Earth flagship theme migration
                 var migrationKey = 'grantfinder_v3_editorial_theme';
                 if (!localStorage.getItem(migrationKey)) {
                     localStorage.setItem('grantfinder_theme', 'light');
@@ -103,8 +23,91 @@
             } catch(e) {}
         })();
     </script>
+
+    <!-- Tailwind CSS CDN Engine -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/static/css/custom.css?v=9.0">
+
+    <!-- Tailwind Config: Must be assigned to tailwind.config AFTER cdn.tailwindcss.com loads -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            50: '#F2F6F4',
+                            100: '#E1EBE6',
+                            800: '#233831',
+                            900: '#1C2F2A',
+                            950: '#121E1B',
+                        },
+                        navy: {
+                            800: '#233831',
+                            900: '#1C2F2A',
+                            950: '#121E1B',
+                        },
+                        brand: {
+                            50: '#F2F6F4',
+                            100: '#E1EBE6',
+                            200: '#C3D7CE',
+                            500: '#3B5C51',
+                            600: '#2A5A4D',
+                            700: '#21473D',
+                            800: '#1C3B32',
+                            900: '#162E27',
+                        },
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                        },
+                        cognac: {
+                            50: '#FDF8F3',
+                            100: '#F7ECE0',
+                            200: '#EED5BE',
+                            500: '#C87A36',
+                            600: '#A05E22',
+                            700: '#874E1A',
+                            800: '#6F3E13',
+                            900: '#542E0C',
+                        },
+                        khaki: {
+                            100: '#F4E0C8',
+                            200: '#E5D0B5',
+                            300: '#D1BA9C',
+                            400: '#B1AB86',
+                            500: '#9C936A',
+                            600: '#819067',
+                        },
+                        cream: {
+                            50: '#FFFDF9',
+                            100: '#FFFBF0',
+                            200: '#FEFAED',
+                            300: '#F7F2DF',
+                        },
+                        bordeaux: {
+                            500: '#7A222D',
+                            600: '#53161D',
+                            700: '#421117',
+                        },
+                        amethyst: {
+                            400: '#C3B1D2',
+                            500: '#AB92BF',
+                            600: '#9275A8',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="/static/css/custom.css?v=11.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
