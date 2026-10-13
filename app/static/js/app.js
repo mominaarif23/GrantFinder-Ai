@@ -1008,6 +1008,11 @@ async function handleAdvisorSubmit(e) {
     const currentTrack = window.location.pathname.includes('founder') ? 'grant' : 'scholarship';
 
     try {
+        window.liquidOrb?.setState('thinking');
+        window.guideOrb?.setState('thinking');
+        window.miniAdvisorOrb?.setState('thinking');
+        if (typeof setOrbStateManual === 'function') setOrbStateManual('thinking');
+
         const res = await fetch('/api/assistant/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1036,6 +1041,11 @@ async function handleAdvisorSubmit(e) {
     } catch (err) {
         removeAdvisorTyping(typingId);
         appendAdvisorMessage('assistant', "The advisor service encountered a temporary network delay. Please try sending again.");
+    } finally {
+        window.liquidOrb?.setState('idle');
+        window.guideOrb?.setState('idle');
+        window.miniAdvisorOrb?.setState('idle');
+        if (typeof setOrbStateManual === 'function') setOrbStateManual('idle');
     }
 }
 
@@ -1136,6 +1146,11 @@ async function handleInlineAdvisorSubmit(e) {
     appendInlineTyping(typingId);
 
     try {
+        window.liquidOrb?.setState('thinking');
+        window.guideOrb?.setState('thinking');
+        window.miniAdvisorOrb?.setState('thinking');
+        if (typeof setOrbStateManual === 'function') setOrbStateManual('thinking');
+
         const res = await fetch('/api/assistant/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1164,6 +1179,11 @@ async function handleInlineAdvisorSubmit(e) {
     } catch (err) {
         removeInlineTyping(typingId);
         appendInlineMessage('assistant', "The AI advisor service is momentarily reconnecting. Please send your question again.");
+    } finally {
+        window.liquidOrb?.setState('idle');
+        window.guideOrb?.setState('idle');
+        window.miniAdvisorOrb?.setState('idle');
+        if (typeof setOrbStateManual === 'function') setOrbStateManual('idle');
     }
 }
 

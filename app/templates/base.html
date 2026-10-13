@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-[#F8F9FA] dark:bg-[#111315] text-[#0F172A] dark:text-[#F8F9FA]">
+<html lang="en" class="h-full overflow-x-hidden bg-[#F8F9FA] dark:bg-[#111315] text-[#0F172A] dark:text-[#F8F9FA]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,8 +112,8 @@
         <div class="absolute inset-0 bg-[#F8F9FA]/96 dark:bg-[#111315]/96 backdrop-blur-[2px] transition-colors duration-300"></div>
     </div>
 
-    <!-- Country Landmark Floating Indicator (Bottom-Left) -->
-    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-4 py-2 rounded-full bg-white/95 dark:bg-[#181B1F]/95 backdrop-blur-md border border-slate-200 dark:border-[#2D333B] shadow-lg text-xs text-[#0F172A] dark:text-[#F8F9FA] transition-all duration-300">
+    <!-- Country Landmark Floating Indicator (Bottom-Left, Desktop Only to Prevent Mobile Content Occlusion) -->
+    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden lg:flex items-center space-x-2.5 px-4 py-2 rounded-full bg-white/95 dark:bg-[#181B1F]/95 backdrop-blur-md border border-slate-200 dark:border-[#2D333B] shadow-lg text-xs text-[#0F172A] dark:text-[#F8F9FA] transition-all duration-300">
         <span class="w-2 h-2 rounded-full bg-[#1F4D3E] dark:bg-[#10B981] shrink-0"></span>
         <span class="font-extrabold text-[#0F172A] dark:text-[#F8F9FA] whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
         <span class="text-slate-300 dark:text-slate-600">&bull;</span>
@@ -246,10 +246,11 @@
                             </button>
                         </div>
                     {% else %}
-                        <a href="/login" class="text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] transition px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#181B1F] shrink-0 whitespace-nowrap">Sign in</a>
-                        <a href="/register" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-[#1F4D3E] text-white hover:bg-[#16392E] dark:bg-[#1F4D3E] dark:hover:bg-[#28624F] shadow-sm shadow-[#1F4D3E]/20 transition shrink-0 whitespace-nowrap">
-                            <span>Explore Funding</span>
-                            <svg class="w-3.5 h-3.5 ml-1.5 text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <a href="/login" class="hidden sm:inline-flex text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] transition px-3.5 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#181B1F] shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/register" class="inline-flex items-center justify-center px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-bold bg-[#1F4D3E] text-white hover:bg-[#16392E] dark:bg-[#1F4D3E] dark:hover:bg-[#28624F] shadow-sm shadow-[#1F4D3E]/20 transition shrink-0 whitespace-nowrap">
+                            <span class="hidden sm:inline">Explore Funding</span>
+                            <span class="inline sm:hidden">Explore</span>
+                            <svg class="w-3.5 h-3.5 ml-1 sm:ml-1.5 text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     {% endif %}
 
@@ -476,8 +477,8 @@
         <!-- Header -->
         <div class="px-5 py-3.5 bg-slate-950 dark:bg-[#111315] text-white flex items-center justify-between border-b border-slate-800 dark:border-[#2D333B] shrink-0">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center p-1 border border-white/10">
-                    <img src="/static/img/logo_dark.png" alt="Advisor" class="w-6 h-6 object-contain">
+                <div class="relative w-8 h-8 rounded-full overflow-hidden bg-slate-900 border border-[#E8DCC4]/30 shadow-xs flex items-center justify-center shrink-0">
+                    <canvas id="miniAdvisorOrb" class="w-full h-full block rounded-full" width="64" height="64" aria-label="Advisor Liquid Brain"></canvas>
                 </div>
                 <div>
                     <h3 class="text-xs font-bold text-white tracking-tight">Funding Guide</h3>
@@ -524,6 +525,7 @@
         window.SUPABASE_KEY = "sb_publishable_TmFlWjB6qeJwMMCY-NXEVQ_u2vt0j6j";
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="if(window.supabase){window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);}"></script>
+    <script src="/static/js/liquid_orb.js?v=1.0"></script>
     <script src="/static/js/app.js?v=3.5"></script>
     {% block scripts %}{% endblock %}
 </body>

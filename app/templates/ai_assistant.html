@@ -41,28 +41,49 @@
         <!-- Left Controls & Prompts Column (5 cols) -->
         <div class="lg:col-span-5 space-y-6">
 
-            <!-- System Telemetry Badge Card -->
-            <div class="p-6 rounded-3xl bg-gradient-to-br from-[#111315] via-[#181B1F] to-[#2D333B] text-[#FFFFFF] shadow-xl space-y-4 border border-[#2D333B]">
-                <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase font-bold tracking-wider text-[#F4E0C8]">Advisor Console</span>
-                    <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6]/20 text-[#6ee7b7] border border-[#2D333B]">
-                        <span class="w-1.5 h-1.5 rounded-full bg-[#6ee7b7]"></span>
-                        <span>Online</span>
-                    </span>
-                </div>
-                <h3 class="text-lg font-bold text-[#FFFFFF]">Autonomous Advisor</h3>
-                <p class="text-xs text-[#C3D7CE] leading-relaxed">
-                    Connected directly to verified government repositories (HEC, Ignite, DAAD, Fulbright, Chevening) with real-time web discovery and Google Gemini semantic reasoning.
-                </p>
+            <!-- Interactive Liquid Glass Orb Brain Card -->
+            <div class="p-6 rounded-3xl bg-gradient-to-br from-[#111315] via-[#181B1F] to-[#22272E] text-white shadow-xl space-y-4 border border-[#2D333B] relative overflow-hidden flex flex-col items-center text-center">
+                <!-- Atmospheric Ambient Glows -->
+                <div class="absolute -top-12 -left-12 w-48 h-48 bg-[#1F4D3E]/30 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-[#8E5624]/25 rounded-full blur-3xl pointer-events-none"></div>
 
-                <div class="pt-3 border-t border-[#2D333B]/60 grid grid-cols-2 gap-3 text-xs">
+                <!-- Live WebGPU Liquid Glass Orb Canvas -->
+                <div class="relative w-48 h-48 sm:w-56 sm:h-56 my-1 flex items-center justify-center">
+                    <canvas id="liquidOrbCanvas" class="w-full h-full block rounded-full" width="400" height="400" aria-label="Liquid Glass Opportunity Brain"></canvas>
+                </div>
+
+                <!-- Dynamic Status Capsule -->
+                <div class="flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 dark:bg-black/40 border border-white/15 backdrop-blur-md">
+                    <span id="orbStatusDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span id="orbStatusText" class="text-xs font-bold text-[#E8DCC4] uppercase tracking-wider">Neural Engine · Idle Flow</span>
+                </div>
+
+                <div class="space-y-1 max-w-sm pt-1">
+                    <h3 class="text-base font-bold text-white tracking-tight">Autonomous Opportunity Brain</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Liquid neural processor searching verified scholarship databases, government portals, and international fellowships.
+                    </p>
+                </div>
+
+                <!-- Interactive Flow State Pills -->
+                <div class="flex items-center gap-2 pt-1">
+                    <button type="button" onclick="setOrbStateManual('idle')" id="btnOrbIdle" class="px-4 py-1.5 rounded-full text-[11px] font-bold bg-[#1F4D3E] text-white border border-[#E8DCC4]/30 hover:opacity-95 transition cursor-pointer">
+                        Ambient Flow
+                    </button>
+                    <button type="button" onclick="setOrbStateManual('thinking')" id="btnOrbThinking" class="px-4 py-1.5 rounded-full text-[11px] font-bold bg-white/10 hover:bg-white/20 text-[#E8DCC4] border border-white/20 transition cursor-pointer">
+                        Active Reasoning
+                    </button>
+                </div>
+
+                <!-- Telemetry Row -->
+                <div class="w-full pt-3 border-t border-slate-700/60 dark:border-[#2D333B]/60 grid grid-cols-2 gap-3 text-xs text-left">
                     <div>
-                        <span class="text-[#A5B7AF] text-[11px] block">Database Status</span>
-                        <span class="font-bold text-[#FFFFFF]">26+ Seeded Portals</span>
+                        <span class="text-slate-400 text-[11px] block">Verified Sources</span>
+                        <span class="font-bold text-white">26+ Seeded Portals</span>
                     </div>
                     <div>
-                        <span class="text-[#A5B7AF] text-[11px] block">Live Web Retrieval</span>
-                        <span class="font-bold text-[#6ee7b7]">Serper.dev Active</span>
+                        <span class="text-slate-400 text-[11px] block">Live Web Discovery</span>
+                        <span class="font-bold text-emerald-400">Serper.dev Active</span>
                     </div>
                 </div>
             </div>
@@ -199,6 +220,30 @@ function clearAdvisorConversation() {
     }
     if (typeof advisorChatHistory !== 'undefined') {
         advisorChatHistory = [];
+    }
+}
+
+function setOrbStateManual(targetState) {
+    if (window.liquidOrb && typeof window.liquidOrb.setState === 'function') {
+        window.liquidOrb.setState(targetState);
+    }
+    const dot = document.getElementById('orbStatusDot');
+    const text = document.getElementById('orbStatusText');
+    const btnIdle = document.getElementById('btnOrbIdle');
+    const btnThinking = document.getElementById('btnOrbThinking');
+
+    if (dot && text) {
+        if (targetState === 'thinking') {
+            dot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-pulse';
+            text.textContent = 'Neural Engine · Reasoning';
+            if (btnIdle) btnIdle.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-white/10 hover:bg-white/20 text-[#E8DCC4] border border-white/20 transition cursor-pointer';
+            if (btnThinking) btnThinking.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-[#8E5624] text-white border border-[#E8DCC4]/40 transition cursor-pointer';
+        } else {
+            dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+            text.textContent = 'Neural Engine · Idle Flow';
+            if (btnIdle) btnIdle.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-[#1F4D3E] text-white border border-[#E8DCC4]/30 transition cursor-pointer';
+            if (btnThinking) btnThinking.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-white/10 hover:bg-white/20 text-[#E8DCC4] border border-white/20 transition cursor-pointer';
+        }
     }
 }
 </script>
