@@ -1,14 +1,13 @@
 :root {
-    --color-jungle: #1C2F2A;
-    --color-moss: #2A5A4D;
-    --color-spruce: #3B5C51;
-    --color-parchment: #FBF9F5;
-    --color-ivory: #FFFDF9;
-    --color-khaki: #B1AB86;
-    --color-sand: #F4E0C8;
-    --color-cognac: #A05E22;
-    --color-amethyst: #AB92BF;
-    --color-bordeaux: #53161D;
+    --color-obsidian-canvas: #111315;
+    --color-obsidian-card: #181B1F;
+    --color-obsidian-elevated: #22272E;
+    --color-obsidian-border: #2D333B;
+    --color-ivory-canvas: #F8F9FA;
+    --color-ivory-card: #FFFFFF;
+    --color-ivory-border: #E2E8F0;
+    --color-emerald-primary: #10B981;
+    --color-emerald-deep: #059669;
 }
 
 /* Subtle academic scrollbar */
@@ -18,24 +17,24 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #FBF9F5;
+    background: #F8F9FA;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #B1AB86;
+    background: #CBD5E1;
     border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #819067;
+    background: #94A3B8;
 }
 
 /* Institutional Glassmorphism helper */
 .glass-panel-light {
-    background: rgba(255, 253, 249, 0.92);
+    background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(177, 171, 134, 0.35);
+    border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 /* Atmospheric Backdrop Transition */
@@ -85,37 +84,37 @@
 }
 
 /* ==============================================================================
-   Editorial Luxury & Botanical Earth Architecture (Light Mode Flagship)
+   Material You Crisp Ivory Architecture (Light Mode Flagship)
    ============================================================================== */
 
 html:not(.dark) body {
-    background-color: #FBF9F5 !important;
-    color: #1C2F2A !important;
+    background-color: #F8F9FA !important;
+    color: #0F172A !important;
 }
 
 /* Light Mode Guaranteed High-Contrast Typography Shield */
-html:not(.dark) h1:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
-html:not(.dark) h2:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
-html:not(.dark) h3:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
-html:not(.dark) h4:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
-html:not(.dark) h5:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]),
-html:not(.dark) h6:not([class*="text-white"]):not([class*="text-[#FFFDF9]"]) {
-    color: #1C2F2A;
+html:not(.dark) h1:not([class*="text-white"]),
+html:not(.dark) h2:not([class*="text-white"]),
+html:not(.dark) h3:not([class*="text-white"]),
+html:not(.dark) h4:not([class*="text-white"]),
+html:not(.dark) h5:not([class*="text-white"]),
+html:not(.dark) h6:not([class*="text-white"]) {
+    color: #0F172A;
 }
 
 /* Navbar Brand & Floating Atmosphere Badge in Light Mode */
 html:not(.dark) #atmosphereBadge {
-    background-color: rgba(255, 253, 249, 0.98) !important;
-    border-color: rgba(177, 171, 134, 0.4) !important;
-    color: #1C2F2A !important;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    border-color: #E2E8F0 !important;
+    color: #0F172A !important;
 }
 
 html:not(.dark) #atmosphereBadge #atmosphereCountry {
-    color: #1C2F2A !important;
+    color: #0F172A !important;
 }
 
 html:not(.dark) #atmosphereBadge #atmosphereLandmark {
-    color: #6B7C72 !important;
+    color: #64748B !important;
 }
 
 /* Destination & Portal Card Titles & Links in Light Mode */
@@ -124,7 +123,7 @@ html:not(.dark) .portal-card h3,
 html:not(.dark) .opportunity-card h4,
 html:not(.dark) .card-prominent h3,
 html:not(.dark) .card-prominent h4 {
-    color: #1C2F2A;
+    color: #0F172A;
 }
 
 /* ==============================================================================
@@ -156,10 +155,10 @@ html:not(.dark) .card-prominent h4 {
 .academic-card:hover,
 .feature-card:hover,
 [onclick*="chooseTrack"]:hover {
-    transform: translateY(-6px) scale(1.015) !important;
-    box-shadow: 0 20px 35px -8px rgba(28, 47, 42, 0.16), 0 0 0 2px rgba(42, 90, 77, 0.45) !important;
-    border-color: #2A5A4D !important;
-    background-color: #FFFDF9 !important;
+    transform: translateY(-4px) scale(1.01) !important;
+    box-shadow: 0 16px 30px -8px rgba(15, 23, 42, 0.08), 0 0 0 2px rgba(16, 185, 129, 0.3) !important;
+    border-color: #10B981 !important;
+    background-color: #FFFFFF !important;
     z-index: 10;
 }
 
@@ -171,10 +170,10 @@ html.dark .opportunity-card:hover,
 html.dark .academic-card:hover,
 html.dark .feature-card:hover,
 html.dark [onclick*="chooseTrack"]:hover {
-    transform: translateY(-6px) scale(1.015) !important;
-    background-color: #1F3830 !important;
-    box-shadow: 0 24px 45px -10px rgba(0, 0, 0, 0.85), 0 0 0 2px rgba(244, 224, 200, 0.6) !important;
-    border-color: #F4E0C8 !important;
+    transform: translateY(-4px) scale(1.01) !important;
+    background-color: #22272E !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(16, 185, 129, 0.4) !important;
+    border-color: #10B981 !important;
     z-index: 10;
 }
 
@@ -182,44 +181,44 @@ html.dark [onclick*="chooseTrack"]:hover {
     opacity: 0.05 !important;
 }
 
-/* Light mode card surfaces: Warm Alabaster Ivory */
+/* Light mode card surfaces: Pure Crisp White */
 .bg-white,
 [class*="bg-white/"] {
-    background-color: #FFFDF9;
+    background-color: #FFFFFF;
 }
 
-/* Solidify container backgrounds to eliminate atmospheric photo bleed */
+/* Subtle surfaces */
 .bg-slate-50,
 [class*="bg-slate-50/"] {
-    background-color: #F7F5EE;
+    background-color: #F8F9FA;
 }
 
-/* Light mode border tone: Khaki Sand */
+/* Light mode border tone: Clean Slate */
 .border-slate-200,
 [class*="border-slate-200/"] {
-    border-color: rgba(177, 171, 134, 0.45);
+    border-color: #E2E8F0;
 }
 
 .border-slate-100,
 [class*="border-slate-100/"] {
-    border-color: rgba(177, 171, 134, 0.3);
+    border-color: #F1F5F9;
 }
 
 /* Secondary CTA buttons on dark banners */
 .bg-white.text-navy-900,
 .bg-white.text-brand-800,
 .bg-white.text-brand-700 {
-    background-color: #FFFDF9 !important;
-    color: #1C2F2A !important;
-    border: 1.5px solid #B1AB86 !important;
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
+    border: 1.5px solid #E2E8F0 !important;
 }
 
 .bg-white.text-navy-900:hover,
 .bg-white.text-brand-800:hover,
 .bg-white.text-brand-700:hover {
-    background-color: #F4E0C8 !important;
-    color: #1C2F2A !important;
-    border-color: #A05E22 !important;
+    background-color: #F8F9FA !important;
+    color: #0F172A !important;
+    border-color: #CBD5E1 !important;
 }
 
 /* Callout and Hero Action Banners */
@@ -227,13 +226,13 @@ html.dark [onclick*="chooseTrack"]:hover {
 [class*="from-brand-900"][class*="via-navy-900"],
 [class*="from-brand-800"][class*="via-brand-700"],
 [class*="from-brand-800"][class*="via-indigo-800"] {
-    background: linear-gradient(135deg, #121E1B 0%, #1C2F2A 50%, #233831 100%) !important;
-    color: #FFFDF9 !important;
-    border: 1px solid #3B5C51 !important;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%) !important;
+    color: #FFFFFF !important;
+    border: 1px solid #334155 !important;
 }
 
 /* ==============================================================================
-   Institutional Night / Dark Mode Architecture
+   Institutional Night / Obsidian Dark Mode Architecture
    ============================================================================== */
 
 html.dark {
@@ -242,89 +241,89 @@ html.dark {
 
 html.dark,
 html.dark body {
-    background-color: #0E1715 !important;
-    color: #E1EBE6 !important;
+    background-color: #111315 !important;
+    color: #F8F9FA !important;
 }
 
 /* Atmospheric Backdrop in Dark Mode */
 html.dark #dynamicAtmosphere > div:last-child {
-    background: #0E1715 !important;
-    background-color: rgba(14, 23, 21, 0.98) !important;
+    background: #111315 !important;
+    background-color: rgba(17, 19, 21, 0.98) !important;
 }
 
 html.dark #atmosphereImage {
-    opacity: 0.16 !important;
-    filter: saturate(115%) brightness(0.85) !important;
+    opacity: 0.08 !important;
+    filter: saturate(110%) brightness(0.8) !important;
 }
 
 /* Bottom-Left Country Landmark Badge in Dark Mode */
 html.dark #atmosphereBadge {
-    background-color: rgba(22, 38, 33, 0.96) !important;
-    border-color: rgba(42, 90, 77, 0.6) !important;
-    color: #C3D7CE !important;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+    background-color: rgba(24, 27, 31, 0.96) !important;
+    border-color: #2D333B !important;
+    color: #F8F9FA !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7) !important;
 }
 
 html.dark #atmosphereBadge #atmosphereCountry {
-    color: #FFFDF9 !important;
+    color: #F8F9FA !important;
 }
 
 html.dark #atmosphereBadge #atmosphereLandmark {
-    color: #A8C5B9 !important;
+    color: #94A3B8 !important;
 }
 
 /* Navigation Bar */
 html.dark nav {
-    background-color: rgba(18, 30, 27, 0.98) !important;
-    border-color: #233831 !important;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5) !important;
+    background-color: rgba(17, 19, 21, 0.98) !important;
+    border-color: #2D333B !important;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6) !important;
 }
 
 html.dark nav a {
-    color: #A8C5B9;
+    color: #CBD5E1;
 }
 
 html.dark nav a:hover {
-    color: #FFFDF9 !important;
-    background-color: rgba(35, 56, 49, 0.8) !important;
+    color: #FFFFFF !important;
+    background-color: rgba(34, 39, 46, 0.8) !important;
 }
 
 /* Mobile Nav Drawer */
 html.dark #mobileNavDrawer {
-    background-color: rgba(18, 30, 27, 0.98) !important;
-    border-color: #233831 !important;
+    background-color: rgba(24, 27, 31, 0.98) !important;
+    border-color: #2D333B !important;
 }
 
 html.dark #mobileNavDrawer a {
-    background-color: #162621 !important;
-    border-color: #233831 !important;
-    color: #C3D7CE !important;
+    background-color: #22272E !important;
+    border-color: #2D333B !important;
+    color: #F8F9FA !important;
 }
 
 html.dark #mobileNavDrawer button {
-    border-color: #233831 !important;
+    border-color: #2D333B !important;
 }
 
 /* Base Surfaces & Cards */
 html.dark .bg-white,
 html.dark [class*="bg-white/"] {
-    background-color: #162621 !important;
-    color: #E1EBE6 !important;
+    background-color: #181B1F !important;
+    color: #F8F9FA !important;
 }
 
 html.dark .bg-slate-50,
 html.dark [class*="bg-slate-50/"] {
-    background-color: #0E1715 !important;
+    background-color: #111315 !important;
 }
 
 html.dark .bg-slate-100,
 html.dark [class*="bg-slate-100/"] {
-    background-color: #1E332D !important;
+    background-color: #22272E !important;
 }
 
 html.dark .bg-slate-200,
 html.dark [class*="bg-slate-200/"] {
-    background-color: #28443C !important;
+    background-color: #2D333B !important;
 }
 
 /* Borders */
@@ -332,12 +331,12 @@ html.dark .border-slate-100,
 html.dark .border-slate-200,
 html.dark [class*="border-slate-100/"],
 html.dark [class*="border-slate-200/"] {
-    border-color: #233831 !important;
+    border-color: #2D333B !important;
 }
 
 html.dark .border-slate-300,
 html.dark [class*="border-slate-300/"] {
-    border-color: #2E4B42 !important;
+    border-color: #373E47 !important;
 }
 
 /* Guaranteed Ultra-High Contrast Dark Mode Typography */
@@ -350,43 +349,43 @@ html.dark .text-navy-950,
 html.dark .text-slate-900,
 html.dark [class*="text-[#1C2F2A]"],
 html.dark [class*="text-[#121E1B]"] {
-    color: #FFFDF9 !important;
+    color: #F8F9FA !important;
 }
 
 html.dark .text-slate-800,
 html.dark .text-slate-700,
 html.dark [class*="text-[#2D453E]"],
 html.dark [class*="text-[#2D3748]"] {
-    color: #E1EBE6 !important;
+    color: #E2E8F0 !important;
 }
 
 html.dark p,
 html.dark .text-slate-600,
 html.dark [class*="text-[#4A5D54]"] {
-    color: #C3D7CE !important;
+    color: #94A3B8 !important;
 }
 
 html.dark .text-slate-500,
 html.dark .text-slate-400,
 html.dark [class*="text-[#6B7C72]"] {
-    color: #A8C5B9 !important;
+    color: #64748B !important;
 }
 
 html.dark .text-brand-700,
 html.dark .text-brand-800,
 html.dark .text-brand-900 {
-    color: #F4E0C8 !important;
+    color: #34D399 !important;
 }
 
 html.dark .text-emerald-700,
 html.dark .text-emerald-800 {
-    color: #6ee7b7 !important;
+    color: #34D399 !important;
 }
 
 html.dark .text-amber-700,
 html.dark .text-amber-800,
 html.dark .text-amber-900 {
-    color: #F4E0C8 !important;
+    color: #FBBF24 !important;
 }
 
 /* Card & Accordion Surfaces in Dark Mode */
@@ -396,34 +395,33 @@ html.dark .destination-card,
 html.dark .opportunity-card,
 html.dark .card-prominent,
 html.dark details {
-    background-color: #162621 !important;
-    border-color: #233831 !important;
+    background-color: #181B1F !important;
+    border-color: #2D333B !important;
 }
 
 html.dark details[open] {
-    border-color: #2D453E !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+    border-color: #373E47 !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5) !important;
 }
 
 html.dark details summary {
-    color: #FFFDF9 !important;
+    color: #F8F9FA !important;
 }
 
 html.dark details p {
-    color: #C3D7CE !important;
+    color: #94A3B8 !important;
 }
 
 html.dark .portal-card a,
-html.dark .portal-card a,
 html.dark .dest-dossier-card a,
 html.dark .card-prominent a {
-    color: #F4E0C8 !important;
+    color: #34D399 !important;
 }
 
 html.dark .portal-card a:hover,
 html.dark .dest-dossier-card a:hover,
 html.dark .card-prominent a:hover {
-    color: #FFFDF9 !important;
+    color: #FFFFFF !important;
 }
 
 /* Card action buttons in Dark Mode */
@@ -432,9 +430,9 @@ html.dark .dest-dossier-card a[class*="bg-brand-700"],
 html.dark .dest-dossier-card a[class*="bg-indigo-700"],
 html.dark .dest-dossier-card a[class*="bg-amber-600"],
 html.dark .dest-dossier-card a[class*="bg-teal-700"] {
-    background-color: #2A5A4D !important;
-    color: #FFFDF9 !important;
-    border: 1px solid #3B5C51 !important;
+    background-color: #059669 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #10B981 !important;
 }
 
 html.dark .dest-dossier-card a[class*="bg-navy-900"]:hover,
@@ -442,63 +440,63 @@ html.dark .dest-dossier-card a[class*="bg-brand-700"]:hover,
 html.dark .dest-dossier-card a[class*="bg-indigo-700"]:hover,
 html.dark .dest-dossier-card a[class*="bg-amber-600"]:hover,
 html.dark .dest-dossier-card a[class*="bg-teal-700"]:hover {
-    background-color: #387363 !important;
-    color: #FFFDF9 !important;
-    border-color: #F4E0C8 !important;
+    background-color: #10B981 !important;
+    color: #FFFFFF !important;
+    border-color: #34D399 !important;
 }
 
 /* Soft Badges & Category Pills in Dark Mode */
 html.dark .bg-brand-50,
 html.dark [class*="bg-brand-50/"] {
-    background-color: rgba(42, 90, 77, 0.35) !important;
-    border-color: rgba(59, 92, 81, 0.5) !important;
-    color: #C3D7CE !important;
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    color: #34D399 !important;
 }
 
 html.dark .bg-emerald-50,
 html.dark [class*="bg-emerald-50/"] {
-    background-color: rgba(6, 95, 70, 0.35) !important;
-    border-color: rgba(16, 185, 129, 0.4) !important;
-    color: #6ee7b7 !important;
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    color: #34D399 !important;
 }
 
 html.dark .bg-amber-50,
 html.dark [class*="bg-amber-50/"] {
-    background-color: rgba(160, 94, 34, 0.35) !important;
-    border-color: rgba(200, 122, 54, 0.5) !important;
-    color: #EED5BE !important;
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    border-color: rgba(245, 158, 11, 0.3) !important;
+    color: #FBBF24 !important;
 }
 
 html.dark .bg-rose-50,
 html.dark [class*="bg-rose-50/"] {
-    background-color: rgba(83, 22, 29, 0.35) !important;
-    border-color: rgba(122, 34, 45, 0.5) !important;
-    color: #F7D0D4 !important;
+    background-color: rgba(244, 63, 94, 0.15) !important;
+    border-color: rgba(244, 63, 94, 0.3) !important;
+    color: #FB7185 !important;
 }
 
 html.dark .text-brand-700 {
-    color: #92BFB1 !important;
+    color: #34D399 !important;
 }
 
 html.dark .text-emerald-800,
 html.dark .text-emerald-700 {
-    color: #6ee7b7 !important;
+    color: #34D399 !important;
 }
 
 html.dark .text-amber-900,
 html.dark .text-amber-800 {
-    color: #EED5BE !important;
+    color: #FBBF24 !important;
 }
 
 html.dark .text-rose-700,
 html.dark .text-rose-600 {
-    color: #F7D0D4 !important;
+    color: #FB7185 !important;
 }
 
 /* Glassmorphism Panel in Dark Mode */
 html.dark .glass-panel-light {
-    background: rgba(22, 38, 33, 0.90) !important;
-    border: 1px solid rgba(42, 90, 77, 0.6) !important;
+    background: rgba(24, 27, 31, 0.90) !important;
+    border: 1px solid #2D333B !important;
 }
 
 /* Form Controls & Inputs in Dark Mode */
@@ -508,71 +506,70 @@ html.dark input[type="password"],
 html.dark input[type="number"],
 html.dark select,
 html.dark textarea {
-    background-color: #121E1B !important;
-    color: #F2F6F4 !important;
-    border-color: #28443C !important;
+    background-color: #181B1F !important;
+    color: #F8F9FA !important;
+    border-color: #2D333B !important;
 }
 
 html.dark input::placeholder,
 html.dark textarea::placeholder {
-    color: #748D83 !important;
+    color: #64748B !important;
 }
 
 html.dark select option {
-    background-color: #162621 !important;
-    color: #F2F6F4 !important;
+    background-color: #181B1F !important;
+    color: #F8F9FA !important;
 }
 
 /* Dropdowns, Chat Advisor & Modals in Dark Mode */
 html.dark #notifDropdown,
 html.dark #advisorChatWidget,
 html.dark #upgradeModal > div {
-    background-color: #121E1B !important;
-    border-color: #233831 !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+    background-color: #181B1F !important;
+    border-color: #2D333B !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
 }
 
 html.dark #advisorChatMessages {
-    background-color: #0E1715 !important;
+    background-color: #111315 !important;
 }
 
 html.dark #advisorChatMessages .bg-white {
-    background-color: #162621 !important;
-    border-color: #233831 !important;
+    background-color: #22272E !important;
+    border-color: #2D333B !important;
 }
 
 html.dark #advisorChatWidget .bg-white {
-    background-color: #121E1B !important;
-    border-color: #233831 !important;
+    background-color: #181B1F !important;
+    border-color: #2D333B !important;
 }
 
 /* Dark Mode Scrollbars */
 html.dark ::-webkit-scrollbar-track {
-    background: #0E1715;
+    background: #111315;
 }
 
 html.dark ::-webkit-scrollbar-thumb {
-    background: #28443C;
+    background: #2D333B;
 }
 
 html.dark ::-webkit-scrollbar-thumb:hover {
-    background: #3B5C51;
+    background: #373E47;
 }
 
 /* Secondary CTA buttons on dark banners in dark mode */
 html.dark .bg-white.text-navy-900,
 html.dark .bg-white.text-brand-800,
 html.dark .bg-white.text-brand-700 {
-    background-color: #F4E0C8 !important;
-    color: #121E1B !important;
-    border: 1px solid #B1AB86 !important;
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
+    border: 1px solid #E2E8F0 !important;
 }
 
 html.dark .bg-white.text-navy-900:hover,
 html.dark .bg-white.text-brand-800:hover,
 html.dark .bg-white.text-brand-700:hover {
-    background-color: #FFFDF9 !important;
-    color: #121E1B !important;
-    border-color: #C87A36 !important;
+    background-color: #F8F9FA !important;
+    color: #0F172A !important;
+    border-color: #CBD5E1 !important;
 }
-

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-[#FBF9F5] text-slate-900">
+<html lang="en" class="h-full bg-[#F8F9FA] dark:bg-[#111315] text-[#0F172A] dark:text-[#F8F9FA]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,104 +34,76 @@
             theme: {
                 extend: {
                     colors: {
-                        indigo: {
-                            50: '#F2F6F4',
-                            100: '#E1EBE6',
-                            800: '#233831',
-                            900: '#1C2F2A',
-                            950: '#121E1B',
+                        surface: {
+                            canvas: '#F8F9FA',
+                            card: '#FFFFFF',
+                            border: '#E2E8F0',
+                            darkCanvas: '#111315',
+                            darkCard: '#181B1F',
+                            darkElevated: '#22272E',
+                            darkBorder: '#2D333B',
                         },
-                        navy: {
-                            800: '#233831',
-                            900: '#1C2F2A',
-                            950: '#121E1B',
+                        obsidian: {
+                            800: '#22272E',
+                            900: '#181B1F',
+                            950: '#111315',
                         },
                         brand: {
-                            50: '#F2F6F4',
-                            100: '#E1EBE6',
-                            200: '#C3D7CE',
-                            500: '#3B5C51',
-                            600: '#2A5A4D',
-                            700: '#21473D',
-                            800: '#1C3B32',
-                            900: '#162E27',
+                            50: '#F0FDF4',
+                            100: '#DCFCE7',
+                            200: '#BBF7D0',
+                            500: '#10B981',
+                            600: '#1F4D3E',
+                            700: '#16392E',
+                            800: '#112A22',
+                            900: '#0B1C17',
                         },
-                        emerald: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            600: '#059669',
-                            700: '#047857',
-                            800: '#065f46',
+                        champagne: {
+                            100: '#FDF8F3',
+                            200: '#F4E0C8',
+                            300: '#E5D0B5',
+                            500: '#A05E22',
                         },
-                        cognac: {
-                            50: '#FDF8F3',
-                            100: '#F7ECE0',
-                            200: '#EED5BE',
-                            500: '#C87A36',
-                            600: '#A05E22',
-                            700: '#874E1A',
-                            800: '#6F3E13',
-                            900: '#542E0C',
-                        },
-                        khaki: {
-                            100: '#F4E0C8',
-                            200: '#E5D0B5',
-                            300: '#D1BA9C',
-                            400: '#B1AB86',
-                            500: '#9C936A',
-                            600: '#819067',
-                        },
-                        cream: {
-                            50: '#FFFDF9',
-                            100: '#FFFBF0',
-                            200: '#FEFAED',
-                            300: '#F7F2DF',
-                        },
-                        bordeaux: {
-                            500: '#7A222D',
-                            600: '#53161D',
-                            700: '#421117',
-                        },
-                        amethyst: {
-                            400: '#C3B1D2',
-                            500: '#AB92BF',
-                            600: '#9275A8',
+                        navy: {
+                            800: '#1E293B',
+                            900: '#0F172A',
+                            950: '#020617',
                         }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Lexend', 'Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'Playfair Display', 'serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
         };
     </script>
-    <link rel="stylesheet" href="/static/css/custom.css?v=11.0">
+    <link rel="stylesheet" href="/static/css/custom.css?v=12.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Lexend:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
 </head>
-<body class="min-h-screen flex flex-col bg-[#FBF9F5] dark:bg-[#0E1715] text-[#1C2F2A] dark:text-[#E1EBE6] antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans transition-colors duration-300">
+<body class="min-h-screen flex flex-col bg-[#F8F9FA] dark:bg-[#111315] text-[#0F172A] dark:text-[#F8F9FA] antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans transition-colors duration-300">
 
     <!-- Dynamic Atmospheric Country Backdrop -->
     <div id="dynamicAtmosphere" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-5 dark:opacity-10 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
-        <div class="absolute inset-0 bg-[#FBF9F5]/98 dark:bg-[#0E1715]/98 backdrop-blur-[2px] transition-colors duration-300"></div>
+        <div class="absolute inset-0 bg-[#F8F9FA]/96 dark:bg-[#111315]/96 backdrop-blur-[2px] transition-colors duration-300"></div>
     </div>
 
     <!-- Country Landmark Floating Indicator (Bottom-Left) -->
-    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-[#FFFDF9]/98 dark:bg-[#162621]/98 backdrop-blur-md border border-[#B1AB86]/40 dark:border-[#2D453E] shadow-md text-xs text-[#1C2F2A] dark:text-[#F2F6F4] transition-all duration-300">
-        <span class="w-2 h-2 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8] shrink-0"></span>
-        <span class="font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
-        <span class="text-[#B1AB86] dark:text-[#3B5C51]">&bull;</span>
-        <span class="text-[#6B7C72] dark:text-[#95AFA4] truncate max-w-[160px] sm:max-w-xs font-medium whitespace-nowrap" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
+    <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-4 py-2 rounded-full bg-white/95 dark:bg-[#181B1F]/95 backdrop-blur-md border border-slate-200 dark:border-[#2D333B] shadow-lg text-xs text-[#0F172A] dark:text-[#F8F9FA] transition-all duration-300">
+        <span class="w-2 h-2 rounded-full bg-[#1F4D3E] dark:bg-[#10B981] shrink-0"></span>
+        <span class="font-extrabold text-[#0F172A] dark:text-[#F8F9FA] whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
+        <span class="text-slate-300 dark:text-slate-600">&bull;</span>
+        <span class="text-slate-600 dark:text-slate-400 truncate max-w-[160px] sm:max-w-xs font-medium whitespace-nowrap" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
     </div>
 
 
 
     <!-- Top Navigation Bar -->
-    <nav class="sticky top-0 z-40 w-full border-b border-[#B1AB86]/30 dark:border-[#233831] bg-[#FFFDF9]/98 dark:bg-[#121E1B]/98 backdrop-blur-xl shadow-[0_4px_20px_rgba(28,47,42,0.03)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.5)] transition-colors duration-300">
+    <nav class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-[#2D333B] bg-white/95 dark:bg-[#111315]/95 backdrop-blur-xl shadow-xs transition-colors duration-300">
         <div class="w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-2">
                 <!-- Brand Logo -->
@@ -142,24 +114,24 @@
                         </div>
                         <div class="flex flex-col">
                             <div class="flex items-center space-x-1 whitespace-nowrap">
-                                <span class="font-extrabold text-xl tracking-tight text-[#1C2F2A] dark:text-[#FFFDF9] leading-none">GrantFinder</span>
-                                <span class="font-extrabold text-xl tracking-tight text-[#2A5A4D] dark:text-[#F4E0C8] leading-none">AI</span>
+                                <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white leading-none">GrantFinder</span>
+                                <span class="font-extrabold text-xl tracking-tight text-emerald-700 dark:text-emerald-400 leading-none">AI</span>
                             </div>
-                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-[#6B7C72] dark:text-[#95AFA4] mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
+                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
                         </div>
                     </a>
                 </div>
 
                 <!-- Navigation Links (Identical across Landing & Logged-In, Strictly One Line, Zero Up-and-Down Wrapping) -->
-                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-[#2D453E] dark:text-[#C3D7CE] shrink-0">
-                    <a href="/" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Home</a>
-                    <a href="/destinations" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Destinations</a>
-                    <a href="/capabilities" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">How It Works</a>
-                    <a href="/why-grantfinder" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">About Us</a>
-                    <a href="/verified-portals" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Funding Sources</a>
-                    <a href="/faq" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">FAQ</a>
-                    <a href="/ai-assistant" class="px-3 py-1.5 rounded-full text-[#2A5A4D] dark:text-[#F4E0C8] bg-[#E1EBE6] dark:bg-[#1C3B32] hover:bg-[#C3D7CE] dark:hover:bg-[#234A3E] transition flex items-center space-x-1.5 border border-[#2A5A4D]/30 dark:border-[#2D453E] shadow-xs cursor-pointer whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5 text-[#2A5A4D] dark:text-[#F4E0C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-slate-600 dark:text-slate-300 shrink-0">
+                    <a href="/" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Home</a>
+                    <a href="/destinations" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Destinations</a>
+                    <a href="/capabilities" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">How It Works</a>
+                    <a href="/why-grantfinder" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">About Us</a>
+                    <a href="/verified-portals" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Funding Sources</a>
+                    <a href="/faq" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">FAQ</a>
+                    <a href="/ai-assistant" class="px-3.5 py-1.5 rounded-full text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition flex items-center space-x-1.5 border border-emerald-200 dark:border-emerald-800/60 shadow-xs cursor-pointer whitespace-nowrap">
+                        <svg class="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         <span>Study Advisor</span>
                     </a>
                 </div>
@@ -169,17 +141,17 @@
                     {% if user %}
                         <!-- Role Navigation -->
                         {% if user.role == 'student' %}
-                            <a href="/dashboard/student" class="text-xs font-bold text-brand-700 bg-brand-50 px-3 py-1.5 rounded-xl border border-brand-200 hover:bg-brand-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
+                            <a href="/dashboard/student" class="text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-3.5 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
                                 <span>Scholarships Portal</span>
-                                <span class="text-brand-400">&rarr;</span>
-                            </a>
-                        {% elif user.role == 'founder' %}
-                            <a href="/dashboard/founder" class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-300 hover:bg-emerald-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
-                                <span>Startup Grants Portal</span>
                                 <span class="text-emerald-500">&rarr;</span>
                             </a>
+                        {% elif user.role == 'founder' %}
+                            <a href="/dashboard/founder" class="text-xs font-bold text-teal-800 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 px-3.5 py-1.5 rounded-full border border-teal-200 dark:border-teal-800/60 hover:bg-teal-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
+                                <span>Startup Grants Portal</span>
+                                <span class="text-teal-500">&rarr;</span>
+                            </a>
                         {% elif user.role == 'admin' %}
-                            <a href="/admin" class="text-xs font-bold text-amber-900 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-300 hover:bg-amber-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
+                            <a href="/admin" class="text-xs font-bold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-3.5 py-1.5 rounded-full border border-amber-200 dark:border-amber-800/60 hover:bg-amber-100 transition shadow-xs hidden sm:inline-flex items-center space-x-1 whitespace-nowrap">
                                 <span>Governance Console</span>
                                 <span class="text-amber-500">&rarr;</span>
                             </a>
@@ -187,42 +159,42 @@
 
                         <!-- Plan Badge -->
                         {% if user.plan == 'premium' %}
-                            <span class="hidden md:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs shrink-0 whitespace-nowrap">
+                            <span class="hidden md:inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 shadow-xs shrink-0 whitespace-nowrap">
                                 Premium Tier
                             </span>
                         {% else %}
-                            <button onclick="openUpgradeModal()" class="hidden md:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition shadow-xs shrink-0 whitespace-nowrap">
+                            <button onclick="openUpgradeModal()" class="hidden md:inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-300 dark:border-amber-700 hover:bg-amber-100 transition shadow-xs shrink-0 whitespace-nowrap">
                                 Free Plan · <span class="underline ml-1">Upgrade ($9)</span>
                             </button>
                         {% endif %}
 
                         <!-- Notifications Dropdown Button -->
                         <div class="relative" id="notifDropdownContainer">
-                            <button onclick="toggleNotifDropdown()" class="relative p-2 sm:p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 transition border border-transparent hover:border-slate-200 shrink-0">
+                            <button onclick="toggleNotifDropdown()" class="relative p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-[#181B1F] transition border border-transparent hover:border-slate-200 dark:hover:border-[#2D333B] shrink-0">
                                 <span class="sr-only">View notifications</span>
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                 </svg>
                                 {% if notifications and notifications|length > 0 %}
-                                    <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-600 ring-2 ring-white"></span>
+                                    <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-600 ring-2 ring-white dark:ring-[#181B1F]"></span>
                                 {% endif %}
                             </button>
 
                             <!-- Dropdown Menu -->
-                            <div id="notifDropdown" class="hidden absolute right-0 mt-2 w-72 sm:w-96 rounded-3xl bg-white border border-slate-200 shadow-2xl p-4 z-50">
-                                <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                            <div id="notifDropdown" class="hidden absolute right-0 mt-2 w-72 sm:w-96 rounded-3xl bg-white dark:bg-[#181B1F] border border-slate-200 dark:border-[#2D333B] shadow-2xl p-4 z-50">
+                                <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-[#2D333B]">
                                     <div>
-                                        <span class="text-xs font-bold uppercase tracking-wider text-navy-900">Notifications</span>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Notifications</span>
                                         <p class="text-[11px] text-slate-400">In-App & Multi-Channel Alerts</p>
                                     </div>
-                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{{ notifications|length if notifications else 0 }} Alerts</span>
+                                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-[#22272E] text-slate-600 dark:text-slate-300">{{ notifications|length if notifications else 0 }} Alerts</span>
                                 </div>
-                                <div class="max-h-72 overflow-y-auto space-y-2 text-xs text-slate-700 pr-1">
+                                <div class="max-h-72 overflow-y-auto space-y-2 text-xs text-slate-700 dark:text-slate-200 pr-1">
                                     {% if notifications and notifications|length > 0 %}
                                         {% for n in notifications[:5] %}
-                                            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
-                                                <p class="font-bold text-navy-900">{{ n.title }}</p>
-                                                <p class="text-slate-600 mt-0.5 text-xs leading-relaxed">{{ n.message }}</p>
+                                            <div class="p-3 rounded-2xl bg-slate-50 dark:bg-[#22272E] border border-slate-200/80 dark:border-[#2D333B]">
+                                                <p class="font-bold text-slate-900 dark:text-white">{{ n.title }}</p>
+                                                <p class="text-slate-600 dark:text-slate-300 mt-0.5 text-xs leading-relaxed">{{ n.message }}</p>
                                                 <p class="text-[10px] text-slate-400 mt-1.5 font-mono">{{ n.sent_date[:10] }} · Channel: {{ n.channel }}</p>
                                             </div>
                                         {% endfor %}
@@ -234,34 +206,34 @@
                         </div>
 
                         <!-- User Profile (Single-Line Display, No Column Wrap) -->
-                        <div class="flex items-center space-x-2 pl-2 border-l border-slate-200 shrink-0">
+                        <div class="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-[#2D333B] shrink-0">
                             {% set effective_nav_avatar = (user and user.avatar_url) or avatar_url or (profile and profile.avatar_url) or '' %}
                             <a href="/profile" class="flex items-center space-x-2 hover:opacity-85 transition group" title="Account & Profile Settings">
                                 <div id="navUserAvatarContainer" class="relative shrink-0">
-                                    <img id="navUserAvatarImg" src="{{ effective_nav_avatar }}" alt="{{ user.name }}" class="{% if not effective_nav_avatar %}hidden{% endif %} w-8 h-8 rounded-xl object-cover ring-1 ring-slate-200 shadow-xs">
-                                    <div id="navUserAvatarInitials" class="{% if effective_nav_avatar %}hidden{% endif %} w-8 h-8 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center shadow-xs">
+                                    <img id="navUserAvatarImg" src="{{ effective_nav_avatar }}" alt="{{ user.name }}" class="{% if not effective_nav_avatar %}hidden{% endif %} w-8 h-8 rounded-full object-cover ring-1 ring-slate-200 dark:ring-[#2D333B] shadow-xs">
+                                    <div id="navUserAvatarInitials" class="{% if effective_nav_avatar %}hidden{% endif %} w-8 h-8 rounded-full bg-slate-900 dark:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center shadow-xs">
                                         {{ user.name[:2]|upper }}
                                     </div>
                                 </div>
-                                <span class="hidden sm:inline-block text-xs font-bold text-navy-900 group-hover:text-brand-700 whitespace-nowrap truncate max-w-[120px]">{{ user.name }}</span>
+                                <span class="hidden sm:inline-block text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 whitespace-nowrap truncate max-w-[120px]">{{ user.name }}</span>
                             </a>
-                            <a href="/profile" class="hidden lg:inline-block px-2 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition whitespace-nowrap">
+                            <a href="/profile" class="hidden lg:inline-block px-3 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">
                                 Profile
                             </a>
-                            <button onclick="handleLogout()" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition shrink-0 whitespace-nowrap">
+                            <button onclick="handleLogout()" class="px-3 py-1.5 rounded-full text-xs font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/50 transition shrink-0 whitespace-nowrap">
                                 Log out
                             </button>
                         </div>
                     {% else %}
-                        <a href="/login" class="text-xs font-bold text-[#1C2F2A] dark:text-[#C3D7CE] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition px-3.5 py-2 rounded-full hover:bg-[#F2F6F4] dark:hover:bg-[#162621] shrink-0 whitespace-nowrap">Sign in</a>
-                        <a href="/register" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-[#2A5A4D] text-[#FFFDF9] hover:bg-[#1C3B32] shadow-sm shadow-[#2A5A4D]/25 transition shrink-0 whitespace-nowrap">
+                        <a href="/login" class="text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400 transition px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#181B1F] shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/register" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 shadow-sm shadow-emerald-900/20 transition shrink-0 whitespace-nowrap">
                             <span>Explore Funding</span>
-                            <svg class="w-3.5 h-3.5 ml-1.5 text-[#F4E0C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-3.5 h-3.5 ml-1.5 text-emerald-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     {% endif %}
 
                     <!-- Dark / Light Theme Toggle Button -->
-                    <button id="themeToggleBtn" onclick="toggleThemeMode()" class="p-2 sm:p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-amber-300 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700 shrink-0" title="Toggle Light / Dark Theme" aria-label="Toggle theme">
+                    <button id="themeToggleBtn" onclick="toggleThemeMode()" class="p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-amber-300 dark:hover:bg-[#181B1F] transition border border-slate-200 dark:border-[#2D333B] shrink-0" title="Toggle Light / Dark Theme" aria-label="Toggle theme">
                         <!-- Sun icon (shown when dark mode is active) -->
                         <svg id="themeSunIcon" class="w-5 h-5 hidden text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -273,7 +245,7 @@
                     </button>
 
                     <!-- Mobile Menu Hamburger Button -->
-                    <button onclick="toggleMobileNav()" id="mobileNavToggleBtn" class="xl:hidden p-2 sm:p-2.5 rounded-xl text-slate-600 hover:text-navy-900 hover:bg-slate-100 transition border border-slate-200 shrink-0">
+                    <button onclick="toggleMobileNav()" id="mobileNavToggleBtn" class="xl:hidden p-2.5 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-[#181B1F] transition border border-slate-200 dark:border-[#2D333B] shrink-0">
                         <span class="sr-only">Open navigation menu</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -284,33 +256,33 @@
         </div>
 
         <!-- Mobile Navigation Drawer -->
-        <div id="mobileNavDrawer" class="hidden xl:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3">
-            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-slate-700 pt-2">
-                <a href="/" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Home</a>
-                <a href="/destinations" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Destinations</a>
-                <a href="/capabilities" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">How It Works</a>
-                <a href="/why-grantfinder" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">About Us</a>
-                <a href="/verified-portals" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Funding Sources</a>
-                <a href="/faq" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">FAQ</a>
-                <a href="/ai-assistant" class="col-span-2 p-2.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-center font-bold hover:bg-brand-100 whitespace-nowrap flex items-center justify-center space-x-1.5">
-                    <svg class="w-4 h-4 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+        <div id="mobileNavDrawer" class="hidden xl:hidden border-t border-slate-200 dark:border-[#2D333B] bg-white/98 dark:bg-[#181B1F]/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3">
+            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-slate-700 dark:text-slate-200 pt-2">
+                <a href="/" class="p-2.5 rounded-full bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-center hover:bg-slate-100 dark:hover:bg-[#2D333B] whitespace-nowrap">Home</a>
+                <a href="/destinations" class="p-2.5 rounded-full bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-center hover:bg-slate-100 dark:hover:bg-[#2D333B] whitespace-nowrap">Destinations</a>
+                <a href="/capabilities" class="p-2.5 rounded-full bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-center hover:bg-slate-100 dark:hover:bg-[#2D333B] whitespace-nowrap">How It Works</a>
+                <a href="/why-grantfinder" class="p-2.5 rounded-full bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-center hover:bg-slate-100 dark:hover:bg-[#2D333B] whitespace-nowrap">About Us</a>
+                <a href="/verified-portals" class="p-2.5 rounded-full bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-center hover:bg-slate-100 dark:hover:bg-[#2D333B] whitespace-nowrap">Funding Sources</a>
+                <a href="/faq" class="p-2.5 rounded-full bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-center hover:bg-slate-100 dark:hover:bg-[#2D333B] whitespace-nowrap">FAQ</a>
+                <a href="/ai-assistant" class="col-span-2 p-2.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 text-emerald-800 dark:text-emerald-300 text-center font-bold hover:bg-emerald-100 whitespace-nowrap flex items-center justify-center space-x-1.5">
+                    <svg class="w-4 h-4 text-emerald-700 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                     <span>Study Advisor</span>
                 </a>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+            <div class="pt-3 border-t border-slate-100 dark:border-[#2D333B] flex flex-col gap-2">
                 {% if user %}
                     <!-- User Profile Banner in Drawer -->
-                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                    <div class="p-3 rounded-2xl bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] flex items-center justify-between">
                         <a href="/profile" class="flex items-center space-x-2.5 hover:opacity-85 transition">
                             <div class="relative shrink-0">
-                                <img id="drawerUserAvatarImg" src="{{ effective_nav_avatar }}" alt="{{ user.name }}" class="{% if not effective_nav_avatar %}hidden{% endif %} w-9 h-9 rounded-xl object-cover ring-1 ring-slate-200 shadow-xs">
-                                <div id="drawerUserAvatarInitials" class="{% if effective_nav_avatar %}hidden{% endif %} w-9 h-9 rounded-xl bg-navy-900 text-white font-extrabold text-xs flex items-center justify-center">
+                                <img id="drawerUserAvatarImg" src="{{ effective_nav_avatar }}" alt="{{ user.name }}" class="{% if not effective_nav_avatar %}hidden{% endif %} w-9 h-9 rounded-full object-cover ring-1 ring-slate-200 dark:ring-[#2D333B] shadow-xs">
+                                <div id="drawerUserAvatarInitials" class="{% if effective_nav_avatar %}hidden{% endif %} w-9 h-9 rounded-full bg-slate-900 dark:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center">
                                     {{ user.name[:2]|upper }}
                                 </div>
                             </div>
                             <div>
-                                <p class="text-xs font-bold text-navy-900 leading-tight">{{ user.name }}</p>
+                                <p class="text-xs font-bold text-slate-900 dark:text-white leading-tight">{{ user.name }}</p>
                                 <p class="text-[10px] text-slate-500 capitalize">{{ user.role }} · {{ user.plan }} plan</p>
                             </div>
                         </a>
@@ -326,15 +298,15 @@
                     </div>
 
                     {% if user.role == 'student' %}
-                        <a href="/dashboard/student" class="text-center py-2.5 rounded-full bg-brand-50 text-brand-700 font-bold text-xs border border-brand-200">Open Scholarships Console &rarr;</a>
+                        <a href="/dashboard/student" class="text-center py-2.5 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-200">Open Scholarships Console &rarr;</a>
                     {% elif user.role == 'founder' %}
-                        <a href="/dashboard/founder" class="text-center py-2.5 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-300">Open Startup Grants Console &rarr;</a>
+                        <a href="/dashboard/founder" class="text-center py-2.5 rounded-full bg-teal-50 text-teal-800 font-bold text-xs border border-teal-300">Open Startup Grants Console &rarr;</a>
                     {% elif user.role == 'admin' %}
                         <a href="/admin" class="text-center py-2.5 rounded-full bg-amber-50 text-amber-900 font-bold text-xs border border-amber-300">Open Governance Console &rarr;</a>
                     {% endif %}
 
                     {% if user.plan != 'premium' %}
-                        <button onclick="openUpgradeModal()" class="w-full text-center py-2.5 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-xs transition">
+                        <button onclick="openUpgradeModal()" class="w-full text-center py-2.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs transition">
                             Unlock Unlimited Results & AI Drafter ($9)
                         </button>
                     {% endif %}
@@ -343,24 +315,24 @@
                         Sign Out
                     </button>
                     <!-- AI Assistant Launch Button in Mobile Drawer -->
-                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-full bg-navy-950 text-white font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-full bg-slate-900 text-white font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
                         <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         <span>Ask a Question</span>
                     </button>
 
                 {% else %}
-                    <a href="/login" class="text-center py-2.5 rounded-full bg-slate-100 text-navy-900 font-bold text-xs hover:bg-slate-200 transition">Sign In to Account</a>
-                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-full bg-brand-50 text-brand-700 border border-brand-200 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
-                        <svg class="w-4 h-4 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                    <a href="/login" class="text-center py-2.5 rounded-full bg-slate-100 dark:bg-[#22272E] text-slate-900 dark:text-white font-bold text-xs hover:bg-slate-200 transition">Sign In to Account</a>
+                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                        <svg class="w-4 h-4 text-emerald-700 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         <span>Ask a Question</span>
                     </button>
-                    <a href="/register?role=student" class="text-center py-2.5 rounded-full bg-brand-700 text-white font-bold text-xs shadow-xs hover:bg-brand-800 transition">Student Scholarships Track &rarr;</a>
-                    <a href="/register?role=founder" class="text-center py-2.5 rounded-full bg-white text-emerald-800 font-bold text-xs border border-emerald-300 hover:bg-emerald-50 transition">Founder Grants Track &rarr;</a>
+                    <a href="/register?role=student" class="text-center py-2.5 rounded-full bg-emerald-700 text-white font-bold text-xs shadow-xs hover:bg-emerald-800 transition">Student Scholarships Track &rarr;</a>
+                    <a href="/register?role=founder" class="text-center py-2.5 rounded-full bg-white dark:bg-[#22272E] text-teal-800 dark:text-teal-300 font-bold text-xs border border-teal-300 dark:border-teal-700 hover:bg-teal-50 transition">Founder Grants Track &rarr;</a>
                 {% endif %}
 
                 <!-- Theme Toggle Button in Mobile Drawer -->
-                <button onclick="toggleThemeMode()" class="w-full text-center py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 transition flex items-center justify-center space-x-2">
-                    <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button onclick="toggleThemeMode()" class="w-full text-center py-2.5 rounded-full bg-slate-100 dark:bg-[#22272E] hover:bg-slate-200 dark:hover:bg-[#2D333B] text-slate-700 dark:text-slate-200 font-bold text-xs border border-slate-200 dark:border-[#2D333B] transition flex items-center justify-center space-x-2">
+                    <svg class="w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                     <span id="mobileThemeText">Toggle Light / Dark Mode</span>
@@ -376,49 +348,49 @@
                 <div class="max-w-xl mx-auto my-24 p-8 rounded-3xl bg-white border border-slate-200 text-center shadow-lg">
                     <h2 class="text-2xl font-bold text-navy-900 mb-2">{{ error_title }}</h2>
                     <p class="text-slate-600 mb-6">{{ error_message }}</p>
-                    <a href="/" class="inline-flex px-5 py-2.5 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 transition">Return to Home</a>
+                    <a href="/" class="inline-flex px-5 py-2.5 rounded-full bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 transition">Return to Home</a>
                 </div>
             {% endif %}
         {% endblock %}
     </main>
 
     <!-- Upgrade to Premium Modal (Mock Checkout Flow) -->
-    <div id="upgradeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-navy-950/60 backdrop-blur-sm p-4">
-        <div class="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl relative">
-            <button onclick="closeUpgradeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-navy-900 text-xl font-bold">&times;</button>
+    <div id="upgradeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 dark:bg-black/80 backdrop-blur-sm p-4">
+        <div class="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-[#181B1F] border border-slate-200 dark:border-[#2D333B] p-6 sm:p-8 shadow-2xl relative text-slate-900 dark:text-white">
+            <button onclick="closeUpgradeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#22272E] transition text-xl font-bold">&times;</button>
             <div class="text-center">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 mb-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 mb-3">
                     Premium Tier Access
                 </span>
-                <h3 class="text-xl font-bold text-navy-900 mb-1">Unlock Unlimited Matches & AI Drafting</h3>
-                <p class="text-xs text-slate-500 mb-5">Demonstration one-time license for students and startup founders.</p>
-                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 mb-5 text-left space-y-2.5 text-xs text-slate-700">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">Unlock Unlimited Matches & AI Drafting</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-5">Demonstration one-time license for students and startup founders.</p>
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] mb-5 text-left space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
                     <div class="flex items-center space-x-2">
-                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                         <span><strong>Unlimited Matches:</strong> Remove 3-result limitation on all live web searches</span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                         <span><strong>AI Essay Assistant:</strong> Generate tailored scholarship Statements of Purpose</span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                         <span><strong>AI Pitch Assistant:</strong> Generate structured startup grant proposals</span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                         <span><strong>WhatsApp Instant Alerts:</strong> Real-time messaging alerts</span>
                     </div>
                 </div>
-                <div class="mb-5 flex items-center justify-between px-4 py-3 rounded-2xl bg-slate-100 border border-slate-200">
+                <div class="mb-5 flex items-center justify-between px-4 py-3 rounded-2xl bg-slate-100 dark:bg-[#111315] border border-slate-200 dark:border-[#2D333B]">
                     <div>
-                        <span class="text-xs text-slate-500">Total Demonstration Cost:</span>
-                        <p class="text-xl font-extrabold text-navy-900">$9.00 <span class="text-xs font-normal text-slate-500">USD</span></p>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">Total Demonstration Cost:</span>
+                        <p class="text-xl font-extrabold text-slate-900 dark:text-white">$9.00 <span class="text-xs font-normal text-slate-500 dark:text-slate-400">USD</span></p>
                     </div>
-                    <span class="text-[11px] font-semibold text-amber-800 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">Demo Checkout</span>
+                    <span class="text-[11px] font-semibold text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700 px-2.5 py-0.5 rounded-full">Demo Checkout</span>
                 </div>
-                <button id="upgradeConfirmBtn" onclick="executeMockUpgrade()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-sm hover:opacity-95 shadow-md transition">
-                    Confirm Upgrade ($9 Demo)
+                <button id="upgradeConfirmBtn" onclick="executeMockUpgrade()" class="w-full py-3 rounded-full bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-bold text-sm shadow-md transition flex items-center justify-center space-x-2">
+                    <span>Confirm Upgrade ($9 Demo)</span>
                 </button>
             </div>
         </div>
@@ -428,7 +400,7 @@
     <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
 
     <!-- Footer (Academic & Innovation Intelligence) -->
-    <footer class="w-full border-t border-[#233831] bg-[#121E1B] text-[#FFFDF9] py-14 text-xs relative z-10 mt-auto">
+    <footer class="w-full border-t border-slate-800 dark:border-[#1F242C] bg-slate-950 dark:bg-[#0D0F11] text-slate-200 py-14 text-xs relative z-10 mt-auto">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             
             <div class="flex flex-col md:flex-row items-start justify-between gap-10 mb-12">
@@ -438,15 +410,15 @@
                         <img src="/static/img/logo.svg" alt="GrantFinder AI Emblem" class="w-9 h-9 shrink-0">
                         <span class="font-extrabold text-lg tracking-tight text-white">GrantFinder AI</span>
                     </div>
-                    <p class="text-[#A5B7AF] text-xs leading-relaxed">
+                    <p class="text-slate-400 text-xs leading-relaxed">
                         Your intelligent partner for academic scholarships and startup innovation grants across Pakistan and premier global destinations.
                     </p>
                 </div>
 
                 <!-- Opportunity Tracks (Stepped forward to the right) -->
                 <div class="md:text-left min-w-[220px]">
-                    <h4 class="font-bold text-[#F4E0C8] text-xs uppercase tracking-wider mb-3">Opportunity Tracks</h4>
-                    <ul class="space-y-2 text-[#A5B7AF]">
+                    <h4 class="font-bold text-emerald-400 text-xs uppercase tracking-wider mb-3">Opportunity Tracks</h4>
+                    <ul class="space-y-2 text-slate-400">
                         <li><a href="/register?role=student" class="hover:text-white transition">University Scholarships</a></li>
                         <li><a href="/register?role=founder" class="hover:text-white transition">Startup Innovation Grants</a></li>
                         <li><a href="/verified-portals" class="hover:text-white transition">Government Portals (HEC, Ignite)</a></li>
@@ -458,7 +430,7 @@
             </div>
 
             <!-- Bottom Horizontal Architectural Line & Legal Disclosures -->
-            <div class="pt-8 border-t border-[#233831] flex flex-col sm:flex-row items-center justify-between text-[#7A9187] gap-3">
+            <div class="pt-8 border-t border-slate-800 dark:border-[#1F242C] flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-3">
                 <p>&copy; 2026 GrantFinder AI. All rights reserved.</p>
                 <div class="flex items-center space-x-4">
                     <a href="/privacy" class="hover:text-white transition">Privacy Policy</a>
@@ -471,19 +443,19 @@
     </footer>
 
     <!-- Floating GrantFinder Advisor Trigger Button -->
-    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center space-x-2 sm:space-x-2.5 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-[#1C2F2A] text-white shadow-xl hover:bg-[#2A5A4D] border border-[#3B5C51]/80 transition-all duration-200 group hover:scale-105" title="Ask a Question">
-        <svg class="w-4 h-4 text-[#F4E0C8] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center space-x-2 sm:space-x-2.5 px-5 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-emerald-700 dark:hover:bg-emerald-600 border border-slate-700 dark:border-emerald-600 shadow-xl transition-all duration-200 group hover:scale-105" title="Ask a Question">
+        <svg class="w-4 h-4 text-emerald-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
         </svg>
         <span class="text-xs font-bold tracking-tight">Ask a Question</span>
     </button>
 
     <!-- Floating GrantFinder Advisor Chat Console -->
-    <div id="advisorChatWidget" class="hidden fixed bottom-20 right-4 sm:right-6 w-[92vw] sm:w-[390px] h-[520px] max-h-[82vh] z-50 rounded-3xl bg-white/98 backdrop-blur-xl border border-slate-200/90 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right">
+    <div id="advisorChatWidget" class="hidden fixed bottom-20 right-4 sm:right-6 w-[92vw] sm:w-[390px] h-[520px] max-h-[82vh] z-50 rounded-3xl bg-white dark:bg-[#181B1F] border border-slate-200 dark:border-[#2D333B] shadow-2xl flex flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right">
         <!-- Header -->
-        <div class="px-5 py-3.5 bg-navy-950 text-white flex items-center justify-between border-b border-navy-900 shrink-0">
+        <div class="px-5 py-3.5 bg-slate-950 dark:bg-[#111315] text-white flex items-center justify-between border-b border-slate-800 dark:border-[#2D333B] shrink-0">
             <div class="flex items-center space-x-3">
-                <div class="w-7 h-7 rounded-xl bg-white/10 flex items-center justify-center p-1 border border-white/10">
+                <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center p-1 border border-white/10">
                     <img src="/static/img/logo.svg" alt="Advisor" class="w-5 h-5">
                 </div>
                 <div>
@@ -499,24 +471,24 @@
         </div>
 
         <!-- Messages Body -->
-        <div id="advisorChatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50/60">
+        <div id="advisorChatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50/80 dark:bg-[#111315]/80">
             <!-- Initial Greeting -->
             <div class="flex items-start space-x-2">
-                <div class="w-6 h-6 rounded-lg bg-navy-950 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
+                <div class="w-6 h-6 rounded-full bg-slate-900 dark:bg-emerald-700 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
                     <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
                 </div>
-                <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed">
+                <div class="bg-white dark:bg-[#22272E] p-3 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-[#2D333B] shadow-xs max-w-[85%] text-slate-700 dark:text-slate-200 leading-relaxed">
                     Hello! I am here to help you explore scholarships and startup grants. What academic program, destination, or venture stage are you looking for?
                 </div>
             </div>
         </div>
 
         <!-- Input Footer -->
-        <div class="p-3 bg-white border-t border-slate-200 shrink-0">
+        <div class="p-3 bg-white dark:bg-[#181B1F] border-t border-slate-200 dark:border-[#2D333B] shrink-0">
             <form id="advisorChatForm" onsubmit="handleAdvisorSubmit(event)" class="flex items-center space-x-2">
                 <input id="advisorInput" type="text" placeholder="Ask about scholarships, grants, DAAD, eligibility..." 
-                       class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
-                <button type="submit" class="p-2.5 rounded-xl bg-navy-950 hover:bg-brand-900 text-white transition shrink-0 shadow-xs" title="Send message">
+                       class="flex-1 px-4 py-2.5 rounded-full bg-slate-100 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white dark:focus:bg-[#181B1F] transition">
+                <button type="submit" class="p-2.5 rounded-full bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white transition shrink-0 shadow-xs" title="Send message">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                     </svg>

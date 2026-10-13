@@ -6,30 +6,30 @@
 <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 space-y-8">
     
     <!-- Header Banner -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm relative overflow-hidden">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] dark:bg-[#162521] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm relative overflow-hidden">
         <div class="space-y-1.5 relative z-10">
             <div class="flex items-center flex-wrap gap-2.5">
                 <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-[#F4E0C8]/50 text-[#A05E22] border border-[#A05E22]/30 dark:bg-[#A05E22]/20 dark:text-[#F4E0C8]">
                     Startup & Innovation Grant Track
                 </span>
-                <span class="text-[#B1AB86]/40">•</span>
+                <span class="text-[#E2E8F0]/40">•</span>
                 <span class="text-xs font-semibold text-[#6B7C72] dark:text-[#95AFA4] uppercase tracking-wider">{{ user.plan }} Account</span>
-                <span class="text-[#B1AB86]/40">•</span>
-                <a href="/profile" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {% if (completion_pct or 60) >= 100 %}bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 dark:bg-[#1C2F2A] dark:text-[#F4E0C8]{% else %}bg-[#F4E0C8]/50 text-[#A05E22] border border-[#A05E22]/30 hover:bg-[#F4E0C8]{% endif %} transition">
+                <span class="text-[#E2E8F0]/40">•</span>
+                <a href="/profile" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {% if (completion_pct or 60) >= 100 %}bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 dark:bg-[#181B1F] dark:text-[#F4E0C8]{% else %}bg-[#F4E0C8]/50 text-[#A05E22] border border-[#A05E22]/30 hover:bg-[#F4E0C8]{% endif %} transition">
                     Profile {{ completion_pct or 60 }}% Complete &rarr;
                 </a>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#121E1B] dark:text-[#FFFDF9] tracking-tight">Founder Portal: {{ user.name }}</h1>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111315] dark:text-[#FFFFFF] tracking-tight">Founder Portal: {{ user.name }}</h1>
             <p class="text-xs sm:text-sm text-[#6B7C72] dark:text-[#95AFA4] max-w-2xl font-serif italic">Access non-dilutive startup grants, incubation seed funds, and innovation challenges. Background scenery dynamically reflects your chosen regional ecosystem.</p>
         </div>
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 relative z-10">
             {% if user.plan != 'premium' %}
-                <button onclick="openUpgradeModal()" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFDF9] font-bold text-xs shadow-xs border border-[#874E1A] transition">
+                <button onclick="openUpgradeModal()" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFFFF] font-bold text-xs shadow-xs border border-[#874E1A] transition">
                     <span>Unlock Unlimited Grants & AI Drafter ($9)</span>
                     <span class="ml-1.5 font-normal text-[#F4E0C8]">&rarr;</span>
                 </button>
             {% else %}
-                <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 self-start sm:self-auto dark:bg-[#1C2F2A] dark:text-[#F4E0C8]">
+                <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 self-start sm:self-auto dark:bg-[#181B1F] dark:text-[#F4E0C8]">
                     Premium Active
                 </span>
             {% endif %}
@@ -37,27 +37,27 @@
     </div>
 
     <!-- Quick Atmospheric Region Selector Strip -->
-    <div class="p-4 rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="p-4 rounded-3xl bg-[#FFFFFF] dark:bg-[#162521] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div class="flex items-center space-x-2">
             <span class="w-2 h-2 rounded-full bg-[#A05E22] dark:bg-[#F4E0C8] shrink-0"></span>
-            <span class="text-xs font-bold text-[#121E1B] dark:text-[#FFFDF9] uppercase tracking-wider">Ecosystems:</span>
+            <span class="text-xs font-bold text-[#111315] dark:text-[#FFFFFF] uppercase tracking-wider">Ecosystems:</span>
             <span class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4] hidden md:inline">Click any region to immerse background scenery</span>
         </div>
         <div class="flex items-center flex-wrap gap-2 text-xs">
-            <button type="button" onclick="selectDestinationCountry('Pakistan')" class="px-3 py-1.5 rounded-xl font-bold bg-[#FBF9F5] dark:bg-[#121E1B] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#B1AB86]/30 dark:border-[#233831] transition text-[11px] sm:text-xs">Pakistan (Ignite/NIC)</button>
-            <button type="button" onclick="selectDestinationCountry('United States')" class="px-3 py-1.5 rounded-xl font-bold bg-[#FBF9F5] dark:bg-[#121E1B] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#B1AB86]/30 dark:border-[#233831] transition text-[11px] sm:text-xs">North America (YC/Solve)</button>
-            <button type="button" onclick="selectDestinationCountry('United Kingdom')" class="px-3 py-1.5 rounded-xl font-bold bg-[#FBF9F5] dark:bg-[#121E1B] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#B1AB86]/30 dark:border-[#233831] transition text-[11px] sm:text-xs">United Kingdom & Europe</button>
-            <button type="button" onclick="selectDestinationCountry('all')" class="px-3 py-1.5 rounded-xl font-bold bg-[#FBF9F5] dark:bg-[#121E1B] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#B1AB86]/30 dark:border-[#233831] transition text-[11px] sm:text-xs">All Ecosystems</button>
+            <button type="button" onclick="selectDestinationCountry('Pakistan')" class="px-3 py-1.5 rounded-full font-bold bg-[#F8F9FA] dark:bg-[#111315] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#181B1F] dark:text-[#F4E0C8] border border-[#E2E8F0]/30 dark:border-[#2D333B] transition text-[11px] sm:text-xs">Pakistan (Ignite/NIC)</button>
+            <button type="button" onclick="selectDestinationCountry('United States')" class="px-3 py-1.5 rounded-full font-bold bg-[#F8F9FA] dark:bg-[#111315] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#181B1F] dark:text-[#F4E0C8] border border-[#E2E8F0]/30 dark:border-[#2D333B] transition text-[11px] sm:text-xs">North America (YC/Solve)</button>
+            <button type="button" onclick="selectDestinationCountry('United Kingdom')" class="px-3 py-1.5 rounded-full font-bold bg-[#F8F9FA] dark:bg-[#111315] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#181B1F] dark:text-[#F4E0C8] border border-[#E2E8F0]/30 dark:border-[#2D333B] transition text-[11px] sm:text-xs">United Kingdom & Europe</button>
+            <button type="button" onclick="selectDestinationCountry('all')" class="px-3 py-1.5 rounded-full font-bold bg-[#F8F9FA] dark:bg-[#111315] hover:bg-[#F4E0C8]/40 dark:hover:bg-[#A05E22]/20 text-[#181B1F] dark:text-[#F4E0C8] border border-[#E2E8F0]/30 dark:border-[#2D333B] transition text-[11px] sm:text-xs">All Ecosystems</button>
         </div>
     </div>
 
     <!-- Top Grid: Startup Profile & Saved Bookmarks -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Startup Profile Editor -->
-        <div class="lg:col-span-2 rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-8 shadow-sm">
-            <div class="flex items-center justify-between mb-5 pb-3 border-b border-[#B1AB86]/20 dark:border-[#233831]">
+        <div class="lg:col-span-2 rounded-3xl bg-[#FFFFFF] dark:bg-[#162521] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center justify-between mb-5 pb-3 border-b border-[#E2E8F0]/20 dark:border-[#2D333B]">
                 <div>
-                    <h3 class="text-base font-bold text-[#121E1B] dark:text-[#FFFDF9]">Venture Profile</h3>
+                    <h3 class="text-base font-bold text-[#111315] dark:text-[#FFFFFF]">Venture Profile</h3>
                     <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-0.5">Parameters guiding Google Gemini grant matching & pitch generation</p>
                 </div>
                 <span class="text-[11px] font-bold text-[#A05E22] dark:text-[#F4E0C8] bg-[#F4E0C8]/50 dark:bg-[#A05E22]/20 px-2.5 py-1 rounded-full border border-[#A05E22]/30">Active Venture</span>
@@ -65,15 +65,15 @@
 
             <form id="profileForm" onsubmit="handleProfileSubmit(event, 'startup')" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                    <label class="block font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1.5" for="major_domain">Startup Domain / Industry Sector</label>
+                    <label class="block font-bold text-[#111315] dark:text-[#FFFFFF] mb-1.5" for="major_domain">Startup Domain / Industry Sector</label>
                     <input type="text" id="major_domain" required value="{{ profile.major_domain if profile else 'Artificial Intelligence & SaaS' }}" 
                         placeholder="e.g. B2B SaaS, HealthTech, AgriTech, FinTech" 
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
                 </div>
 
                 <div>
-                    <label class="block font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1.5" for="degree_level_stage">Development Maturity Stage</label>
-                    <select id="degree_level_stage" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
+                    <label class="block font-bold text-[#111315] dark:text-[#FFFFFF] mb-1.5" for="degree_level_stage">Development Maturity Stage</label>
+                    <select id="degree_level_stage" class="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
                         <option value="Idea Stage" {% if profile and profile.degree_level_stage == 'Idea Stage' %}selected{% endif %}>Idea / Concept Stage</option>
                         <option value="Working Prototype" {% if not profile or profile.degree_level_stage == 'Working Prototype' %}selected{% endif %}>Working Prototype (MVP)</option>
                         <option value="Launched Product" {% if profile and profile.degree_level_stage == 'Launched Product' %}selected{% endif %}>Launched Product / Early Traction</option>
@@ -82,15 +82,15 @@
                 </div>
 
                 <div>
-                    <label class="block font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1.5" for="gpa_funding">Target Funding Capital Required</label>
+                    <label class="block font-bold text-[#111315] dark:text-[#FFFFFF] mb-1.5" for="gpa_funding">Target Funding Capital Required</label>
                     <input type="text" id="gpa_funding" value="{{ profile.gpa_funding if profile else 'PKR 3,000,000' }}" 
                         placeholder="e.g. PKR 2,500,000 or $50,000" 
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
                 </div>
 
                 <div>
-                    <label class="block font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1.5" for="country_preference">Target Region</label>
-                    <select id="country_preference" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
+                    <label class="block font-bold text-[#111315] dark:text-[#FFFFFF] mb-1.5" for="country_preference">Target Region</label>
+                    <select id="country_preference" class="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
                         <option value="Pakistan" {% if not profile or profile.country_preference == 'Pakistan' %}selected{% endif %}>Pakistan (Ignite, NIC, Karandaaz, PSEB)</option>
                         <option value="Germany" {% if profile and profile.country_preference == 'Germany' %}selected{% endif %}>Germany (EXIST, HTGF & Tech Founders)</option>
                         <option value="United Kingdom" {% if profile and profile.country_preference == 'United Kingdom' %}selected{% endif %}>United Kingdom (Innovate UK & Techstars)</option>
@@ -129,7 +129,7 @@
 
                 <div class="sm:col-span-2 flex items-center justify-between pt-3">
                     <span id="profileStatusMsg" class="text-xs text-[#A05E22] font-bold"></span>
-                    <button type="submit" id="saveProfileBtn" class="px-5 py-2.5 rounded-xl bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFDF9] font-bold text-xs transition shadow-xs border border-[#874E1A]">
+                    <button type="submit" id="saveProfileBtn" class="px-5 py-2.5 rounded-full bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFFFF] font-bold text-xs transition shadow-xs border border-[#874E1A]">
                         Update Startup Profile
                     </button>
                 </div>
@@ -137,18 +137,18 @@
         </div>
 
         <!-- Saved Bookmarks Drawer Box -->
-        <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-8 shadow-sm flex flex-col justify-between">
+        <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#162521] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-8 shadow-sm flex flex-col justify-between">
             <div>
-                <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#B1AB86]/20 dark:border-[#233831]">
-                    <h3 class="text-base font-bold text-[#121E1B] dark:text-[#FFFDF9]">Saved Grants</h3>
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#E2E8F0]/20 dark:border-[#2D333B]">
+                    <h3 class="text-base font-bold text-[#111315] dark:text-[#FFFFFF]">Saved Grants</h3>
                     <span id="savedCountBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-[#F4E0C8]/50 dark:bg-[#A05E22]/20 text-[#A05E22] dark:text-[#F4E0C8] font-bold">{{ saved|length }}</span>
                 </div>
                 <div id="savedOpportunitiesList" class="space-y-2 max-h-52 overflow-y-auto pr-1 text-xs">
                     {% if saved and saved|length > 0 %}
                         {% for s in saved %}
-                            <div class="p-3 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] flex items-center justify-between gap-2" id="saved-card-{{ s.id }}">
+                            <div class="p-3 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] flex items-center justify-between gap-2" id="saved-card-{{ s.id }}">
                                 <div class="truncate">
-                                    <p class="font-bold text-[#121E1B] dark:text-[#FFFDF9] truncate">{{ s.opportunity_name }}</p>
+                                    <p class="font-bold text-[#111315] dark:text-[#FFFFFF] truncate">{{ s.opportunity_name }}</p>
                                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4] mt-0.5">{{ s.amount }} · Match: {{ s.match_score }}%</p>
                                 </div>
                                 <div class="flex items-center space-x-1 shrink-0">
@@ -162,26 +162,26 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="pt-4 border-t border-[#B1AB86]/20 dark:border-[#233831] text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">
+            <div class="pt-4 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">
                 Bookmarked opportunities persist automatically across all logins.
             </div>
         </div>
     </div>
 
     <!-- Live Search & Filtering Console -->
-    <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-8 shadow-sm">
+    <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#162521] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-8 shadow-sm">
         <div class="mb-4">
-            <h3 class="text-lg font-bold text-[#121E1B] dark:text-[#FFFDF9]">Search Innovation & Startup Grants</h3>
+            <h3 class="text-lg font-bold text-[#111315] dark:text-[#FFFFFF]">Search Innovation & Startup Grants</h3>
             <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-1 font-serif italic">Queries pre-seeded seed funds (Ignite, Karandaaz, NIC) concurrently with live web discovery for incubation cohorts.</p>
         </div>
         
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
             <div class="sm:col-span-2">
                 <input type="text" id="searchKeyword" placeholder="Filter by domain or focus (e.g. AI, Climate, Fintech, Pre-seed, Equity-Free)" 
-                    class="w-full px-4 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-xs text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
+                    class="w-full px-4 py-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-xs text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
             </div>
             <div>
-                <select id="searchCountry" data-track="grant" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-xs text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
+                <select id="searchCountry" data-track="grant" class="w-full px-3.5 py-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-xs text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22] focus:ring-1 focus:ring-[#A05E22] transition">
                     <option value="Pakistan">Region: Pakistan</option>
                     <option value="Germany">Region: Germany</option>
                     <option value="United Kingdom">Region: United Kingdom</option>
@@ -218,7 +218,7 @@
                 </select>
             </div>
             <div>
-                <button onclick="triggerSearch('grant')" id="searchBtn" class="w-full py-2.5 rounded-xl bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFDF9] font-bold text-xs shadow-xs border border-[#874E1A] transition flex items-center justify-center space-x-2">
+                <button onclick="triggerSearch('grant')" id="searchBtn" class="w-full py-2.5 rounded-full bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFFFF] font-bold text-xs shadow-xs border border-[#874E1A] transition flex items-center justify-center space-x-2">
                     <span>Run Grant Discovery</span>
                 </button>
             </div>
@@ -227,12 +227,12 @@
 
     <!-- Search Results Section -->
     <div class="space-y-4">
-        <div class="flex items-center justify-between pb-2 border-b border-[#B1AB86]/20 dark:border-[#233831]">
+        <div class="flex items-center justify-between pb-2 border-b border-[#E2E8F0]/20 dark:border-[#2D333B]">
             <div>
-                <h3 class="text-lg font-bold text-[#121E1B] dark:text-[#FFFDF9]">Matching Innovation Grants</h3>
+                <h3 class="text-lg font-bold text-[#111315] dark:text-[#FFFFFF]">Matching Innovation Grants</h3>
                 <p id="resultsStatusSubtitle" class="text-xs text-[#6B7C72] dark:text-[#95AFA4] font-serif italic">Discover non-dilutive capital and seed stipends matched to your venture.</p>
             </div>
-            <div id="resultsCountBanner" class="hidden text-xs font-bold px-3 py-1 rounded-full bg-[#F4E0C8]/50 dark:bg-[#A05E22]/20 border border-[#A05E22]/30 text-[#121E1B] dark:text-[#FFFDF9]"></div>
+            <div id="resultsCountBanner" class="hidden text-xs font-bold px-3 py-1 rounded-full bg-[#F4E0C8]/50 dark:bg-[#A05E22]/20 border border-[#A05E22]/30 text-[#111315] dark:text-[#FFFFFF]"></div>
         </div>
 
         <!-- Cards Container -->
@@ -243,37 +243,37 @@
 </div>
 
 <!-- AI Startup Grant Pitch Drafter Modal (Executive Style) -->
-<div id="pitchModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-[#121E1B]/70 backdrop-blur-sm p-4">
-    <div class="w-full max-w-2xl rounded-3xl bg-[#FFFDF9] dark:bg-[#162521] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-8 shadow-2xl relative max-h-[90vh] flex flex-col">
-        <button onclick="closePitchModal()" class="absolute top-5 right-5 text-[#6B7C72] hover:text-[#121E1B] dark:hover:text-[#FFFDF9] text-xl font-bold">&times;</button>
+<div id="pitchModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-[#111315]/70 backdrop-blur-sm p-4">
+    <div class="w-full max-w-2xl rounded-3xl bg-[#FFFFFF] dark:bg-[#162521] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-8 shadow-2xl relative max-h-[90vh] flex flex-col">
+        <button onclick="closePitchModal()" class="absolute top-5 right-5 text-[#6B7C72] hover:text-[#111315] dark:hover:text-[#FFFFFF] text-xl font-bold">&times;</button>
         
         <div class="mb-4">
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#F4E0C8]/50 dark:bg-[#A05E22]/20 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30">
                 AI Application Assistant
             </span>
-            <h3 class="text-xl font-bold text-[#121E1B] dark:text-[#FFFDF9] mt-1" id="pitchModalOppName">Startup Grant Proposal Drafter</h3>
+            <h3 class="text-xl font-bold text-[#111315] dark:text-[#FFFFFF] mt-1" id="pitchModalOppName">Startup Grant Proposal Drafter</h3>
             <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] font-serif italic">Synthesizes an executive non-dilutive grant proposal structured for incubation committees.</p>
         </div>
 
         <div class="space-y-3 mb-4 text-xs">
             <div>
-                <label class="block font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1">Problem Statement</label>
+                <label class="block font-bold text-[#111315] dark:text-[#FFFFFF] mb-1">Problem Statement</label>
                 <input type="text" id="pitchProblemStmt" placeholder="e.g. Inefficient distribution channels for rural micro-enterprises" 
-                    class="w-full px-3.5 py-2 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22]">
+                    class="w-full px-3.5 py-2 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22]">
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                    <label class="block font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1">Solution Summary</label>
+                    <label class="block font-bold text-[#111315] dark:text-[#FFFFFF] mb-1">Solution Summary</label>
                     <input type="text" id="pitchSolutionSum" placeholder="e.g. AI-driven logistics aggregator mobile app" 
-                        class="w-full px-3.5 py-2 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22]">
+                        class="w-full px-3.5 py-2 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22]">
                 </div>
                 <div>
-                    <label class="block font-bold text-[#121E1B] dark:text-[#FFFDF9] mb-1">Funding Request Ask</label>
+                    <label class="block font-bold text-[#111315] dark:text-[#FFFFFF] mb-1">Funding Request Ask</label>
                     <input type="text" id="pitchFundingAsk" placeholder="e.g. PKR 3,000,000 for pilot rollout" 
-                        class="w-full px-3.5 py-2 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/50 dark:border-[#233831] text-[#121E1B] dark:text-[#FFFDF9] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#A05E22]">
+                        class="w-full px-3.5 py-2 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/50 dark:border-[#2D333B] text-[#111315] dark:text-[#FFFFFF] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#A05E22]">
                 </div>
             </div>
-            <button onclick="generatePitchDraft()" id="pitchGenerateBtn" class="w-full py-2.5 rounded-xl bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFDF9] font-bold text-xs transition shadow-xs border border-[#874E1A]">
+            <button onclick="generatePitchDraft()" id="pitchGenerateBtn" class="w-full py-2.5 rounded-full bg-[#A05E22] hover:bg-[#874E1A] text-[#FFFFFF] font-bold text-xs transition shadow-xs border border-[#874E1A]">
                 Generate Grant Proposal with Gemini AI
             </button>
         </div>
@@ -281,11 +281,11 @@
         <!-- Output Draft Container -->
         <div class="flex-1 flex flex-col min-h-48">
             <div class="flex items-center justify-between pb-1.5 text-xs">
-                <span class="font-bold text-[#121E1B] dark:text-[#FFFDF9]">Synthesized Executive Proposal:</span>
+                <span class="font-bold text-[#111315] dark:text-[#FFFFFF]">Synthesized Executive Proposal:</span>
                 <button onclick="copyPitchToClipboard()" id="copyPitchBtn" class="text-[#A05E22] dark:text-[#F4E0C8] font-bold hover:underline">Copy to Clipboard</button>
             </div>
             <textarea id="pitchOutputArea" readonly placeholder="Your generated startup grant proposal will appear here..." 
-                class="w-full flex-1 p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/40 dark:border-[#233831] text-xs font-mono text-[#121E1B] dark:text-[#FFFDF9] focus:outline-none resize-none leading-relaxed"></textarea>
+                class="w-full flex-1 p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/40 dark:border-[#2D333B] text-xs font-mono text-[#111315] dark:text-[#FFFFFF] focus:outline-none resize-none leading-relaxed"></textarea>
         </div>
     </div>
 </div>

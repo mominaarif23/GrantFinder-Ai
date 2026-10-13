@@ -6,22 +6,22 @@
 <div class="space-y-16 pb-24">
 
     <!-- 1. Destinations Hero Section -->
-    <section class="relative pt-8 pb-14 border-b border-[#B1AB86]/30 dark:border-[#233831] bg-[#FFFDF9]/95 dark:bg-[#121E1B]/95">
+    <section class="relative pt-8 pb-14 border-b border-[#E2E8F0]/30 dark:border-[#2D333B] bg-[#FFFFFF]/95 dark:bg-[#111315]/95">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <!-- Breadcrumbs -->
             <nav class="flex items-center space-x-2 text-xs font-semibold text-[#6B7C72] dark:text-[#95AFA4] mb-6" aria-label="Breadcrumb">
                 <a href="/" class="hover:text-[#2A5A4D] dark:hover:text-[#F4E0C8] transition">Home</a>
                 <span>/</span>
-                <span class="text-[#1C2F2A] dark:text-[#F2F6F4] font-bold">Global Destinations Hub</span>
+                <span class="text-[#181B1F] dark:text-[#F2F6F4] font-bold">Global Destinations Hub</span>
             </nav>
 
             <div class="max-w-3xl space-y-4 text-left">
-                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] border border-[#C3D7CE] dark:border-[#3B5C51] text-[#1C2F2A] dark:text-[#C3D7CE]">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] border border-[#C3D7CE] dark:border-[#2D333B] text-[#181B1F] dark:text-[#C3D7CE]">
                     <span class="w-2 h-2 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8]"></span>
                     <span>Global Funding Directory & Regional Intelligence</span>
                 </div>
 
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] tracking-tight leading-tight">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#181B1F] dark:text-[#F2F6F4] tracking-tight leading-tight">
                     Funding Destinations & <span class="font-serif italic font-normal text-[#2A5A4D] dark:text-[#F4E0C8]">Institutional Portals</span>
                 </h1>
 
@@ -31,15 +31,15 @@
             </div>
 
             <!-- Interactive Filters Bar -->
-            <div class="mt-8 pt-6 border-t border-[#B1AB86]/30 dark:border-[#233831] flex flex-wrap items-center justify-between gap-4">
+            <div class="mt-8 pt-6 border-t border-[#E2E8F0]/30 dark:border-[#2D333B] flex flex-wrap items-center justify-between gap-4">
                 <div class="flex flex-wrap items-center gap-2" id="destinationTrackFilters">
-                    <button type="button" onclick="filterDestinationsByTrack('all')" class="dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-[#1C2F2A] text-[#FFFDF9] dark:bg-[#2A5A4D] shadow-xs" data-filter="all">
+                    <button type="button" onclick="filterDestinationsByTrack('all')" class="dest-filter-btn px-4 py-2 rounded-full text-xs font-bold transition cursor-pointer bg-[#181B1F] text-[#FFFFFF] dark:bg-[#2A5A4D] shadow-xs" data-filter="all">
                         All Ecosystems
                     </button>
-                    <button type="button" onclick="filterDestinationsByTrack('scholarship')" class="dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-[#FFFDF9] text-[#1C2F2A] border border-[#B1AB86]/60 hover:bg-[#F4E0C8]/40 dark:bg-[#162621] dark:text-[#C3D7CE] dark:border-[#233831] shadow-xs" data-filter="scholarship">
+                    <button type="button" onclick="filterDestinationsByTrack('scholarship')" class="dest-filter-btn px-4 py-2 rounded-full text-xs font-bold transition cursor-pointer bg-[#FFFFFF] text-[#181B1F] border border-[#E2E8F0]/60 hover:bg-[#F4E0C8]/40 dark:bg-[#181B1F] dark:text-[#C3D7CE] dark:border-[#2D333B] shadow-xs" data-filter="scholarship">
                         Student Scholarships (Academic)
                     </button>
-                    <button type="button" onclick="filterDestinationsByTrack('grant')" class="dest-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer bg-[#FFFDF9] text-[#1C2F2A] border border-[#B1AB86]/60 hover:bg-[#F4E0C8]/40 dark:bg-[#162621] dark:text-[#C3D7CE] dark:border-[#233831] shadow-xs" data-filter="grant">
+                    <button type="button" onclick="filterDestinationsByTrack('grant')" class="dest-filter-btn px-4 py-2 rounded-full text-xs font-bold transition cursor-pointer bg-[#FFFFFF] text-[#181B1F] border border-[#E2E8F0]/60 hover:bg-[#F4E0C8]/40 dark:bg-[#181B1F] dark:text-[#C3D7CE] dark:border-[#2D333B] shadow-xs" data-filter="grant">
                         Startup Grants (Founders)
                     </button>
                 </div>
@@ -56,7 +56,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="destinationCardsGrid">
 
             <!-- Card 1: Pakistan -->
-            <div class="dest-dossier-card rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('Pakistan')">
+            <div class="dest-dossier-card rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('Pakistan')">
                 <div class="space-y-4 text-left">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
@@ -91,11 +91,11 @@
 
                     <!-- Coverage Metrics -->
                     <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Academic Aid</span>
                             <span class="font-bold text-navy-900 dark:text-white">100% Tuition + Stipend</span>
                         </div>
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Startup Grants</span>
                             <span class="font-bold text-emerald-700 dark:text-emerald-400">Up to PKR 5,000,000</span>
                         </div>
@@ -104,12 +104,12 @@
 
                 <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
                     {% if user %}
-                        <a href="/dashboard/student?country=Pakistan" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                        <a href="/dashboard/student?country=Pakistan" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
                             <span>Search Pakistan Opportunities</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
                     {% else %}
-                        <a href="/register?country=Pakistan" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                        <a href="/register?country=Pakistan" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
                             <span>Get Matched in Pakistan</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
@@ -118,7 +118,7 @@
             </div>
 
             <!-- Card 2: United Kingdom -->
-            <div class="dest-dossier-card rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('United Kingdom')">
+            <div class="dest-dossier-card rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('United Kingdom')">
                 <div class="space-y-4 text-left">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
@@ -153,11 +153,11 @@
 
                     <!-- Coverage Metrics -->
                     <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Tuition Status</span>
                             <span class="font-bold text-navy-900 dark:text-white">100% Full Tuition Waiver</span>
                         </div>
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Monthly Stipend</span>
                             <span class="font-bold text-brand-700 dark:text-brand-400">£1,347 - £1,650 / month</span>
                         </div>
@@ -166,12 +166,12 @@
 
                 <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
                     {% if user %}
-                        <a href="/dashboard/student?country=United%20Kingdom" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition">
+                        <a href="/dashboard/student?country=United%20Kingdom" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition">
                             <span>Search UK Opportunities</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
                     {% else %}
-                        <a href="/register?country=United%20Kingdom" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition">
+                        <a href="/register?country=United%20Kingdom" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs transition">
                             <span>Get Matched in the UK</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
@@ -180,7 +180,7 @@
             </div>
 
             <!-- Card 3: United States -->
-            <div class="dest-dossier-card rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('United States')">
+            <div class="dest-dossier-card rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('United States')">
                 <div class="space-y-4 text-left">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
@@ -215,11 +215,11 @@
 
                     <!-- Coverage Metrics -->
                     <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Academic Grant</span>
                             <span class="font-bold text-navy-900 dark:text-white">Full Tuition + Health</span>
                         </div>
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Living / Seed Capital</span>
                             <span class="font-bold text-indigo-700 dark:text-indigo-400">$25K - $500K</span>
                         </div>
@@ -228,12 +228,12 @@
 
                 <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
                     {% if user %}
-                        <a href="/dashboard/student?country=United%20States" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs transition">
+                        <a href="/dashboard/student?country=United%20States" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs transition">
                             <span>Search US Opportunities</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
                     {% else %}
-                        <a href="/register?country=United%20States" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs transition">
+                        <a href="/register?country=United%20States" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs transition">
                             <span>Get Matched in the US</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
@@ -242,7 +242,7 @@
             </div>
 
             <!-- Card 4: Germany -->
-            <div class="dest-dossier-card rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('Germany')">
+            <div class="dest-dossier-card rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('Germany')">
                 <div class="space-y-4 text-left">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
@@ -277,11 +277,11 @@
 
                     <!-- Coverage Metrics -->
                     <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Tuition Structure</span>
                             <span class="font-bold text-navy-900 dark:text-white">Zero Public Tuition Fees</span>
                         </div>
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Living Allowance</span>
                             <span class="font-bold text-amber-700 dark:text-amber-400">€934 - €1,200 / month</span>
                         </div>
@@ -290,12 +290,12 @@
 
                 <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
                     {% if user %}
-                        <a href="/dashboard/student?country=Germany" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition">
+                        <a href="/dashboard/student?country=Germany" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition">
                             <span>Search Germany Opportunities</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
                     {% else %}
-                        <a href="/register?country=Germany" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition">
+                        <a href="/register?country=Germany" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition">
                             <span>Get Matched in Germany</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
@@ -304,7 +304,7 @@
             </div>
 
             <!-- Card 5: Australia -->
-            <div class="dest-dossier-card rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('Australia')">
+            <div class="dest-dossier-card rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="scholarship" onclick="selectDestinationCountry('Australia')">
                 <div class="space-y-4 text-left">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
@@ -338,11 +338,11 @@
 
                     <!-- Coverage Metrics -->
                     <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Tuition Coverage</span>
                             <span class="font-bold text-navy-900 dark:text-white">100% Full + Return Airfare</span>
                         </div>
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Living Allowance</span>
                             <span class="font-bold text-teal-700 dark:text-teal-400">AUD $35,000 / year</span>
                         </div>
@@ -351,12 +351,12 @@
 
                 <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
                     {% if user %}
-                        <a href="/dashboard/student?country=Australia" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs transition">
+                        <a href="/dashboard/student?country=Australia" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs transition">
                             <span>Search Australia Opportunities</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
                     {% else %}
-                        <a href="/register?country=Australia" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs transition">
+                        <a href="/register?country=Australia" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs transition">
                             <span>Get Matched in Australia</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
@@ -365,7 +365,7 @@
             </div>
 
             <!-- Card 6: Global & Multilateral Programs -->
-            <div class="dest-dossier-card rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('Global')">
+            <div class="dest-dossier-card rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-[#2A5A4D] transition-all duration-300 flex flex-col justify-between group" data-category="both" onclick="selectDestinationCountry('Global')">
                 <div class="space-y-4 text-left">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
@@ -400,11 +400,11 @@
 
                     <!-- Coverage Metrics -->
                     <div class="grid grid-cols-2 gap-2 pt-3 text-xs">
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Mobility Plan</span>
                             <span class="font-bold text-navy-900 dark:text-white">2 - 3 Global Countries</span>
                         </div>
-                        <div class="p-2.5 rounded-xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831]">
+                        <div class="p-2.5 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B]">
                             <span class="text-[10px] text-slate-500 uppercase font-bold block">Full Scholarship</span>
                             <span class="font-bold text-brand-700 dark:text-brand-400">Tuition + €1,400 / mo</span>
                         </div>
@@ -413,12 +413,12 @@
 
                 <div class="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
                     {% if user %}
-                        <a href="/dashboard/student?country=Global" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                        <a href="/dashboard/student?country=Global" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
                             <span>Search Global Opportunities</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
                     {% else %}
-                        <a href="/register?country=Global" class="w-full inline-flex items-center justify-center py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
+                        <a href="/register?country=Global" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition">
                             <span>Get Matched Worldwide</span>
                             <span class="ml-1.5">&rarr;</span>
                         </a>
@@ -431,83 +431,83 @@
 
     <!-- 3. Official Institutional Portals Verification Directory -->
     <section class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-8">
-        <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] p-8 sm:p-10 shadow-sm text-left">
+        <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] p-8 sm:p-10 shadow-sm text-left">
             <div class="max-w-2xl mb-8">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#2A5A4D] dark:text-[#F4E0C8]">Institutional Governance</span>
-                <h2 class="text-2xl font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] mt-1">Verified Government Portals & Directory</h2>
+                <h2 class="text-2xl font-extrabold text-[#181B1F] dark:text-[#F2F6F4] mt-1">Verified Government Portals & Directory</h2>
                 <p class="text-xs sm:text-sm text-[#4A5D54] dark:text-[#C3D7CE] mt-1.5">
                     GrantFinder AI continuously syncs with these official statutory bodies and verified international commissions.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">HEC Pakistan</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">HEC Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">Higher Education Commission National Scholarship Gateway</p>
                     <a href="https://hec.gov.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
                 </div>
 
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">USEFP Pakistan</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">USEFP Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">United States-Pakistan Educational Foundation (Fulbright)</p>
                     <a href="https://usefp.org" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
                 </div>
 
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">DAAD Germany</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">DAAD Germany</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">German Academic Exchange Service Scholarship Database</p>
                     <a href="https://www.daad.de" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
                 </div>
 
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">British Council UK</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">British Council UK</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">Study UK & Chevening Secretariat Fellowships Portal</p>
                     <a href="https://www.chevening.org" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
                 </div>
 
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">Ignite Fund</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">Ignite Fund</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">Ministry of IT & Telecom National Technology Seed Grants</p>
                     <a href="https://ignite.org.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
                 </div>
 
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">NIC Pakistan</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">NIC Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">National Incubation Centers Network (Islamabad, Lahore, Karachi)</p>
                     <a href="https://nicpakistan.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
                 </div>
 
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">Karandaaz Pakistan</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">Karandaaz Pakistan</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">Innovation Grants & Financial Inclusion Challenges</p>
                     <a href="https://karandaaz.com.pk" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
                 </div>
 
-                <div class="card-prominent p-4 rounded-2xl bg-[#FBF9F5] dark:bg-[#121E1B] border border-[#B1AB86]/30 dark:border-[#233831] space-y-1.5">
+                <div class="card-prominent p-4 rounded-2xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/30 dark:border-[#2D333B] space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <span class="font-extrabold text-[#1C2F2A] dark:text-white text-xs">Australia Awards</span>
-                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#1C2F2A] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
+                        <span class="font-extrabold text-[#181B1F] dark:text-white text-xs">Australia Awards</span>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] text-[#181B1F] dark:bg-[#1C3B32] dark:text-[#C3D7CE]">Verified</span>
                     </div>
                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">DFAT Department of Foreign Affairs and Trade Awards</p>
                     <a href="https://australiaawards.gov.au" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-[#2A5A4D] dark:text-[#F4E0C8] hover:underline inline-block pt-1">Visit Portal &rarr;</a>
@@ -518,20 +518,20 @@
 
     <!-- 4. Global Action Callout Banner -->
     <section class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-        <div class="rounded-3xl bg-gradient-to-r from-[#121E1B] via-[#1C2F2A] to-[#233831] text-[#FFFDF9] p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 text-left border border-[#3B5C51]">
+        <div class="rounded-3xl bg-gradient-to-r from-[#111315] via-[#181B1F] to-[#2D333B] text-[#FFFFFF] p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 text-left border border-[#2D333B]">
             <div>
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#F4E0C8] bg-[#233831] px-3.5 py-1 rounded-full border border-[#3B5C51]">Calibrate Your Search</span>
-                <h3 class="text-2xl sm:text-3xl font-extrabold mt-3 text-[#FFFDF9]">Target Your Preferred Study or Venture Country.</h3>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#F4E0C8] bg-[#2D333B] px-3.5 py-1 rounded-full border border-[#2D333B]">Calibrate Your Search</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold mt-3 text-[#FFFFFF]">Target Your Preferred Study or Venture Country.</h3>
                 <p class="text-xs sm:text-sm text-[#C3D7CE] mt-1.5 max-w-xl leading-relaxed">
                     Set up your applicant profile in under 2 minutes. Our AI matching model correlates your background with current open cohorts across all 6 destinations.
                 </p>
             </div>
             {% if user %}
-                <a href="/dashboard/{{ user.role }}" class="inline-flex px-6 py-3.5 rounded-xl bg-[#FFFDF9] text-[#1C2F2A] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#B1AB86]">
+                <a href="/dashboard/{{ user.role }}" class="inline-flex px-6 py-3.5 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#E2E8F0]">
                     Open Your Dashboard &rarr;
                 </a>
             {% else %}
-                <a href="/register" class="inline-flex px-6 py-3.5 rounded-xl bg-[#FFFDF9] text-[#1C2F2A] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#B1AB86]">
+                <a href="/register" class="inline-flex px-6 py-3.5 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#E2E8F0]">
                     Select Your Track & Register &rarr;
                 </a>
             {% endif %}

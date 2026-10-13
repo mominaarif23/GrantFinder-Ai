@@ -13,13 +13,13 @@
             <span class="text-[#2A5A4D] dark:text-[#F4E0C8]">Verified Portals</span>
         </nav>
 
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#B1AB86]/30 dark:border-[#233831]">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#E2E8F0]/30 dark:border-[#2D333B]">
             <div class="max-w-3xl space-y-3">
-                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#C3D7CE] border border-[#C3D7CE] dark:border-[#3B5C51]">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#C3D7CE] border border-[#C3D7CE] dark:border-[#2D333B]">
                     <span class="w-2 h-2 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8]"></span>
                     <span>Verified Institutional Directory</span>
                 </div>
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] tracking-tight leading-tight">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#181B1F] dark:text-[#F2F6F4] tracking-tight leading-tight">
                     Official Government & <span class="font-serif italic font-normal text-[#2A5A4D] dark:text-[#F4E0C8]">Institutional Portals</span>.
                 </h1>
                 <p class="text-sm sm:text-base text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-3 shrink-0">
-                <a href="/destinations" class="px-5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#162621] hover:bg-[#F4E0C8] text-[#1C2F2A] dark:text-[#F4E0C8] font-bold text-xs border border-[#B1AB86] dark:border-[#233831] transition">
+                <a href="/destinations" class="px-5 py-2.5 rounded-full bg-[#FFFFFF] dark:bg-[#181B1F] hover:bg-[#F4E0C8] text-[#181B1F] dark:text-[#F4E0C8] font-bold text-xs border border-[#E2E8F0] dark:border-[#2D333B] transition">
                     Explore Destinations Hub &rarr;
                 </a>
             </div>
@@ -36,17 +36,17 @@
     </div>
 
     <!-- Category Filters -->
-    <div class="flex flex-wrap gap-2 text-xs font-bold text-[#1C2F2A] dark:text-[#C3D7CE]">
-        <button onclick="filterPortals('all', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-[#1C2F2A] text-[#FFFDF9] dark:bg-[#2A5A4D] shadow-xs transition cursor-pointer">
+    <div class="flex flex-wrap gap-2 text-xs font-bold text-[#181B1F] dark:text-[#C3D7CE]">
+        <button onclick="filterPortals('all', this)" class="portal-filter-btn px-4 py-2 rounded-full bg-[#181B1F] text-[#FFFFFF] dark:bg-[#2A5A4D] shadow-xs transition cursor-pointer">
             All Portals (14)
         </button>
-        <button onclick="filterPortals('pakistan', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-[#FFFDF9] text-[#1C2F2A] hover:bg-[#F4E0C8]/40 border border-[#B1AB86]/60 dark:bg-[#162621] dark:text-[#C3D7CE] dark:border-[#233831] transition cursor-pointer">
+        <button onclick="filterPortals('pakistan', this)" class="portal-filter-btn px-4 py-2 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8]/40 border border-[#E2E8F0]/60 dark:bg-[#181B1F] dark:text-[#C3D7CE] dark:border-[#2D333B] transition cursor-pointer">
             Pakistan National (6)
         </button>
-        <button onclick="filterPortals('global-academic', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-[#FFFDF9] text-[#1C2F2A] hover:bg-[#F4E0C8]/40 border border-[#B1AB86]/60 dark:bg-[#162621] dark:text-[#C3D7CE] dark:border-[#233831] transition cursor-pointer">
+        <button onclick="filterPortals('global-academic', this)" class="portal-filter-btn px-4 py-2 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8]/40 border border-[#E2E8F0]/60 dark:bg-[#181B1F] dark:text-[#C3D7CE] dark:border-[#2D333B] transition cursor-pointer">
             Global Academic (5)
         </button>
-        <button onclick="filterPortals('startup-grants', this)" class="portal-filter-btn px-4 py-2 rounded-xl bg-[#FFFDF9] text-[#1C2F2A] hover:bg-[#F4E0C8]/40 border border-[#B1AB86]/60 dark:bg-[#162621] dark:text-[#C3D7CE] dark:border-[#233831] transition cursor-pointer">
+        <button onclick="filterPortals('startup-grants', this)" class="portal-filter-btn px-4 py-2 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8]/40 border border-[#E2E8F0]/60 dark:bg-[#181B1F] dark:text-[#C3D7CE] dark:border-[#2D333B] transition cursor-pointer">
             Startup & Innovation (3)
         </button>
     </div>
@@ -55,23 +55,23 @@
     <div id="portalsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
 
         <!-- 1. HEC -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="pakistan">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="pakistan">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     HEC
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Verified Govt</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Verified Govt</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Higher Education Commission (HEC)</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Higher Education Commission (HEC)</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Federal Government of Pakistan</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Primary higher education body offering Need-Based Undergraduate Scholarships, Indigenous PhD fellowships, and Overseas Phase-II programs.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Academic Scholarships</span>
-                <a href="https://www.hec.gov.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://www.hec.gov.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -79,23 +79,23 @@
         </div>
 
         <!-- 2. Ignite -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="pakistan">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="pakistan">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#6ee7b7] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#6ee7b7] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     IGN
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Verified Govt</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Verified Govt</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Ignite National Technology Fund</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Ignite National Technology Fund</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#6ee7b7] mt-0.5">Ministry of IT & Telecom, Pakistan</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Funds startup innovations, the NGIRI Final Year Project fund, and national incubation centers across major metropolitan hubs.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Startup & Tech Grants</span>
-                <a href="https://ignite.net.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://ignite.net.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -103,23 +103,23 @@
         </div>
 
         <!-- 3. NIC -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="pakistan">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="pakistan">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     NIC
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">National Network</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">National Network</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">National Incubation Centers (NIC)</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">National Incubation Centers (NIC)</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Islamabad, Lahore, Karachi, Peshawar, Quetta</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Incubation programs providing mentorship, prototyping grants, co-working infrastructure, and direct investor demo days.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Incubation & Pre-Seed</span>
-                <a href="https://nicpakistan.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://nicpakistan.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -127,23 +127,23 @@
         </div>
 
         <!-- 4. Karandaaz -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="pakistan">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="pakistan">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#F4E0C8]/50 dark:bg-[#1C3B32] text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30 dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#F4E0C8]/50 dark:bg-[#1C3B32] text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30 dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     KRD
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Institutional Grant</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Institutional Grant</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Karandaaz Pakistan</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Karandaaz Pakistan</h3>
                 <p class="text-[11px] font-semibold text-[#A05E22] dark:text-[#F4E0C8] mt-0.5">Digital Finance & SME Enterprise Fund</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Offers competitive Innovation Challenge Funds and Women Entrepreneurship challenges with non-dilutive equity-free grant rounds.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">FinTech & SME Grants</span>
-                <a href="https://karandaaz.com.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://karandaaz.com.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -151,23 +151,23 @@
         </div>
 
         <!-- 5. PEEF -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="pakistan">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="pakistan">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     PEEF
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Provincial Govt</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Provincial Govt</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Punjab Educational Endowment Fund</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Punjab Educational Endowment Fund</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Government of the Punjab</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Merit and need-based financial scholarships for intermediate, graduation, and Master's programs across Punjab and other provinces.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Scholarships</span>
-                <a href="https://peef.org.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://peef.org.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -175,23 +175,23 @@
         </div>
 
         <!-- 6. PSEB -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="pakistan">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="pakistan">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     PSEB
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">National Board</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">National Board</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Pakistan Software Export Board</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Pakistan Software Export Board</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Ministry of IT & Telecom</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Subsidized student internship stipends, tech certifications, and startup delegations to international technology expos.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Tech Internships & Grants</span>
-                <a href="https://pseb.org.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://pseb.org.pk" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -199,23 +199,23 @@
         </div>
 
         <!-- 7. DAAD Germany -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="global-academic">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="global-academic">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     DAAD
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Germany Official</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Germany Official</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">German Academic Exchange Service</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">German Academic Exchange Service</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Federal Republic of Germany</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Fully funded postgraduate master's scholarships (EPOS), PhD grants, and research fellowships across public German universities.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Tuition-Free & Fellowships</span>
-                <a href="https://www.daad.de" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://www.daad.de" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -223,23 +223,23 @@
         </div>
 
         <!-- 8. USEFP Fulbright -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="global-academic">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="global-academic">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     US
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">USA Official</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">USA Official</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">USEFP Fulbright USA</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">USEFP Fulbright USA</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">United States Educational Foundation</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 The world's premier scholarship program, funding full tuition, airfare, textbooks, and living stipends for Master's and PhD programs in the US.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Fully Funded US Degree</span>
-                <a href="https://usefp.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://usefp.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -247,23 +247,23 @@
         </div>
 
         <!-- 9. Chevening UK -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="global-academic">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="global-academic">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     UK
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">UK Government</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">UK Government</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Chevening Scholarships (UK)</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Chevening Scholarships (UK)</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Foreign, Commonwealth & Development Office</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 UK government global scholarship program funding full one-year Master's degrees at any top UK university for emerging global leaders.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Fully Funded UK Master's</span>
-                <a href="https://www.chevening.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://www.chevening.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -271,23 +271,23 @@
         </div>
 
         <!-- 10. Australia Awards -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="global-academic">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="global-academic">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     AU
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Australia Official</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Australia Official</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Australia Awards (DFAT)</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Australia Awards (DFAT)</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Department of Foreign Affairs and Trade</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Prestige international scholarships covering full tuition, return travel, establishment allowance, and health insurance across Australia.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Fully Funded Australian Degree</span>
-                <a href="https://www.australiaawards.gov.au" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://www.australiaawards.gov.au" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -295,23 +295,23 @@
         </div>
 
         <!-- 11. Erasmus Mundus -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="global-academic">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="global-academic">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     EU
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">European Union</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">European Union</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Erasmus Mundus Joint Masters</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Erasmus Mundus Joint Masters</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">European Commission</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Prestigious integrated study programs delivered by consortia of European universities with complete EU funded grants.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Consortium Degrees</span>
-                <a href="https://erasmus-plus.ec.europa.eu" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://erasmus-plus.ec.europa.eu" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -319,23 +319,23 @@
         </div>
 
         <!-- 12. Y Combinator Startup School -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="startup-grants">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="startup-grants">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#F4E0C8]/50 dark:bg-[#1C3B32] text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30 dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#F4E0C8]/50 dark:bg-[#1C3B32] text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30 dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     YC
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Global Accelerator</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Global Accelerator</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Y Combinator Startup School Grants</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Y Combinator Startup School Grants</h3>
                 <p class="text-[11px] font-semibold text-[#A05E22] dark:text-[#F4E0C8] mt-0.5">Silicon Valley, USA</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 Equity-free non-dilutive prototype grants ($10,000 USD) and free educational platform for university and early-stage founders.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Non-Dilutive Grants</span>
-                <a href="https://www.startupschool.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://www.startupschool.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -343,23 +343,23 @@
         </div>
 
         <!-- 13. MIT Solve -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="startup-grants">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="startup-grants">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     MIT
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">University Challenge</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">University Challenge</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">MIT Solve Global Challenges</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">MIT Solve Global Challenges</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Massachusetts Institute of Technology</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 More than $1M in non-dilutive prize funding each year for tech-based social and environmental entrepreneurs solving global challenges.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Equity-Free Prize Capital</span>
-                <a href="https://solve.mit.edu" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://solve.mit.edu" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -367,23 +367,23 @@
         </div>
 
         <!-- 14. Gates Foundation -->
-        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#162621] border border-[#B1AB86]/40 dark:border-[#233831] shadow-sm transition space-y-4" data-category="startup-grants">
+        <div class="portal-card card-prominent p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-sm transition space-y-4" data-category="startup-grants">
             <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D453E] flex items-center justify-center font-bold text-xs shadow-xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#F4E0C8] border border-[#C3D7CE] dark:border-[#2D333B] flex items-center justify-center font-bold text-xs shadow-xs">
                     GF
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D453E]">Global Philanthropy</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#2A5A4D] dark:text-[#6ee7b7] border border-[#2A5A4D]/30 dark:border-[#2D333B]">Global Philanthropy</span>
             </div>
             <div>
-                <h3 class="font-bold text-[#1C2F2A] dark:text-[#FFFDF9] text-base leading-snug">Grand Challenges Explorations</h3>
+                <h3 class="font-bold text-[#181B1F] dark:text-[#FFFFFF] text-base leading-snug">Grand Challenges Explorations</h3>
                 <p class="text-[11px] font-semibold text-[#2A5A4D] dark:text-[#F4E0C8] mt-0.5">Bill & Melinda Gates Foundation</p>
             </div>
             <p class="text-xs text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
                 $100,000 USD initial non-dilutive seed grants for innovative global health and development solutions led by young researchers and founders.
             </p>
-            <div class="pt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] flex items-center justify-between text-xs">
+            <div class="pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B] flex items-center justify-between text-xs">
                 <span class="text-[#6B7C72] dark:text-[#95AFA4] text-[11px]">Seed Discovery Grants</span>
-                <a href="https://gcgh.grandchallenges.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#1C2F2A] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition flex items-center space-x-1">
+                <a href="https://gcgh.grandchallenges.org" target="_blank" rel="noopener noreferrer" class="font-bold text-[#181B1F] dark:text-[#F4E0C8] hover:text-[#2A5A4D] dark:hover:text-[#FFFFFF] transition flex items-center space-x-1">
                     <span>Visit Portal</span>
                     <span class="text-[11px]">&nearr;</span>
                 </a>
@@ -397,9 +397,9 @@
 <script>
 function filterPortals(category, btn) {
     document.querySelectorAll('.portal-filter-btn').forEach(b => {
-        b.className = 'portal-filter-btn px-4 py-2 rounded-xl bg-[#FFFDF9] text-[#1C2F2A] hover:bg-[#F4E0C8]/40 border border-[#B1AB86]/60 dark:bg-[#162621] dark:text-[#C3D7CE] dark:border-[#233831] transition cursor-pointer';
+        b.className = 'portal-filter-btn px-4 py-2 rounded-xl bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8]/40 border border-[#E2E8F0]/60 dark:bg-[#181B1F] dark:text-[#C3D7CE] dark:border-[#2D333B] transition cursor-pointer';
     });
-    btn.className = 'portal-filter-btn px-4 py-2 rounded-xl bg-[#1C2F2A] text-[#FFFDF9] dark:bg-[#2A5A4D] shadow-xs transition cursor-pointer';
+    btn.className = 'portal-filter-btn px-4 py-2 rounded-xl bg-[#181B1F] text-[#FFFFFF] dark:bg-[#2A5A4D] shadow-xs transition cursor-pointer';
 
     const cards = document.querySelectorAll('.portal-card');
     cards.forEach(card => {

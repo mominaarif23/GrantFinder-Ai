@@ -6,57 +6,57 @@
 <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 space-y-8">
     
     <!-- Header Banner -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 shadow-sm">
         <div>
             <div class="flex items-center space-x-2">
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#A05E22]/15 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30">
                     System Administration
                 </span>
-                <span class="text-[#B1AB86]">•</span>
+                <span class="text-[#E2E8F0]">•</span>
                 <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Governance Portal</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#121E1B] dark:text-[#FBF9F5] mt-1 tracking-tight">Platform Analytics & Curated Database</h1>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111315] dark:text-[#F8F9FA] mt-1 tracking-tight">Platform Analytics & Curated Database</h1>
             <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">Manage verified institutional funding entries, review user acquisition, and monitor search telemetry.</p>
         </div>
-        <span class="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#F1ECE1] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] font-bold text-xs self-start sm:self-auto">
+        <span class="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#F1ECE1] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] font-bold text-xs self-start sm:self-auto">
             SuperAdmin Active
         </span>
     </div>
 
     <!-- Analytics Stat Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-        <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm">
+        <div class="p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 shadow-sm">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Users</span>
-            <p class="text-3xl font-extrabold text-[#121E1B] dark:text-[#FBF9F5] mt-2">{{ analytics.total_users }}</p>
-            <span class="text-[11px] text-[#1C2F2A] dark:text-[#F4E0C8] font-bold mt-1 inline-block">Registered accounts</span>
+            <p class="text-3xl font-extrabold text-[#111315] dark:text-[#F8F9FA] mt-2">{{ analytics.total_users }}</p>
+            <span class="text-[11px] text-[#181B1F] dark:text-[#F4E0C8] font-bold mt-1 inline-block">Registered accounts</span>
         </div>
-        <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm">
+        <div class="p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 shadow-sm">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Premium Users</span>
             <p class="text-3xl font-extrabold text-[#A05E22] dark:text-[#F4E0C8] mt-2">{{ analytics.premium_users }}</p>
             <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1 inline-block">$9 demo upgrades</span>
         </div>
-        <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm">
+        <div class="p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 shadow-sm">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Searches</span>
-            <p class="text-3xl font-extrabold text-[#1C2F2A] dark:text-[#F4E0C8] mt-2">{{ analytics.total_searches }}</p>
+            <p class="text-3xl font-extrabold text-[#181B1F] dark:text-[#F4E0C8] mt-2">{{ analytics.total_searches }}</p>
             <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1 inline-block">Logged queries</span>
         </div>
-        <div class="p-6 rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 shadow-sm">
+        <div class="p-6 rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 shadow-sm">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Saved Opportunities</span>
-            <p class="text-3xl font-extrabold text-[#121E1B] dark:text-[#F4E0C8] mt-2">{{ analytics.total_saved }}</p>
+            <p class="text-3xl font-extrabold text-[#111315] dark:text-[#F4E0C8] mt-2">{{ analytics.total_saved }}</p>
             <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1 inline-block">Persisted bookmarks</span>
         </div>
     </div>
 
     <!-- Search Telemetry & Geography Breakdown -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 p-6 sm:p-8 shadow-sm">
-            <h3 class="text-base font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-3">Top Searched Countries / Regions</h3>
+        <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 p-6 sm:p-8 shadow-sm">
+            <h3 class="text-base font-bold text-[#111315] dark:text-[#F8F9FA] mb-3">Top Searched Countries / Regions</h3>
             <div class="space-y-2 text-xs">
                 {% if analytics.top_countries and analytics.top_countries|length > 0 %}
                     {% for c in analytics.top_countries %}
-                        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F7F5EE] dark:bg-[#1C2F2A]/40 border border-[#B1AB86]/30">
-                            <span class="font-bold text-[#121E1B] dark:text-[#FBF9F5]">{{ c.country }}</span>
-                            <span class="px-2.5 py-0.5 rounded-full bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] font-mono text-[11px]">{{ c.cnt }} searches</span>
+                        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F7F5EE] dark:bg-[#181B1F]/40 border border-[#E2E8F0]/30">
+                            <span class="font-bold text-[#111315] dark:text-[#F8F9FA]">{{ c.country }}</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] font-mono text-[11px]">{{ c.cnt }} searches</span>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -65,14 +65,14 @@
             </div>
         </div>
 
-        <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 p-6 sm:p-8 shadow-sm">
-            <h3 class="text-base font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-3">Track Distribution</h3>
+        <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 p-6 sm:p-8 shadow-sm">
+            <h3 class="text-base font-bold text-[#111315] dark:text-[#F8F9FA] mb-3">Track Distribution</h3>
             <div class="space-y-2 text-xs">
                 {% if analytics.track_breakdown and analytics.track_breakdown|length > 0 %}
                     {% for t in analytics.track_breakdown %}
-                        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F7F5EE] dark:bg-[#1C2F2A]/40 border border-[#B1AB86]/30">
-                            <span class="font-bold text-[#121E1B] dark:text-[#FBF9F5] capitalize">{{ t.track }}s</span>
-                            <span class="px-2.5 py-0.5 rounded-full bg-[#1C2F2A]/10 text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#B1AB86]/40 font-mono text-[11px] font-bold">{{ t.cnt }} requests</span>
+                        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F7F5EE] dark:bg-[#181B1F]/40 border border-[#E2E8F0]/30">
+                            <span class="font-bold text-[#111315] dark:text-[#F8F9FA] capitalize">{{ t.track }}s</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-[#181B1F]/10 text-[#181B1F] dark:text-[#F4E0C8] border border-[#E2E8F0]/40 font-mono text-[11px] font-bold">{{ t.cnt }} requests</span>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -83,57 +83,57 @@
     </div>
 
     <!-- Add Curated Opportunity Form -->
-    <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 p-6 sm:p-8 shadow-sm">
-        <h3 class="text-lg font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1">Add Curated Opportunity</h3>
+    <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 p-6 sm:p-8 shadow-sm">
+        <h3 class="text-lg font-bold text-[#111315] dark:text-[#F8F9FA] mb-1">Add Curated Opportunity</h3>
         <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Entries added here populate the verified institutional repository immediately.</p>
         
         <form id="addCuratedForm" onsubmit="handleAddCurated(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
             <div class="sm:col-span-2">
-                <label class="block font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1.5" for="c_name">Opportunity Name</label>
+                <label class="block font-bold text-[#111315] dark:text-[#F8F9FA] mb-1.5" for="c_name">Opportunity Name</label>
                 <input type="text" id="c_name" required placeholder="e.g. PSEB IT Export Scaleup Grant" 
-                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] focus:outline-none focus:ring-2 focus:ring-[#181B1F] dark:focus:ring-[#A05E22] transition">
             </div>
 
             <div>
-                <label class="block font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1.5" for="c_type">Opportunity Track</label>
-                <select id="c_type" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
+                <label class="block font-bold text-[#111315] dark:text-[#F8F9FA] mb-1.5" for="c_type">Opportunity Track</label>
+                <select id="c_type" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] focus:outline-none focus:ring-2 focus:ring-[#181B1F] dark:focus:ring-[#A05E22] transition">
                     <option value="scholarship">Scholarship (Academic)</option>
                     <option value="grant">Startup Grant (Founders)</option>
                 </select>
             </div>
 
             <div>
-                <label class="block font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1.5" for="c_country">Country / Region</label>
+                <label class="block font-bold text-[#111315] dark:text-[#F8F9FA] mb-1.5" for="c_country">Country / Region</label>
                 <input type="text" id="c_country" required value="Pakistan" 
-                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] focus:outline-none focus:ring-2 focus:ring-[#181B1F] dark:focus:ring-[#A05E22] transition">
             </div>
 
             <div>
-                <label class="block font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1.5" for="c_amount">Funding Amount</label>
+                <label class="block font-bold text-[#111315] dark:text-[#F8F9FA] mb-1.5" for="c_amount">Funding Amount</label>
                 <input type="text" id="c_amount" required placeholder="e.g. Up to PKR 5,000,000 or Full Tuition" 
-                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] focus:outline-none focus:ring-2 focus:ring-[#181B1F] dark:focus:ring-[#A05E22] transition">
             </div>
 
             <div>
-                <label class="block font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1.5" for="c_deadline">Application Deadline</label>
+                <label class="block font-bold text-[#111315] dark:text-[#F8F9FA] mb-1.5" for="c_deadline">Application Deadline</label>
                 <input type="text" id="c_deadline" required placeholder="e.g. 2026-11-30" 
-                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] focus:outline-none focus:ring-2 focus:ring-[#181B1F] dark:focus:ring-[#A05E22] transition">
             </div>
 
             <div class="sm:col-span-2">
-                <label class="block font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1.5" for="c_eligibility">Eligibility Summary</label>
+                <label class="block font-bold text-[#111315] dark:text-[#F8F9FA] mb-1.5" for="c_eligibility">Eligibility Summary</label>
                 <input type="text" id="c_eligibility" required placeholder="e.g. Pakistani nationals with minimum 3.0 CGPA" 
-                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] focus:outline-none focus:ring-2 focus:ring-[#181B1F] dark:focus:ring-[#A05E22] transition">
             </div>
 
             <div>
-                <label class="block font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1.5" for="c_source_link">Official Application Link</label>
+                <label class="block font-bold text-[#111315] dark:text-[#F8F9FA] mb-1.5" for="c_source_link">Official Application Link</label>
                 <input type="url" id="c_source_link" required placeholder="https://example.gov.pk" 
-                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFDF9] dark:bg-[#1C2F2A]/60 border border-[#B1AB86]/40 text-[#121E1B] dark:text-[#FBF9F5] focus:outline-none focus:ring-2 focus:ring-[#1C2F2A] dark:focus:ring-[#A05E22] transition">
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] dark:bg-[#181B1F]/60 border border-[#E2E8F0]/40 text-[#111315] dark:text-[#F8F9FA] focus:outline-none focus:ring-2 focus:ring-[#181B1F] dark:focus:ring-[#A05E22] transition">
             </div>
 
             <div class="sm:col-span-3 flex justify-end pt-3">
-                <button type="submit" id="addCuratedBtn" class="px-6 py-2.5 rounded-xl bg-[#1C2F2A] hover:bg-[#121E1B] text-[#FFFDF9] dark:bg-[#A05E22] dark:hover:bg-[#834918] font-bold text-xs transition shadow-xs">
+                <button type="submit" id="addCuratedBtn" class="px-6 py-2.5 rounded-full bg-[#181B1F] hover:bg-[#111315] text-[#FFFFFF] dark:bg-[#A05E22] dark:hover:bg-[#834918] font-bold text-xs transition shadow-xs">
                     Save to Curated Database
                 </button>
             </div>
@@ -141,17 +141,17 @@
     </div>
 
     <!-- Curated Database List Table -->
-    <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 p-6 sm:p-8 shadow-sm">
-        <div class="flex items-center justify-between mb-6 pb-3 border-b border-[#B1AB86]/20">
+    <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 p-6 sm:p-8 shadow-sm">
+        <div class="flex items-center justify-between mb-6 pb-3 border-b border-[#E2E8F0]/20">
             <div>
-                <h3 class="text-lg font-bold text-[#121E1B] dark:text-[#FBF9F5]">Curated Repository Entries ({{ curated|length }})</h3>
+                <h3 class="text-lg font-bold text-[#111315] dark:text-[#F8F9FA]">Curated Repository Entries ({{ curated|length }})</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Pre-seeded verified funding programs.</p>
             </div>
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-[#121E1B] dark:text-[#FBF9F5]">
-                <thead class="bg-[#F7F5EE] dark:bg-[#1C2F2A]/60 text-slate-500 dark:text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-[#B1AB86]/30">
+            <table class="w-full text-left text-xs text-[#111315] dark:text-[#F8F9FA]">
+                <thead class="bg-[#F7F5EE] dark:bg-[#181B1F]/60 text-slate-500 dark:text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-[#E2E8F0]/30">
                     <tr>
                         <th class="py-3 px-4">Opportunity</th>
                         <th class="py-3 px-4">Track</th>
@@ -161,20 +161,20 @@
                         <th class="py-3 px-4 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#B1AB86]/20">
+                <tbody class="divide-y divide-[#E2E8F0]/20">
                     {% for item in curated %}
-                        <tr class="hover:bg-[#F7F5EE]/60 dark:hover:bg-[#1C2F2A]/30 transition" id="curated-row-{{ item.id }}">
+                        <tr class="hover:bg-[#F7F5EE]/60 dark:hover:bg-[#181B1F]/30 transition" id="curated-row-{{ item.id }}">
                             <td class="py-3 px-4">
-                                <p class="font-bold text-[#121E1B] dark:text-[#FBF9F5]">{{ item.name }}</p>
+                                <p class="font-bold text-[#111315] dark:text-[#F8F9FA]">{{ item.name }}</p>
                                 <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-xs mt-0.5">{{ item.eligibility }}</p>
                             </td>
                             <td class="py-3 px-4">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {% if item.type == 'scholarship' %}bg-[#1C2F2A]/10 text-[#1C2F2A] dark:text-[#F4E0C8] border border-[#B1AB86]/40{% else %}bg-[#A05E22]/15 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30{% endif %}">
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {% if item.type == 'scholarship' %}bg-[#181B1F]/10 text-[#181B1F] dark:text-[#F4E0C8] border border-[#E2E8F0]/40{% else %}bg-[#A05E22]/15 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30{% endif %}">
                                     {{ item.type|capitalize }}
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-slate-600 dark:text-slate-300 font-medium">{{ item.country }}</td>
-                            <td class="py-3 px-4 text-[#1C2F2A] dark:text-[#F4E0C8] font-extrabold">{{ item.amount }}</td>
+                            <td class="py-3 px-4 text-[#181B1F] dark:text-[#F4E0C8] font-extrabold">{{ item.amount }}</td>
                             <td class="py-3 px-4 text-slate-500 dark:text-slate-400 font-mono text-[11px]">{{ item.deadline }}</td>
                             <td class="py-3 px-4 text-right">
                                 <button onclick="deleteCuratedEntry('{{ item.id }}')" class="text-slate-400 hover:text-rose-600 font-bold transition">Delete</button>
@@ -187,13 +187,13 @@
     </div>
 
     <!-- Registered Users Management Table -->
-    <div class="rounded-3xl bg-[#FFFDF9] dark:bg-[#121E1B] border border-[#B1AB86]/35 p-6 sm:p-8 shadow-sm">
-        <h3 class="text-lg font-bold text-[#121E1B] dark:text-[#FBF9F5] mb-1">Registered Users ({{ users|length }})</h3>
+    <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#111315] border border-[#E2E8F0]/35 p-6 sm:p-8 shadow-sm">
+        <h3 class="text-lg font-bold text-[#111315] dark:text-[#F8F9FA] mb-1">Registered Users ({{ users|length }})</h3>
         <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">All registered student, founder, and administrator accounts.</p>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-[#121E1B] dark:text-[#FBF9F5]">
-                <thead class="bg-[#F7F5EE] dark:bg-[#1C2F2A]/60 text-slate-500 dark:text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-[#B1AB86]/30">
+            <table class="w-full text-left text-xs text-[#111315] dark:text-[#F8F9FA]">
+                <thead class="bg-[#F7F5EE] dark:bg-[#181B1F]/60 text-slate-500 dark:text-slate-400 uppercase text-[10px] font-bold tracking-wider border-b border-[#E2E8F0]/30">
                     <tr>
                         <th class="py-3 px-4">User</th>
                         <th class="py-3 px-4">Role</th>
@@ -201,18 +201,18 @@
                         <th class="py-3 px-4">Registered Date</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#B1AB86]/20">
+                <tbody class="divide-y divide-[#E2E8F0]/20">
                     {% for u in users %}
-                        <tr class="hover:bg-[#F7F5EE]/60 dark:hover:bg-[#1C2F2A]/30 transition">
+                        <tr class="hover:bg-[#F7F5EE]/60 dark:hover:bg-[#181B1F]/30 transition">
                             <td class="py-3 px-4">
-                                <p class="font-bold text-[#121E1B] dark:text-[#FBF9F5]">{{ u.name }}</p>
+                                <p class="font-bold text-[#111315] dark:text-[#F8F9FA]">{{ u.name }}</p>
                                 <p class="text-[11px] text-slate-500 dark:text-slate-400">{{ u.email }}</p>
                             </td>
                             <td class="py-3 px-4">
                                 <span class="capitalize font-semibold text-slate-700 dark:text-slate-300">{{ u.role }}</span>
                             </td>
                             <td class="py-3 px-4">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {% if u.plan == 'premium' %}bg-[#A05E22]/15 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30{% else %}bg-[#F1ECE1] text-[#121E1B] dark:bg-[#1C2F2A]/40 dark:text-[#FBF9F5]{% endif %}">
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {% if u.plan == 'premium' %}bg-[#A05E22]/15 text-[#A05E22] dark:text-[#F4E0C8] border border-[#A05E22]/30{% else %}bg-[#F1ECE1] text-[#111315] dark:bg-[#181B1F]/40 dark:text-[#F8F9FA]{% endif %}">
                                     {{ u.plan|capitalize }}
                                 </span>
                             </td>

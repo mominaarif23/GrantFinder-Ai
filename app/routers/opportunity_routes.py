@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from app.models import SearchRequest, SaveOpportunityRequest
 from app.db import (
     log_search, save_opportunity, get_saved_opportunities, delete_saved_opportunity,
