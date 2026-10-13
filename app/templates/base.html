@@ -49,20 +49,39 @@
                             950: '#111315',
                         },
                         brand: {
-                            50: '#F0FDF4',
-                            100: '#DCFCE7',
-                            200: '#BBF7D0',
-                            500: '#10B981',
+                            50: '#F2F7F4',
+                            100: '#E1EFEA',
+                            200: '#C2DFD4',
+                            300: '#8FBFA6',
+                            400: '#489B77',
+                            500: '#1F4D3E',
                             600: '#1F4D3E',
                             700: '#16392E',
-                            800: '#112A22',
+                            800: '#102A22',
                             900: '#0B1C17',
                         },
+                        forest: {
+                            50: '#F2F7F4',
+                            100: '#E1EFEA',
+                            500: '#1F4D3E',
+                            600: '#1F4D3E',
+                            700: '#16392E',
+                            800: '#102A22',
+                        },
+                        bronze: {
+                            100: '#F7EFE8',
+                            200: '#E8D4C0',
+                            500: '#8E5624',
+                            600: '#8E5624',
+                            700: '#75451B',
+                            800: '#5A3414',
+                        },
                         champagne: {
-                            100: '#FDF8F3',
-                            200: '#F4E0C8',
-                            300: '#E5D0B5',
-                            500: '#A05E22',
+                            100: '#FAF6EE',
+                            200: '#F4ECD8',
+                            300: '#E8DCC4',
+                            400: '#DCCBA8',
+                            500: '#C4B088',
                         },
                         navy: {
                             800: '#1E293B',
@@ -79,10 +98,11 @@
             }
         };
     </script>
-    <link rel="stylesheet" href="/static/css/custom.css?v=12.0">
+    <link rel="stylesheet" href="/static/css/custom.css?v=13.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Lexend:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png">
+    <link rel="shortcut icon" href="/static/img/favicon.png">
 </head>
 <body class="min-h-screen flex flex-col bg-[#F8F9FA] dark:bg-[#111315] text-[#0F172A] dark:text-[#F8F9FA] antialiased overflow-x-hidden selection:bg-brand-600 selection:text-white relative font-sans transition-colors duration-300">
 
@@ -108,30 +128,31 @@
             <div class="flex items-center justify-between h-20 gap-2">
                 <!-- Brand Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="/" class="flex items-center space-x-2.5 group whitespace-nowrap">
-                        <div class="h-9 w-7 shrink-0 group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
-                            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="h-9 w-auto">
+                    <a href="/" class="flex items-center space-x-3 group whitespace-nowrap">
+                        <div class="h-10 shrink-0 group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
+                            <img src="/static/img/logo_light.png" alt="GrantFinder AI" class="h-10 w-auto object-contain dark:hidden">
+                            <img src="/static/img/logo_dark.png" alt="GrantFinder AI" class="h-10 w-auto object-contain hidden dark:block">
                         </div>
                         <div class="flex flex-col">
                             <div class="flex items-center space-x-1 whitespace-nowrap">
                                 <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white leading-none">GrantFinder</span>
-                                <span class="font-extrabold text-xl tracking-tight text-emerald-700 dark:text-emerald-400 leading-none">AI</span>
+                                <span class="font-extrabold text-xl tracking-tight text-[#1F4D3E] dark:text-[#E8DCC4] leading-none">AI</span>
                             </div>
-                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
+                            <span class="hidden 2xl:block text-[9px] font-bold uppercase tracking-wider text-[#8E5624] dark:text-[#E8DCC4]/80 mt-0.5 whitespace-nowrap">Opportunity Intelligence</span>
                         </div>
                     </a>
                 </div>
 
                 <!-- Navigation Links (Identical across Landing & Logged-In, Strictly One Line, Zero Up-and-Down Wrapping) -->
                 <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-slate-600 dark:text-slate-300 shrink-0">
-                    <a href="/" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Home</a>
-                    <a href="/destinations" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Destinations</a>
-                    <a href="/capabilities" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">How It Works</a>
-                    <a href="/why-grantfinder" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">About Us</a>
-                    <a href="/verified-portals" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Funding Sources</a>
-                    <a href="/faq" class="px-3 py-1.5 rounded-full hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">FAQ</a>
-                    <a href="/ai-assistant" class="px-3.5 py-1.5 rounded-full text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition flex items-center space-x-1.5 border border-emerald-200 dark:border-emerald-800/60 shadow-xs cursor-pointer whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                    <a href="/" class="px-3 py-1.5 rounded-full hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Home</a>
+                    <a href="/destinations" class="px-3 py-1.5 rounded-full hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Destinations</a>
+                    <a href="/capabilities" class="px-3 py-1.5 rounded-full hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">How It Works</a>
+                    <a href="/why-grantfinder" class="px-3 py-1.5 rounded-full hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">About Us</a>
+                    <a href="/verified-portals" class="px-3 py-1.5 rounded-full hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">Funding Sources</a>
+                    <a href="/faq" class="px-3 py-1.5 rounded-full hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] hover:bg-slate-100 dark:hover:bg-[#181B1F] transition whitespace-nowrap">FAQ</a>
+                    <a href="/ai-assistant" class="px-3.5 py-1.5 rounded-full text-[#1F4D3E] dark:text-[#E8DCC4] bg-[#1F4D3E]/10 dark:bg-[#1F4D3E]/30 hover:bg-[#1F4D3E]/20 transition flex items-center space-x-1.5 border border-[#1F4D3E]/20 dark:border-[#E8DCC4]/20 shadow-xs cursor-pointer whitespace-nowrap">
+                        <svg class="w-3.5 h-3.5 text-[#1F4D3E] dark:text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         <span>Study Advisor</span>
                     </a>
                 </div>
@@ -225,10 +246,10 @@
                             </button>
                         </div>
                     {% else %}
-                        <a href="/login" class="text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400 transition px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#181B1F] shrink-0 whitespace-nowrap">Sign in</a>
-                        <a href="/register" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 shadow-sm shadow-emerald-900/20 transition shrink-0 whitespace-nowrap">
+                        <a href="/login" class="text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] transition px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#181B1F] shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/register" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-[#1F4D3E] text-white hover:bg-[#16392E] dark:bg-[#1F4D3E] dark:hover:bg-[#28624F] shadow-sm shadow-[#1F4D3E]/20 transition shrink-0 whitespace-nowrap">
                             <span>Explore Funding</span>
-                            <svg class="w-3.5 h-3.5 ml-1.5 text-emerald-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-3.5 h-3.5 ml-1.5 text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     {% endif %}
 
@@ -407,8 +428,8 @@
                 <!-- Brand & Mission (Left Column) -->
                 <div class="space-y-3 max-w-lg">
                     <div class="flex items-center space-x-3">
-                        <img src="/static/img/logo.svg" alt="GrantFinder AI Emblem" class="w-9 h-9 shrink-0">
-                        <span class="font-extrabold text-lg tracking-tight text-white">GrantFinder AI</span>
+                        <img src="/static/img/logo_dark.png" alt="GrantFinder AI Emblem" class="h-10 w-auto shrink-0 object-contain">
+                        <span class="font-extrabold text-lg tracking-tight text-white">GrantFinder <span class="text-[#E8DCC4]">AI</span></span>
                     </div>
                     <p class="text-slate-400 text-xs leading-relaxed">
                         Your intelligent partner for academic scholarships and startup innovation grants across Pakistan and premier global destinations.
@@ -417,7 +438,7 @@
 
                 <!-- Opportunity Tracks (Stepped forward to the right) -->
                 <div class="md:text-left min-w-[220px]">
-                    <h4 class="font-bold text-emerald-400 text-xs uppercase tracking-wider mb-3">Opportunity Tracks</h4>
+                    <h4 class="font-bold text-[#E8DCC4] text-xs uppercase tracking-wider mb-3">Opportunity Tracks</h4>
                     <ul class="space-y-2 text-slate-400">
                         <li><a href="/register?role=student" class="hover:text-white transition">University Scholarships</a></li>
                         <li><a href="/register?role=founder" class="hover:text-white transition">Startup Innovation Grants</a></li>
@@ -443,8 +464,8 @@
     </footer>
 
     <!-- Floating GrantFinder Advisor Trigger Button -->
-    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center space-x-2 sm:space-x-2.5 px-5 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-emerald-700 dark:hover:bg-emerald-600 border border-slate-700 dark:border-emerald-600 shadow-xl transition-all duration-200 group hover:scale-105" title="Ask a Question">
-        <svg class="w-4 h-4 text-emerald-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center space-x-2 sm:space-x-2.5 px-5 py-3 rounded-full bg-[#111315] hover:bg-[#181B1F] text-white dark:bg-[#1F4D3E] dark:hover:bg-[#16392E] border border-slate-700 dark:border-[#2D333B] shadow-xl transition-all duration-200 group hover:scale-105" title="Ask a Question">
+        <svg class="w-4 h-4 text-[#E8DCC4] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
         </svg>
         <span class="text-xs font-bold tracking-tight">Ask a Question</span>
@@ -455,12 +476,12 @@
         <!-- Header -->
         <div class="px-5 py-3.5 bg-slate-950 dark:bg-[#111315] text-white flex items-center justify-between border-b border-slate-800 dark:border-[#2D333B] shrink-0">
             <div class="flex items-center space-x-3">
-                <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center p-1 border border-white/10">
-                    <img src="/static/img/logo.svg" alt="Advisor" class="w-5 h-5">
+                <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center p-1 border border-white/10">
+                    <img src="/static/img/logo_dark.png" alt="Advisor" class="w-6 h-6 object-contain">
                 </div>
                 <div>
                     <h3 class="text-xs font-bold text-white tracking-tight">Funding Guide</h3>
-                    <p class="text-[10px] text-slate-300">Here to help you find funding</p>
+                    <p class="text-[10px] text-[#E8DCC4]/90">Here to help you find funding</p>
                 </div>
             </div>
             <button onclick="toggleAdvisorWidget()" class="text-slate-400 hover:text-white p-1 transition" title="Close Advisor">
@@ -474,8 +495,8 @@
         <div id="advisorChatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50/80 dark:bg-[#111315]/80">
             <!-- Initial Greeting -->
             <div class="flex items-start space-x-2">
-                <div class="w-6 h-6 rounded-full bg-slate-900 dark:bg-emerald-700 flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
-                    <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
+                <div class="w-7 h-7 rounded-full bg-[#1F4D3E] flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
+                    <img src="/static/img/logo_dark.png" alt="GrantFinder AI" class="w-5 h-5 object-contain">
                 </div>
                 <div class="bg-white dark:bg-[#22272E] p-3 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-[#2D333B] shadow-xs max-w-[85%] text-slate-700 dark:text-slate-200 leading-relaxed">
                     Hello! I am here to help you explore scholarships and startup grants. What academic program, destination, or venture stage are you looking for?
@@ -488,7 +509,7 @@
             <form id="advisorChatForm" onsubmit="handleAdvisorSubmit(event)" class="flex items-center space-x-2">
                 <input id="advisorInput" type="text" placeholder="Ask about scholarships, grants, DAAD, eligibility..." 
                        class="flex-1 px-4 py-2.5 rounded-full bg-slate-100 dark:bg-[#22272E] border border-slate-200 dark:border-[#2D333B] text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white dark:focus:bg-[#181B1F] transition">
-                <button type="submit" class="p-2.5 rounded-full bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white transition shrink-0 shadow-xs" title="Send message">
+                <button type="submit" class="p-2.5 rounded-full bg-[#1F4D3E] hover:bg-[#16392E] text-white transition shrink-0 shadow-xs" title="Send message">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                     </svg>

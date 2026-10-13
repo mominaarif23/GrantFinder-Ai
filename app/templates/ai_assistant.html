@@ -128,12 +128,12 @@
                 <!-- Chat Header -->
                 <div class="px-5 py-4 bg-[#F8F9FA] dark:bg-[#111315] border-b border-[#E2E8F0]/30 dark:border-[#2D333B] flex items-center justify-between shrink-0">
                     <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 rounded-xl bg-[#181B1F] flex items-center justify-center p-1.5 shadow-xs">
-                            <img src="/static/img/logo.svg" alt="Advisor" class="w-5 h-5">
+                        <div class="w-8 h-8 rounded-xl bg-[#1F4D3E] flex items-center justify-center p-1.5 shadow-xs">
+                            <img src="/static/img/logo_dark.png" alt="Advisor" class="w-5 h-5 object-contain">
                         </div>
                         <div>
                             <h3 class="text-xs font-bold text-[#181B1F] dark:text-[#F2F6F4] leading-tight">GrantFinder AI Advisor</h3>
-                            <p class="text-[10px] text-[#6B7C72] dark:text-[#95AFA4]">Autonomous Reasoning Session</p>
+                            <p class="text-[10px] text-[#8E5624] dark:text-[#E8DCC4]">Autonomous Reasoning Session</p>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
@@ -146,8 +146,8 @@
                 <!-- Chat Message Stream -->
                 <div id="inlineAdvisorMessages" class="flex-1 p-5 overflow-y-auto space-y-4 text-xs bg-[#F8F9FA]/70 dark:bg-[#111315]">
                     <div class="flex items-start space-x-2.5">
-                        <div class="w-7 h-7 rounded-xl bg-[#181B1F] flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
-                            <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
+                        <div class="w-7 h-7 rounded-xl bg-[#1F4D3E] flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
+                            <img src="/static/img/logo_dark.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
                         </div>
                         <div class="bg-[#FFFFFF] dark:bg-[#181B1F] p-4 rounded-2xl rounded-tl-none border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-xs max-w-[88%] text-[#181B1F] dark:text-[#C3D7CE] leading-relaxed space-y-2">
                             <p class="font-bold text-[#181B1F] dark:text-[#F2F6F4]">Welcome to the GrantFinder AI Assistant.</p>
@@ -165,9 +165,9 @@
                 <div class="p-4 bg-[#FFFFFF] dark:bg-[#181B1F] border-t border-[#E2E8F0]/30 dark:border-[#2D333B] shrink-0">
                     <form id="inlineAdvisorForm" onsubmit="handleInlineAdvisorSubmit(event)" class="flex items-center space-x-2">
                         <input id="inlineAdvisorInput" type="text" placeholder="Ask about scholarships, grants, eligibility, or deadlines..." 
-                               class="flex-1 px-4 py-3 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/60 dark:border-[#2D333B] text-xs text-[#181B1F] dark:text-[#F2F6F4] placeholder-[#748D83] focus:outline-none focus:ring-2 focus:ring-[#2A5A4D] focus:bg-[#FFFFFF] transition"
+                               class="flex-1 px-4 py-3 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/60 dark:border-[#2D333B] text-xs text-[#181B1F] dark:text-[#F2F6F4] placeholder-[#748D83] focus:outline-none focus:ring-2 focus:ring-[#1F4D3E] focus:bg-[#FFFFFF] transition"
                                autocomplete="off">
-                        <button type="submit" class="px-5 py-3 rounded-full bg-[#181B1F] hover:bg-[#2A5A4D] text-[#FFFFFF] font-bold text-xs transition shrink-0 shadow-sm flex items-center space-x-1.5 cursor-pointer border border-[#2D333B]">
+                        <button type="submit" class="px-5 py-3 rounded-full bg-[#1F4D3E] hover:bg-[#16392E] text-white font-bold text-xs transition shrink-0 shadow-sm flex items-center space-x-1.5 cursor-pointer">
                             <span>Send</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
@@ -187,8 +187,8 @@ function clearAdvisorConversation() {
     if (container) {
         container.innerHTML = `
             <div class="flex items-start space-x-2.5">
-                <div class="w-7 h-7 rounded-xl bg-[#181B1F] flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
-                    <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
+                <div class="w-7 h-7 rounded-xl bg-[#1F4D3E] flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
+                    <img src="/static/img/logo_dark.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
                 </div>
                 <div class="bg-[#FFFFFF] dark:bg-[#181B1F] p-4 rounded-2xl rounded-tl-none border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-xs max-w-[88%] text-[#181B1F] dark:text-[#C3D7CE] leading-relaxed">
                     <p class="font-bold text-[#181B1F] dark:text-[#F2F6F4]">Conversation reset.</p>

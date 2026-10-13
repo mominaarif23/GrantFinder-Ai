@@ -6,8 +6,10 @@
     --color-ivory-canvas: #F8F9FA;
     --color-ivory-card: #FFFFFF;
     --color-ivory-border: #E2E8F0;
-    --color-emerald-primary: #10B981;
-    --color-emerald-deep: #059669;
+    --color-brand-forest: #1F4D3E;
+    --color-brand-forest-hover: #16392E;
+    --color-brand-bronze: #8E5624;
+    --color-brand-champagne: #E8DCC4;
 }
 
 /* Subtle academic scrollbar */
@@ -156,8 +158,8 @@ html:not(.dark) .card-prominent h4 {
 .feature-card:hover,
 [onclick*="chooseTrack"]:hover {
     transform: translateY(-4px) scale(1.01) !important;
-    box-shadow: 0 16px 30px -8px rgba(15, 23, 42, 0.08), 0 0 0 2px rgba(16, 185, 129, 0.3) !important;
-    border-color: #10B981 !important;
+    box-shadow: 0 16px 30px -8px rgba(15, 23, 42, 0.08), 0 0 0 2px rgba(31, 77, 62, 0.25) !important;
+    border-color: #1F4D3E !important;
     background-color: #FFFFFF !important;
     z-index: 10;
 }
@@ -172,8 +174,8 @@ html.dark .feature-card:hover,
 html.dark [onclick*="chooseTrack"]:hover {
     transform: translateY(-4px) scale(1.01) !important;
     background-color: #22272E !important;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(16, 185, 129, 0.4) !important;
-    border-color: #10B981 !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(232, 220, 196, 0.25) !important;
+    border-color: #1F4D3E !important;
     z-index: 10;
 }
 
@@ -374,18 +376,18 @@ html.dark [class*="text-[#6B7C72]"] {
 html.dark .text-brand-700,
 html.dark .text-brand-800,
 html.dark .text-brand-900 {
-    color: #34D399 !important;
+    color: #E8DCC4 !important;
 }
 
 html.dark .text-emerald-700,
 html.dark .text-emerald-800 {
-    color: #34D399 !important;
+    color: #E8DCC4 !important;
 }
 
 html.dark .text-amber-700,
 html.dark .text-amber-800,
 html.dark .text-amber-900 {
-    color: #FBBF24 !important;
+    color: #E8DCC4 !important;
 }
 
 /* Card & Accordion Surfaces in Dark Mode */
@@ -415,7 +417,7 @@ html.dark details p {
 html.dark .portal-card a,
 html.dark .dest-dossier-card a,
 html.dark .card-prominent a {
-    color: #34D399 !important;
+    color: #E8DCC4 !important;
 }
 
 html.dark .portal-card a:hover,
@@ -430,9 +432,9 @@ html.dark .dest-dossier-card a[class*="bg-brand-700"],
 html.dark .dest-dossier-card a[class*="bg-indigo-700"],
 html.dark .dest-dossier-card a[class*="bg-amber-600"],
 html.dark .dest-dossier-card a[class*="bg-teal-700"] {
-    background-color: #059669 !important;
+    background-color: #1F4D3E !important;
     color: #FFFFFF !important;
-    border: 1px solid #10B981 !important;
+    border: 1px solid rgba(232, 220, 196, 0.4) !important;
 }
 
 html.dark .dest-dossier-card a[class*="bg-navy-900"]:hover,
@@ -440,31 +442,26 @@ html.dark .dest-dossier-card a[class*="bg-brand-700"]:hover,
 html.dark .dest-dossier-card a[class*="bg-indigo-700"]:hover,
 html.dark .dest-dossier-card a[class*="bg-amber-600"]:hover,
 html.dark .dest-dossier-card a[class*="bg-teal-700"]:hover {
-    background-color: #10B981 !important;
+    background-color: #16392E !important;
     color: #FFFFFF !important;
-    border-color: #34D399 !important;
+    border-color: #E8DCC4 !important;
 }
 
 /* Soft Badges & Category Pills in Dark Mode */
 html.dark .bg-brand-50,
-html.dark [class*="bg-brand-50/"] {
-    background-color: rgba(16, 185, 129, 0.15) !important;
-    border-color: rgba(16, 185, 129, 0.3) !important;
-    color: #34D399 !important;
-}
-
+html.dark [class*="bg-brand-50/"],
 html.dark .bg-emerald-50,
 html.dark [class*="bg-emerald-50/"] {
-    background-color: rgba(16, 185, 129, 0.15) !important;
-    border-color: rgba(16, 185, 129, 0.3) !important;
-    color: #34D399 !important;
+    background-color: rgba(31, 77, 62, 0.25) !important;
+    border-color: rgba(31, 77, 62, 0.5) !important;
+    color: #E8DCC4 !important;
 }
 
 html.dark .bg-amber-50,
 html.dark [class*="bg-amber-50/"] {
-    background-color: rgba(245, 158, 11, 0.15) !important;
-    border-color: rgba(245, 158, 11, 0.3) !important;
-    color: #FBBF24 !important;
+    background-color: rgba(142, 86, 36, 0.25) !important;
+    border-color: rgba(142, 86, 36, 0.5) !important;
+    color: #E8DCC4 !important;
 }
 
 html.dark .bg-rose-50,
@@ -474,18 +471,15 @@ html.dark [class*="bg-rose-50/"] {
     color: #FB7185 !important;
 }
 
-html.dark .text-brand-700 {
-    color: #34D399 !important;
-}
-
+html.dark .text-brand-700,
 html.dark .text-emerald-800,
 html.dark .text-emerald-700 {
-    color: #34D399 !important;
+    color: #E8DCC4 !important;
 }
 
 html.dark .text-amber-900,
 html.dark .text-amber-800 {
-    color: #FBBF24 !important;
+    color: #E8DCC4 !important;
 }
 
 html.dark .text-rose-700,
