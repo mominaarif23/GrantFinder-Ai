@@ -122,7 +122,7 @@
 
     <!-- Country Landmark Floating Indicator (Bottom-Left) -->
     <div id="atmosphereBadge" class="fixed bottom-6 left-4 sm:left-6 z-30 hidden md:flex items-center space-x-2.5 px-3.5 py-2 rounded-full bg-[#FFFDF9]/98 dark:bg-[#162621]/98 backdrop-blur-md border border-[#B1AB86]/40 dark:border-[#2D453E] shadow-md text-xs text-[#1C2F2A] dark:text-[#F2F6F4] transition-all duration-300">
-        <span class="w-2.5 h-2.5 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8] animate-pulse shrink-0"></span>
+        <span class="w-2 h-2 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8] shrink-0"></span>
         <span class="font-extrabold text-[#1C2F2A] dark:text-[#F2F6F4] whitespace-nowrap" id="atmosphereCountry">Pakistan</span>
         <span class="text-[#B1AB86] dark:text-[#3B5C51]">&bull;</span>
         <span class="text-[#6B7C72] dark:text-[#95AFA4] truncate max-w-[160px] sm:max-w-xs font-medium whitespace-nowrap" id="atmosphereLandmark">Faisal Mosque, Islamabad</span>
@@ -152,15 +152,15 @@
 
                 <!-- Navigation Links (Identical across Landing & Logged-In, Strictly One Line, Zero Up-and-Down Wrapping) -->
                 <div class="hidden xl:flex items-center space-x-1 text-xs font-bold text-[#2D453E] dark:text-[#C3D7CE] shrink-0">
-                    <a href="/" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Home</a>
-                    <a href="/destinations" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Destinations</a>
-                    <a href="/capabilities" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">AI Capabilities</a>
-                    <a href="/why-grantfinder" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Why GrantFinder</a>
-                    <a href="/verified-portals" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Verified Portals</a>
-                    <a href="/faq" class="px-2.5 py-1.5 rounded-xl hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">FAQ</a>
-                    <a href="/ai-assistant" class="px-2.5 py-1.5 rounded-xl text-[#2A5A4D] dark:text-[#F4E0C8] bg-[#F2F6F4] dark:bg-[#162621] hover:bg-[#E1EBE6] dark:hover:bg-[#1F3830] transition flex items-center space-x-1.5 border border-[#C3D7CE] dark:border-[#2D453E] shadow-xs cursor-pointer whitespace-nowrap">
-                        <span class="w-2 h-2 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8] animate-pulse"></span>
-                        <span>AI Assistant</span>
+                    <a href="/" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Home</a>
+                    <a href="/destinations" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Destinations</a>
+                    <a href="/capabilities" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">How It Works</a>
+                    <a href="/why-grantfinder" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">About Us</a>
+                    <a href="/verified-portals" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">Funding Sources</a>
+                    <a href="/faq" class="px-2.5 py-1.5 rounded-full hover:text-[#2A5A4D] hover:bg-[#F2F6F4] dark:hover:bg-[#162621] dark:hover:text-[#FFFDF9] transition whitespace-nowrap">FAQ</a>
+                    <a href="/ai-assistant" class="px-3 py-1.5 rounded-full text-[#2A5A4D] dark:text-[#F4E0C8] bg-[#E1EBE6] dark:bg-[#1C3B32] hover:bg-[#C3D7CE] dark:hover:bg-[#234A3E] transition flex items-center space-x-1.5 border border-[#2A5A4D]/30 dark:border-[#2D453E] shadow-xs cursor-pointer whitespace-nowrap">
+                        <svg class="w-3.5 h-3.5 text-[#2A5A4D] dark:text-[#F4E0C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                        <span>Study Advisor</span>
                     </a>
                 </div>
 
@@ -253,10 +253,10 @@
                             </button>
                         </div>
                     {% else %}
-                        <a href="/login" class="text-xs font-bold text-[#1C2F2A] dark:text-[#C3D7CE] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition px-3 py-2 rounded-xl hover:bg-[#F2F6F4] dark:hover:bg-[#162621] shrink-0 whitespace-nowrap">Sign in</a>
-                        <a href="/register" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs font-bold bg-[#2A5A4D] text-[#FFFDF9] hover:bg-[#1C3B32] shadow-sm shadow-[#2A5A4D]/25 transition shrink-0 whitespace-nowrap">
+                        <a href="/login" class="text-xs font-bold text-[#1C2F2A] dark:text-[#C3D7CE] hover:text-[#2A5A4D] dark:hover:text-[#FFFDF9] transition px-3.5 py-2 rounded-full hover:bg-[#F2F6F4] dark:hover:bg-[#162621] shrink-0 whitespace-nowrap">Sign in</a>
+                        <a href="/register" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-[#2A5A4D] text-[#FFFDF9] hover:bg-[#1C3B32] shadow-sm shadow-[#2A5A4D]/25 transition shrink-0 whitespace-nowrap">
                             <span>Explore Funding</span>
-                            <span class="ml-1.5 font-normal text-[#F4E0C8]">&rarr;</span>
+                            <svg class="w-3.5 h-3.5 ml-1.5 text-[#F4E0C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     {% endif %}
 
@@ -286,15 +286,15 @@
         <!-- Mobile Navigation Drawer -->
         <div id="mobileNavDrawer" class="hidden xl:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3">
             <div class="grid grid-cols-2 gap-2 text-xs font-bold text-slate-700 pt-2">
-                <a href="/" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Home</a>
-                <a href="/destinations" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Destinations</a>
-                <a href="/capabilities" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">AI Capabilities</a>
-                <a href="/why-grantfinder" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Why GrantFinder</a>
-                <a href="/verified-portals" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Verified Portals</a>
-                <a href="/faq" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">FAQ</a>
-                <a href="/ai-assistant" class="col-span-2 p-2.5 rounded-xl bg-brand-50 border border-brand-200 text-brand-700 text-center font-bold hover:bg-brand-100 whitespace-nowrap flex items-center justify-center space-x-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>AI Assistant Console</span>
+                <a href="/" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Home</a>
+                <a href="/destinations" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Destinations</a>
+                <a href="/capabilities" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">How It Works</a>
+                <a href="/why-grantfinder" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">About Us</a>
+                <a href="/verified-portals" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">Funding Sources</a>
+                <a href="/faq" class="p-2.5 rounded-full bg-slate-50 border border-slate-200 text-center hover:bg-slate-100 whitespace-nowrap">FAQ</a>
+                <a href="/ai-assistant" class="col-span-2 p-2.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-center font-bold hover:bg-brand-100 whitespace-nowrap flex items-center justify-center space-x-1.5">
+                    <svg class="w-4 h-4 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                    <span>Study Advisor</span>
                 </a>
             </div>
 
@@ -319,43 +319,43 @@
                                 Premium
                             </span>
                         {% else %}
-                            <button onclick="openUpgradeModal()" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 border border-amber-300 font-bold text-[10px] hover:bg-amber-200 transition">
+                            <button onclick="openUpgradeModal()" class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-bold text-[10px] hover:bg-amber-200 transition">
                                 Upgrade ($9)
                             </button>
                         {% endif %}
                     </div>
 
                     {% if user.role == 'student' %}
-                        <a href="/dashboard/student" class="text-center py-2.5 rounded-xl bg-brand-50 text-brand-700 font-bold text-xs border border-brand-200">Open Scholarships Console &rarr;</a>
+                        <a href="/dashboard/student" class="text-center py-2.5 rounded-full bg-brand-50 text-brand-700 font-bold text-xs border border-brand-200">Open Scholarships Console &rarr;</a>
                     {% elif user.role == 'founder' %}
-                        <a href="/dashboard/founder" class="text-center py-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-300">Open Startup Grants Console &rarr;</a>
+                        <a href="/dashboard/founder" class="text-center py-2.5 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-300">Open Startup Grants Console &rarr;</a>
                     {% elif user.role == 'admin' %}
-                        <a href="/admin" class="text-center py-2.5 rounded-xl bg-amber-50 text-amber-900 font-bold text-xs border border-amber-300">Open Governance Console &rarr;</a>
+                        <a href="/admin" class="text-center py-2.5 rounded-full bg-amber-50 text-amber-900 font-bold text-xs border border-amber-300">Open Governance Console &rarr;</a>
                     {% endif %}
 
                     {% if user.plan != 'premium' %}
-                        <button onclick="openUpgradeModal()" class="w-full text-center py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-xs transition">
+                        <button onclick="openUpgradeModal()" class="w-full text-center py-2.5 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-xs transition">
                             Unlock Unlimited Results & AI Drafter ($9)
                         </button>
                     {% endif %}
 
-                    <button onclick="handleLogout()" class="w-full text-center py-2.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 font-bold text-xs transition">
+                    <button onclick="handleLogout()" class="w-full text-center py-2.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 font-bold text-xs transition">
                         Sign Out
                     </button>
                     <!-- AI Assistant Launch Button in Mobile Drawer -->
-                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-xl bg-navy-950 text-white font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span>Open AI Funding Advisor Chat</span>
+                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-full bg-navy-950 text-white font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                        <span>Ask a Question</span>
                     </button>
 
                 {% else %}
-                    <a href="/login" class="text-center py-2.5 rounded-xl bg-slate-100 text-navy-900 font-bold text-xs hover:bg-slate-200 transition">Sign In to Account</a>
-                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span>Open AI Funding Advisor Chat</span>
+                    <a href="/login" class="text-center py-2.5 rounded-full bg-slate-100 text-navy-900 font-bold text-xs hover:bg-slate-200 transition">Sign In to Account</a>
+                    <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-full bg-brand-50 text-brand-700 border border-brand-200 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
+                        <svg class="w-4 h-4 text-brand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                        <span>Ask a Question</span>
                     </button>
-                    <a href="/register?role=student" class="text-center py-2.5 rounded-xl bg-brand-700 text-white font-bold text-xs shadow-xs hover:bg-brand-800 transition">Student Scholarships Track &rarr;</a>
-                    <a href="/register?role=founder" class="text-center py-2.5 rounded-xl bg-white text-emerald-800 font-bold text-xs border border-emerald-300 hover:bg-emerald-50 transition">Founder Grants Track &rarr;</a>
+                    <a href="/register?role=student" class="text-center py-2.5 rounded-full bg-brand-700 text-white font-bold text-xs shadow-xs hover:bg-brand-800 transition">Student Scholarships Track &rarr;</a>
+                    <a href="/register?role=founder" class="text-center py-2.5 rounded-full bg-white text-emerald-800 font-bold text-xs border border-emerald-300 hover:bg-emerald-50 transition">Founder Grants Track &rarr;</a>
                 {% endif %}
 
                 <!-- Theme Toggle Button in Mobile Drawer -->
@@ -470,16 +470,15 @@
         </div>
     </footer>
 
-    <!-- Floating GrantFinder AI Advisor Trigger Button -->
-    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center space-x-2 sm:space-x-2.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-[#1C2F2A] text-white shadow-xl hover:bg-[#2A5A4D] border border-[#3B5C51]/80 transition-all duration-200 group hover:scale-105" title="Chat with GrantFinder AI Advisor">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-xs font-bold tracking-tight">AI Advisor</span>
-        <svg class="w-4 h-4 text-brand-300 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Floating GrantFinder Advisor Trigger Button -->
+    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center space-x-2 sm:space-x-2.5 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-[#1C2F2A] text-white shadow-xl hover:bg-[#2A5A4D] border border-[#3B5C51]/80 transition-all duration-200 group hover:scale-105" title="Ask a Question">
+        <svg class="w-4 h-4 text-[#F4E0C8] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
         </svg>
+        <span class="text-xs font-bold tracking-tight">Ask a Question</span>
     </button>
 
-    <!-- Floating GrantFinder AI Advisor Chat Console -->
+    <!-- Floating GrantFinder Advisor Chat Console -->
     <div id="advisorChatWidget" class="hidden fixed bottom-20 right-4 sm:right-6 w-[92vw] sm:w-[390px] h-[520px] max-h-[82vh] z-50 rounded-3xl bg-white/98 backdrop-blur-xl border border-slate-200/90 shadow-2xl flex flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right">
         <!-- Header -->
         <div class="px-5 py-3.5 bg-navy-950 text-white flex items-center justify-between border-b border-navy-900 shrink-0">
@@ -488,8 +487,8 @@
                     <img src="/static/img/logo.svg" alt="Advisor" class="w-5 h-5">
                 </div>
                 <div>
-                    <h3 class="text-xs font-bold text-white tracking-tight">GrantFinder AI Advisor</h3>
-                    <p class="text-[10px] text-slate-300">Conversational Funding Guidance</p>
+                    <h3 class="text-xs font-bold text-white tracking-tight">Funding Guide</h3>
+                    <p class="text-[10px] text-slate-300">Here to help you find funding</p>
                 </div>
             </div>
             <button onclick="toggleAdvisorWidget()" class="text-slate-400 hover:text-white p-1 transition" title="Close Advisor">
@@ -507,7 +506,7 @@
                     <img src="/static/img/logo.svg" alt="GrantFinder AI" class="w-4 h-4">
                 </div>
                 <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed">
-                    Hello! I am your GrantFinder AI Advisor. I help students discover fully funded scholarships and help student founders secure startup innovation grants. What academic field or venture domain are you pursuing?
+                    Hello! I am here to help you explore scholarships and startup grants. What academic program, destination, or venture stage are you looking for?
                 </div>
             </div>
         </div>
