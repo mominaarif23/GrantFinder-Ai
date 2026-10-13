@@ -35,15 +35,30 @@
   }
 
   // Fallback 2D Canvas Renderer for environments without WebGPU
-  function createFallbackOrb(canvas, paletteName = "emerald") {
+  function createFallbackOrb(canvas, paletteName = "chrome") {
     const ctx = canvas.getContext("2d");
     if (!ctx) return { getState: () => "idle", setState: () => {}, setAudioBands: () => {}, destroy: () => {} };
 
     let currentState = "idle";
     let isThinking = false;
+    let isHovered = false;
     let animId = null;
     let phase = 0;
     let active = true;
+    let pointerOffset = { x: 0, y: 0 };
+
+    const onPointerEnter = () => { isHovered = true; };
+    const onPointerLeave = () => { isHovered = false; pointerOffset.x = 0; pointerOffset.y = 0; };
+    const onPointerMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        pointerOffset.x = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1));
+        pointerOffset.y = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height) * 2 - 1));
+      }
+    };
+    canvas.addEventListener("pointerenter", onPointerEnter);
+    canvas.addEventListener("pointerleave", onPointerLeave);
+    canvas.addEventListener("pointermove", onPointerMove);
 
     function renderFallback() {
       if (!active) return;
@@ -61,23 +76,31 @@
       const cy = h / 2;
       const r = Math.min(w, h) * 0.38;
 
-      phase += isThinking ? 0.05 : 0.02;
+      const speedIncrement = isThinking ? 0.05 : (isHovered ? 0.042 : 0.018);
+      phase += speedIncrement;
 
       // Outer glow
       const glowGrad = ctx.createRadialGradient(cx, cy, r * 0.7, cx, cy, r * 1.35);
-      glowGrad.addColorStop(0, isThinking ? "rgba(31, 77, 62, 0.45)" : "rgba(31, 77, 62, 0.25)");
-      glowGrad.addColorStop(0.7, isThinking ? "rgba(142, 86, 36, 0.2)" : "rgba(232, 220, 196, 0.15)");
+      if (paletteName === "emerald") {
+        glowGrad.addColorStop(0, isThinking ? "rgba(31, 77, 62, 0.45)" : (isHovered ? "rgba(31, 77, 62, 0.35)" : "rgba(31, 77, 62, 0.22)"));
+        glowGrad.addColorStop(0.7, isThinking ? "rgba(142, 86, 36, 0.2)" : "rgba(232, 220, 196, 0.12)");
+      } else {
+        glowGrad.addColorStop(0, isThinking ? "rgba(232, 220, 196, 0.35)" : (isHovered ? "rgba(200, 215, 230, 0.3)" : "rgba(180, 190, 205, 0.15)"));
+        glowGrad.addColorStop(0.7, isThinking ? "rgba(100, 116, 139, 0.2)" : "rgba(148, 163, 184, 0.1)");
+      }
       glowGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = glowGrad;
       ctx.beginPath();
       ctx.arc(cx, cy, r * 1.35, 0, Math.PI * 2);
       ctx.fill();
 
-      // Main sphere body
+      // Main sphere body with dynamic light tracking
+      const lightDx = Math.sin(phase) * 6 + pointerOffset.x * 8;
+      const lightDy = Math.cos(phase) * 6 + pointerOffset.y * 8;
       const bodyGrad = ctx.createRadialGradient(
-        cx - r * 0.3 + Math.sin(phase) * 6,
-        cy - r * 0.3 + Math.cos(phase) * 6,
-        r * 0.1,
+        cx - r * 0.3 + lightDx,
+        cy - r * 0.3 + lightDy,
+        r * 0.08,
         cx,
         cy,
         r
@@ -88,10 +111,12 @@
         bodyGrad.addColorStop(0.65, isThinking ? "#1F4D3E" : "#163D31");
         bodyGrad.addColorStop(1, "#111315");
       } else {
-        bodyGrad.addColorStop(0, "#FFFFFF");
-        bodyGrad.addColorStop(0.4, "#A0A5AC");
-        bodyGrad.addColorStop(0.8, "#3E434B");
-        bodyGrad.addColorStop(1, "#151719");
+        // Liquid Chrome Shader emulation
+        bodyGrad.addColorStop(0, isThinking ? "#FFFFFF" : "#F8FAFC");
+        bodyGrad.addColorStop(0.22, isThinking ? "#E2E8F0" : "#CBD5E1");
+        bodyGrad.addColorStop(0.55, isThinking ? "#94A3B8" : "#64748B");
+        bodyGrad.addColorStop(0.82, "#334155");
+        bodyGrad.addColorStop(1, "#0F172A");
       }
 
       ctx.fillStyle = bodyGrad;
@@ -99,19 +124,24 @@
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.fill();
 
-      // Inner liquid swirls
+      // Inner liquid chrome swirls & chromatic dispersion
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx, cy, r * 0.96, 0, Math.PI * 2);
       ctx.clip();
 
       for (let i = 0; i < 3; i++) {
-        const swirlAngle = phase * (i % 2 === 0 ? 1 : -1) + (i * Math.PI) / 1.5;
+        const swirlAngle = phase * (i % 2 === 0 ? 1 : -1) + (i * Math.PI) / 1.5 + pointerOffset.x * 0.5;
         const sx = cx + Math.cos(swirlAngle) * r * 0.4;
         const sy = cy + Math.sin(swirlAngle) * r * 0.4;
         const swirlGrad = ctx.createRadialGradient(sx, sy, 5, sx, sy, r * 0.65);
-        swirlGrad.addColorStop(0, "rgba(232, 220, 196, 0.35)");
-        swirlGrad.addColorStop(0.5, "rgba(31, 77, 62, 0.2)");
+        if (paletteName === "emerald") {
+          swirlGrad.addColorStop(0, "rgba(232, 220, 196, 0.35)");
+          swirlGrad.addColorStop(0.5, "rgba(31, 77, 62, 0.2)");
+        } else {
+          swirlGrad.addColorStop(0, i === 0 ? "rgba(186, 230, 253, 0.4)" : "rgba(244, 244, 245, 0.35)");
+          swirlGrad.addColorStop(0.5, "rgba(148, 163, 184, 0.18)");
+        }
         swirlGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = swirlGrad;
         ctx.beginPath();
@@ -122,23 +152,23 @@
 
       // Glass specular highlight
       const hlGrad = ctx.createRadialGradient(
-        cx - r * 0.35,
-        cy - r * 0.35,
+        cx - r * 0.35 + pointerOffset.x * 4,
+        cy - r * 0.35 + pointerOffset.y * 4,
         2,
-        cx - r * 0.35,
-        cy - r * 0.35,
+        cx - r * 0.35 + pointerOffset.x * 4,
+        cy - r * 0.35 + pointerOffset.y * 4,
         r * 0.55
       );
-      hlGrad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
-      hlGrad.addColorStop(0.4, "rgba(232, 220, 196, 0.25)");
+      hlGrad.addColorStop(0, "rgba(255, 255, 255, 0.92)");
+      hlGrad.addColorStop(0.35, "rgba(226, 232, 240, 0.35)");
       hlGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
       ctx.fillStyle = hlGrad;
       ctx.beginPath();
-      ctx.arc(cx - r * 0.35, cy - r * 0.35, r * 0.55, 0, Math.PI * 2);
+      ctx.arc(cx - r * 0.35 + pointerOffset.x * 4, cy - r * 0.35 + pointerOffset.y * 4, r * 0.55, 0, Math.PI * 2);
       ctx.fill();
 
-      // Glass border rim
-      ctx.strokeStyle = "rgba(232, 220, 196, 0.3)";
+      // Glass border rim with subtle prismatic fringe
+      ctx.strokeStyle = paletteName === "emerald" ? "rgba(232, 220, 196, 0.3)" : "rgba(255, 255, 255, 0.35)";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -160,6 +190,9 @@
       destroy: () => {
         active = false;
         if (animId) cancelAnimationFrame(animId);
+        canvas.removeEventListener("pointerenter", onPointerEnter);
+        canvas.removeEventListener("pointerleave", onPointerLeave);
+        canvas.removeEventListener("pointermove", onPointerMove);
       }
     };
   }
@@ -168,8 +201,8 @@
   async function createLiquidOrb(canvas, options = {}) {
     if (!canvas) return null;
 
-    const paletteKey = options.palette || "emerald";
-    const stateSeeds = orbPalettes[paletteKey] || orbPalettes.emerald;
+    const paletteKey = options.palette || "chrome";
+    const stateSeeds = orbPalettes[paletteKey] || orbPalettes.chrome || orbPalettes.emerald;
     let initialState = options.initialState || "idle";
 
     if (!navigator.gpu) {
@@ -284,6 +317,35 @@
     let ribbonTarget = null;
     let ribbonCompositeBindGroup = null;
 
+    // Interactive pointer & hover dynamics
+    let isHovered = false;
+    let dynamicSpeed = stateSeeds[initialState][3];
+    let pointerOffset = { x: 0, y: 0 };
+
+    const onPointerEnter = () => { isHovered = true; };
+    const onPointerLeave = () => {
+      isHovered = false;
+      pointerOffset.x = 0;
+      pointerOffset.y = 0;
+    };
+    const onPointerMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        pointerOffset.x = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1));
+        pointerOffset.y = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height) * 2 - 1));
+      }
+    };
+    canvas.addEventListener("pointerenter", onPointerEnter);
+    canvas.addEventListener("pointerleave", onPointerLeave);
+    canvas.addEventListener("pointermove", onPointerMove);
+
+    // If parent element has an interactive container class, attach listeners there too
+    const interactiveParent = canvas.closest(".luxury-orb-capsule, .orb-interactive-card, #ai-assistant");
+    if (interactiveParent) {
+      interactiveParent.addEventListener("pointerenter", onPointerEnter);
+      interactiveParent.addEventListener("pointerleave", onPointerLeave);
+    }
+
     const values = new Float32Array(displayedUniforms);
     const uniformBuffer = device.createBuffer({
       size: values.byteLength,
@@ -383,6 +445,19 @@
         lastFrameAt = now;
         applyAudioUniforms(values, audioBands);
 
+        // Smooth speed acceleration on hover (0.336 -> 0.85), thinking stays at 1.12
+        const targetSpeed = state === "thinking" ? 1.12 : (isHovered ? 0.85 : (stateSeeds[state]?.[3] || 0.336));
+        dynamicSpeed += (targetSpeed - dynamicSpeed) * 0.08;
+        values[3] = dynamicSpeed;
+
+        // Pointer reaction on liquid chrome style (22)
+        if (Math.round(values[15]) === 22) {
+          values[26] += pointerOffset.x * 12.0; // metalAngle
+          if (isHovered) {
+            values[29] = Math.min(1.2, values[29] + 0.12); // metalEvolution
+          }
+        }
+
         motionPhase += frameDelta * Math.max(values[3], 0);
         values[0] = width;
         values[1] = height;
@@ -458,6 +533,13 @@
       stopped = true;
       if (animationFrame) cancelAnimationFrame(animationFrame);
       try {
+        canvas.removeEventListener("pointerenter", onPointerEnter);
+        canvas.removeEventListener("pointerleave", onPointerLeave);
+        canvas.removeEventListener("pointermove", onPointerMove);
+        if (interactiveParent) {
+          interactiveParent.removeEventListener("pointerenter", onPointerEnter);
+          interactiveParent.removeEventListener("pointerleave", onPointerLeave);
+        }
         ribbonTarget?.destroy();
         device?.destroy();
       } catch (_) {}
@@ -479,7 +561,7 @@
     const mainOrbCanvas = document.querySelector("#liquidOrbCanvas") || document.querySelector("#aiAssistantOrb");
     if (mainOrbCanvas) {
       try {
-        window.liquidOrb = await createLiquidOrb(mainOrbCanvas, { palette: "emerald", initialState: "idle" });
+        window.liquidOrb = await createLiquidOrb(mainOrbCanvas, { palette: "chrome", initialState: "idle" });
       } catch (e) {
         console.warn("[WARN] Failed to auto-init main liquid orb:", e);
       }
@@ -489,7 +571,7 @@
     const guideOrbCanvas = document.querySelector("#guideSectionOrb");
     if (guideOrbCanvas) {
       try {
-        window.guideOrb = await createLiquidOrb(guideOrbCanvas, { palette: "emerald", initialState: "idle" });
+        window.guideOrb = await createLiquidOrb(guideOrbCanvas, { palette: "chrome", initialState: "idle" });
       } catch (e) {
         console.warn("[WARN] Failed to auto-init guide section orb:", e);
       }
@@ -499,7 +581,7 @@
     const miniOrbCanvas = document.querySelector("#miniAdvisorOrb");
     if (miniOrbCanvas) {
       try {
-        window.miniAdvisorOrb = await createLiquidOrb(miniOrbCanvas, { palette: "emerald", initialState: "idle" });
+        window.miniAdvisorOrb = await createLiquidOrb(miniOrbCanvas, { palette: "chrome", initialState: "idle" });
       } catch (e) {
         console.warn("[WARN] Failed to auto-init mini advisor orb:", e);
       }

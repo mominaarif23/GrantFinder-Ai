@@ -1058,19 +1058,21 @@ function appendAdvisorMessage(role, text) {
 
     if (role === 'user') {
         row.innerHTML = `
-            <div class="bg-navy-900 text-white p-3 rounded-2xl rounded-tr-none shadow-xs max-w-[85%] text-xs leading-relaxed">
+            <div class="bg-[#1F4D3E] text-white p-3 rounded-2xl rounded-tr-none shadow-xs max-w-[85%] text-xs leading-relaxed font-normal">
                 ${escapeHtml(text)}
             </div>
-            <div class="w-6 h-6 rounded-lg bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                U
+            <div class="w-7 h-7 rounded-full bg-[#1F4D3E]/20 text-[#1F4D3E] dark:text-[#E8DCC4] border border-[#1F4D3E]/30 dark:border-[#E8DCC4]/30 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                You
             </div>
         `;
     } else {
         row.innerHTML = `
-            <div class="w-6 h-6 rounded-lg bg-[#1F4D3E] flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
-                <img src="/static/img/logo.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
+            <div class="w-7 h-7 rounded-full bg-[#111315] border border-white/15 dark:border-[#2D333B] flex items-center justify-center text-[#E8DCC4] shrink-0 mt-0.5 shadow-sm">
+                <svg class="w-3.5 h-3.5 text-[#E8DCC4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
             </div>
-            <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed text-xs">
+            <div class="bg-white dark:bg-[#181B1F] p-3 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-[#2D333B] shadow-xs max-w-[85%] text-slate-800 dark:text-slate-100 leading-relaxed text-xs">
                 ${escapeHtml(text)}
             </div>
         `;
@@ -1088,13 +1090,15 @@ function appendAdvisorTyping(id) {
     row.id = id;
     row.className = 'flex items-start space-x-2';
     row.innerHTML = `
-        <div class="w-6 h-6 rounded-lg bg-[#1F4D3E] flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
-            <img src="/static/img/logo.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
+        <div class="w-7 h-7 rounded-full bg-[#111315] border border-white/15 dark:border-[#2D333B] flex items-center justify-center text-[#E8DCC4] shrink-0 mt-0.5 shadow-sm">
+            <svg class="w-3.5 h-3.5 text-[#E8DCC4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
         </div>
-        <div class="bg-white px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 text-slate-400 text-xs flex items-center space-x-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.15s"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.3s"></span>
+        <div class="bg-white dark:bg-[#181B1F] px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 dark:border-[#2D333B] text-slate-400 text-xs flex items-center space-x-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.15s"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.3s"></span>
         </div>
     `;
     container.appendChild(row);
@@ -1212,19 +1216,21 @@ function appendInlineMessage(role, text) {
 
     if (role === 'user') {
         row.innerHTML = `
-            <div class="bg-navy-900 text-white p-3 rounded-2xl rounded-tr-none shadow-xs max-w-[85%] text-xs leading-relaxed">
+            <div class="bg-[#1F4D3E] text-white p-3 rounded-2xl rounded-tr-none shadow-xs max-w-[85%] text-xs leading-relaxed font-normal">
                 ${escapeHtml(text)}
             </div>
-            <div class="w-6 h-6 rounded-lg bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                U
+            <div class="w-7 h-7 rounded-full bg-[#1F4D3E]/20 text-[#1F4D3E] dark:text-[#E8DCC4] border border-[#1F4D3E]/30 dark:border-[#E8DCC4]/30 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                You
             </div>
         `;
     } else {
         row.innerHTML = `
-            <div class="w-6 h-6 rounded-lg bg-[#1F4D3E] flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
-                <img src="/static/img/logo.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
+            <div class="w-7 h-7 rounded-full bg-[#111315] border border-white/15 dark:border-[#2D333B] flex items-center justify-center text-[#E8DCC4] shrink-0 mt-0.5 shadow-sm">
+                <svg class="w-3.5 h-3.5 text-[#E8DCC4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
             </div>
-            <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200/80 shadow-xs max-w-[85%] text-slate-700 leading-relaxed text-xs">
+            <div class="bg-white dark:bg-[#181B1F] p-3 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-[#2D333B] shadow-xs max-w-[85%] text-slate-800 dark:text-slate-100 leading-relaxed text-xs">
                 ${escapeHtml(text)}
             </div>
         `;
@@ -1242,13 +1248,15 @@ function appendInlineTyping(id) {
     row.id = id;
     row.className = 'flex items-start space-x-2';
     row.innerHTML = `
-        <div class="w-6 h-6 rounded-lg bg-[#1F4D3E] flex items-center justify-center p-1 shrink-0 mt-0.5 shadow-xs">
-            <img src="/static/img/logo.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
+        <div class="w-7 h-7 rounded-full bg-[#111315] border border-white/15 dark:border-[#2D333B] flex items-center justify-center text-[#E8DCC4] shrink-0 mt-0.5 shadow-sm">
+            <svg class="w-3.5 h-3.5 text-[#E8DCC4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
         </div>
-        <div class="bg-white px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 text-slate-400 text-xs flex items-center space-x-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.15s"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.3s"></span>
+        <div class="bg-white dark:bg-[#181B1F] px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 dark:border-[#2D333B] text-slate-400 text-xs flex items-center space-x-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.15s"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.3s"></span>
         </div>
     `;
     container.appendChild(row);

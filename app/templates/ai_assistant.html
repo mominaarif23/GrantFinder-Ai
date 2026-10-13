@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}AI Opportunity Assistant & Conversational Guidance — GrantFinder AI{% endblock %}
+{% block title %}GrantFinder Intelligence — Autonomous Scholarship & Grant Discovery{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12 space-y-8">
@@ -8,27 +8,27 @@
     <!-- Breadcrumb & Header -->
     <div class="space-y-4 text-left">
         <nav class="flex items-center space-x-2 text-xs font-semibold text-[#6B7C72] dark:text-[#95AFA4]">
-            <a href="/" class="hover:text-[#2A5A4D] dark:hover:text-[#F4E0C8] transition">Home</a>
+            <a href="/" class="hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] transition">Home</a>
             <span>/</span>
-            <span class="text-[#2A5A4D] dark:text-[#F4E0C8]">AI Assistant</span>
+            <span class="text-[#1F4D3E] dark:text-[#E8DCC4]">Intelligence</span>
         </nav>
 
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#E2E8F0]/30 dark:border-[#2D333B]">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200/60 dark:border-[#2D333B]">
             <div class="max-w-3xl space-y-3">
-                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-[#E1EBE6] dark:bg-[#1C3B32] text-[#181B1F] dark:text-[#C3D7CE] border border-[#C3D7CE] dark:border-[#2D333B]">
-                    <svg class="w-3.5 h-3.5 text-[#2A5A4D] dark:text-[#F4E0C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
-                    <span>Interactive Guidance</span>
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold bg-[#1F4D3E]/10 dark:bg-[#1F4D3E]/30 text-[#1F4D3E] dark:text-[#E8DCC4] border border-[#1F4D3E]/20 dark:border-[#E8DCC4]/30">
+                    <svg class="w-3.5 h-3.5 text-[#1F4D3E] dark:text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <span>GrantFinder Intelligence</span>
                 </div>
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#181B1F] dark:text-[#F2F6F4] tracking-tight leading-tight">
-                    GrantFinder <span class="font-serif italic font-normal text-[#2A5A4D] dark:text-[#F4E0C8]">Study Advisor</span>.
+                    GrantFinder <span class="font-serif italic font-normal text-[#1F4D3E] dark:text-[#E8DCC4]">Intelligence</span>.
                 </h1>
-                <p class="text-sm sm:text-base text-[#4A5D54] dark:text-[#C3D7CE] leading-relaxed">
-                    Have an interactive conversation with our specialized funding advisor. Receive personalized scholarship recommendations, understand qualification rubrics, discover startup grant deadlines, or explore global academic pathways.
+                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                    Engage in guided conversation with our specialized funding intelligence suite. Receive calibrated fellowship recommendations, understand qualification rubrics, discover startup grant deadlines, or explore global academic pathways.
                 </p>
             </div>
 
             <div class="flex flex-wrap items-center gap-3 shrink-0">
-                <a href="/destinations" class="px-5 py-2.5 rounded-full bg-[#FFFFFF] dark:bg-[#181B1F] hover:bg-[#F4E0C8] text-[#181B1F] dark:text-[#F4E0C8] font-bold text-xs border border-[#E2E8F0] dark:border-[#2D333B] transition">
+                <a href="/destinations" class="px-5 py-2.5 rounded-full bg-white dark:bg-[#181B1F] hover:bg-slate-50 dark:hover:bg-[#22272E] text-slate-900 dark:text-[#E8DCC4] font-bold text-xs border border-slate-200 dark:border-[#2D333B] transition">
                     View Destinations Hub &rarr;
                 </a>
             </div>
@@ -48,14 +48,14 @@
                 <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-[#8E5624]/25 rounded-full blur-3xl pointer-events-none"></div>
 
                 <!-- Live WebGPU Liquid Glass Orb Canvas -->
-                <div class="relative w-48 h-48 sm:w-56 sm:h-56 my-1 flex items-center justify-center">
-                    <canvas id="liquidOrbCanvas" class="w-full h-full block rounded-full" width="400" height="400" aria-label="Liquid Glass Opportunity Brain"></canvas>
+                <div class="relative w-48 h-48 sm:w-56 sm:h-56 my-1 flex items-center justify-center cursor-pointer">
+                    <canvas id="liquidOrbCanvas" class="w-full h-full block rounded-full" width="400" height="400" aria-label="Liquid Chrome Intelligence Core"></canvas>
                 </div>
 
-                <!-- Dynamic Status Capsule -->
-                <div class="flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 dark:bg-black/40 border border-white/15 backdrop-blur-md">
-                    <span id="orbStatusDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    <span id="orbStatusText" class="text-xs font-bold text-[#E8DCC4] uppercase tracking-wider">Neural Engine · Idle Flow</span>
+                <!-- Dynamic Status Capsule (Thinking... / Active Flow) -->
+                <div class="luxury-orb-capsule inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#181B1F]/90 border border-white/10 shadow-xl backdrop-blur-md">
+                    <span id="orbStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span id="orbStatusText" class="text-xs font-bold text-[#E8DCC4] tracking-wide">Ambient Flow</span>
                 </div>
 
                 <div class="space-y-1 max-w-sm pt-1">
@@ -147,48 +147,52 @@
             <div class="rounded-3xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-xl overflow-hidden flex flex-col h-[600px] sm:h-[660px]">
 
                 <!-- Chat Header -->
-                <div class="px-5 py-4 bg-[#F8F9FA] dark:bg-[#111315] border-b border-[#E2E8F0]/30 dark:border-[#2D333B] flex items-center justify-between shrink-0">
+                <div class="px-5 py-4 bg-[#F8F9FA] dark:bg-[#111315] border-b border-slate-200/60 dark:border-[#2D333B] flex items-center justify-between shrink-0">
                     <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 rounded-xl bg-[#1F4D3E] flex items-center justify-center p-1.5 shadow-xs">
-                            <img src="/static/img/logo_dark.png" alt="Advisor" class="w-5 h-5 object-contain">
+                        <div class="w-8 h-8 rounded-full bg-[#111315] border border-white/15 flex items-center justify-center text-[#E8DCC4] shadow-sm">
+                            <svg class="w-4 h-4 text-[#E8DCC4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
                         </div>
                         <div>
-                            <h3 class="text-xs font-bold text-[#181B1F] dark:text-[#F2F6F4] leading-tight">GrantFinder AI Advisor</h3>
-                            <p class="text-[10px] text-[#8E5624] dark:text-[#E8DCC4]">Autonomous Reasoning Session</p>
+                            <h3 class="text-xs font-bold text-[#181B1F] dark:text-[#F2F6F4] leading-tight">GrantFinder Intelligence</h3>
+                            <p class="text-[10px] text-slate-500 dark:text-[#E8DCC4]">Autonomous Reasoning Session</p>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <button type="button" onclick="clearAdvisorConversation()" class="text-[11px] font-bold text-[#6B7C72] hover:text-[#53161D] bg-[#FFFFFF] dark:bg-[#181B1F] hover:bg-[#FDF8F3] px-3 py-1.5 rounded-full border border-[#E2E8F0]/40 dark:border-[#2D333B] transition cursor-pointer">
+                        <button type="button" onclick="clearAdvisorConversation()" class="text-[11px] font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white bg-white dark:bg-[#181B1F] hover:bg-slate-100 px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-[#2D333B] transition cursor-pointer">
                             Clear Chat
                         </button>
                     </div>
                 </div>
 
                 <!-- Chat Message Stream -->
-                <div id="inlineAdvisorMessages" class="flex-1 p-5 overflow-y-auto space-y-4 text-xs bg-[#F8F9FA]/70 dark:bg-[#111315]">
+                <div id="inlineAdvisorMessages" class="flex-1 p-5 overflow-y-auto space-y-4 text-xs bg-slate-50/70 dark:bg-[#111315]">
                     <div class="flex items-start space-x-2.5">
-                        <div class="w-7 h-7 rounded-xl bg-[#1F4D3E] flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
-                            <img src="/static/img/logo_dark.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
+                        <div class="w-7 h-7 rounded-full bg-[#111315] border border-white/15 dark:border-[#2D333B] flex items-center justify-center text-[#E8DCC4] shrink-0 mt-0.5 shadow-sm">
+                            <svg class="w-3.5 h-3.5 text-[#E8DCC4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
                         </div>
-                        <div class="bg-[#FFFFFF] dark:bg-[#181B1F] p-4 rounded-2xl rounded-tl-none border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-xs max-w-[88%] text-[#181B1F] dark:text-[#C3D7CE] leading-relaxed space-y-2">
-                            <p class="font-bold text-[#181B1F] dark:text-[#F2F6F4]">Welcome to the GrantFinder AI Assistant.</p>
+                        <div class="bg-white dark:bg-[#181B1F] p-4 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-[#2D333B] shadow-xs max-w-[88%] text-slate-800 dark:text-slate-200 leading-relaxed space-y-2">
+                            <p class="font-bold text-[#181B1F] dark:text-[#F2F6F4]">Welcome to GrantFinder Intelligence.</p>
                             <p>
-                                I am calibrated to analyze your academic degree or startup venture against thousands of verified opportunities.
+                                I am calibrated to evaluate your academic discipline or venture stage against verified global fellowships, university grants, and funding rubrics.
                             </p>
-                            <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4]">
-                                To begin, tell me: What degree or venture stage are you pursuing, and what country or funding type do you prefer?
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                                To begin, tell me: Which degree program, country, or startup sector would you like to explore?
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Chat Input Form -->
-                <div class="p-4 bg-[#FFFFFF] dark:bg-[#181B1F] border-t border-[#E2E8F0]/30 dark:border-[#2D333B] shrink-0">
+                <div class="p-4 bg-white dark:bg-[#181B1F] border-t border-slate-200/60 dark:border-[#2D333B] shrink-0">
                     <form id="inlineAdvisorForm" onsubmit="handleInlineAdvisorSubmit(event)" class="flex items-center space-x-2">
                         <input id="inlineAdvisorInput" type="text" placeholder="Ask about scholarships, grants, eligibility, or deadlines..." 
-                               class="flex-1 px-4 py-3 rounded-xl bg-[#F8F9FA] dark:bg-[#111315] border border-[#E2E8F0]/60 dark:border-[#2D333B] text-xs text-[#181B1F] dark:text-[#F2F6F4] placeholder-[#748D83] focus:outline-none focus:ring-2 focus:ring-[#1F4D3E] focus:bg-[#FFFFFF] transition"
+                               class="flex-1 px-4 py-3 rounded-full bg-slate-100 dark:bg-[#111315] border border-slate-200 dark:border-[#2D333B] text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1F4D3E] focus:bg-white dark:focus:bg-[#181B1F] transition"
                                autocomplete="off">
-                        <button type="submit" class="px-5 py-3 rounded-full bg-[#1F4D3E] hover:bg-[#16392E] text-white font-bold text-xs transition shrink-0 shadow-sm flex items-center space-x-1.5 cursor-pointer">
+                        <button type="submit" class="px-6 py-3 rounded-full bg-[#1F4D3E] hover:bg-[#16392E] text-white font-bold text-xs transition shrink-0 shadow-sm flex items-center space-x-1.5 cursor-pointer active:scale-95">
                             <span>Send</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
@@ -208,12 +212,14 @@ function clearAdvisorConversation() {
     if (container) {
         container.innerHTML = `
             <div class="flex items-start space-x-2.5">
-                <div class="w-7 h-7 rounded-xl bg-[#1F4D3E] flex items-center justify-center p-1.5 shrink-0 mt-0.5 shadow-xs">
-                    <img src="/static/img/logo_dark.png" alt="GrantFinder AI" class="w-4 h-4 object-contain">
+                <div class="w-7 h-7 rounded-full bg-[#111315] border border-white/15 dark:border-[#2D333B] flex items-center justify-center text-[#E8DCC4] shrink-0 mt-0.5 shadow-sm">
+                    <svg class="w-3.5 h-3.5 text-[#E8DCC4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
                 </div>
-                <div class="bg-[#FFFFFF] dark:bg-[#181B1F] p-4 rounded-2xl rounded-tl-none border border-[#E2E8F0]/40 dark:border-[#2D333B] shadow-xs max-w-[88%] text-[#181B1F] dark:text-[#C3D7CE] leading-relaxed">
+                <div class="bg-white dark:bg-[#181B1F] p-4 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-[#2D333B] shadow-xs max-w-[88%] text-slate-800 dark:text-slate-200 leading-relaxed font-normal">
                     <p class="font-bold text-[#181B1F] dark:text-[#F2F6F4]">Conversation reset.</p>
-                    <p class="text-xs text-[#6B7C72] dark:text-[#95AFA4] mt-1">What degree program or startup sector would you like to explore?</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">What degree program or startup sector would you like to explore?</p>
                 </div>
             </div>
         `;
