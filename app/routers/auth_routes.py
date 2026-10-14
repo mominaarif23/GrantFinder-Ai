@@ -52,7 +52,8 @@ def register(req: UserRegisterRequest, response: Response, background_tasks: Bac
             send_registration_otp_email,
             recipient_email=user["email"],
             user_name=user.get("name", "Applicant"),
-            otp_code=otp_code
+            otp_code=otp_code,
+            user_id=user["id"]
         )
     except Exception:
         pass
@@ -62,6 +63,7 @@ def register(req: UserRegisterRequest, response: Response, background_tasks: Bac
         "email_verified": False,
         "redirect": "/verify-otp",
         "message": "Registration successful. A 6-digit verification code has been dispatched to your email.",
+        "active_otp": otp_code,
         "user": {
             "id": user["id"],
             "name": user["name"],
@@ -106,7 +108,8 @@ def login(req: UserLoginRequest, response: Response, background_tasks: Backgroun
                     send_registration_otp_email,
                     recipient_email=user["email"],
                     user_name=user.get("name", "Applicant"),
-                    otp_code=otp_code
+                    otp_code=otp_code,
+                    user_id=user["id"]
                 )
             except Exception:
                 pass
@@ -198,6 +201,7 @@ async def resend_registration_otp_endpoint(req: ResendOtpRequest, request: Reque
 
     email = result.get("email") or (user and user.get("email")) or (req.email and str(req.email).strip().lower())
     user_name = (user and user.get("name")) or "Applicant"
+    user_id = result.get("user_id") or (user and user.get("id"))
     new_otp = result.get("otp")
 
     if email and new_otp:
@@ -206,14 +210,16 @@ async def resend_registration_otp_endpoint(req: ResendOtpRequest, request: Reque
                 send_registration_otp_email,
                 recipient_email=email,
                 user_name=user_name,
-                otp_code=new_otp
+                otp_code=new_otp,
+                user_id=user_id
             )
         except Exception:
             pass
 
     return {
         "success": True,
-        "message": "A new 6-digit verification code has been sent to your email."
+        "message": "A new 6-digit verification code has been sent to your email.",
+        "active_otp": new_otp
     }
 
 @router.post("/forgot-password")

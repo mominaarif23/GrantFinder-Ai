@@ -606,6 +606,7 @@ class SupabaseService:
         return {
             "success": True,
             "otp": new_code,
+            "active_otp": new_code,
             "email": email,
             "user_id": user_id,
             "message": "A new 6-digit verification code has been dispatched."

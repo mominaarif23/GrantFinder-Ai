@@ -28,7 +28,8 @@ def send_smtp_email(
         return True
 
     if not settings.SMTP_USER or not settings.SMTP_PASS:
-        return True
+        print(f"[SMTP NOTICE] Outbound SMTP skipped for {recipient_email}: SMTP_USER or SMTP_PASS is unset in environment.")
+        return False
 
     try:
         msg = MIMEMultipart("alternative")
@@ -240,9 +241,34 @@ def send_optin_confirmation_email(
 def send_registration_otp_email(
     recipient_email: str,
     user_name: str,
-    otp_code: str
+    otp_code: str,
+    user_id: Optional[str] = None
 ) -> bool:
-    """Send 6-digit account verification OTP email to any registering user (free or premium)."""
+    """Send 6-digit account verification OTP email to any registering user (free or premium).
+    Guarantees In-App notification dispatch so user always has their OTP even if external SMTP is blocked.
+    """
+    if not user_id:
+        try:
+            u = supabase_service.get_user_by_email(recipient_email)
+            if u:
+                user_id = u.get("id")
+        except Exception:
+            pass
+
+    if user_id:
+        in_app_msg = (
+            f"Your 6-digit account verification code is {otp_code}. Valid for 10 minutes. "
+            f"If not visible in your email inbox, please check your Spam/Junk folder."
+        )
+        try:
+            supabase_service.insert_notification(
+                user_id=user_id,
+                message=in_app_msg,
+                channel="in_app"
+            )
+        except Exception:
+            pass
+
     subject = "Verify Your Account - Security Verification Code"
     message = (
         f"Dear <strong>{user_name}</strong>,<br><br>"

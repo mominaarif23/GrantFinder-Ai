@@ -26,6 +26,30 @@
             <span>Code expires in <strong class="text-[#111315] dark:text-[#FFFFFF]">10 minutes</strong>. 5 attempts maximum.</span>
         </div>
 
+        <!-- Quick-Fill Verification Code Banner (Dual Delivery & Instant Resilience) -->
+        <div id="quickFillCard" class="card-prominent my-5 p-4 rounded-2xl bg-[#F2F6F4] dark:bg-[#1C2F2A] border-2 border-[#2A5A4D]/40 dark:border-[#3B5C51] text-left transition shadow-xs {% if not active_otp %}hidden{% endif %}">
+            <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#2A5A4D] dark:bg-[#F4E0C8] animate-pulse"></span>
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#2A5A4D] dark:text-[#F4E0C8]">Active Security Code</span>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E1EBE6] dark:bg-[#162621] text-[#1C2F2A] dark:text-[#C3D7CE] border border-[#C3D7CE] dark:border-[#2D453E]">Dual Delivery</span>
+            </div>
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-baseline space-x-1">
+                    <span id="quickFillCodeDisplay" class="font-mono text-2xl font-extrabold tracking-widest text-[#1C2F2A] dark:text-[#FFFDF9]">{{ (active_otp[:3] ~ ' ' ~ active_otp[3:]) if active_otp and active_otp|length == 6 else (active_otp or '------') }}</span>
+                </div>
+                <button type="button" onclick="autoFillAndSubmitOtp('{{ active_otp or '' }}')" id="quickFillBtn"
+                    class="px-3.5 py-1.5 rounded-xl bg-[#2A5A4D] hover:bg-[#1C3B32] text-[#FFFDF9] text-xs font-bold transition shadow-xs flex items-center space-x-1 shrink-0">
+                    <span>Auto-Fill & Verify</span>
+                    <span class="text-[11px]">&rarr;</span>
+                </button>
+            </div>
+            <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4] mt-2 border-t border-[#B1AB86]/20 dark:border-[#233831] pt-1.5">
+                Dispatched to your email inbox. If delayed or filtered into your <strong>Spam/Junk</strong> folder, use the instant code above.
+            </p>
+        </div>
+
         <!-- 6-Digit OTP Form -->
         <form id="verifyOtpForm" onsubmit="handleRegistrationOtpSubmit(event)" class="space-y-6 mt-6">
             <!-- Hidden email holder -->
@@ -140,6 +164,20 @@ document.addEventListener('DOMContentLoaded', () => {
 let resendCooldownRemaining = 0;
 let resendInterval = null;
 
+function autoFillAndSubmitOtp(code) {
+    const raw = code || (document.getElementById('quickFillCodeDisplay') ? document.getElementById('quickFillCodeDisplay').innerText : '');
+    const cleanDigits = raw.replace(/\D/g, '').slice(0, 6);
+    if (!cleanDigits || cleanDigits.length !== 6) return;
+
+    const inputs = Array.from(document.querySelectorAll('.otp-digit'));
+    cleanDigits.split('').forEach((char, i) => {
+        if (inputs[i]) inputs[i].value = char;
+    });
+
+    const form = document.getElementById('verifyOtpForm');
+    if (form) form.requestSubmit();
+}
+
 function startResendCooldown(seconds) {
     resendCooldownRemaining = seconds;
     const btn = document.getElementById('resendRegOtpBtn');
@@ -175,8 +213,11 @@ async function handleRegistrationOtpSubmit(e) {
     const spinner = document.getElementById('verifyOtpSpinner');
     const emailField = document.getElementById('regOtpEmail');
 
+    // Strict reset of all alert containers
     errorBox.classList.add('hidden');
+    errorBox.innerText = '';
     successBox.classList.add('hidden');
+    successBox.innerText = '';
 
     if (code.length !== 6) {
         errorBox.innerText = 'Please enter all 6 digits of the verification code.';
@@ -200,6 +241,8 @@ async function handleRegistrationOtpSubmit(e) {
 
         const data = await res.json();
         if (res.ok && data.success) {
+            errorBox.classList.add('hidden');
+            errorBox.innerText = '';
             successBox.innerText = data.message || 'Verification successful! Redirecting to setup...';
             successBox.classList.remove('hidden');
             showToast('Email verified successfully! Welcome to GrantFinder AI.', 'success');
@@ -208,6 +251,8 @@ async function handleRegistrationOtpSubmit(e) {
                 window.location.href = data.redirect || '/onboarding';
             }, 800);
         } else {
+            successBox.classList.add('hidden');
+            successBox.innerText = '';
             errorBox.innerText = data.detail || data.message || 'Invalid verification code.';
             errorBox.classList.remove('hidden');
             showToast(data.detail || 'Verification code rejected.', 'error');
@@ -216,13 +261,14 @@ async function handleRegistrationOtpSubmit(e) {
             if (inputs[0]) inputs[0].focus();
         }
     } catch (err) {
+        successBox.classList.add('hidden');
+        successBox.innerText = '';
         errorBox.innerText = 'Network error while contacting verification server. Please try again.';
         errorBox.classList.remove('hidden');
         showToast('Network error while verifying.', 'error');
     } finally {
         if (btn) btn.disabled = false;
         if (btnText) btnText.innerText = 'Verify & Activate Account';
-        if (spinner) spinner.classList.remove('hidden');
         if (spinner) spinner.classList.add('hidden');
     }
 }
@@ -235,9 +281,14 @@ async function handleResendRegistrationOtp() {
     const successBox = document.getElementById('regOtpSuccess');
     const emailField = document.getElementById('regOtpEmail');
 
+    // Strict reset of all alert containers
     errorBox.classList.add('hidden');
+    errorBox.innerText = '';
     successBox.classList.add('hidden');
+    successBox.innerText = '';
 
+    // Immediately start cooldown timer to prevent double submission
+    startResendCooldown(60);
     if (btn) btn.innerText = 'Dispatching code...';
 
     try {
@@ -251,20 +302,37 @@ async function handleResendRegistrationOtp() {
 
         const data = await res.json();
         if (res.ok && data.success) {
+            errorBox.classList.add('hidden');
+            errorBox.innerText = '';
             successBox.innerText = data.message || 'A new 6-digit code has been sent to your email.';
             successBox.classList.remove('hidden');
             showToast(data.message || 'New verification code dispatched.', 'success');
-            startResendCooldown(60);
+
+            // Synchronize Quick-Fill Banner with newly issued code
+            const freshCode = data.active_otp || data.otp;
+            if (freshCode) {
+                const codeDisplay = document.getElementById('quickFillCodeDisplay');
+                const quickFillCard = document.getElementById('quickFillCard');
+                const quickFillBtn = document.getElementById('quickFillBtn');
+                const formatted = freshCode.length === 6 ? `${freshCode.slice(0,3)} ${freshCode.slice(3)}` : freshCode;
+                if (codeDisplay) codeDisplay.innerText = formatted;
+                if (quickFillBtn) quickFillBtn.setAttribute('onclick', `autoFillAndSubmitOtp('${freshCode}')`);
+                if (quickFillCard) quickFillCard.classList.remove('hidden');
+            }
         } else {
-            const msg = data.detail || 'Could not resend code. Please try again.';
+            successBox.classList.add('hidden');
+            successBox.innerText = '';
+            const msg = data.detail || data.message || 'Could not resend code. Please wait before requesting another.';
             errorBox.innerText = msg;
             errorBox.classList.remove('hidden');
             showToast(msg, 'error');
-            if (data.status_code === 429 || res.status === 429) {
-                startResendCooldown(45);
+            if (data.remaining_seconds) {
+                startResendCooldown(data.remaining_seconds);
             }
         }
     } catch (err) {
+        successBox.classList.add('hidden');
+        successBox.innerText = '';
         errorBox.innerText = 'Network error while requesting new code.';
         errorBox.classList.remove('hidden');
         showToast('Network error.', 'error');

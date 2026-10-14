@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 import os
-from fastapi import APIRouter, Request, Response, Depends, HTTPException, status
+from fastapi import APIRouter, Request, Response, Depends, HTTPException, status, BackgroundTasks
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Dict, Any
@@ -15,7 +15,7 @@ from app.db import (
     set_user_verified, verify_registration_otp
 )
 from app.models import CuratedOpportunityCreate
-from app.services.notification_service import send_optin_confirmation_email
+from app.services.notification_service import send_optin_confirmation_email, send_registration_otp_email
 from app.services.supabase_service import supabase_service
 
 templates_dir = os.path.join(os.path.dirname(__file__), "..", "templates")
@@ -181,7 +181,7 @@ def register_view(request: Request):
     return templates.TemplateResponse(request=request, name="register.html", context={"user": None})
 
 @router.get("/verify-otp", response_class=HTMLResponse)
-def verify_otp_view(request: Request):
+def verify_otp_view(request: Request, background_tasks: BackgroundTasks):
     user = get_current_user_optional(request)
     if not user:
         return RedirectResponse(url="/login?next=/verify-otp", status_code=302)
@@ -191,6 +191,16 @@ def verify_otp_view(request: Request):
     active_otp = get_latest_registration_otp(user["id"]) or get_latest_registration_otp(user["email"])
     if not active_otp:
         active_otp = generate_registration_otp(user["id"], user["email"])
+        try:
+            background_tasks.add_task(
+                send_registration_otp_email,
+                recipient_email=user["email"],
+                user_name=user.get("name", "Applicant"),
+                otp_code=active_otp,
+                user_id=user["id"]
+            )
+        except Exception:
+            pass
 
     return templates.TemplateResponse(request=request, name="verify_otp.html", context={
         "user": user,
