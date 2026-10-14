@@ -230,6 +230,10 @@
 <script>
 async function handleAddCurated(e) {
     e.preventDefault();
+    const form = e.target || document.getElementById('addCuratedForm');
+    if (window.GrantFinderValidator && !window.GrantFinderValidator.validateForm(form)) {
+        return;
+    }
     const btn = document.getElementById('addCuratedBtn');
     btn.disabled = true;
     btn.innerText = 'Saving...';

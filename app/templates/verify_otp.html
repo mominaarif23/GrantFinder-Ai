@@ -222,6 +222,13 @@ async function handleRegistrationOtpSubmit(e) {
     if (code.length !== 6) {
         errorBox.innerText = 'Please enter all 6 digits of the verification code.';
         errorBox.classList.remove('hidden');
+        const form = document.getElementById('verifyOtpForm');
+        if (form) {
+            form.classList.remove('animate-shake');
+            void form.offsetWidth;
+            form.classList.add('animate-shake');
+            setTimeout(() => form.classList.remove('animate-shake'), 400);
+        }
         return;
     }
 

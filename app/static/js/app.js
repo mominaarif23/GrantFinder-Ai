@@ -124,6 +124,10 @@ function togglePasswordVisibility(inputId, toggleBtnId) {
 
 async function handleLoginSubmit(e) {
     e.preventDefault();
+    const form = e.target || document.getElementById('loginForm');
+    if (window.GrantFinderValidator && !window.GrantFinderValidator.validateForm(form)) {
+        return;
+    }
     const btn = document.getElementById('loginBtn');
     const errorBox = document.getElementById('loginError');
     errorBox.classList.add('hidden');
@@ -182,6 +186,10 @@ async function handleLoginSubmit(e) {
 
 async function handleRegisterSubmit(e) {
     e.preventDefault();
+    const form = e.target || document.getElementById('registerForm');
+    if (window.GrantFinderValidator && !window.GrantFinderValidator.validateForm(form)) {
+        return;
+    }
     const btn = document.getElementById('registerBtn');
     const errorBox = document.getElementById('registerError');
     errorBox.classList.add('hidden');
@@ -237,6 +245,10 @@ async function handleLogout() {
 
 async function handleProfileSubmit(e, profileType) {
     e.preventDefault();
+    const form = e.target || document.getElementById('profileForm');
+    if (window.GrantFinderValidator && !window.GrantFinderValidator.validateForm(form)) {
+        return;
+    }
     const btn = document.getElementById('saveProfileBtn');
     const statusMsg = document.getElementById('profileStatusMsg');
     btn.disabled = true;
@@ -1507,6 +1519,10 @@ async function handleAvatarRemove() {
 
 async function handleProfileSubmit(event) {
     event.preventDefault();
+    const form = event.target || document.getElementById('profileForm');
+    if (window.GrantFinderValidator && !window.GrantFinderValidator.validateForm(form)) {
+        return;
+    }
 
     const btn = document.getElementById('saveProfileBtn');
     const btnText = document.getElementById('saveProfileBtnText');

@@ -1,7 +1,8 @@
 import os
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from app.config import settings
 from app.db import init_db, get_user_by_email, create_user
@@ -66,6 +67,24 @@ from typing import Dict, Any
 @app.post("/api/user/upgrade")
 def user_upgrade_route(user: Dict[str, Any] = Depends(get_current_user)):
     return opportunity_routes.mock_upgrade_plan(user)
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    errors = exc.errors()
+    if errors:
+        first_err = errors[0]
+        field = first_err.get("loc", ["field"])[-1]
+        msg = first_err.get("msg", "Invalid input value.")
+        if msg.startswith("Value error, "):
+            msg = msg.replace("Value error, ", "")
+        field_name = str(field).replace("_", " ").title()
+        user_msg = f"{field_name}: {msg}"
+    else:
+        user_msg = "Invalid request parameters provided."
+    return JSONResponse(
+        status_code=422,
+        content={"detail": user_msg, "success": False, "errors": errors}
+    )
 
 @app.exception_handler(404)
 async def custom_404_handler(request: Request, exc):
