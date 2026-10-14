@@ -82,47 +82,47 @@
       const cy = h / 2;
       const r = Math.min(w, h) * 0.38;
 
-      const speedIncrement = isThinking ? 0.05 : (isHovered ? 0.042 : 0.018);
+      const speedIncrement = isThinking ? 0.065 : (isHovered ? 0.052 : 0.036);
       phase += speedIncrement;
 
-      // Outer glow
-      const glowGrad = ctx.createRadialGradient(cx, cy, r * 0.7, cx, cy, r * 1.35);
+      // Outer atmospheric bloom
+      const glowGrad = ctx.createRadialGradient(cx, cy, r * 0.6, cx, cy, r * 1.4);
       if (paletteName === "emerald") {
-        glowGrad.addColorStop(0, isThinking ? "rgba(31, 77, 62, 0.45)" : (isHovered ? "rgba(31, 77, 62, 0.35)" : "rgba(31, 77, 62, 0.22)"));
-        glowGrad.addColorStop(0.7, isThinking ? "rgba(142, 86, 36, 0.2)" : "rgba(232, 220, 196, 0.12)");
+        glowGrad.addColorStop(0, isThinking ? "rgba(31, 77, 62, 0.55)" : (isHovered ? "rgba(31, 77, 62, 0.42)" : "rgba(31, 77, 62, 0.3)"));
+        glowGrad.addColorStop(0.7, isThinking ? "rgba(142, 86, 36, 0.28)" : "rgba(232, 220, 196, 0.18)");
       } else {
-        glowGrad.addColorStop(0, isThinking ? "rgba(232, 220, 196, 0.35)" : (isHovered ? "rgba(200, 215, 230, 0.3)" : "rgba(180, 190, 205, 0.15)"));
-        glowGrad.addColorStop(0.7, isThinking ? "rgba(100, 116, 139, 0.2)" : "rgba(148, 163, 184, 0.1)");
+        glowGrad.addColorStop(0, isThinking ? "rgba(186, 230, 253, 0.45)" : (isHovered ? "rgba(226, 232, 240, 0.4)" : "rgba(148, 163, 184, 0.28)"));
+        glowGrad.addColorStop(0.7, isThinking ? "rgba(100, 116, 139, 0.25)" : "rgba(203, 213, 225, 0.15)");
       }
       glowGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = glowGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, r * 1.35, 0, Math.PI * 2);
+      ctx.arc(cx, cy, r * 1.4, 0, Math.PI * 2);
       ctx.fill();
 
-      // Main sphere body with dynamic light tracking
-      const lightDx = Math.sin(phase) * 6 + pointerOffset.x * 8;
-      const lightDy = Math.cos(phase) * 6 + pointerOffset.y * 8;
+      // Main sphere base body with dynamic light tracking
+      const lightDx = Math.sin(phase * 0.9) * 8 + pointerOffset.x * 10;
+      const lightDy = Math.cos(phase * 0.9) * 8 + pointerOffset.y * 10;
       const bodyGrad = ctx.createRadialGradient(
-        cx - r * 0.3 + lightDx,
-        cy - r * 0.3 + lightDy,
-        r * 0.08,
+        cx - r * 0.32 + lightDx,
+        cy - r * 0.32 + lightDy,
+        r * 0.06,
         cx,
         cy,
         r
       );
       if (paletteName === "emerald") {
-        bodyGrad.addColorStop(0, isThinking ? "#E8DCC4" : "#F4ECE1");
-        bodyGrad.addColorStop(0.25, isThinking ? "#8E5624" : "#2A6A55");
+        bodyGrad.addColorStop(0, isThinking ? "#F4ECE1" : "#FFFFFF");
+        bodyGrad.addColorStop(0.25, isThinking ? "#A05E22" : "#2A6A55");
         bodyGrad.addColorStop(0.65, isThinking ? "#1F4D3E" : "#163D31");
-        bodyGrad.addColorStop(1, "#111315");
+        bodyGrad.addColorStop(1, "#0B1612");
       } else {
-        // Liquid Chrome Shader emulation
-        bodyGrad.addColorStop(0, isThinking ? "#FFFFFF" : "#F8FAFC");
-        bodyGrad.addColorStop(0.22, isThinking ? "#E2E8F0" : "#CBD5E1");
-        bodyGrad.addColorStop(0.55, isThinking ? "#94A3B8" : "#64748B");
-        bodyGrad.addColorStop(0.82, "#334155");
-        bodyGrad.addColorStop(1, "#0F172A");
+        // Liquid Chrome metallic foundation
+        bodyGrad.addColorStop(0, "#FFFFFF");
+        bodyGrad.addColorStop(0.18, "#E2E8F0");
+        bodyGrad.addColorStop(0.48, "#94A3B8");
+        bodyGrad.addColorStop(0.78, "#334155");
+        bodyGrad.addColorStop(1, "#0A0E14");
       }
 
       ctx.fillStyle = bodyGrad;
@@ -130,52 +130,100 @@
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.fill();
 
-      // Inner liquid chrome swirls & chromatic dispersion
+      // Inner liquid chrome fluid simulation
       ctx.save();
       ctx.beginPath();
-      ctx.arc(cx, cy, r * 0.96, 0, Math.PI * 2);
+      ctx.arc(cx, cy, r * 0.97, 0, Math.PI * 2);
       ctx.clip();
 
-      for (let i = 0; i < 3; i++) {
-        const swirlAngle = phase * (i % 2 === 0 ? 1 : -1) + (i * Math.PI) / 1.5 + pointerOffset.x * 0.5;
-        const sx = cx + Math.cos(swirlAngle) * r * 0.4;
-        const sy = cy + Math.sin(swirlAngle) * r * 0.4;
-        const swirlGrad = ctx.createRadialGradient(sx, sy, 5, sx, sy, r * 0.65);
+      // Dynamic chromatic wave ribbons
+      for (let waveIdx = 0; waveIdx < 4; waveIdx++) {
+        const wavePhase = phase * 1.2 + waveIdx * 1.4;
+        const waveY = cy + Math.sin(wavePhase * 0.8) * r * 0.42;
+        ctx.beginPath();
+        ctx.moveTo(cx - r, cy);
+        ctx.bezierCurveTo(
+          cx - r * 0.5, waveY + Math.cos(wavePhase) * r * 0.35,
+          cx + r * 0.5, waveY - Math.sin(wavePhase) * r * 0.35,
+          cx + r, cy
+        );
+        ctx.lineTo(cx + r, cy + r);
+        ctx.lineTo(cx - r, cy + r);
+        ctx.closePath();
+
+        const ribbonGrad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
         if (paletteName === "emerald") {
-          swirlGrad.addColorStop(0, "rgba(232, 220, 196, 0.35)");
-          swirlGrad.addColorStop(0.5, "rgba(31, 77, 62, 0.2)");
+          ribbonGrad.addColorStop(0, "rgba(232, 220, 196, 0.42)");
+          ribbonGrad.addColorStop(0.5, "rgba(45, 212, 191, 0.28)");
+          ribbonGrad.addColorStop(1, "rgba(31, 77, 62, 0.4)");
         } else {
-          swirlGrad.addColorStop(0, i === 0 ? "rgba(186, 230, 253, 0.4)" : "rgba(244, 244, 245, 0.35)");
-          swirlGrad.addColorStop(0.5, "rgba(148, 163, 184, 0.18)");
+          // Chromatic dispersion spectrum: sky-blue -> pure silver -> champagne -> graphite
+          if (waveIdx === 0) {
+            ribbonGrad.addColorStop(0, "rgba(186, 230, 253, 0.52)");
+            ribbonGrad.addColorStop(0.6, "rgba(248, 250, 252, 0.35)");
+            ribbonGrad.addColorStop(1, "rgba(51, 65, 85, 0.2)");
+          } else if (waveIdx === 1) {
+            ribbonGrad.addColorStop(0, "rgba(254, 215, 170, 0.42)");
+            ribbonGrad.addColorStop(0.5, "rgba(226, 232, 240, 0.45)");
+            ribbonGrad.addColorStop(1, "rgba(15, 23, 42, 0.35)");
+          } else {
+            ribbonGrad.addColorStop(0, "rgba(244, 244, 245, 0.48)");
+            ribbonGrad.addColorStop(0.5, "rgba(148, 163, 184, 0.32)");
+            ribbonGrad.addColorStop(1, "rgba(2, 6, 23, 0.4)");
+          }
+        }
+        ctx.fillStyle = ribbonGrad;
+        ctx.fill();
+      }
+
+      // Swirling fluid vortices
+      for (let i = 0; i < 3; i++) {
+        const swirlAngle = phase * (i % 2 === 0 ? 1.2 : -1.1) + (i * Math.PI) / 1.5 + pointerOffset.x * 0.6;
+        const sx = cx + Math.cos(swirlAngle) * r * 0.42;
+        const sy = cy + Math.sin(swirlAngle) * r * 0.42;
+        const swirlGrad = ctx.createRadialGradient(sx, sy, 2, sx, sy, r * 0.7);
+        if (paletteName === "emerald") {
+          swirlGrad.addColorStop(0, "rgba(232, 220, 196, 0.48)");
+          swirlGrad.addColorStop(0.5, "rgba(31, 77, 62, 0.25)");
+        } else {
+          swirlGrad.addColorStop(0, i === 0 ? "rgba(186, 230, 253, 0.5)" : "rgba(255, 255, 255, 0.45)");
+          swirlGrad.addColorStop(0.4, "rgba(226, 232, 240, 0.25)");
+          swirlGrad.addColorStop(0.7, "rgba(100, 116, 139, 0.12)");
         }
         swirlGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = swirlGrad;
         ctx.beginPath();
-        ctx.arc(sx, sy, r * 0.65, 0, Math.PI * 2);
+        ctx.arc(sx, sy, r * 0.7, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.restore();
 
-      // Glass specular highlight
+      // Specular glare moving with fluid cycle
+      const specX = cx - r * 0.32 + Math.sin(phase * 0.6) * 5 + pointerOffset.x * 6;
+      const specY = cy - r * 0.32 + Math.cos(phase * 0.6) * 5 + pointerOffset.y * 6;
       const hlGrad = ctx.createRadialGradient(
-        cx - r * 0.35 + pointerOffset.x * 4,
-        cy - r * 0.35 + pointerOffset.y * 4,
-        2,
-        cx - r * 0.35 + pointerOffset.x * 4,
-        cy - r * 0.35 + pointerOffset.y * 4,
-        r * 0.55
+        specX,
+        specY,
+        1,
+        specX,
+        specY,
+        r * 0.58
       );
-      hlGrad.addColorStop(0, "rgba(255, 255, 255, 0.92)");
-      hlGrad.addColorStop(0.35, "rgba(226, 232, 240, 0.35)");
+      hlGrad.addColorStop(0, "rgba(255, 255, 255, 0.96)");
+      hlGrad.addColorStop(0.28, "rgba(241, 245, 249, 0.45)");
       hlGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
       ctx.fillStyle = hlGrad;
       ctx.beginPath();
-      ctx.arc(cx - r * 0.35 + pointerOffset.x * 4, cy - r * 0.35 + pointerOffset.y * 4, r * 0.55, 0, Math.PI * 2);
+      ctx.arc(specX, specY, r * 0.58, 0, Math.PI * 2);
       ctx.fill();
 
-      // Glass border rim with subtle prismatic fringe
-      ctx.strokeStyle = paletteName === "emerald" ? "rgba(232, 220, 196, 0.3)" : "rgba(255, 255, 255, 0.35)";
-      ctx.lineWidth = 1.5;
+      // Secondary edge glint (fresnel rim)
+      const rimGrad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+      rimGrad.addColorStop(0, "rgba(255, 255, 255, 0.65)");
+      rimGrad.addColorStop(0.5, "rgba(186, 230, 253, 0.25)");
+      rimGrad.addColorStop(1, "rgba(255, 255, 255, 0.45)");
+      ctx.strokeStyle = rimGrad;
+      ctx.lineWidth = 1.75;
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.stroke();
@@ -451,23 +499,25 @@
         lastFrameAt = now;
         applyAudioUniforms(values, audioBands);
 
-        // Smooth speed acceleration on hover (0.336 -> 0.85), thinking stays at 1.12
-        const targetSpeed = state === "thinking" ? 1.12 : (isHovered ? 0.85 : (stateSeeds[state]?.[3] || 0.336));
-        dynamicSpeed += (targetSpeed - dynamicSpeed) * 0.08;
+        // Continuous lively speed with interactive responsiveness
+        const baseSpeed = state === "thinking" ? 1.4 : (isHovered ? 1.3 : 1.05);
+        dynamicSpeed += (baseSpeed - dynamicSpeed) * 0.08;
         values[3] = dynamicSpeed;
 
-        // Pointer reaction on liquid chrome style (22)
+        // Dynamic fluid motion: continuous organic evolution & light shifts on liquid chrome style (22)
         if (Math.round(values[15]) === 22) {
-          values[26] += pointerOffset.x * 12.0; // metalAngle
-          if (isHovered) {
-            values[29] = Math.min(1.2, values[29] + 0.12); // metalEvolution
-          }
+          // Living angle rotation and light shimmer
+          values[26] = 65.0 + Math.sin(motionPhase * 0.7) * 16.0 + pointerOffset.x * 18.0;
+          // Vigorous organic evolution
+          values[29] = Math.max(values[29], 0.92) + Math.sin(motionPhase * 1.1) * 0.18 + (isHovered ? 0.28 : 0.0);
+          // Chromatic dispersion shifts
+          values[23] = Math.max(values[23], 0.38) + Math.sin(motionPhase * 0.8) * 0.08;
         }
 
-        motionPhase += frameDelta * Math.max(values[3], 0);
+        motionPhase += frameDelta * Math.max(values[3], 0.1);
         values[0] = width;
         values[1] = height;
-        values[2] = motionPhase / Math.max(values[3], 0.001);
+        values[2] = motionPhase; // Direct time phase accumulation, fully alive!
 
         device.queue.writeBuffer(uniformBuffer, 0, values);
 
