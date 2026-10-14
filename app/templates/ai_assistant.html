@@ -28,8 +28,9 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-3 shrink-0">
-                <a href="/destinations" class="px-5 py-2.5 rounded-full bg-white dark:bg-[#181B1F] hover:bg-slate-50 dark:hover:bg-[#22272E] text-slate-900 dark:text-[#E8DCC4] font-bold text-xs border border-slate-200 dark:border-[#2D333B] transition">
-                    View Destinations Hub &rarr;
+                <a href="/destinations" class="px-5 py-2.5 rounded-full bg-white dark:bg-[#181B1F] hover:bg-slate-50 dark:hover:bg-[#22272E] text-slate-900 dark:text-[#E8DCC4] font-bold text-xs border border-slate-200 dark:border-[#2D333B] transition inline-flex items-center space-x-1.5 group">
+                    <span>View Destinations Hub</span>
+                    <svg class="w-3.5 h-3.5 text-slate-900 dark:text-[#E8DCC4] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             </div>
         </div>
@@ -52,38 +53,38 @@
                     <canvas id="liquidOrbCanvas" class="w-full h-full block rounded-full" width="400" height="400" aria-label="Liquid Chrome Intelligence Core"></canvas>
                 </div>
 
-                <!-- Dynamic Status Capsule (Thinking... / Active Flow) -->
+                <!-- Dynamic Status Capsule -->
                 <div class="luxury-orb-capsule inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#181B1F]/90 border border-white/10 shadow-xl backdrop-blur-md">
                     <span id="orbStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span id="orbStatusText" class="text-xs font-bold text-[#E8DCC4] tracking-wide">Ambient Flow</span>
+                    <span id="orbStatusText" class="text-xs font-bold text-[#E8DCC4] tracking-wide">Advisory Active</span>
                 </div>
 
                 <div class="space-y-1 max-w-sm pt-1">
-                    <h3 class="text-base font-bold text-white tracking-tight">Autonomous Opportunity Brain</h3>
+                    <h3 class="text-base font-bold text-white tracking-tight">GrantFinder Intelligence Advisory</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Liquid neural processor searching verified scholarship databases, government portals, and international fellowships.
+                        Real-time guidance across global university fellowships, government scholarships, and founder innovation grants.
                     </p>
                 </div>
 
-                <!-- Interactive Flow State Pills -->
+                <!-- Focus Filter Pills -->
                 <div class="flex items-center gap-2 pt-1">
                     <button type="button" onclick="setOrbStateManual('idle')" id="btnOrbIdle" class="px-4 py-1.5 rounded-full text-[11px] font-bold bg-[#1F4D3E] text-white border border-[#E8DCC4]/30 hover:opacity-95 transition cursor-pointer">
-                        Ambient Flow
+                        Scholarships Mode
                     </button>
                     <button type="button" onclick="setOrbStateManual('thinking')" id="btnOrbThinking" class="px-4 py-1.5 rounded-full text-[11px] font-bold bg-white/10 hover:bg-white/20 text-[#E8DCC4] border border-white/20 transition cursor-pointer">
-                        Active Reasoning
+                        Startup Grants Mode
                     </button>
                 </div>
 
-                <!-- Telemetry Row -->
+                <!-- Telemetry Row (Consumer-First Verified Metrics) -->
                 <div class="w-full pt-3 border-t border-slate-700/60 dark:border-[#2D333B]/60 grid grid-cols-2 gap-3 text-xs text-left">
                     <div>
-                        <span class="text-slate-400 text-[11px] block">Verified Sources</span>
-                        <span class="font-bold text-white">26+ Seeded Portals</span>
+                        <span class="text-slate-400 text-[11px] block">Indexed Opportunities</span>
+                        <span class="font-bold text-white">$45M+ Verified Grants</span>
                     </div>
                     <div>
-                        <span class="text-slate-400 text-[11px] block">Live Web Discovery</span>
-                        <span class="font-bold text-emerald-400">Serper.dev Active</span>
+                        <span class="text-slate-400 text-[11px] block">Academic Network</span>
+                        <span class="font-bold text-emerald-400">1,200+ Global Universities</span>
                     </div>
                 </div>
             </div>
@@ -99,17 +100,21 @@
                 <div class="space-y-2">
                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#2A5A4D] dark:text-[#F4E0C8] block">Student Scholarships</span>
                     <div class="space-y-1.5">
-                        <button type="button" onclick="sendQuickPrompt('I am a Computer Science undergrad looking for scholarships in Pakistan')" class="w-full text-left p-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#F4E0C8]/40 text-[#181B1F] border border-[#E2E8F0]/40 hover:border-[#A05E22] transition text-xs font-medium cursor-pointer dark:bg-[#111315] dark:text-[#C3D7CE] dark:border-[#2D333B]">
-                            &rarr; CS Undergraduate in Pakistan (HEC / PEEF)
+                        <button type="button" onclick="sendQuickPrompt('I am a Computer Science undergrad looking for scholarships in Pakistan')" class="w-full text-left px-3.5 py-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#1F4D3E] hover:text-white dark:bg-[#111315] dark:hover:bg-[#1F4D3E] text-[#181B1F] dark:text-[#C3D7CE] dark:hover:text-white border border-[#E2E8F0]/60 dark:border-[#2D333B] transition text-xs font-medium cursor-pointer flex items-center justify-between group active:scale-[0.99]">
+                            <span>CS Undergraduate in Pakistan (HEC / PEEF)</span>
+                            <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
-                        <button type="button" onclick="sendQuickPrompt('Looking for fully funded Master scholarships in Germany DAAD')" class="w-full text-left p-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#F4E0C8]/40 text-[#181B1F] border border-[#E2E8F0]/40 hover:border-[#A05E22] transition text-xs font-medium cursor-pointer dark:bg-[#111315] dark:text-[#C3D7CE] dark:border-[#2D333B]">
-                            &rarr; DAAD Germany Fully Funded Master's
+                        <button type="button" onclick="sendQuickPrompt('Looking for fully funded Master scholarships in Germany DAAD')" class="w-full text-left px-3.5 py-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#1F4D3E] hover:text-white dark:bg-[#111315] dark:hover:bg-[#1F4D3E] text-[#181B1F] dark:text-[#C3D7CE] dark:hover:text-white border border-[#E2E8F0]/60 dark:border-[#2D333B] transition text-xs font-medium cursor-pointer flex items-center justify-between group active:scale-[0.99]">
+                            <span>DAAD Germany Fully Funded Master's</span>
+                            <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
-                        <button type="button" onclick="sendQuickPrompt('Chevening and Commonwealth scholarships in the UK for 2026')" class="w-full text-left p-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#F4E0C8]/40 text-[#181B1F] border border-[#E2E8F0]/40 hover:border-[#A05E22] transition text-xs font-medium cursor-pointer dark:bg-[#111315] dark:text-[#C3D7CE] dark:border-[#2D333B]">
-                            &rarr; UK Chevening & Commonwealth Guidelines
+                        <button type="button" onclick="sendQuickPrompt('Chevening and Commonwealth scholarships in the UK for 2026')" class="w-full text-left px-3.5 py-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#1F4D3E] hover:text-white dark:bg-[#111315] dark:hover:bg-[#1F4D3E] text-[#181B1F] dark:text-[#C3D7CE] dark:hover:text-white border border-[#E2E8F0]/60 dark:border-[#2D333B] transition text-xs font-medium cursor-pointer flex items-center justify-between group active:scale-[0.99]">
+                            <span>UK Chevening & Commonwealth Guidelines</span>
+                            <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
-                        <button type="button" onclick="sendQuickPrompt('Fulbright USA requirements for Pakistani engineering students')" class="w-full text-left p-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#F4E0C8]/40 text-[#181B1F] border border-[#E2E8F0]/40 hover:border-[#A05E22] transition text-xs font-medium cursor-pointer dark:bg-[#111315] dark:text-[#C3D7CE] dark:border-[#2D333B]">
-                            &rarr; Fulbright USA Criteria for Engineering
+                        <button type="button" onclick="sendQuickPrompt('Fulbright USA requirements for Pakistani engineering students')" class="w-full text-left px-3.5 py-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#1F4D3E] hover:text-white dark:bg-[#111315] dark:hover:bg-[#1F4D3E] text-[#181B1F] dark:text-[#C3D7CE] dark:hover:text-white border border-[#E2E8F0]/60 dark:border-[#2D333B] transition text-xs font-medium cursor-pointer flex items-center justify-between group active:scale-[0.99]">
+                            <span>Fulbright USA Criteria for Engineering</span>
+                            <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
                     </div>
                 </div>
@@ -118,14 +123,17 @@
                 <div class="space-y-2 pt-2 border-t border-[#E2E8F0]/20 dark:border-[#2D333B]">
                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#A05E22] dark:text-[#F4E0C8] block">Startup & Founder Grants</span>
                     <div class="space-y-1.5">
-                        <button type="button" onclick="sendQuickPrompt('I have an AI startup prototype seeking seed grants in Pakistan')" class="w-full text-left p-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#F4E0C8]/40 text-[#181B1F] border border-[#E2E8F0]/40 hover:border-[#A05E22] transition text-xs font-medium cursor-pointer dark:bg-[#111315] dark:text-[#C3D7CE] dark:border-[#2D333B]">
-                            &rarr; AI Startup Prototype Seed Grants (Ignite)
+                        <button type="button" onclick="sendQuickPrompt('I have an AI startup prototype seeking seed grants in Pakistan')" class="w-full text-left px-3.5 py-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#1F4D3E] hover:text-white dark:bg-[#111315] dark:hover:bg-[#1F4D3E] text-[#181B1F] dark:text-[#C3D7CE] dark:hover:text-white border border-[#E2E8F0]/60 dark:border-[#2D333B] transition text-xs font-medium cursor-pointer flex items-center justify-between group active:scale-[0.99]">
+                            <span>AI Startup Prototype Seed Grants (Ignite)</span>
+                            <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
-                        <button type="button" onclick="sendQuickPrompt('Ignite NGIRI funding for Final Year Projects in IoT or Software')" class="w-full text-left p-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#F4E0C8]/40 text-[#181B1F] border border-[#E2E8F0]/40 hover:border-[#A05E22] transition text-xs font-medium cursor-pointer dark:bg-[#111315] dark:text-[#C3D7CE] dark:border-[#2D333B]">
-                            &rarr; NGIRI Final Year Project (FYP) Grants
+                        <button type="button" onclick="sendQuickPrompt('Ignite NGIRI funding for Final Year Projects in IoT or Software')" class="w-full text-left px-3.5 py-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#1F4D3E] hover:text-white dark:bg-[#111315] dark:hover:bg-[#1F4D3E] text-[#181B1F] dark:text-[#C3D7CE] dark:hover:text-white border border-[#E2E8F0]/60 dark:border-[#2D333B] transition text-xs font-medium cursor-pointer flex items-center justify-between group active:scale-[0.99]">
+                            <span>NGIRI Final Year Project (FYP) Grants</span>
+                            <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
-                        <button type="button" onclick="sendQuickPrompt('Non-dilutive pre-seed grants for women-led startups in South Asia')" class="w-full text-left p-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#F4E0C8]/40 text-[#181B1F] border border-[#E2E8F0]/40 hover:border-[#A05E22] transition text-xs font-medium cursor-pointer dark:bg-[#111315] dark:text-[#C3D7CE] dark:border-[#2D333B]">
-                            &rarr; Karandaaz Women Entrepreneurship Grants
+                        <button type="button" onclick="sendQuickPrompt('Non-dilutive pre-seed grants for women-led startups in South Asia')" class="w-full text-left px-3.5 py-2.5 rounded-full bg-[#F8F9FA] hover:bg-[#1F4D3E] hover:text-white dark:bg-[#111315] dark:hover:bg-[#1F4D3E] text-[#181B1F] dark:text-[#C3D7CE] dark:hover:text-white border border-[#E2E8F0]/60 dark:border-[#2D333B] transition text-xs font-medium cursor-pointer flex items-center justify-between group active:scale-[0.99]">
+                            <span>Karandaaz Women Entrepreneurship Grants</span>
+                            <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
                     </div>
                 </div>
@@ -134,9 +142,9 @@
             <!-- Portal Shortcuts Card -->
             <div class="p-5 rounded-2xl bg-[#FFFFFF] dark:bg-[#181B1F] border border-[#E2E8F0]/40 dark:border-[#2D333B] flex items-center justify-between text-xs font-bold text-[#181B1F] dark:text-[#C3D7CE]">
                 <span>Looking for specific portals?</span>
-                <a href="/verified-portals" class="text-[#2A5A4D] dark:text-[#F4E0C8] hover:text-[#181B1F] transition flex items-center space-x-1">
+                <a href="/verified-portals" class="text-[#2A5A4D] dark:text-[#F4E0C8] hover:text-[#181B1F] transition inline-flex items-center space-x-1.5 group">
                     <span>Directory</span>
-                    <span>&rarr;</span>
+                    <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             </div>
 
@@ -240,13 +248,13 @@ function setOrbStateManual(targetState) {
 
     if (dot && text) {
         if (targetState === 'thinking') {
-            dot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-pulse';
-            text.textContent = 'Neural Engine · Reasoning';
+            dot.className = 'w-2 h-2 rounded-full bg-amber-400';
+            text.textContent = 'Advisory · Active Search';
             if (btnIdle) btnIdle.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-white/10 hover:bg-white/20 text-[#E8DCC4] border border-white/20 transition cursor-pointer';
             if (btnThinking) btnThinking.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-[#8E5624] text-white border border-[#E8DCC4]/40 transition cursor-pointer';
         } else {
             dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
-            text.textContent = 'Neural Engine · Idle Flow';
+            text.textContent = 'Advisory Active';
             if (btnIdle) btnIdle.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-[#1F4D3E] text-white border border-[#E8DCC4]/30 transition cursor-pointer';
             if (btnThinking) btnThinking.className = 'px-4 py-1.5 rounded-full text-[11px] font-bold bg-white/10 hover:bg-white/20 text-[#E8DCC4] border border-white/20 transition cursor-pointer';
         }

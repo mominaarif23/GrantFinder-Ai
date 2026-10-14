@@ -28,6 +28,7 @@ function syncThemeIcons() {
 }
 
 function toggleThemeMode() {
+    document.documentElement.classList.add('theme-transition');
     const isDark = document.documentElement.classList.toggle('dark');
     const newTheme = isDark ? 'dark' : 'light';
     try {
@@ -36,7 +37,10 @@ function toggleThemeMode() {
     } catch (e) {}
 
     syncThemeIcons();
-    showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled', 'info');
+
+    setTimeout(() => {
+        document.documentElement.classList.remove('theme-transition');
+    }, 400);
 }
 
 if (document.readyState === 'loading') {
@@ -1109,10 +1113,10 @@ function appendAdvisorTyping(id) {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
         </div>
-        <div class="bg-white dark:bg-[#181B1F] px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 dark:border-[#2D333B] text-slate-400 text-xs flex items-center space-x-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.15s"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.3s"></span>
+        <div class="bg-white dark:bg-[#181B1F] p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-[#2D333B] w-48 space-y-2 shadow-xs">
+            <div class="h-2 rounded-full skeleton-shimmer w-3/4"></div>
+            <div class="h-2 rounded-full skeleton-shimmer w-full"></div>
+            <div class="h-1.5 rounded-full skeleton-shimmer w-1/2"></div>
         </div>
     `;
     container.appendChild(row);
@@ -1281,10 +1285,10 @@ function appendInlineTyping(id) {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
         </div>
-        <div class="bg-white dark:bg-[#181B1F] px-3 py-2 rounded-2xl rounded-tl-none border border-slate-200 dark:border-[#2D333B] text-slate-400 text-xs flex items-center space-x-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.15s"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-[#E8DCC4] animate-bounce" style="animation-delay: 0.3s"></span>
+        <div class="bg-white dark:bg-[#181B1F] p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-[#2D333B] w-48 space-y-2 shadow-xs">
+            <div class="h-2 rounded-full skeleton-shimmer w-3/4"></div>
+            <div class="h-2 rounded-full skeleton-shimmer w-full"></div>
+            <div class="h-1.5 rounded-full skeleton-shimmer w-1/2"></div>
         </div>
     `;
     container.appendChild(row);
@@ -1749,12 +1753,42 @@ function handleFooterSubscribe(e) {
             btn.disabled = false;
             btn.innerText = 'Subscribed!';
             setTimeout(() => {
-                btn.innerText = 'Subscribe to Alerts \u2192';
+                btn.innerText = 'Subscribe to Alerts';
             }, 3000);
         }
     }, 500);
 }
 
+// ==============================================================================
+// Hero Section Interactive Liquid Mouse Reactive Gradient
+// ==============================================================================
+function initHeroLiquidInteractive() {
+    const heroCol = document.getElementById('heroEditorialCol');
+    if (!heroCol) return;
 
+    let ticking = false;
+    heroCol.addEventListener('mousemove', (e) => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const rect = heroCol.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                heroCol.style.setProperty('--hero-mouse-x', `${x.toFixed(1)}%`);
+                heroCol.style.setProperty('--hero-mouse-y', `${y.toFixed(1)}%`);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
 
+    heroCol.addEventListener('mouseleave', () => {
+        heroCol.style.removeProperty('--hero-mouse-x');
+        heroCol.style.removeProperty('--hero-mouse-y');
+    });
+}
 
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroLiquidInteractive);
+} else {
+    initHeroLiquidInteractive();
+}

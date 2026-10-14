@@ -15,8 +15,9 @@
                 <span class="text-[#E2E8F0]/40">•</span>
                 <span class="text-xs font-semibold text-[#6B7C72] dark:text-[#95AFA4] uppercase tracking-wider">{{ user.plan }} Account</span>
                 <span class="text-[#E2E8F0]/40">•</span>
-                <a href="/profile" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {% if (completion_pct or 60) >= 100 %}bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 dark:bg-[#181B1F] dark:text-[#F4E0C8]{% else %}bg-[#F4E0C8]/50 text-[#A05E22] border border-[#A05E22]/30 hover:bg-[#F4E0C8]{% endif %} transition">
-                    Profile {{ completion_pct or 60 }}% Complete &rarr;
+                <a href="/profile" class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-bold {% if (completion_pct or 60) >= 100 %}bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 dark:bg-[#181B1F] dark:text-[#F4E0C8]{% else %}bg-[#F4E0C8]/50 text-[#A05E22] border border-[#A05E22]/30 hover:bg-[#F4E0C8]{% endif %} transition group">
+                    <span>Profile {{ completion_pct or 60 }}% Complete</span>
+                    <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111315] dark:text-[#FFFFFF] tracking-tight">Welcome, {{ user.name }}</h1>
@@ -25,9 +26,9 @@
         
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 relative z-10">
             {% if user.plan != 'premium' %}
-                <button onclick="openUpgradeModal()" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#181B1F] hover:bg-[#111315] text-[#FFFFFF] font-bold text-xs shadow-xs border border-[#111315] transition">
+                <button onclick="openUpgradeModal()" class="inline-flex items-center justify-center space-x-2 px-5 py-2.5 rounded-full bg-[#181B1F] hover:bg-[#111315] text-[#FFFFFF] font-bold text-xs shadow-xs border border-[#111315] transition group">
                     <span>Unlock Unlimited Results & AI Drafter ($9)</span>
-                    <span class="ml-1.5 font-normal text-[#F4E0C8]">&rarr;</span>
+                    <svg class="w-3.5 h-3.5 text-[#F4E0C8] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>
             {% else %}
                 <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E1EBE6] text-[#2A5A4D] border border-[#2A5A4D]/30 self-start sm:self-auto dark:bg-[#181B1F] dark:text-[#F4E0C8]">
@@ -155,8 +156,12 @@
                                     <p class="text-[11px] text-[#6B7C72] dark:text-[#95AFA4] mt-0.5">{{ s.amount }} · Score: {{ s.match_score }}%</p>
                                 </div>
                                 <div class="flex items-center space-x-1 shrink-0">
-                                    <a href="{{ s.source_link }}" target="_blank" class="p-1.5 text-[#6B7C72] hover:text-[#2A5A4D] dark:hover:text-[#F4E0C8]" title="Open Official Link">&rarr;</a>
-                                    <button onclick="removeSavedOpp('{{ s.id }}')" class="p-1.5 text-[#6B7C72] hover:text-rose-600 font-bold" title="Remove">&times;</button>
+                                    <a href="{{ s.source_link }}" target="_blank" class="p-1.5 text-[#6B7C72] hover:text-[#2A5A4D] dark:hover:text-[#F4E0C8] transition" title="Open Official Link" aria-label="Open Official Link">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                    </a>
+                                    <button onclick="removeSavedOpp('{{ s.id }}')" class="p-1.5 text-[#6B7C72] hover:text-rose-600 transition" title="Remove" aria-label="Remove opportunity">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    </button>
                                 </div>
                             </div>
                         {% endfor %}

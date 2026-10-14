@@ -24,16 +24,19 @@
 
             <div class="flex items-center space-x-3">
                 {% if user.role == 'student' %}
-                    <a href="/dashboard/student" class="px-4 py-2 rounded-full text-xs font-bold text-[#111315] bg-[#F8F9FA] hover:bg-[#F7F5EE] border border-[#E2E8F0]/40 dark:bg-[#181B1F] dark:hover:bg-[#181B1F]/80 dark:text-[#F8F9FA] transition">
-                        Back to Portal &rarr;
+                    <a href="/dashboard/student" class="px-4 py-2 rounded-full text-xs font-bold text-[#111315] bg-[#F8F9FA] hover:bg-[#F7F5EE] border border-[#E2E8F0]/40 dark:bg-[#181B1F] dark:hover:bg-[#181B1F]/80 dark:text-[#F8F9FA] transition inline-flex items-center space-x-1.5 group">
+                        <span>Back to Portal</span>
+                        <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 {% elif user.role == 'founder' %}
-                    <a href="/dashboard/founder" class="px-4 py-2 rounded-full text-xs font-bold text-[#111315] bg-[#F8F9FA] hover:bg-[#F7F5EE] border border-[#E2E8F0]/40 dark:bg-[#181B1F] dark:hover:bg-[#181B1F]/80 dark:text-[#F8F9FA] transition">
-                        Back to Portal &rarr;
+                    <a href="/dashboard/founder" class="px-4 py-2 rounded-full text-xs font-bold text-[#111315] bg-[#F8F9FA] hover:bg-[#F7F5EE] border border-[#E2E8F0]/40 dark:bg-[#181B1F] dark:hover:bg-[#181B1F]/80 dark:text-[#F8F9FA] transition inline-flex items-center space-x-1.5 group">
+                        <span>Back to Portal</span>
+                        <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 {% elif user.role == 'admin' %}
-                    <a href="/admin" class="px-4 py-2 rounded-full text-xs font-bold text-[#111315] bg-[#F8F9FA] hover:bg-[#F7F5EE] border border-[#E2E8F0]/40 dark:bg-[#181B1F] dark:hover:bg-[#181B1F]/80 dark:text-[#F8F9FA] transition">
-                        Governance Console &rarr;
+                    <a href="/admin" class="px-4 py-2 rounded-full text-xs font-bold text-[#111315] bg-[#F8F9FA] hover:bg-[#F7F5EE] border border-[#E2E8F0]/40 dark:bg-[#181B1F] dark:hover:bg-[#181B1F]/80 dark:text-[#F8F9FA] transition inline-flex items-center space-x-1.5 group">
+                        <span>Governance Console</span>
+                        <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 {% endif %}
             </div>
@@ -200,8 +203,9 @@
                                         <span id="displayOtpCode" class="font-mono font-extrabold text-xl tracking-[0.2em] text-[#111315] dark:text-[#F4E0C8] bg-[#FFFFFF] dark:bg-[#111315] px-3 py-1 rounded-xl border border-[#E2E8F0]/40 shadow-xs">{{ active_otp or '582914' }}</span>
                                     </div>
                                     <button type="button" onclick="autoFillOtpCode('{{ active_otp or '' }}')" 
-                                            class="px-3 py-1.5 rounded-full bg-[#181B1F] hover:bg-[#111315] text-[#FFFFFF] dark:bg-[#A05E22] dark:hover:bg-[#834918] font-bold text-xs transition shadow-xs">
-                                        Use Code &rarr;
+                                            class="px-3 py-1.5 rounded-full bg-[#181B1F] hover:bg-[#111315] text-[#FFFFFF] dark:bg-[#A05E22] dark:hover:bg-[#834918] font-bold text-xs transition shadow-xs inline-flex items-center space-x-1 group">
+                                        <span>Use Code</span>
+                                        <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                     </button>
                                 </div>
                                 <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-2">
