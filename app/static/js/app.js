@@ -1008,9 +1008,16 @@ async function handleAdvisorSubmit(e) {
     const currentTrack = window.location.pathname.includes('founder') ? 'grant' : 'scholarship';
 
     try {
-        window.liquidOrb?.setState('thinking');
-        window.guideOrb?.setState('thinking');
-        window.miniAdvisorOrb?.setState('thinking');
+        const triggerLabel = document.getElementById('advisorTriggerLabel');
+        if (triggerLabel) triggerLabel.textContent = 'Thinking...';
+        if (window.setAllOrbStates) {
+            window.setAllOrbStates('thinking');
+        } else {
+            window.liquidOrb?.setState('thinking');
+            window.guideOrb?.setState('thinking');
+            window.miniAdvisorOrb?.setState('thinking');
+            window.floatingOrb?.setState('thinking');
+        }
         if (typeof setOrbStateManual === 'function') setOrbStateManual('thinking');
 
         const res = await fetch('/api/assistant/chat', {
@@ -1042,9 +1049,16 @@ async function handleAdvisorSubmit(e) {
         removeAdvisorTyping(typingId);
         appendAdvisorMessage('assistant', "The advisor service encountered a temporary network delay. Please try sending again.");
     } finally {
-        window.liquidOrb?.setState('idle');
-        window.guideOrb?.setState('idle');
-        window.miniAdvisorOrb?.setState('idle');
+        const triggerLabel = document.getElementById('advisorTriggerLabel');
+        if (triggerLabel) triggerLabel.textContent = 'Ask Intelligence';
+        if (window.setAllOrbStates) {
+            window.setAllOrbStates('idle');
+        } else {
+            window.liquidOrb?.setState('idle');
+            window.guideOrb?.setState('idle');
+            window.miniAdvisorOrb?.setState('idle');
+            window.floatingOrb?.setState('idle');
+        }
         if (typeof setOrbStateManual === 'function') setOrbStateManual('idle');
     }
 }
@@ -1150,9 +1164,16 @@ async function handleInlineAdvisorSubmit(e) {
     appendInlineTyping(typingId);
 
     try {
-        window.liquidOrb?.setState('thinking');
-        window.guideOrb?.setState('thinking');
-        window.miniAdvisorOrb?.setState('thinking');
+        const triggerLabel = document.getElementById('advisorTriggerLabel');
+        if (triggerLabel) triggerLabel.textContent = 'Thinking...';
+        if (window.setAllOrbStates) {
+            window.setAllOrbStates('thinking');
+        } else {
+            window.liquidOrb?.setState('thinking');
+            window.guideOrb?.setState('thinking');
+            window.miniAdvisorOrb?.setState('thinking');
+            window.floatingOrb?.setState('thinking');
+        }
         if (typeof setOrbStateManual === 'function') setOrbStateManual('thinking');
 
         const res = await fetch('/api/assistant/chat', {
@@ -1184,9 +1205,16 @@ async function handleInlineAdvisorSubmit(e) {
         removeInlineTyping(typingId);
         appendInlineMessage('assistant', "The AI advisor service is momentarily reconnecting. Please send your question again.");
     } finally {
-        window.liquidOrb?.setState('idle');
-        window.guideOrb?.setState('idle');
-        window.miniAdvisorOrb?.setState('idle');
+        const triggerLabel = document.getElementById('advisorTriggerLabel');
+        if (triggerLabel) triggerLabel.textContent = 'Ask Intelligence';
+        if (window.setAllOrbStates) {
+            window.setAllOrbStates('idle');
+        } else {
+            window.liquidOrb?.setState('idle');
+            window.guideOrb?.setState('idle');
+            window.miniAdvisorOrb?.setState('idle');
+            window.floatingOrb?.setState('idle');
+        }
         if (typeof setOrbStateManual === 'function') setOrbStateManual('idle');
     }
 }

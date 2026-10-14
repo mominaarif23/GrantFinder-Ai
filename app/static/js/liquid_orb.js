@@ -60,6 +60,12 @@
     canvas.addEventListener("pointerleave", onPointerLeave);
     canvas.addEventListener("pointermove", onPointerMove);
 
+    const fallbackParent = canvas.closest(".luxury-orb-capsule, .orb-interactive-card, #ai-assistant, #advisorTriggerBtn");
+    if (fallbackParent) {
+      fallbackParent.addEventListener("pointerenter", onPointerEnter);
+      fallbackParent.addEventListener("pointerleave", onPointerLeave);
+    }
+
     function renderFallback() {
       if (!active) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -340,7 +346,7 @@
     canvas.addEventListener("pointermove", onPointerMove);
 
     // If parent element has an interactive container class, attach listeners there too
-    const interactiveParent = canvas.closest(".luxury-orb-capsule, .orb-interactive-card, #ai-assistant");
+    const interactiveParent = canvas.closest(".luxury-orb-capsule, .orb-interactive-card, #ai-assistant, #advisorTriggerBtn");
     if (interactiveParent) {
       interactiveParent.addEventListener("pointerenter", onPointerEnter);
       interactiveParent.addEventListener("pointerleave", onPointerLeave);
@@ -555,6 +561,16 @@
 
   // Expose to window
   window.createLiquidOrb = createLiquidOrb;
+  window.setAllOrbStates = function(nextState) {
+    try {
+      if (window.liquidOrb?.setState) window.liquidOrb.setState(nextState);
+      if (window.guideOrb?.setState) window.guideOrb.setState(nextState);
+      if (window.miniAdvisorOrb?.setState) window.miniAdvisorOrb.setState(nextState);
+      if (window.floatingOrb?.setState) window.floatingOrb.setState(nextState);
+    } catch (err) {
+      console.warn("[WARN] setAllOrbStates error:", err);
+    }
+  };
 
   // Auto-initialize primary orbs on DOM ready
   document.addEventListener("DOMContentLoaded", async () => {
@@ -584,6 +600,16 @@
         window.miniAdvisorOrb = await createLiquidOrb(miniOrbCanvas, { palette: "chrome", initialState: "idle" });
       } catch (e) {
         console.warn("[WARN] Failed to auto-init mini advisor orb:", e);
+      }
+    }
+
+    // Floating action button orb
+    const floatingOrbCanvas = document.querySelector("#floatingTriggerOrb");
+    if (floatingOrbCanvas) {
+      try {
+        window.floatingOrb = await createLiquidOrb(floatingOrbCanvas, { palette: "chrome", initialState: "idle" });
+      } catch (e) {
+        console.warn("[WARN] Failed to auto-init floating trigger orb:", e);
       }
     }
   });

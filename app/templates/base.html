@@ -464,16 +464,12 @@
         </div>
     </footer>
 
-    <!-- Floating GrantFinder Intelligence Trigger Button (Celestial Material You Capsule Law) -->
-    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 inline-flex items-center space-x-2.5 px-5 py-3 rounded-full bg-[#111315]/95 hover:bg-[#181B1F] text-white border border-white/15 dark:border-[#2D333B] shadow-2xl backdrop-blur-md transition-all duration-300 group hover:scale-[1.03] active:scale-[0.98] cursor-pointer" title="GrantFinder Intelligence">
-        <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-        </span>
-        <svg class="w-4 h-4 text-[#E8DCC4] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-        </svg>
-        <span class="text-xs font-bold tracking-tight text-white">Ask Intelligence</span>
+    <!-- Floating GrantFinder Intelligence Trigger Button (Dark Translucent Capsule Pill with Liquid Chrome Orb) -->
+    <button id="advisorTriggerBtn" onclick="toggleAdvisorWidget()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 inline-flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#181B1F]/90 hover:bg-[#181B1F] text-white border border-white/15 shadow-2xl backdrop-blur-md transition-all duration-300 group hover:scale-[1.03] active:scale-[0.98] cursor-pointer" title="GrantFinder Intelligence">
+        <div class="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-black/60 border border-white/20 shrink-0 flex items-center justify-center">
+            <canvas id="floatingTriggerOrb" class="w-full h-full block rounded-full" width="64" height="64" aria-label="Liquid Chrome Intelligence Orb"></canvas>
+        </div>
+        <span id="advisorTriggerLabel" class="text-xs font-semibold tracking-wide text-white/90 group-hover:text-white">Ask Intelligence</span>
     </button>
 
     <!-- Floating GrantFinder Intelligence Chat Console -->
