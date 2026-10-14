@@ -1783,19 +1783,33 @@ function initHeroLiquidInteractive() {
     if (!heroCol) return;
 
     let ticking = false;
+    const updateCoord = (clientX, clientY) => {
+        const rect = heroCol.getBoundingClientRect();
+        const x = ((clientX - rect.left) / rect.width) * 100;
+        const y = ((clientY - rect.top) / rect.height) * 100;
+        heroCol.style.setProperty('--hero-mouse-x', `${x.toFixed(1)}%`);
+        heroCol.style.setProperty('--hero-mouse-y', `${y.toFixed(1)}%`);
+    };
+
     heroCol.addEventListener('mousemove', (e) => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const rect = heroCol.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                heroCol.style.setProperty('--hero-mouse-x', `${x.toFixed(1)}%`);
-                heroCol.style.setProperty('--hero-mouse-y', `${y.toFixed(1)}%`);
+                updateCoord(e.clientX, e.clientY);
                 ticking = false;
             });
             ticking = true;
         }
     });
+
+    heroCol.addEventListener('touchmove', (e) => {
+        if (!ticking && e.touches.length > 0) {
+            window.requestAnimationFrame(() => {
+                updateCoord(e.touches[0].clientX, e.touches[0].clientY);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 
     heroCol.addEventListener('mouseleave', () => {
         heroCol.style.removeProperty('--hero-mouse-x');
