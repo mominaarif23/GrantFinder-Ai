@@ -17,12 +17,6 @@
                         <svg class="w-3.5 h-3.5 text-[#1F4D3E] dark:text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                         <span class="tracking-[0.16em] uppercase text-[11px]">GrantFinder Intelligence</span>
                     </div>
-                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#1F4D3E]/10 dark:bg-[#1F4D3E]/30 text-[#1F4D3E] dark:text-[#E8DCC4] border border-[#1F4D3E]/20 dark:border-[#E8DCC4]/30 shadow-2xs">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                        <span id="heroUniversityTag" class="font-bold">Massachusetts Institute of Technology (MIT)</span>
-                        <span class="text-slate-400 dark:text-slate-500">&bull;</span>
-                        <span id="heroFellowshipTag" class="truncate max-w-[200px] sm:max-w-[260px]">MIT Presidential Graduate Fellowships · 100% Tuition, Research Allowance & Monthly Stipend</span>
-                    </div>
                 </div>
 
                 <!-- Editorial High-Impact Heading (Pure Lexend Typography Hierarchy) -->
@@ -78,17 +72,21 @@
                 </div>
 
                 <!-- Minimalist Artixain-Style Dot & Arrow Navigation Capsule (Pinned Bottom-Right) -->
-                <div class="absolute bottom-6 sm:bottom-8 right-6 sm:right-10 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/75 dark:bg-black/85 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                    <button type="button" onclick="heroPrevSlide()" class="w-7 h-7 rounded-full bg-white hover:bg-slate-100 text-slate-950 flex items-center justify-center shadow-xs cursor-pointer transition-transform active:scale-90 shrink-0" aria-label="Previous campus">
-                        <svg class="w-3.5 h-3.5 text-slate-950 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                <div class="absolute bottom-4 sm:bottom-8 right-4 sm:right-10 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white shadow-2xl">
+                    <button type="button" onclick="heroPrevSlide()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-200 flex items-center justify-center shadow-md cursor-pointer transition-transform active:scale-90 shrink-0" aria-label="Previous campus" style="background-color: #ffffff !important;">
+                        <svg class="w-4 h-4" fill="none" stroke="#111315" stroke-width="2.5" viewBox="0 0 24 24" style="stroke: #111315 !important;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                        </svg>
                     </button>
                     
-                    <div id="heroSlideDots" class="flex items-center gap-2 px-1">
+                    <div id="heroSlideDots" class="flex items-center gap-1.5 px-1">
                         <!-- Populated dynamically via JS -->
                     </div>
 
-                    <button type="button" onclick="heroNextSlide()" class="w-7 h-7 rounded-full bg-white hover:bg-slate-100 text-slate-950 flex items-center justify-center shadow-xs cursor-pointer transition-transform active:scale-90 shrink-0" aria-label="Next campus">
-                        <svg class="w-3.5 h-3.5 text-slate-950 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    <button type="button" onclick="heroNextSlide()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-200 flex items-center justify-center shadow-md cursor-pointer transition-transform active:scale-90 shrink-0" aria-label="Next campus" style="background-color: #ffffff !important;">
+                        <svg class="w-4 h-4" fill="none" stroke="#111315" stroke-width="2.5" viewBox="0 0 24 24" style="stroke: #111315 !important;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                        </svg>
                     </button>
                 </div>
 
@@ -620,64 +618,77 @@ const HERO_CAMPUSES = [
 let heroCurrentIndex = 0;
 let heroSlideTimer = null;
 
-function renderHeroSlide(index) {
-    const campus = HERO_CAMPUSES[index];
-    if (!campus) return;
-
+function initHeroCarousel() {
     const track = document.getElementById('heroSlidesTrack');
-    if (track) {
-        track.innerHTML = `
-            <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 z-10">
-                <img src="${campus.image}" alt="${campus.name}" class="w-full h-full object-cover object-center scale-[1.01] hover:scale-105 transition-transform duration-700">
-            </div>
-        `;
-    }
+    if (!track) return;
 
-    const uniTag = document.getElementById('heroUniversityTag');
-    if (uniTag) uniTag.textContent = campus.name;
+    track.innerHTML = HERO_CAMPUSES.map((campus, idx) => `
+        <div id="hero-slide-${idx}" class="hero-slide absolute inset-0 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}" style="transition: opacity 250ms ease-in-out;">
+            <img src="${campus.image}" alt="${campus.name}" class="w-full h-full object-cover object-center scale-[1.01] hover:scale-105 transition-transform duration-700" loading="${idx === 0 ? 'eager' : 'lazy'}">
+        </div>
+    `).join('');
 
-    const fellowTag = document.getElementById('heroFellowshipTag');
-    if (fellowTag) fellowTag.textContent = `${campus.fellowship} · ${campus.funding}`;
+    renderHeroDots(0);
+}
 
-    // Render Artixain-style dot navigation
+function renderHeroDots(activeIndex) {
     const dotsContainer = document.getElementById('heroSlideDots');
     if (dotsContainer) {
         dotsContainer.innerHTML = HERO_CAMPUSES.map((c, i) => `
-            <button type="button" onclick="heroGoToSlide(${i})" class="transition-all duration-300 rounded-full cursor-pointer ${
-                i === index ? 'w-7 h-2.5 bg-white shadow-sm' : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/80'
-            }" aria-label="Switch to ${c.name}"></button>
+            <button type="button" onclick="heroGoToSlide(${i})" class="transition-all rounded-full cursor-pointer ${
+                i === activeIndex ? 'w-5 sm:w-6 h-1.5 sm:h-2 bg-white shadow-xs' : 'w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/50 hover:bg-white/90'
+            }" style="transition-duration: 250ms;" aria-label="Switch to ${c.name}"></button>
         `).join('');
     }
 }
 
+function renderHeroSlide(nextIndex) {
+    if (nextIndex === heroCurrentIndex) return;
+
+    const oldSlide = document.getElementById(`hero-slide-${heroCurrentIndex}`);
+    const newSlide = document.getElementById(`hero-slide-${nextIndex}`);
+
+    if (oldSlide && newSlide) {
+        // Elevate new slide and fade in with 250ms ease-in-out
+        newSlide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+        newSlide.classList.add('opacity-100', 'z-10');
+
+        // Fade out previous slide and remove interaction
+        oldSlide.classList.remove('opacity-100', 'z-10');
+        oldSlide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+    }
+
+    heroCurrentIndex = nextIndex;
+    renderHeroDots(heroCurrentIndex);
+}
+
 function heroGoToSlide(idx) {
-    heroCurrentIndex = idx;
-    renderHeroSlide(heroCurrentIndex);
+    renderHeroSlide(idx);
     resetHeroTimer();
 }
 
 function heroNextSlide() {
-    heroCurrentIndex = (heroCurrentIndex + 1) % HERO_CAMPUSES.length;
-    renderHeroSlide(heroCurrentIndex);
+    const nextIdx = (heroCurrentIndex + 1) % HERO_CAMPUSES.length;
+    renderHeroSlide(nextIdx);
     resetHeroTimer();
 }
 
 function heroPrevSlide() {
-    heroCurrentIndex = (heroCurrentIndex - 1 + HERO_CAMPUSES.length) % HERO_CAMPUSES.length;
-    renderHeroSlide(heroCurrentIndex);
+    const prevIdx = (heroCurrentIndex - 1 + HERO_CAMPUSES.length) % HERO_CAMPUSES.length;
+    renderHeroSlide(prevIdx);
     resetHeroTimer();
 }
 
 function resetHeroTimer() {
     if (heroSlideTimer) clearInterval(heroSlideTimer);
     heroSlideTimer = setInterval(() => {
-        heroCurrentIndex = (heroCurrentIndex + 1) % HERO_CAMPUSES.length;
-        renderHeroSlide(heroCurrentIndex);
+        const nextIdx = (heroCurrentIndex + 1) % HERO_CAMPUSES.length;
+        renderHeroSlide(nextIdx);
     }, 6000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderHeroSlide(0);
+    initHeroCarousel();
     resetHeroTimer();
 });
 </script>

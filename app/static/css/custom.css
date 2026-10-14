@@ -95,13 +95,29 @@ html:not(.dark) body {
 }
 
 /* Light Mode Guaranteed High-Contrast Typography Shield */
-html:not(.dark) h1:not([class*="text-white"]),
-html:not(.dark) h2:not([class*="text-white"]),
-html:not(.dark) h3:not([class*="text-white"]),
-html:not(.dark) h4:not([class*="text-white"]),
-html:not(.dark) h5:not([class*="text-white"]),
-html:not(.dark) h6:not([class*="text-white"]) {
+html:not(.dark) h1:not([class*="text-white"]):not([class*="text-[#FFFFFF]"]):not([class*="text-[#ffffff]"]):not([class*="text-[#E8DCC4]"]):not([class*="text-[#F4E0C8]"]),
+html:not(.dark) h2:not([class*="text-white"]):not([class*="text-[#FFFFFF]"]):not([class*="text-[#ffffff]"]):not([class*="text-[#E8DCC4]"]):not([class*="text-[#F4E0C8]"]),
+html:not(.dark) h3:not([class*="text-white"]):not([class*="text-[#FFFFFF]"]):not([class*="text-[#ffffff]"]):not([class*="text-[#E8DCC4]"]):not([class*="text-[#F4E0C8]"]),
+html:not(.dark) h4:not([class*="text-white"]):not([class*="text-[#FFFFFF]"]):not([class*="text-[#ffffff]"]):not([class*="text-[#E8DCC4]"]):not([class*="text-[#F4E0C8]"]),
+html:not(.dark) h5:not([class*="text-white"]):not([class*="text-[#FFFFFF]"]):not([class*="text-[#ffffff]"]):not([class*="text-[#E8DCC4]"]):not([class*="text-[#F4E0C8]"]),
+html:not(.dark) h6:not([class*="text-white"]):not([class*="text-[#FFFFFF]"]):not([class*="text-[#ffffff]"]):not([class*="text-[#E8DCC4]"]):not([class*="text-[#F4E0C8]"]) {
     color: #0F172A;
+}
+
+/* Ensure headings inside dark cards and callouts ALWAYS stay pure white in light mode */
+html:not(.dark) [class*="from-[#111315]"] h1,
+html:not(.dark) [class*="from-[#111315]"] h2,
+html:not(.dark) [class*="from-[#111315]"] h3,
+html:not(.dark) [class*="from-[#111315]"] h4,
+html:not(.dark) [class*="bg-[#111315]"] h1,
+html:not(.dark) [class*="bg-[#111315]"] h2,
+html:not(.dark) [class*="bg-[#111315]"] h3,
+html:not(.dark) [class*="bg-[#111315]"] h4,
+html:not(.dark) [class*="bg-[#181B1F]"] h1,
+html:not(.dark) [class*="bg-[#181B1F]"] h2,
+html:not(.dark) [class*="bg-[#181B1F]"] h3,
+html:not(.dark) [class*="bg-[#181B1F]"] h4 {
+    color: #FFFFFF !important;
 }
 
 /* Navbar Brand & Floating Atmosphere Badge in Light Mode */
@@ -119,12 +135,19 @@ html:not(.dark) #atmosphereBadge #atmosphereLandmark {
     color: #64748B !important;
 }
 
+/* Floating Atmosphere Badge: Mobile Viewport Protection (Never collide with floating buttons) */
+@media (max-width: 1023px) {
+    #atmosphereBadge {
+        display: none !important;
+    }
+}
+
 /* Destination & Portal Card Titles & Links in Light Mode */
 html:not(.dark) .dest-dossier-card h3,
 html:not(.dark) .portal-card h3,
 html:not(.dark) .opportunity-card h4,
-html:not(.dark) .card-prominent h3,
-html:not(.dark) .card-prominent h4 {
+html:not(.dark) .card-prominent:not([class*="from-[#111315]"]):not([class*="bg-[#111315]"]):not([class*="bg-[#181B1F]"]) h3,
+html:not(.dark) .card-prominent:not([class*="from-[#111315]"]):not([class*="bg-[#111315]"]):not([class*="bg-[#181B1F]"]) h4 {
     color: #0F172A;
 }
 

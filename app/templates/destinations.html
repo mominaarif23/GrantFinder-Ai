@@ -521,18 +521,20 @@
         <div class="rounded-3xl bg-gradient-to-r from-[#111315] via-[#181B1F] to-[#2D333B] text-[#FFFFFF] p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 text-left border border-[#2D333B]">
             <div>
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#F4E0C8] bg-[#2D333B] px-3.5 py-1 rounded-full border border-[#2D333B]">Calibrate Your Search</span>
-                <h3 class="text-2xl sm:text-3xl font-extrabold mt-3 text-[#FFFFFF]">Target Your Preferred Study or Venture Country.</h3>
+                <h3 class="text-2xl sm:text-3xl font-extrabold mt-3 text-white text-[#FFFFFF]" style="color: #FFFFFF !important;">Target Your Preferred Study or Venture Country.</h3>
                 <p class="text-xs sm:text-sm text-[#C3D7CE] mt-1.5 max-w-xl leading-relaxed">
                     Set up your applicant profile in under 2 minutes. Our AI matching model correlates your background with current open cohorts across all 6 destinations.
                 </p>
             </div>
             {% if user %}
-                <a href="/dashboard/{{ user.role }}" class="inline-flex px-6 py-3.5 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#E2E8F0]">
-                    Open Your Dashboard &rarr;
+                <a href="/dashboard/{{ user.role }}" class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#E2E8F0] group">
+                    <span>Open Your Dashboard</span>
+                    <svg class="w-4 h-4 text-[#181B1F] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             {% else %}
-                <a href="/register" class="inline-flex px-6 py-3.5 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#E2E8F0]">
-                    Select Your Track & Register &rarr;
+                <a href="/register" class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-[#FFFFFF] text-[#181B1F] hover:bg-[#F4E0C8] font-bold text-sm shadow-md transition shrink-0 border border-[#E2E8F0] group">
+                    <span>Select Your Track & Register</span>
+                    <svg class="w-4 h-4 text-[#181B1F] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             {% endif %}
         </div>

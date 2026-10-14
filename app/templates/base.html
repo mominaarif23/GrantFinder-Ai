@@ -247,10 +247,9 @@
                         </div>
                     {% else %}
                         <a href="/login" class="hidden sm:inline-flex text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#1F4D3E] dark:hover:text-[#E8DCC4] transition px-3.5 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#181B1F] shrink-0 whitespace-nowrap">Sign in</a>
-                        <a href="/register" class="inline-flex items-center justify-center px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-bold bg-[#1F4D3E] text-white hover:bg-[#16392E] dark:bg-[#1F4D3E] dark:hover:bg-[#28624F] shadow-sm shadow-[#1F4D3E]/20 transition shrink-0 whitespace-nowrap">
-                            <span class="hidden sm:inline">Explore Funding</span>
-                            <span class="inline sm:hidden">Explore</span>
-                            <svg class="w-3.5 h-3.5 ml-1 sm:ml-1.5 text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <a href="/register" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold bg-[#1F4D3E] text-white hover:bg-[#16392E] dark:bg-[#1F4D3E] dark:hover:bg-[#28624F] shadow-sm shadow-[#1F4D3E]/20 transition shrink-0 whitespace-nowrap">
+                            <span>Explore Funding</span>
+                            <svg class="w-3.5 h-3.5 ml-1.5 text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     {% endif %}
 
@@ -320,11 +319,20 @@
                     </div>
 
                     {% if user.role == 'student' %}
-                        <a href="/dashboard/student" class="text-center py-2.5 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-200">Open Scholarships Console &rarr;</a>
+                        <a href="/dashboard/student" class="inline-flex items-center justify-center space-x-1.5 text-center py-2.5 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs border border-emerald-200">
+                            <span>Open Scholarships Console</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
                     {% elif user.role == 'founder' %}
-                        <a href="/dashboard/founder" class="text-center py-2.5 rounded-full bg-teal-50 text-teal-800 font-bold text-xs border border-teal-300">Open Startup Grants Console &rarr;</a>
+                        <a href="/dashboard/founder" class="inline-flex items-center justify-center space-x-1.5 text-center py-2.5 rounded-full bg-teal-50 text-teal-800 font-bold text-xs border border-teal-300">
+                            <span>Open Startup Grants Console</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
                     {% elif user.role == 'admin' %}
-                        <a href="/admin" class="text-center py-2.5 rounded-full bg-amber-50 text-amber-900 font-bold text-xs border border-amber-300">Open Governance Console &rarr;</a>
+                        <a href="/admin" class="inline-flex items-center justify-center space-x-1.5 text-center py-2.5 rounded-full bg-amber-50 text-amber-900 font-bold text-xs border border-amber-300">
+                            <span>Open Governance Console</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
                     {% endif %}
 
                     {% if user.plan != 'premium' %}
@@ -343,13 +351,23 @@
                     </button>
 
                 {% else %}
+                    <a href="/register" class="inline-flex items-center justify-center space-x-2 text-center py-2.5 rounded-full bg-[#1F4D3E] text-white font-bold text-xs shadow-xs hover:bg-[#16392E] transition">
+                        <span>Explore Funding Opportunities</span>
+                        <svg class="w-3.5 h-3.5 text-[#E8DCC4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
                     <a href="/login" class="text-center py-2.5 rounded-full bg-slate-100 dark:bg-[#22272E] text-slate-900 dark:text-white font-bold text-xs hover:bg-slate-200 transition">Sign In to Account</a>
                     <button onclick="toggleAdvisorWidget(); toggleMobileNav();" class="w-full text-center py-2.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 font-bold text-xs shadow-xs flex items-center justify-center space-x-2">
                         <svg class="w-4 h-4 text-emerald-700 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         <span>Ask a Question</span>
                     </button>
-                    <a href="/register?role=student" class="text-center py-2.5 rounded-full bg-emerald-700 text-white font-bold text-xs shadow-xs hover:bg-emerald-800 transition">Student Scholarships Track &rarr;</a>
-                    <a href="/register?role=founder" class="text-center py-2.5 rounded-full bg-white dark:bg-[#22272E] text-teal-800 dark:text-teal-300 font-bold text-xs border border-teal-300 dark:border-teal-700 hover:bg-teal-50 transition">Founder Grants Track &rarr;</a>
+                    <a href="/register?role=student" class="inline-flex items-center justify-center space-x-1.5 text-center py-2.5 rounded-full bg-emerald-700 text-white font-bold text-xs shadow-xs hover:bg-emerald-800 transition">
+                        <span>Student Scholarships Track</span>
+                        <svg class="w-3.5 h-3.5 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                    <a href="/register?role=founder" class="inline-flex items-center justify-center space-x-1.5 text-center py-2.5 rounded-full bg-white dark:bg-[#22272E] text-teal-800 dark:text-teal-300 font-bold text-xs border border-teal-300 dark:border-teal-700 hover:bg-teal-50 transition">
+                        <span>Founder Grants Track</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
                 {% endif %}
 
                 <!-- Theme Toggle Button in Mobile Drawer -->
