@@ -311,22 +311,30 @@ def update_profile(req: ProfileUpdateRequest, user: Dict[str, Any] = Depends(req
 
 @router.post("/profile/avatar")
 async def upload_user_avatar(
-    file: UploadFile = File(...),
+    file: Optional[UploadFile] = File(None),
+    avatar: Optional[UploadFile] = File(None),
     user: Dict[str, Any] = Depends(require_verified_user)
 ):
+    upload_file = file or avatar
+    if not upload_file:
+        raise HTTPException(
+            status_code=400,
+            detail="No image file provided. Please attach a valid photo."
+        )
+
     ALLOWED_TYPES = {"image/jpeg", "image/png", "image/webp"}
     ALLOWED_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
     
-    filename = file.filename or "avatar.png"
+    filename = upload_file.filename or "avatar.png"
     _, ext = os.path.splitext(filename.lower())
     
-    if ext not in ALLOWED_EXTS or file.content_type not in ALLOWED_TYPES:
+    if ext not in ALLOWED_EXTS or upload_file.content_type not in ALLOWED_TYPES:
         raise HTTPException(
             status_code=400,
             detail="Invalid image format. Supported formats: JPG, PNG, WEBP."
         )
     
-    contents = await file.read()
+    contents = await upload_file.read()
     if len(contents) > 2 * 1024 * 1024:
         raise HTTPException(
             status_code=400,
@@ -338,7 +346,7 @@ async def upload_user_avatar(
         user_id=user["id"],
         file_bytes=contents,
         file_ext=clean_ext,
-        content_type=file.content_type or "image/png"
+        content_type=upload_file.content_type or "image/png"
     )
     
     # Persist avatar URL in user profile
@@ -386,6 +394,10 @@ def complete_profile_onboarding(
         "semester_or_funding": req.semester_or_funding
     }
     
+    current_prof = get_profile_by_user_id(user["id"]) or {}
+    existing_avatar = current_prof.get("avatar_url") or get_avatar_url(user["id"])
+    target_avatar = req.avatar_url if (req.avatar_url and req.avatar_url.strip()) else existing_avatar
+
     upserted_profile = upsert_profile(
         user_id=user["id"],
         ptype=profile_type,
@@ -394,7 +406,7 @@ def complete_profile_onboarding(
         gpa_funding=req.semester_or_funding or "",
         country_preference=req.country_preference,
         extra_details=extra_details,
-        avatar_url=req.avatar_url
+        avatar_url=target_avatar
     )
 
     # Determine role-specific dashboard redirect

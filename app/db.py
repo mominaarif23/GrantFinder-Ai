@@ -175,7 +175,7 @@ def upsert_profile(
         country_preference=eff_country,
         gpa_funding=eff_gpa,
         extra_details=extra_details or existing.get("extra_details"),
-        avatar_url=avatar_url if avatar_url is not None else existing.get("avatar_url")
+        avatar_url=avatar_url if (avatar_url is not None and avatar_url != "") else existing.get("avatar_url")
     )
 
 def list_curated_opportunities(track: Optional[str] = None, country: Optional[str] = None) -> List[Dict[str, Any]]:

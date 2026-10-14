@@ -245,3 +245,58 @@ def test_founder_profile_management_page_renders_venture_mode():
     assert "Funding Target / Capital Ask" in html
     assert "Complete your startup profile for higher grant matching" in html
     assert "University / Incubator Affiliation" in html
+
+def test_avatar_upload_accepts_both_field_names(fresh_user_no_profile):
+    """Verify that /api/auth/profile/avatar accepts either 'file' or 'avatar' form fields."""
+    client.cookies.set("access_token", fresh_user_no_profile["token"])
+    
+    # 1. 1x1 transparent PNG bytes
+    fake_png = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xb4\x00\x00\x00\x00IEND\xaeB`\x82'
+    
+    # Test upload with field name 'file'
+    res1 = client.post("/api/auth/profile/avatar", files={"file": ("test1.png", fake_png, "image/png")})
+    assert res1.status_code == 200
+    data1 = res1.json()
+    assert data1["success"] is True
+    assert "avatar_url" in data1
+    assert data1["avatar_url"]
+
+    # Test upload with field name 'avatar' (used by onboarding wizard)
+    res2 = client.post("/api/auth/profile/avatar", files={"avatar": ("test2.png", fake_png, "image/png")})
+    assert res2.status_code == 200
+    data2 = res2.json()
+    assert data2["success"] is True
+    assert "avatar_url" in data2
+    assert data2["avatar_url"]
+
+def test_onboarding_avatar_appears_on_profile(fresh_user_no_profile):
+    """Verify that uploading an image during onboarding preserves and displays it on /profile without re-upload."""
+    client.cookies.set("access_token", fresh_user_no_profile["token"])
+    fake_png = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xb4\x00\x00\x00\x00IEND\xaeB`\x82'
+
+    # Step 1: Upload avatar as done during wizard Step 2
+    upload_res = client.post("/api/auth/profile/avatar", files={"avatar": ("profile_photo.png", fake_png, "image/png")})
+    assert upload_res.status_code == 200
+    uploaded_url = upload_res.json()["avatar_url"]
+    assert uploaded_url
+
+    # Step 2: Complete onboarding payload carrying the uploaded avatar_url
+    payload = {
+        "name": "Avatar Verified User",
+        "role": "student",
+        "avatar_url": uploaded_url,
+        "major_domain": "Artificial Intelligence",
+        "degree_level_stage": "Undergraduate BS",
+        "semester_or_funding": "6th Semester",
+        "country_preference": "Both",
+        "notification_preference": "in_app"
+    }
+    finish_res = client.post("/api/auth/profile/onboarding", json=payload)
+    assert finish_res.status_code == 200
+
+    # Step 3: Access /profile and verify the avatar image is rendered immediately
+    profile_page = client.get("/profile")
+    assert profile_page.status_code == 200
+    page_text = profile_page.text
+    assert uploaded_url in page_text
+    assert f'src="{uploaded_url}"' in page_text
