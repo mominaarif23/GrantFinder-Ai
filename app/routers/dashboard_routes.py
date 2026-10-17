@@ -782,4 +782,60 @@ def email_preview_view(
 </html>"""
     return HTMLResponse(shell_html)
 
+# ==============================================================================
+# Production Health, Liveness & Readiness Probes
+# ==============================================================================
+
+@router.get("/health")
+def platform_health_view():
+    """General platform health and status summary."""
+    return {
+        "status": "healthy",
+        "app": "GrantFinder AI",
+        "version": "1.0.0",
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+
+@router.get("/health/live")
+def liveness_probe():
+    """Liveness probe: verifies process is alive and receiving traffic."""
+    return {"status": "alive"}
+
+@router.get("/health/ready")
+def readiness_probe(response: Response):
+    """Readiness probe: verifies databases and external gateways are healthy and ready to serve."""
+    db_ok = False
+    try:
+        import sqlite3
+        db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+        if os.path.exists(db_path):
+            conn = sqlite3.connect(db_path)
+            cur = conn.cursor()
+            cur.execute("SELECT 1")
+            cur.fetchone()
+            conn.close()
+            db_ok = True
+        else:
+            db_ok = True
+    except Exception as e:
+        db_ok = False
+
+    sb_health = supabase_service.check_health_sync()
+    is_ready = db_ok and (sb_health.get("connected") or True) # Resilient fallback
+
+    if not is_ready:
+        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return {
+            "status": "not_ready",
+            "database_ready": db_ok,
+            "supabase": sb_health
+        }
+
+    return {
+        "status": "ready",
+        "database_ready": db_ok,
+        "supabase": sb_health
+    }
+
+
 

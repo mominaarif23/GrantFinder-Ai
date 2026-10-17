@@ -25,8 +25,13 @@ app = FastAPI(
 )
 
 from fastapi.middleware.cors import CORSMiddleware
+from app.middleware.rate_limiter import RateLimiterMiddleware
+from app.utils.security_utils import log_security_event
 
-# Enable CORS for cross-origin client integration & OPTIONS preflight (BUG-008)
+# 1. Rate Limiting Middleware (Sliding Window)
+app.add_middleware(RateLimiterMiddleware)
+
+# 2. CORS configuration for cross-origin client integration & OPTIONS preflight
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -35,14 +40,53 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Enforce Institutional HTTP Security Headers (BUG-006)
+# 3. Content Security Policy (CSP) & Institutional HTTP Security Headers
+CSP_POLICY = (
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com; "
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+    "font-src 'self' https://fonts.gstatic.com data:; "
+    "img-src 'self' data: https: blob:; "
+    "connect-src 'self' https:; "
+    "frame-ancestors 'none'; "
+    "base-uri 'self'; "
+    "form-action 'self';"
+)
+
 @app.middleware("http")
-async def add_security_headers(request: Request, call_next):
+async def add_security_headers_and_csrf_guard(request: Request, call_next):
+    # CSRF Origin validation on state-changing requests
+    if request.method in ("POST", "PUT", "DELETE", "PATCH"):
+        origin = request.headers.get("origin")
+        if origin:
+            from urllib.parse import urlparse
+            origin_parsed = urlparse(origin)
+            origin_host = origin_parsed.netloc.lower()
+            request_host = (request.headers.get("host") or "").lower()
+            # If origin is provided and doesn't match host (or localhost/testing aliases), block request
+            allowed_hosts = {request_host, "testserver", "localhost", "127.0.0.1"}
+            origin_base = origin_host.split(":")[0]
+            req_base = request_host.split(":")[0]
+            if origin_base not in allowed_hosts and origin_base != req_base:
+                log_security_event(
+                    event_type="CSRF_BLOCKED",
+                    detail=f"Forbidden cross-origin state change attempt from {origin} to {request.url.path}",
+                    client_ip=request.client.host if request.client else "unknown"
+                )
+                return JSONResponse(
+                    status_code=403,
+                    content={"detail": "Cross-Site Request Forgery (CSRF) origin verification failed.", "success": False}
+                )
+
     response = await call_next(request)
+    response.headers["Content-Security-Policy"] = CSP_POLICY
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()"
+    response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
+    response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
     return response
 
 # Static files and templates
@@ -101,4 +145,4 @@ async def custom_404_handler(request: Request, exc):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=settings.PORT, reload=settings.DEBUG)
+    uvicorn.run("app.main:app", host=settings.HOST, port=settings.PORT, reload=settings.DEBUG)

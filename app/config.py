@@ -8,6 +8,7 @@ class Settings(BaseModel):
     APP_NAME: str = os.getenv("APP_NAME", "GrantFinder AI")
     APP_ENV: str = os.getenv("APP_ENV", "development")
     PORT: int = int(os.getenv("PORT", 8000))
+    HOST: str = os.getenv("HOST", "127.0.0.1")
     DEBUG: bool = os.getenv("DEBUG", "True").lower() in ("true", "1", "yes")
     SECRET_KEY: str = os.getenv("SECRET_KEY", "grantfinder-super-secret-key-production-change-2026")
     ALGORITHM: str = "HS256"
