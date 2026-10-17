@@ -549,3 +549,237 @@ async def verify_otp_endpoint(request: Request, response: Response):
         "token": new_token
     }
 
+# ==============================================================================
+# Development & QA Email Template Preview Route
+# ==============================================================================
+
+@router.get("/dev/email-preview", response_class=HTMLResponse)
+def email_preview_view(
+    request: Request,
+    role: str = "student",
+    alert_type: str = "new_match",
+    format: str = "html"
+):
+    """Interactive in-browser email template previewer for GrantFinder AI.
+    Renders Student & Student Founder email families across all 3 alert types:
+    - new_match
+    - deadline_approaching
+    - weekly_digest
+    Allows toggling between HTML view, raw email view, and plain-text fallback.
+    """
+    from fastapi.responses import PlainTextResponse
+    from app.services.email_template_service import email_template_service
+
+    norm_role = "founder" if role.lower() in ("founder", "startup") else "student"
+    norm_type = (
+        "deadline_approaching" if "deadline" in alert_type.lower() else
+        "weekly_digest" if "digest" in alert_type.lower() else
+        "new_match"
+    )
+
+    base_url = str(request.base_url).rstrip("/")
+
+    # Sample data tailored specifically to each role and alert type
+    if norm_role == "founder":
+        mock_user = {
+            "id": "qa-founder-001",
+            "name": "Hamza Tariq",
+            "email": "hamza.founder@grantfinder.ai",
+            "role": "founder",
+            "plan": "premium"
+        }
+        mock_profile = {
+            "profile_type": "startup",
+            "type": "startup",
+            "major_or_domain": "AgriTech",
+            "degree_level_stage": "Early Prototype / MVP"
+        }
+        if norm_type == "deadline_approaching":
+            opp_data = {
+                "opportunity_name": "Ignite National Seed Fund - Cycle 4",
+                "funder": "Ministry of Information Technology & Telecom",
+                "amount": "PKR 10,000,000",
+                "stage_fit": "Prototype / Seed Stage",
+                "equity_type": "0% Equity Non-Dilutive Grant",
+                "country": "Pakistan",
+                "deadline": "October 24, 2026",
+                "days_left": 7,
+                "match_score": 93,
+                "match_reason": "High-priority national seed grant closing in 7 days. Strong fit with your AgriTech IoT hardware prototype and verified pilot metrics.",
+                "source_link": f"{base_url}/portals"
+            }
+        elif norm_type == "weekly_digest":
+            opp_data = {
+                "opportunity_name": "Acumen Resilient Agriculture Venture Fund",
+                "funder": "Acumen Capital Partners",
+                "amount": "USD 75,000",
+                "stage_fit": "Early Commercial Traction",
+                "equity_type": "Non-Dilutive Innovation Capital",
+                "country": "Global / South Asia",
+                "deadline": "November 20, 2026",
+                "days_left": 34,
+                "match_score": 96,
+                "match_reason": "Top venture funding opportunity this week matching your sustainable crop yield optimization startup.",
+                "source_link": f"{base_url}/portals"
+            }
+        else: # new_match
+            opp_data = {
+                "opportunity_name": "Global AgriTech Climate Innovation Challenge",
+                "funder": "Bill & Melinda Gates Foundation & CGIAR",
+                "amount": "USD 100,000",
+                "stage_fit": "Prototype / MVP Launched",
+                "equity_type": "0% Equity Non-Dilutive Grant",
+                "country": "Pakistan & Global",
+                "deadline": "December 15, 2026",
+                "days_left": 59,
+                "match_score": 95,
+                "match_reason": "Targeted specifically at climate-resilient agricultural technology startups with verified field pilot data in emerging markets.",
+                "source_link": f"{base_url}/destinations"
+            }
+    else: # student
+        mock_user = {
+            "id": "qa-student-001",
+            "name": "Momina Tariq",
+            "email": "momina.student@grantfinder.ai",
+            "role": "student",
+            "plan": "premium"
+        }
+        mock_profile = {
+            "profile_type": "academic",
+            "type": "academic",
+            "major_or_domain": "Computer Science & AI",
+            "degree_level_stage": "Undergraduate BS"
+        }
+        if norm_type == "deadline_approaching":
+            opp_data = {
+                "opportunity_name": "Commonwealth Master's Scholarship (UK)",
+                "country": "United Kingdom",
+                "amount": "Full Tuition, Airfare & Living Allowance",
+                "degree_level": "Master of Science (MSc)",
+                "cgpa_fit": "First Class Honors / 3.60+ CGPA",
+                "deadline": "October 24, 2026",
+                "days_left": 7,
+                "match_score": 92,
+                "match_reason": "Urgent application notice closing in 7 days. High-priority alignment with your Computer Science transcript and UK study goals.",
+                "source_link": f"{base_url}/portals"
+            }
+        elif norm_type == "weekly_digest":
+            opp_data = {
+                "opportunity_name": "Rhodes Scholarship at Oxford University",
+                "country": "United Kingdom",
+                "amount": "Full Oxford University Fees + Annual Stipend",
+                "degree_level": "Postgraduate Study",
+                "cgpa_fit": "3.70+ CGPA with Demonstrated Leadership",
+                "deadline": "December 1, 2026",
+                "days_left": 45,
+                "match_score": 96,
+                "match_reason": "Highest compatibility scholarship discovered in this week's academic monitor based on your GPA and leadership profile.",
+                "source_link": f"{base_url}/destinations"
+            }
+        else: # new_match
+            opp_data = {
+                "opportunity_name": "Erasmus Mundus Joint Master Degree in AI & Data Science",
+                "country": "Germany & France (EU Consortium)",
+                "amount": "Fully Funded (EUR 1,400/mo + Full Tuition & Travel)",
+                "degree_level": "Master of Science (MSc)",
+                "cgpa_fit": "Minimum 3.50 CGPA (Your CGPA: 3.82 Aligned)",
+                "deadline": "November 30, 2026",
+                "days_left": 44,
+                "match_score": 98,
+                "match_reason": "Exceptional alignment with your Computer Science coursework, data science projects, and European postgraduate preferences.",
+                "source_link": f"{base_url}/destinations"
+            }
+
+    rendered = email_template_service.render_email_alert(
+        user=mock_user,
+        alert_type=norm_type,
+        opportunity_data=opp_data,
+        profile=mock_profile,
+        base_url=base_url
+    )
+
+    # Return pure text or raw email if requested
+    if format.lower() == "text":
+        return PlainTextResponse(rendered["text"])
+    elif format.lower() == "raw":
+        return HTMLResponse(rendered["html"])
+
+    # Interactive Developer Preview Shell
+    active_s_nm = "bg-teal-700 text-white font-bold" if norm_role == "student" and norm_type == "new_match" else "bg-slate-800 text-slate-300 hover:bg-slate-700"
+    active_s_dl = "bg-teal-700 text-white font-bold" if norm_role == "student" and norm_type == "deadline_approaching" else "bg-slate-800 text-slate-300 hover:bg-slate-700"
+    active_s_wd = "bg-teal-700 text-white font-bold" if norm_role == "student" and norm_type == "weekly_digest" else "bg-slate-800 text-slate-300 hover:bg-slate-700"
+
+    active_f_nm = "bg-amber-600 text-white font-bold" if norm_role == "founder" and norm_type == "new_match" else "bg-slate-800 text-slate-300 hover:bg-slate-700"
+    active_f_dl = "bg-amber-600 text-white font-bold" if norm_role == "founder" and norm_type == "deadline_approaching" else "bg-slate-800 text-slate-300 hover:bg-slate-700"
+    active_f_wd = "bg-amber-600 text-white font-bold" if norm_role == "founder" and norm_type == "weekly_digest" else "bg-slate-800 text-slate-300 hover:bg-slate-700"
+
+    raw_url = f"/dev/email-preview?role={norm_role}&alert_type={norm_type}&format=raw"
+    text_url = f"/dev/email-preview?role={norm_role}&alert_type={norm_type}&format=text"
+
+    shell_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Email Template Preview &bull; GrantFinder AI</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <style>
+    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #0f172a; color: #e2e8f0; margin: 0; padding: 0; }}
+    .preview-header {{ background-color: #1e293b; border-bottom: 1px solid #334155; padding: 14px 20px; position: sticky; top: 0; z-index: 50; }}
+    .badge {{ display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; }}
+  </style>
+</head>
+<body>
+  <!-- Top Preview Bar -->
+  <div class="preview-header">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+      <div>
+        <span style="font-size: 16px; font-weight: 800; color: #ffffff;">GrantFinder <span style="color: #c28c2a;">AI</span></span>
+        <span style="font-size: 12px; color: #94a3b8; margin-left: 8px;">Email Template Testing Console</span>
+      </div>
+
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <span style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700;">Format:</span>
+        <a href="{raw_url}" target="_blank" style="font-size: 11px; padding: 4px 10px; background: #334155; color: #f8fafc; border-radius: 6px; text-decoration: none; font-weight: 600;">Open Raw HTML &rarr;</a>
+        <a href="{text_url}" target="_blank" style="font-size: 11px; padding: 4px 10px; background: #334155; color: #f8fafc; border-radius: 6px; text-decoration: none; font-weight: 600;">Plain-Text Fallback &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div style="max-width: 1200px; margin: 12px auto 0 auto; display: flex; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 4px; background: #0f172a; padding: 4px 8px; border-radius: 8px; border: 1px solid #334155;">
+        <span style="font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-right: 6px;">Student:</span>
+        <a href="/dev/email-preview?role=student&alert_type=new_match" class="{active_s_nm}" style="font-size: 12px; padding: 5px 12px; border-radius: 6px; text-decoration: none;">New Match</a>
+        <a href="/dev/email-preview?role=student&alert_type=deadline_approaching" class="{active_s_dl}" style="font-size: 12px; padding: 5px 12px; border-radius: 6px; text-decoration: none;">Deadline (7d)</a>
+        <a href="/dev/email-preview?role=student&alert_type=weekly_digest" class="{active_s_wd}" style="font-size: 12px; padding: 5px 12px; border-radius: 6px; text-decoration: none;">Weekly Digest</a>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 4px; background: #0f172a; padding: 4px 8px; border-radius: 8px; border: 1px solid #334155;">
+        <span style="font-size: 11px; font-weight: 700; color: #fbbf24; text-transform: uppercase; margin-right: 6px;">Founder:</span>
+        <a href="/dev/email-preview?role=founder&alert_type=new_match" class="{active_f_nm}" style="font-size: 12px; padding: 5px 12px; border-radius: 6px; text-decoration: none;">New Match</a>
+        <a href="/dev/email-preview?role=founder&alert_type=deadline_approaching" class="{active_f_dl}" style="font-size: 12px; padding: 5px 12px; border-radius: 6px; text-decoration: none;">Deadline (7d)</a>
+        <a href="/dev/email-preview?role=founder&alert_type=weekly_digest" class="{active_f_wd}" style="font-size: 12px; padding: 5px 12px; border-radius: 6px; text-decoration: none;">Weekly Digest</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Meta Box -->
+  <div style="max-width: 720px; margin: 18px auto 0 auto; background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 12px 18px; font-size: 12px;">
+    <div style="display: grid; grid-template-columns: 80px 1fr; gap: 6px; line-height: 1.5;">
+      <span style="color: #64748b; font-weight: 700;">Subject:</span>
+      <span style="color: #f8fafc; font-weight: 700;">{rendered['subject']}</span>
+      <span style="color: #64748b; font-weight: 700;">Recipient:</span>
+      <span style="color: #94a3b8;">{mock_user['name']} &lt;{mock_user['email']}&gt; &bull; Track: <strong style="color: #38bdf8;">{norm_role.upper()}</strong></span>
+      <span style="color: #64748b; font-weight: 700;">Event:</span>
+      <span style="color: #94a3b8;"><span class="badge" style="background-color: #334155; color: #38bdf8;">{norm_type}</span> &bull; Plan: <strong>PREMIUM (Verified &amp; Double Opt-In Subscribed)</strong></span>
+    </div>
+  </div>
+
+  <!-- Rendered Container -->
+  <div style="max-width: 720px; margin: 18px auto 40px auto; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);">
+    {rendered['html']}
+  </div>
+</body>
+</html>"""
+    return HTMLResponse(shell_html)
+
+

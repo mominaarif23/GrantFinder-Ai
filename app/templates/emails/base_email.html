@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>{{ subject | default("GrantFinder AI Alert") }}</title>
+  <style type="text/css">
+    /* Base resets */
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
+    body { margin: 0; padding: 0; width: 100% !important; background-color: #F8F9FA; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1E293B; }
+    
+    /* Responsive breakpoints */
+    @media only screen and (max-width: 600px) {
+      .email-container { width: 100% !important; max-width: 100% !important; }
+      .fluid-cell { display: block !important; width: 100% !important; box-sizing: border-box !important; }
+      .mobile-stack { display: block !important; width: 100% !important; padding-left: 0 !important; padding-right: 0 !important; }
+      .mobile-btn { display: block !important; width: 100% !important; text-align: center !important; margin-bottom: 10px !important; }
+      .mobile-padding { padding: 20px 16px !important; }
+      .header-meta { text-align: left !important; margin-top: 8px !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #F8F9FA; -webkit-font-smoothing: antialiased;">
+  <!-- Outer Wrapper Table -->
+  <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F8F9FA" style="background-color: #F8F9FA; margin: 0; padding: 24px 0 32px 0;">
+    <tr>
+      <td align="center" style="padding: 0 12px;">
+        
+        <!-- Main Email Container (Max 600px) -->
+        <table role="presentation" class="email-container" width="600" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" style="width: 100%; max-width: 600px; background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);">
+          
+          <!-- Brand Header -->
+          <tr>
+            <td bgcolor="#1F4E5F" style="background-color: #1F4E5F; padding: 22px 28px; border-bottom: 3px solid #C28C2A;">
+              <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="left" valign="middle" class="fluid-cell">
+                    <span style="font-size: 22px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; text-decoration: none;">
+                      GrantFinder <span style="color: #C28C2A;">AI</span>
+                    </span>
+                    <span style="display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: #E2E8F0; margin-top: 4px;">
+                      Intelligent Opportunity Discovery
+                    </span>
+                  </td>
+                  <td align="right" valign="middle" class="fluid-cell header-meta" style="padding-top: 2px;">
+                    <span style="display: inline-block; font-size: 11px; font-weight: 700; background-color: rgba(255, 255, 255, 0.15); color: #FFFFFF; padding: 5px 12px; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.25); text-transform: uppercase; letter-spacing: 0.8px;">
+                      {{ header_badge | default("Premium Alert") }}
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Content Block -->
+          <tr>
+            <td class="mobile-padding" style="padding: 32px 28px 24px 28px; background-color: #FFFFFF;">
+              {% block content %}
+              <!-- Main role-specific alert content inserted here -->
+              {% endblock %}
+            </td>
+          </tr>
+
+          <!-- Footer Block -->
+          <tr>
+            <td style="padding: 24px 28px 30px 28px; background-color: #F8F9FA; border-top: 1px solid #E2E8F0;">
+              {% block footer %}
+              <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="left" style="font-size: 11.5px; color: #64748B; line-height: 1.6;">
+                    You are receiving this curated notification because your account is verified on the <strong>GrantFinder AI Premium Tier</strong>.
+                    <br />
+                    <span style="display: inline-block; margin-top: 8px;">
+                      <a href="{{ unsubscribe_link | default('#') }}" style="color: #1F4E5F; font-weight: 600; text-decoration: underline;">
+                        Unsubscribe from email alerts
+                      </a>
+                      &nbsp;&bull;&nbsp;
+                      <a href="{{ dashboard_link | default('#') }}" style="color: #64748B; text-decoration: underline;">
+                        Manage notification preferences
+                      </a>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left" style="padding-top: 16px; font-size: 11px; color: #94A3B8; line-height: 1.4;">
+                    &copy; 2026 GrantFinder AI &bull; Intelligent Scholarship &amp; Innovation Grant Discovery Platform.
+                  </td>
+                </tr>
+              </table>
+              {% endblock %}
+            </td>
+          </tr>
+
+        </table>
+        <!-- End Main Email Container -->
+
+      </td>
+    </tr>
+  </table>
+  <!-- End Outer Wrapper Table -->
+</body>
+</html>

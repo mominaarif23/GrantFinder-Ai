@@ -1,0 +1,214 @@
+{% extends "emails/base_email.html" %}
+
+{% block content %}
+<!-- Greeting with Optional Startup Domain -->
+<p style="margin: 0 0 16px 0; font-size: 15px; font-weight: 700; color: #1F4E5F; line-height: 1.4;">
+  Dear {{ first_name | default("Founder") }}{% if startup_domain and startup_domain != "None" and startup_domain != "General" %} &mdash; new {{ startup_domain }} funding discovered for your venture{% endif %},
+</p>
+
+<!-- Intro Narrative -->
+<p style="margin: 0 0 22px 0; font-size: 13.5px; line-height: 1.6; color: #334155;">
+  {% if intro_text %}
+    {{ intro_text }}
+  {% elif alert_type == "deadline_approaching" %}
+    Time-sensitive funding notice: The application window for this startup grant is closing {% if days_left %}in <strong>{{ days_left }} days</strong>{% else %}soon{% endif %}. Ensure your pitch deck, executive summary, and financial projections are finalized before submission.
+  {% elif alert_type == "weekly_digest" %}
+    Here is your weekly curated venture funding digest. Our startup intelligence monitors have synthesized active non-dilutive grants, innovation challenges, and founder capital programs aligned with your startup profile.
+  {% else %}
+    Our venture matching engine has identified an active funding opportunity aligned with your startup stage, domain focus, and capital structure.
+  {% endif %}
+</p>
+
+<!-- Primary Opportunity Card -->
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F8FAFC" style="background-color: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; margin-bottom: 24px; overflow: hidden;">
+  <!-- Card Header -->
+  <tr>
+    <td style="padding: 18px 20px 14px 20px; border-bottom: 1px solid #E2E8F0; background-color: #F1F5F9;">
+      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="left" valign="middle">
+            <span style="display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #1F4E5F; background-color: #E6F0F2; padding: 4px 10px; border-radius: 6px; border: 1px solid #BCD3D9;">
+              Startup Grant Track
+            </span>
+          </td>
+          <td align="right" valign="middle">
+            {% if match_score is not none and match_score != "" %}
+              {% set score_num = match_score | int %}
+              {% if score_num >= 80 %}
+                <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #065F46; background-color: #ECFDF5; border: 1px solid #A7F3D0; padding: 4px 12px; border-radius: 9999px;">
+                  {{ score_num }}% Compatibility Match
+                </span>
+              {% elif score_num >= 60 %}
+                <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #92400E; background-color: #FFFBEB; border: 1px solid #FDE68A; padding: 4px 12px; border-radius: 9999px;">
+                  {{ score_num }}% Moderate Match
+                </span>
+              {% else %}
+                <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #991B1B; background-color: #FEF2F2; border: 1px solid #FECACA; padding: 4px 12px; border-radius: 9999px;">
+                  {{ score_num }}% Match
+                </span>
+              {% endif %}
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Opportunity Title -->
+  <tr>
+    <td style="padding: 20px 20px 10px 20px;">
+      <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #0F172A; line-height: 1.35;">
+        {{ opportunity_name | default("Curated Innovation Grant") }}
+      </h3>
+    </td>
+  </tr>
+
+  <!-- Key Grant Details Table -->
+  <tr>
+    <td style="padding: 10px 20px 18px 20px;">
+      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; font-size: 13px;">
+        
+        {% if funder and funder != "None" and funder != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Funding Organization:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ funder }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if amount and amount != "None" and amount != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Grant Funding Amount:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ amount }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if stage_fit and stage_fit != "None" and stage_fit != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Startup Stage Fit:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ stage_fit }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if equity_type and equity_type != "None" and equity_type != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Equity Structure:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ equity_type }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if country and country != "None" and country != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Eligible Region:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ country }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if deadline and deadline != "None" and deadline != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Submission Deadline:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #B91C1C; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ deadline }}{% if days_left and days_left != "None" %} ({{ days_left }} days left){% endif %}
+          </td>
+        </tr>
+        {% endif %}
+
+      </table>
+
+      <!-- Match Reason / Alignment Box -->
+      {% if match_reason and match_reason != "None" and match_reason != "Unknown" %}
+      <div style="margin-top: 16px; padding: 12px 14px; background-color: #FFFFFF; border-left: 3px solid #1F4E5F; border-radius: 4px; border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;">
+        <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #1F4E5F; display: block; margin-bottom: 4px;">
+          Match Evaluation &amp; Venture Alignment
+        </span>
+        <p style="margin: 0; font-size: 12.5px; color: #334155; line-height: 1.55;">
+          {{ match_reason }}
+        </p>
+      </div>
+      {% endif %}
+
+    </td>
+  </tr>
+</table>
+
+<!-- Additional Weekly Digest Items (if provided) -->
+{% if opportunities and opportunities | length > 1 %}
+<div style="margin-bottom: 24px;">
+  <h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 700; color: #1F4E5F; text-transform: uppercase; letter-spacing: 0.8px;">
+    Additional Startup Grants This Week
+  </h4>
+  <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #E2E8F0; border-radius: 8px; overflow: hidden; font-size: 12.5px;">
+    {% for opp in opportunities[1:] %}
+    <tr bgcolor="{{ '#F8FAFC' if loop.index is odd else '#FFFFFF' }}">
+      <td style="padding: 12px 14px; border-bottom: 1px solid #E2E8F0;">
+        <span style="font-weight: 700; color: #0F172A; display: block;">{{ opp.opportunity_name | default(opp.title) }}</span>
+        <span style="font-size: 11.5px; color: #64748B;">
+          {% if opp.funder %}{{ opp.funder }} &bull; {% endif %}
+          {% if opp.amount %}{{ opp.amount }} &bull; {% endif %}
+          Deadline: {{ opp.deadline | default("Rolling") }}
+        </span>
+      </td>
+      <td align="right" valign="middle" style="padding: 12px 14px; border-bottom: 1px solid #E2E8F0; white-space: nowrap;">
+        <span style="display: inline-block; font-size: 11px; font-weight: 700; color: #065F46; background-color: #ECFDF5; border: 1px solid #A7F3D0; padding: 2px 8px; border-radius: 9999px; margin-right: 8px;">
+          {{ opp.match_score | default(88) }}%
+        </span>
+        <a href="{{ opp.source_link | default(dashboard_link) }}" style="font-size: 11.5px; font-weight: 700; color: #1F4E5F; text-decoration: underline;">
+          View &rarr;
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+
+<!-- Dual Action Buttons -->
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 26px 0 20px 0;">
+  <tr>
+    <td align="center">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+        <tr>
+          <!-- Primary CTA: View Grant -->
+          <td align="center" class="mobile-btn" style="padding: 0 8px 10px 8px;">
+            <a href="{{ source_link | default(dashboard_link ~ '/destinations') }}" target="_blank" style="background-color: #C28C2A; color: #FFFFFF; font-size: 13.5px; font-weight: 700; text-decoration: none; padding: 13px 26px; border-radius: 8px; display: inline-block; min-width: 170px; text-align: center; border: 1px solid #A87620; box-shadow: 0 2px 6px rgba(194, 140, 42, 0.25);">
+              View Grant &rarr;
+            </a>
+          </td>
+          <!-- Secondary CTA: Generate Pitch Draft -->
+          <td align="center" class="mobile-btn" style="padding: 0 8px 10px 8px;">
+            <a href="{{ pitch_link | default(dashboard_link ~ '/ai-assistant') }}" target="_blank" style="background-color: #1F4E5F; color: #FFFFFF; font-size: 13.5px; font-weight: 700; text-decoration: none; padding: 13px 26px; border-radius: 8px; display: inline-block; min-width: 170px; text-align: center; border: 1px solid #163844; box-shadow: 0 2px 6px rgba(31, 78, 95, 0.25);">
+              Generate Pitch Draft &rarr;
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<!-- Microcopy helper -->
+<p style="margin: 8px 0 0 0; font-size: 11.5px; color: #64748B; text-align: center; line-height: 1.5;">
+  Use the AI Application Drafter to automatically generate tailored grant proposals, founder pitch outlines, and executive summaries.
+</p>
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends "emails/base_email.html" %}
+
+{% block content %}
+<!-- Greeting -->
+<p style="margin: 0 0 16px 0; font-size: 15px; font-weight: 700; color: #1F4E5F; line-height: 1.4;">
+  Dear {{ first_name | default("Scholar") }},
+</p>
+
+<!-- Intro Narrative -->
+<p style="margin: 0 0 22px 0; font-size: 13.5px; line-height: 1.6; color: #334155;">
+  {% if intro_text %}
+    {{ intro_text }}
+  {% elif alert_type == "deadline_approaching" %}
+    Application deadline notice: The submission window for the scholarship opportunity below is closing {% if days_left %}in <strong>{{ days_left }} days</strong>{% else %}soon{% endif %}. Review your eligibility criteria, transcripts, and personal statement to complete your submission on time.
+  {% elif alert_type == "weekly_digest" %}
+    Here is your weekly curated scholarship digest. Our academic matching algorithm has evaluated active international and national scholarship programs to identify the highest-scoring options for your academic profile.
+  {% else %}
+    Our semantic matching engine has identified a high-affinity scholarship opportunity calibrated specifically to your degree track, academic record, and study destination preferences.
+  {% endif %}
+</p>
+
+<!-- Primary Opportunity Card -->
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F8FAFC" style="background-color: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; margin-bottom: 24px; overflow: hidden;">
+  <!-- Card Header -->
+  <tr>
+    <td style="padding: 18px 20px 14px 20px; border-bottom: 1px solid #E2E8F0; background-color: #F1F5F9;">
+      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="left" valign="middle">
+            <span style="display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #1F4E5F; background-color: #E6F0F2; padding: 4px 10px; border-radius: 6px; border: 1px solid #BCD3D9;">
+              Scholarship Track
+            </span>
+          </td>
+          <td align="right" valign="middle">
+            {% if match_score is not none and match_score != "" %}
+              {% set score_num = match_score | int %}
+              {% if score_num >= 80 %}
+                <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #065F46; background-color: #ECFDF5; border: 1px solid #A7F3D0; padding: 4px 12px; border-radius: 9999px;">
+                  {{ score_num }}% Compatibility Match
+                </span>
+              {% elif score_num >= 60 %}
+                <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #92400E; background-color: #FFFBEB; border: 1px solid #FDE68A; padding: 4px 12px; border-radius: 9999px;">
+                  {{ score_num }}% Moderate Match
+                </span>
+              {% else %}
+                <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #991B1B; background-color: #FEF2F2; border: 1px solid #FECACA; padding: 4px 12px; border-radius: 9999px;">
+                  {{ score_num }}% Match
+                </span>
+              {% endif %}
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Opportunity Title -->
+  <tr>
+    <td style="padding: 20px 20px 10px 20px;">
+      <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #0F172A; line-height: 1.35;">
+        {{ opportunity_name | default("Curated Academic Scholarship") }}
+      </h3>
+    </td>
+  </tr>
+
+  <!-- Key Scholarship Details Table -->
+  <tr>
+    <td style="padding: 10px 20px 18px 20px;">
+      <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; font-size: 13px;">
+        
+        {% if country and country != "None" and country != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Study Destination:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ country }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if amount and amount != "None" and amount != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Funding Coverage:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ amount }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if degree_level and degree_level != "None" and degree_level != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Degree Level:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ degree_level }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if cgpa_fit and cgpa_fit != "None" and cgpa_fit != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Academic CGPA Fit:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #0F172A; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ cgpa_fit }}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if deadline and deadline != "None" and deadline != "Unknown" %}
+        <tr>
+          <td valign="top" style="padding: 7px 0; color: #64748B; font-weight: 600; width: 38%; border-bottom: 1px solid #EDF2F7;">
+            Application Deadline:
+          </td>
+          <td valign="top" style="padding: 7px 0; color: #B91C1C; font-weight: 700; border-bottom: 1px solid #EDF2F7;">
+            {{ deadline }}{% if days_left and days_left != "None" %} ({{ days_left }} days left){% endif %}
+          </td>
+        </tr>
+        {% endif %}
+
+      </table>
+
+      <!-- Match Reason / Alignment Box -->
+      {% if match_reason and match_reason != "None" and match_reason != "Unknown" %}
+      <div style="margin-top: 16px; padding: 12px 14px; background-color: #FFFFFF; border-left: 3px solid #1F4E5F; border-radius: 4px; border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;">
+        <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #1F4E5F; display: block; margin-bottom: 4px;">
+          Match Evaluation &amp; Eligibility Alignment
+        </span>
+        <p style="margin: 0; font-size: 12.5px; color: #334155; line-height: 1.55;">
+          {{ match_reason }}
+        </p>
+      </div>
+      {% endif %}
+
+    </td>
+  </tr>
+</table>
+
+<!-- Additional Weekly Digest Items (if provided) -->
+{% if opportunities and opportunities | length > 1 %}
+<div style="margin-bottom: 24px;">
+  <h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 700; color: #1F4E5F; text-transform: uppercase; letter-spacing: 0.8px;">
+    Additional Top Matches This Week
+  </h4>
+  <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #E2E8F0; border-radius: 8px; overflow: hidden; font-size: 12.5px;">
+    {% for opp in opportunities[1:] %}
+    <tr bgcolor="{{ '#F8FAFC' if loop.index is odd else '#FFFFFF' }}">
+      <td style="padding: 12px 14px; border-bottom: 1px solid #E2E8F0;">
+        <span style="font-weight: 700; color: #0F172A; display: block;">{{ opp.opportunity_name | default(opp.title) }}</span>
+        <span style="font-size: 11.5px; color: #64748B;">
+          {% if opp.country %}{{ opp.country }} &bull; {% endif %}
+          {% if opp.amount %}{{ opp.amount }} &bull; {% endif %}
+          Deadline: {{ opp.deadline | default("Rolling") }}
+        </span>
+      </td>
+      <td align="right" valign="middle" style="padding: 12px 14px; border-bottom: 1px solid #E2E8F0; white-space: nowrap;">
+        <span style="display: inline-block; font-size: 11px; font-weight: 700; color: #065F46; background-color: #ECFDF5; border: 1px solid #A7F3D0; padding: 2px 8px; border-radius: 9999px; margin-right: 8px;">
+          {{ opp.match_score | default(85) }}%
+        </span>
+        <a href="{{ opp.source_link | default(dashboard_link) }}" style="font-size: 11.5px; font-weight: 700; color: #1F4E5F; text-decoration: underline;">
+          View &rarr;
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+
+<!-- Dual Action Buttons -->
+<table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 26px 0 20px 0;">
+  <tr>
+    <td align="center">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+        <tr>
+          <!-- Primary CTA: View Scholarship -->
+          <td align="center" class="mobile-btn" style="padding: 0 8px 10px 8px;">
+            <a href="{{ source_link | default(dashboard_link ~ '/destinations') }}" target="_blank" style="background-color: #C28C2A; color: #FFFFFF; font-size: 13.5px; font-weight: 700; text-decoration: none; padding: 13px 26px; border-radius: 8px; display: inline-block; min-width: 170px; text-align: center; border: 1px solid #A87620; box-shadow: 0 2px 6px rgba(194, 140, 42, 0.25);">
+              View Scholarship &rarr;
+            </a>
+          </td>
+          <!-- Secondary CTA: Generate Essay Draft -->
+          <td align="center" class="mobile-btn" style="padding: 0 8px 10px 8px;">
+            <a href="{{ essay_link | default(dashboard_link ~ '/ai-assistant') }}" target="_blank" style="background-color: #1F4E5F; color: #FFFFFF; font-size: 13.5px; font-weight: 700; text-decoration: none; padding: 13px 26px; border-radius: 8px; display: inline-block; min-width: 170px; text-align: center; border: 1px solid #163844; box-shadow: 0 2px 6px rgba(31, 78, 95, 0.25);">
+              Generate Essay Draft &rarr;
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<!-- Microcopy helper -->
+<p style="margin: 8px 0 0 0; font-size: 11.5px; color: #64748B; text-align: center; line-height: 1.5;">
+  Use the AI Application Drafter to produce custom scholarship essays, personal statements, and motivation letters calibrated to this opportunity.
+</p>
+{% endblock %}

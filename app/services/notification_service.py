@@ -309,6 +309,45 @@ def send_password_reset_email(
         otp_code=reset_code
     )
 
+def send_templated_email(
+    recipient_email: str,
+    subject: str,
+    html_content: str,
+    text_content: Optional[str] = None
+) -> bool:
+    """Send multipart (HTML + plain-text fallback) email via Gmail/SMTP."""
+    if not recipient_email:
+        return True
+
+    # Guard against sending actual SMTP traffic to dummy/testing domains to prevent bounces
+    dummy_domains = ("@grantfinder.ai", "@example.com", "@test.com", "@localhost")
+    if any(recipient_email.lower().endswith(d) for d in dummy_domains):
+        return True
+
+    if not settings.SMTP_USER or not settings.SMTP_PASS:
+        return True
+
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject if subject.startswith("[GrantFinder AI]") else f"[GrantFinder AI] {subject}"
+        from_address = settings.SMTP_USER if ("@" in settings.SMTP_USER) else settings.NOTIFICATION_EMAIL_FROM
+        msg["From"] = f"GrantFinder AI <{from_address}>"
+        msg["To"] = recipient_email
+
+        if text_content:
+            msg.attach(MIMEText(text_content, "plain", "utf-8"))
+        msg.attach(MIMEText(html_content, "html", "utf-8"))
+
+        clean_pass = settings.SMTP_PASS.replace(" ", "")
+        with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT, timeout=10) as server:
+            server.starttls()
+            server.login(settings.SMTP_USER, clean_pass)
+            server.sendmail(from_address, recipient_email, msg.as_string())
+        return True
+    except Exception as e:
+        print(f"[SMTP TEMPLATED WARNING] Outbound SMTP dispatch error: {type(e)} {e}")
+        return False
+
 def send_premium_match_notification_email(
     recipient_email: str,
     user_name: str,
@@ -319,9 +358,11 @@ def send_premium_match_notification_email(
     deadline: str,
     funding_amount: str = "Funded",
     source_link: Optional[str] = None,
-    base_url: str = ""
+    base_url: str = "",
+    role: Optional[str] = None,
+    user_id: Optional[str] = None
 ) -> bool:
-    """Send branded, premium-only HTML match notification email. Free users never receive this email."""
+    """Send branded, role-calibrated HTML & plain-text match notification email using email_template_service."""
     if not recipient_email:
         return True
 
@@ -330,115 +371,37 @@ def send_premium_match_notification_email(
     if any(recipient_email.lower().endswith(d) for d in dummy_domains):
         return True
 
-    if not settings.SMTP_USER or not settings.SMTP_PASS:
-        return True
-
     try:
-        domain = base_url.rstrip('/') if base_url else "https://grantfinder-ai.onrender.com"
-        portal_url = source_link or f"{domain}/dashboard"
-        unsub_token = supabase_service.generate_subscription_token("premium-user", recipient_email, action="unsubscribe")
-        unsub_url = f"{domain}/api/notifications/unsubscribe?token={unsub_token}"
-
-        msg = MIMEMultipart("alternative")
-        msg["Subject"] = f"[GrantFinder AI] New {opportunity_type.capitalize()} Match: {opportunity_name}"
-        from_address = settings.SMTP_USER if ("@" in settings.SMTP_USER) else settings.NOTIFICATION_EMAIL_FROM
-        msg["From"] = f"GrantFinder AI Premium <{from_address}>"
-        msg["To"] = recipient_email
-
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            </head>
-            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f1f5f9; padding: 24px 12px; margin: 0;">
-                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 36px 32px; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
-                    <!-- Brand Header -->
-                    <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 22px; margin-bottom: 26px; display: flex; align-items: center; justify-content: space-between;">
-                        <div>
-                            <span style="font-size: 22px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">GrantFinder <span style="color: #2563eb;">AI</span></span>
-                            <span style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; margin-top: 2px;">Curated Intelligence Gateway</span>
-                        </div>
-                        <span style="display: inline-block; font-size: 11px; font-weight: 800; background-color: #fef3c7; color: #b45309; padding: 5px 12px; border-radius: 9999px; border: 1px solid #fde68a; letter-spacing: 0.5px;">
-                            Premium Match Alert
-                        </span>
-                    </div>
-
-                    <!-- Greeting & Intro -->
-                    <p style="font-size: 14px; color: #334155; margin: 0 0 16px 0;">
-                        Dear <strong>{user_name}</strong>,
-                    </p>
-                    <p style="font-size: 14px; color: #334155; margin: 0 0 24px 0; line-height: 1.6;">
-                        Our semantic matching engine and live funding monitors have discovered a high-affinity opportunity calibrated specifically to your profile.
-                    </p>
-
-                    <!-- Feature Card -->
-                    <div style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid #cbd5e1; border-radius: 16px; padding: 24px; margin-bottom: 26px;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-                            <span style="display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #2563eb; background: #dbeafe; padding: 3px 10px; border-radius: 6px;">
-                                {opportunity_type.capitalize()}
-                            </span>
-                            <span style="display: inline-block; font-size: 12px; font-weight: 800; color: #047857; background: #d1fae5; padding: 3px 10px; border-radius: 6px;">
-                                {match_score}% Compatibility Match
-                            </span>
-                        </div>
-                        <h3 style="font-size: 19px; font-weight: 800; color: #0f172a; margin: 8px 0 12px 0; line-height: 1.35;">
-                            {opportunity_name}
-                        </h3>
-
-                        <!-- Grid Details -->
-                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                            <div style="background: #ffffff; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0;">
-                                <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; display: block;">Funding Amount</span>
-                                <span style="font-size: 13px; font-weight: 800; color: #0f172a; margin-top: 2px; display: block;">{funding_amount}</span>
-                            </div>
-                            <div style="background: #ffffff; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0;">
-                                <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; display: block;">Application Deadline</span>
-                                <span style="font-size: 13px; font-weight: 800; color: #dc2626; margin-top: 2px; display: block;">{deadline}</span>
-                            </div>
-                        </div>
-
-                        <!-- Match Reason -->
-                        <div style="margin-top: 16px; padding: 12px 14px; background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0;">
-                            <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;">Why You Were Matched</span>
-                            <p style="font-size: 12.5px; color: #334155; margin: 0; line-height: 1.5;">
-                                {match_reason}
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Call to Action -->
-                    <div style="text-align: center; margin: 28px 0 20px 0;">
-                        <a href="{portal_url}" style="background-color: #1d4ed8; color: #ffffff; padding: 14px 32px; font-weight: 800; font-size: 14px; text-decoration: none; border-radius: 12px; display: inline-block; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);">
-                            View Opportunity Details & Apply &rarr;
-                        </a>
-                    </div>
-                    <p style="text-align: center; font-size: 11.5px; color: #64748b; margin-top: 8px;">
-                        Log in to use the AI Application Drafter to automatically generate tailored essays or pitch decks for this opportunity.
-                    </p>
-
-                    <!-- Footer -->
-                    <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 32px 0 18px 0;">
-                    <p style="font-size: 11px; color: #94a3b8; line-height: 1.5; margin: 0;">
-                        You are receiving this curated notification because you are a verified subscriber on the GrantFinder AI Premium Tier.
-                        <br>
-                        <a href="{unsub_url}" style="color: #64748b; text-decoration: underline;">Manage notification preferences or unsubscribe</a>
-                    </p>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 12px;">
-                        &copy; 2026 GrantFinder AI &bull; Intelligent Funding Discovery for Pakistan & Global Opportunities
-                    </div>
-                </div>
-            </body>
-        </html>
-        """
-        msg.attach(MIMEText(html_content, "html"))
-        clean_pass = settings.SMTP_PASS.replace(" ", "")
-        with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT, timeout=10) as server:
-            server.starttls()
-            server.login(settings.SMTP_USER, clean_pass)
-            server.sendmail(from_address, recipient_email, msg.as_string())
-        return True
+        from app.services.email_template_service import email_template_service
+        eff_role = role or ("founder" if str(opportunity_type).lower() in ("grant", "startup") else "student")
+        user_dict = {
+            "id": user_id or "premium-user",
+            "name": user_name,
+            "email": recipient_email,
+            "role": eff_role,
+            "plan": "premium"
+        }
+        opp_data = {
+            "opportunity_name": opportunity_name,
+            "opportunity_type": opportunity_type,
+            "match_score": match_score,
+            "match_reason": match_reason,
+            "deadline": deadline,
+            "amount": funding_amount,
+            "source_link": source_link
+        }
+        rendered = email_template_service.render_email_alert(
+            user=user_dict,
+            alert_type="new_match",
+            opportunity_data=opp_data,
+            base_url=base_url
+        )
+        return send_templated_email(
+            recipient_email=recipient_email,
+            subject=rendered["subject"],
+            html_content=rendered["html"],
+            text_content=rendered["text"]
+        )
     except Exception as e:
         print(f"[SMTP MATCH WARNING] Outbound match notification error: {e}")
         return False
@@ -447,11 +410,15 @@ def notify_user(
     user_id: str,
     message: str,
     event_type: str = "general",
-    title: Optional[str] = None
+    title: Optional[str] = None,
+    opportunity_data: Optional[Dict[str, Any]] = None,
+    opportunities_list: Optional[List[Dict[str, Any]]] = None,
+    base_url: str = ""
 ) -> Dict[str, Any]:
-    """Central unified notification function as specified in Supabase Integration Plan:
+    """Central unified notification function:
     1. in_app: Always created in public.notifications for all users.
-    2. email: Sent via SMTP ONLY if double opt-in confirmed (email_subscribed == True).
+    2. email: Sent via SMTP ONLY to verified, double opt-in (email_subscribed == True), premium/admin users.
+       Automatically customized by user role (Student vs Founder) and alert type (new_match, deadline_approaching, weekly_digest).
     3. whatsapp: Sent via WhatsApp API and stored in public.notifications for premium users only.
     """
     user = supabase_service.get_user_by_id(user_id)
@@ -467,23 +434,60 @@ def notify_user(
 
     # 2. Email notification - strictly gated behind double opt-in confirmation AND Premium subscription tier
     if user and user.get("email"):
-        if supabase_service.is_email_subscribed(user_id) and user.get("plan") in ("premium", "admin"):
-            unsub_token = supabase_service.generate_subscription_token(user_id, user["email"], action="unsubscribe")
-            unsub_url = f"https://grantfinder-ai.onrender.com/api/notifications/unsubscribe?token={unsub_token}"
-            send_smtp_email(user["email"], subject, message, unsubscribe_url=unsub_url)
+        is_sub = supabase_service.is_email_subscribed(user_id)
+        is_premium = user.get("plan") in ("premium", "admin")
+        if is_sub and is_premium:
             try:
-                supabase_service.insert_notification(user_id=user_id, message=message, channel="email")
-                results["email"] = True
-            except Exception:
-                pass
+                from app.services.email_template_service import email_template_service
+                
+                # Determine normalized alert type
+                et_lower = event_type.lower()
+                title_lower = (title or "").lower()
+                if et_lower in ("deadline_approaching", "deadline", "closing_soon") or "deadline" in title_lower:
+                    normalized_alert_type = "deadline_approaching"
+                elif et_lower in ("weekly_digest", "digest", "roundup") or "digest" in title_lower:
+                    normalized_alert_type = "weekly_digest"
+                else:
+                    normalized_alert_type = "new_match"
+
+                opp_payload = dict(opportunity_data or {})
+                if not opp_payload.get("opportunity_name"):
+                    opp_payload["opportunity_name"] = title or "Recommended Opportunity"
+                if not opp_payload.get("match_reason"):
+                    opp_payload["match_reason"] = message
+
+                rendered = email_template_service.render_email_alert(
+                    user=user,
+                    alert_type=normalized_alert_type,
+                    opportunity_data=opp_payload,
+                    opportunities_list=opportunities_list,
+                    base_url=base_url
+                )
+
+                smtp_ok = send_templated_email(
+                    recipient_email=user["email"],
+                    subject=rendered["subject"],
+                    html_content=rendered["html"],
+                    text_content=rendered["text"]
+                )
+                if smtp_ok:
+                    try:
+                        supabase_service.insert_notification(user_id=user_id, message=message, channel="email")
+                        results["email"] = True
+                    except Exception:
+                        results["email"] = True
+            except Exception as e:
+                print(f"[NOTIFY_USER EMAIL DISPATCH ERROR] {e}")
+                results["email"] = False
         else:
+            # Free or unverified users see these alerts in-app only
             results["email"] = False
 
     # 3. WhatsApp notification - premium users only
     if user and user.get("plan") == "premium":
         phone_number = user.get("phone_number") or "+923001234567"
-        send_whatsapp_message(phone_number, message)
         try:
+            send_whatsapp_message(phone_number, message)
             supabase_service.insert_notification(user_id=user_id, message=message, channel="whatsapp")
             results["whatsapp"] = True
         except Exception:
@@ -502,9 +506,11 @@ def dispatch_opportunity_alert(
     match_reason: Optional[str] = None,
     amount: Optional[str] = "Funded",
     source_link: Optional[str] = None,
-    user_name: Optional[str] = "Applicant"
+    user_name: Optional[str] = "Applicant",
+    days_left: Optional[int] = None,
+    base_url: str = ""
 ):
-    """Trigger opportunity match alert: in-app notification for all users; branded email for verified PREMIUM users only."""
+    """Trigger opportunity match alert: in-app notification for all users; branded role-calibrated email for verified PREMIUM users only."""
     reason = match_reason or f"Aligned with your {opp_type} preferences and domain background with a {match_score}% match score."
     message = f"We matched you with '{opp_name}' with a {match_score}% match score. Upcoming deadline: {deadline}."
     
@@ -528,7 +534,9 @@ def dispatch_opportunity_alert(
                 match_reason=reason,
                 deadline=deadline,
                 funding_amount=amount or "Funded",
-                source_link=source_link
+                source_link=source_link,
+                base_url=base_url,
+                user_id=user_id
             )
 
 def send_in_app_notification(user_id: str, title: str, message: str) -> Dict[str, Any]:
