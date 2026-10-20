@@ -745,6 +745,90 @@ html.dark .hero-liquid-interactive::before {
 }
 
 /* ==============================================================================
+   Hero Artixain Seam Dissolve: Deep Organic Horizontal Feathering Blend
+   (Matches Artixain Atelier Pattern: Opaque boundary with smooth multi-stop fade)
+   ============================================================================== */
+.hero-artixain-seam-blend {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 14rem;
+    z-index: 25;
+    pointer-events: none;
+    background: linear-gradient(
+        to right,
+        #FAFBF9 0%,
+        #FAFBF9 14%,
+        rgba(250, 251, 249, 0.96) 26%,
+        rgba(250, 251, 249, 0.80) 42%,
+        rgba(250, 251, 249, 0.52) 62%,
+        rgba(250, 251, 249, 0.22) 82%,
+        transparent 100%
+    );
+}
+
+html.dark .hero-artixain-seam-blend {
+    background: linear-gradient(
+        to right,
+        #111315 0%,
+        #111315 14%,
+        rgba(17, 19, 21, 0.96) 26%,
+        rgba(17, 19, 21, 0.80) 42%,
+        rgba(17, 19, 21, 0.52) 62%,
+        rgba(17, 19, 21, 0.22) 82%,
+        transparent 100%
+    );
+}
+
+@media (min-width: 1024px) {
+    .hero-artixain-seam-blend {
+        width: 18rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .hero-artixain-seam-blend {
+        width: 22rem;
+    }
+}
+
+@media (min-width: 1536px) {
+    .hero-artixain-seam-blend {
+        width: 26rem;
+    }
+}
+
+@media (max-width: 1023px) {
+    .hero-artixain-seam-blend {
+        inset-inline: 0;
+        top: 0;
+        bottom: auto;
+        left: 0;
+        width: 100%;
+        height: 6rem;
+        background: linear-gradient(
+            to bottom,
+            #FAFBF9 0%,
+            #FAFBF9 15%,
+            rgba(250, 251, 249, 0.90) 35%,
+            rgba(250, 251, 249, 0.50) 65%,
+            transparent 100%
+        );
+    }
+
+    html.dark .hero-artixain-seam-blend {
+        background: linear-gradient(
+            to bottom,
+            #111315 0%,
+            #111315 15%,
+            rgba(17, 19, 21, 0.90) 35%,
+            rgba(17, 19, 21, 0.50) 65%,
+            transparent 100%
+        );
+    }
+}
+
+/* ==============================================================================
    Skeleton Shimmer Loaders (Subtle, Modern & Non-Blinking)
    ============================================================================== */
 @keyframes skeletonShimmerFlow {

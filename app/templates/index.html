@@ -64,24 +64,20 @@
             <!-- Right Visual Column: Auto-Advancing Top 10 Universities Visual Showcase (50% desktop split, Artixain Pattern) -->
             <div class="w-full relative h-[360px] sm:h-[480px] md:h-[560px] lg:h-full min-h-[360px] sm:min-h-[480px] lg:min-h-[820px] xl:min-h-[880px] overflow-hidden bg-slate-100 dark:bg-black order-2 lg:order-2">
                 
-                <!-- Cinematic Atmospheric Edge Feather (Artixain Pattern: Wide & Deep Horizontal Seam Dissolve) -->
-                <!-- Positioned outside heroSlidesTrack so carousel JS innerHTML does not overwrite it -->
-                <div class="hero-seam-feather hidden lg:block absolute inset-y-0 left-0 w-48 sm:w-60 lg:w-72 xl:w-80 2xl:w-96 z-20 pointer-events-none"></div>
-
-                <!-- Mobile Vertical Seam Blend -->
-                <div class="lg:hidden absolute inset-x-0 top-0 h-16 z-20 pointer-events-none bg-gradient-to-b from-[#FAFBF9] dark:from-[#111315] to-transparent"></div>
-
                 <!-- University Image Slides Container -->
                 <div id="heroSlidesTrack" class="relative w-full h-full">
-
 
                     <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 z-10">
                         <img src="/static/img/universities/mit.jpg" alt="Massachusetts Institute of Technology (MIT)" class="w-full h-full object-cover object-center scale-[1.01] hover:scale-105 transition-transform duration-700">
                     </div>
                 </div>
 
+                <!-- Cinematic Artixain Seam Dissolve: Deep Organic Horizontal & Mobile Top Feathering Blend -->
+                <!-- Positioned OUTSIDE heroSlidesTrack so initHeroCarousel() innerHTML replacement never wipes it -->
+                <div class="hero-artixain-seam-blend"></div>
+
                 <!-- Minimalist Artixain-Style Dot & Arrow Navigation Capsule (Pinned Bottom-Right) -->
-                <div class="absolute bottom-4 sm:bottom-8 right-4 sm:right-10 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white shadow-2xl">
+                <div class="absolute bottom-4 sm:bottom-8 right-4 sm:right-10 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white shadow-2xl">
                     <button type="button" onclick="heroPrevSlide()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-200 flex items-center justify-center shadow-md cursor-pointer transition-transform active:scale-90 shrink-0" aria-label="Previous campus" style="background-color: #ffffff !important;">
                         <svg class="w-4 h-4" fill="none" stroke="#111315" stroke-width="2.5" viewBox="0 0 24 24" style="stroke: #111315 !important;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
