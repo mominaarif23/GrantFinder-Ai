@@ -98,7 +98,7 @@
             }
         };
     </script>
-    <link rel="stylesheet" href="/static/css/custom.css?v=14.0">
+    <link rel="stylesheet" href="/static/css/custom.css?v=20261020_v32">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Lexend:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/static/img/favicon.png">
@@ -108,7 +108,7 @@
 
     <!-- Dynamic Atmospheric Country Backdrop -->
     <div id="dynamicAtmosphere" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-60 dark:opacity-60 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div id="atmosphereImage" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform scale-100 opacity-60 dark:opacity-60 filter saturate-125" style="background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1920&q=80'); opacity: 0.60 !important;"></div>
         <div class="absolute inset-0 bg-[#F8F9FA]/20 dark:bg-[#111315]/20 backdrop-blur-[1px] transition-colors duration-300"></div>
     </div>
 
@@ -453,7 +453,7 @@
     </div>
 
     <!-- Toast Notification Container -->
-    <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center space-y-2 pointer-events-none w-max max-w-[90vw]"></div>
+    <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center space-y-2 pointer-events-none w-max max-w-[90vw]" style="bottom: 1.5rem !important; left: 50% !important; transform: translateX(-50%) !important;"></div>
 
     <!-- Footer (Academic & Innovation Intelligence) -->
     <footer class="w-full border-t border-[#22272E] bg-[#111315] text-slate-200 py-14 text-xs relative z-10 mt-auto">
@@ -565,7 +565,7 @@
     <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="if(window.supabase){window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);}"></script>
     <script src="/static/js/liquid_orb.js?v=1.0"></script>
     <script src="/static/js/validation.js?v=1.0"></script>
-    <script src="/static/js/app.js?v=3.6"></script>
+    <script src="/static/js/app.js?v=20261020_v32"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

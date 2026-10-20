@@ -924,10 +924,10 @@ function setAtmosphereCountry(rawCountry) {
     
     const atmosphereImage = document.getElementById('atmosphereImage');
     if (atmosphereImage) {
-        atmosphereImage.style.opacity = '0';
+        atmosphereImage.style.setProperty('opacity', '0', 'important');
         setTimeout(() => {
             atmosphereImage.style.backgroundImage = `url('${data.url}')`;
-            atmosphereImage.style.opacity = '0.60';
+            atmosphereImage.style.setProperty('opacity', '0.60', 'important');
         }, 300);
     }
 
@@ -967,14 +967,23 @@ function getDestinationCardId(countryName) {
 function selectDestinationCountry(countryName) {
     setAtmosphereCountry(countryName);
     
-    // Highlight destination card if present
+    // Highlight destination card if present with guaranteed solid fill and outline
+    const isDark = document.documentElement.classList.contains('dark');
     document.querySelectorAll('.destination-card').forEach(c => {
         c.classList.remove('is-selected', 'ring-2', 'ring-brand-600', 'bg-brand-50/50', 'ring-[#1F4D3E]', 'bg-[#1F4D3E]/10');
+        c.style.backgroundColor = isDark ? '#181B1F' : '#FFFFFF';
+        c.style.borderColor = isDark ? '#373E47' : '#CBD5E1';
+        c.style.boxShadow = '';
     });
     const cardId = getDestinationCardId(countryName);
     const selected = cardId ? document.getElementById(cardId) : null;
     if (selected) {
         selected.classList.add('is-selected');
+        selected.style.backgroundColor = isDark ? '#1D2522' : '#F0F7F4';
+        selected.style.borderColor = isDark ? '#E8DCC4' : '#1F4D3E';
+        selected.style.boxShadow = isDark 
+            ? '0 16px 36px -8px rgba(0, 0, 0, 0.8), 0 0 0 2.5px #E8DCC4' 
+            : '0 14px 30px -6px rgba(31, 77, 62, 0.25), 0 0 0 2.5px #1F4D3E';
     }
 
     // If search country dropdown exists, update and trigger
