@@ -56,14 +56,19 @@ if (document.readyState === 'loading') {
 function toggleNotifDropdown() {
     const dropdown = document.getElementById('notifDropdown');
     if (dropdown) {
-        dropdown.classList.toggle('hidden');
+        const isHidden = dropdown.classList.toggle('hidden');
+        // Prevent background scrolling on mobile when full-screen notification sheet is open
+        if (window.innerWidth < 640) {
+            document.body.classList.toggle('overflow-hidden', !isHidden);
+        }
     }
 }
 
 document.addEventListener('click', (e) => {
     const container = document.getElementById('notifDropdownContainer');
     const dropdown = document.getElementById('notifDropdown');
-    if (container && dropdown && !container.contains(e.target)) {
+    // On desktop, click outside container closes dropdown
+    if (container && dropdown && !container.contains(e.target) && window.innerWidth >= 640) {
         dropdown.classList.add('hidden');
     }
 });
@@ -733,10 +738,30 @@ function copyPitchToClipboard() {
 
 function toggleMobileNav() {
     const drawer = document.getElementById('mobileNavDrawer');
+    const backdrop = document.getElementById('mobileNavBackdrop');
     if (drawer) {
-        drawer.classList.toggle('hidden');
+        const isHidden = drawer.classList.toggle('hidden');
+        if (backdrop) {
+            backdrop.classList.toggle('hidden', isHidden);
+        }
+        document.body.classList.toggle('overflow-hidden', !isHidden);
     }
 }
+
+// Clean up backdrop and body scroll lock on resize to desktop
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1280) {
+        const drawer = document.getElementById('mobileNavDrawer');
+        const backdrop = document.getElementById('mobileNavBackdrop');
+        if (drawer && !drawer.classList.contains('hidden')) {
+            drawer.classList.add('hidden');
+        }
+        if (backdrop && !backdrop.classList.contains('hidden')) {
+            backdrop.classList.add('hidden');
+        }
+        document.body.classList.remove('overflow-hidden');
+    }
+});
 
 // ==============================================================================
 // Dynamic Country Atmospheric Background System
