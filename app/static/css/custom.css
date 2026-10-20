@@ -1043,3 +1043,17 @@ html.dark .hero-seam-feather {
     align-items: center !important;
     pointer-events: none !important;
 }
+
+
+/* Mobile Navigation Hamburger Guaranteed Visibility & Touch Target */
+#mobileNavToggleBtn {
+    display: flex !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+}
+
+@media (min-width: 1280px) {
+    #mobileNavToggleBtn {
+        display: none !important;
+    }
+}

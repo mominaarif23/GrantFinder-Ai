@@ -739,10 +739,17 @@ function copyPitchToClipboard() {
 function toggleMobileNav() {
     const drawer = document.getElementById('mobileNavDrawer');
     const backdrop = document.getElementById('mobileNavBackdrop');
+    const hamIcon = document.getElementById('hamburgerIcon');
+    const closeIcon = document.getElementById('hamburgerCloseIcon');
+
     if (drawer) {
         const isHidden = drawer.classList.toggle('hidden');
         if (backdrop) {
             backdrop.classList.toggle('hidden', isHidden);
+        }
+        if (hamIcon && closeIcon) {
+            hamIcon.classList.toggle('hidden', !isHidden);
+            closeIcon.classList.toggle('hidden', isHidden);
         }
         document.body.classList.toggle('overflow-hidden', !isHidden);
     }
