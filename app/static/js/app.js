@@ -927,7 +927,7 @@ function setAtmosphereCountry(rawCountry) {
         atmosphereImage.style.setProperty('opacity', '0', 'important');
         setTimeout(() => {
             atmosphereImage.style.backgroundImage = `url('${data.url}')`;
-            atmosphereImage.style.setProperty('opacity', '0.60', 'important');
+            atmosphereImage.style.setProperty('opacity', '0.65', 'important');
         }, 300);
     }
 
@@ -1826,19 +1826,33 @@ function handleFooterSubscribe(e) {
 // Hero Section Interactive Liquid Mouse Reactive Gradient
 // ==============================================================================
 function initHeroLiquidInteractive() {
+    const heroContainer = document.getElementById('heroSection') || document.getElementById('heroEditorialCol');
+    if (!heroContainer) return;
+
     const heroCol = document.getElementById('heroEditorialCol');
-    if (!heroCol) return;
+    const heroBlend = document.querySelector('.hero-artixain-seam-blend');
 
     let ticking = false;
     const updateCoord = (clientX, clientY) => {
-        const rect = heroCol.getBoundingClientRect();
+        const rect = heroContainer.getBoundingClientRect();
         const x = ((clientX - rect.left) / rect.width) * 100;
         const y = ((clientY - rect.top) / rect.height) * 100;
-        heroCol.style.setProperty('--hero-mouse-x', `${x.toFixed(1)}%`);
-        heroCol.style.setProperty('--hero-mouse-y', `${y.toFixed(1)}%`);
+        const xCoord = `${x.toFixed(1)}%`;
+        const yCoord = `${y.toFixed(1)}%`;
+
+        heroContainer.style.setProperty('--hero-mouse-x', xCoord);
+        heroContainer.style.setProperty('--hero-mouse-y', yCoord);
+        if (heroCol) {
+            heroCol.style.setProperty('--hero-mouse-x', xCoord);
+            heroCol.style.setProperty('--hero-mouse-y', yCoord);
+        }
+        if (heroBlend) {
+            heroBlend.style.setProperty('--hero-mouse-x', xCoord);
+            heroBlend.style.setProperty('--hero-mouse-y', yCoord);
+        }
     };
 
-    heroCol.addEventListener('mousemove', (e) => {
+    heroContainer.addEventListener('mousemove', (e) => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
                 updateCoord(e.clientX, e.clientY);
@@ -1848,7 +1862,7 @@ function initHeroLiquidInteractive() {
         }
     });
 
-    heroCol.addEventListener('touchmove', (e) => {
+    heroContainer.addEventListener('touchmove', (e) => {
         if (!ticking && e.touches.length > 0) {
             window.requestAnimationFrame(() => {
                 updateCoord(e.touches[0].clientX, e.touches[0].clientY);
@@ -1858,9 +1872,17 @@ function initHeroLiquidInteractive() {
         }
     }, { passive: true });
 
-    heroCol.addEventListener('mouseleave', () => {
-        heroCol.style.removeProperty('--hero-mouse-x');
-        heroCol.style.removeProperty('--hero-mouse-y');
+    heroContainer.addEventListener('mouseleave', () => {
+        heroContainer.style.removeProperty('--hero-mouse-x');
+        heroContainer.style.removeProperty('--hero-mouse-y');
+        if (heroCol) {
+            heroCol.style.removeProperty('--hero-mouse-x');
+            heroCol.style.removeProperty('--hero-mouse-y');
+        }
+        if (heroBlend) {
+            heroBlend.style.removeProperty('--hero-mouse-x');
+            heroBlend.style.removeProperty('--hero-mouse-y');
+        }
     });
 }
 

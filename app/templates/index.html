@@ -6,7 +6,7 @@
 <div class="space-y-24 pb-24">
 
     <!-- 1. Hero Section: Full-Width Edge-to-Edge Artixain Luxury Hero Architecture (No Card, Seamless Blend) -->
-    <section class="relative w-full overflow-hidden min-h-0 lg:min-h-[820px] xl:min-h-[880px] border-b border-slate-200 dark:border-[#22272E] bg-[#FAFBF9] dark:bg-[#111315]">
+    <section id="heroSection" class="relative w-full overflow-hidden min-h-0 lg:min-h-[820px] xl:min-h-[880px] border-b border-slate-200 dark:border-[#22272E] bg-[#FAFBF9] dark:bg-[#111315]">
         <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch w-full min-h-0 lg:min-h-[820px] xl:min-h-[880px]">
             
             <!-- Left Editorial Column (50% desktop split, Interactive Liquid Gradient) -->
@@ -74,8 +74,16 @@
 
                 <!-- Cinematic Artixain Seam Dissolve: Deep Organic Horizontal & Mobile Top Feathering Blend -->
                 <!-- Positioned OUTSIDE heroSlidesTrack so initHeroCarousel() innerHTML replacement never wipes it -->
-                <div class="hero-artixain-seam-blend absolute top-0 bottom-0 left-0 h-full w-48 sm:w-64 lg:w-80 xl:w-96 2xl:w-[32rem] pointer-events-none z-25"
-                     style="position: absolute; top: 0; bottom: 0; left: 0; height: 100%; pointer-events: none; z-index: 25; background: linear-gradient(to right, var(--hero-seam-bg, #FAFBF9) 0%, var(--hero-seam-bg, #FAFBF9) 15%, var(--hero-seam-stop26, rgba(250, 251, 249, 0.96)) 28%, var(--hero-seam-stop48, rgba(250, 251, 249, 0.75)) 48%, var(--hero-seam-stop72, rgba(250, 251, 249, 0.35)) 72%, transparent 100%);">
+                <div class="hero-artixain-seam-blend absolute top-0 bottom-0 left-0 h-full w-48 sm:w-64 lg:w-80 xl:w-96 2xl:w-[32rem] pointer-events-none z-25 overflow-hidden"
+                     style="position: absolute; top: 0; bottom: 0; left: 0; height: 100%; pointer-events: none; z-index: 25;">
+                    <!-- Base Editorial Surface Dissolve -->
+                    <div class="hero-seam-base absolute inset-0 pointer-events-none"
+                         style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, var(--hero-seam-bg, #FAFBF9) 0%, var(--hero-seam-bg, #FAFBF9) 15%, var(--hero-seam-stop26, rgba(250, 251, 249, 0.96)) 28%, var(--hero-seam-stop48, rgba(250, 251, 249, 0.75)) 48%, var(--hero-seam-stop72, rgba(250, 251, 249, 0.35)) 72%, transparent 100%);">
+                    </div>
+                    <!-- Continuous Reactive Liquid Ambient Bloom -->
+                    <div class="hero-seam-liquid-glow absolute inset-0 pointer-events-none"
+                         style="position: absolute; inset: 0; pointer-events: none;">
+                    </div>
                 </div>
 
                 <!-- Minimalist Artixain-Style Dot & Arrow Navigation Capsule (Pinned Bottom-Right) -->
