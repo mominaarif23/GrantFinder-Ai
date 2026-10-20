@@ -157,10 +157,38 @@ class SupabaseService:
         payload["email_verified"] = email_verified
         return payload
 
+    def _sync_user_to_sqlite(self, user_record: Dict[str, Any], verified: bool) -> None:
+        """Helper to mirror user record into local SQLite grantfinder.db for resilient persistence."""
+        try:
+            import sqlite3
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
+            if os.path.exists(db_path):
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                now_iso = user_record.get("created_at") or datetime.now(timezone.utc).isoformat()
+                cur.execute(
+                    "INSERT OR REPLACE INTO users (id, name, email, password_hash, role, plan, created_at, email_verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        user_record["id"],
+                        user_record.get("name", "").strip(),
+                        user_record.get("email", "").strip().lower(),
+                        user_record.get("password_hash", ""),
+                        user_record.get("role", "student"),
+                        user_record.get("plan", "free"),
+                        now_iso,
+                        1 if verified else 0
+                    )
+                )
+                conn.commit()
+                conn.close()
+        except Exception:
+            pass
+
     def get_user_by_email(self, email: str) -> Optional[Dict[str, Any]]:
         """Query user record from local database or Supabase public.users by email."""
         clean_email = email.strip().lower()
         user_record = None
+        from_sqlite = False
         try:
             import sqlite3
             db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
@@ -181,6 +209,7 @@ class SupabaseService:
                         "created_at": row[6],
                         "email_verified": bool(row[7]) if row[7] is not None else False
                     }
+                    from_sqlite = True
         except Exception:
             pass
 
@@ -199,12 +228,36 @@ class SupabaseService:
                 pass
 
         if user_record:
-            user_record["email_verified"] = self.is_user_verified(user_record["id"]) or self.is_user_verified(user_record["email"])
+            is_ver = self.is_user_verified(user_record["id"]) or self.is_user_verified(user_record["email"])
+            if not is_ver:
+                # Profile-aware check: check if user already has an established profile in Supabase
+                try:
+                    with httpx.Client(timeout=3.0) as client:
+                        p_res = client.get(
+                            f"{self.url}/rest/v1/profiles?user_id=eq.{user_record['id']}&select=*",
+                            headers=self.headers
+                        )
+                        if p_res.status_code == 200:
+                            p_data = p_res.json()
+                            if p_data and len(p_data) > 0:
+                                p_row = p_data[0]
+                                if p_row.get("major_or_domain") or p_row.get("degree_level_or_stage"):
+                                    is_ver = True
+                                    self.set_user_verified(user_record["id"], True)
+                                    self.set_user_verified(clean_email, True)
+                except Exception:
+                    pass
+
+            if not from_sqlite:
+                self._sync_user_to_sqlite(user_record, is_ver)
+
+            user_record["email_verified"] = is_ver
         return user_record
 
     def get_user_by_id(self, user_id: str) -> Optional[Dict[str, Any]]:
         """Query user record from local database or Supabase public.users by UUID."""
         user_record = None
+        from_sqlite = False
         try:
             import sqlite3
             db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
@@ -225,6 +278,7 @@ class SupabaseService:
                         "created_at": row[6],
                         "email_verified": bool(row[7]) if row[7] is not None else False
                     }
+                    from_sqlite = True
         except Exception:
             pass
 
@@ -243,7 +297,31 @@ class SupabaseService:
                 pass
 
         if user_record:
-            user_record["email_verified"] = self.is_user_verified(user_record["id"]) or self.is_user_verified(user_record["email"])
+            is_ver = self.is_user_verified(user_record["id"]) or self.is_user_verified(user_record.get("email", ""))
+            if not is_ver:
+                # Profile-aware check: check if user already has an established profile in Supabase
+                try:
+                    with httpx.Client(timeout=3.0) as client:
+                        p_res = client.get(
+                            f"{self.url}/rest/v1/profiles?user_id=eq.{user_record['id']}&select=*",
+                            headers=self.headers
+                        )
+                        if p_res.status_code == 200:
+                            p_data = p_res.json()
+                            if p_data and len(p_data) > 0:
+                                p_row = p_data[0]
+                                if p_row.get("major_or_domain") or p_row.get("degree_level_or_stage"):
+                                    is_ver = True
+                                    self.set_user_verified(user_record["id"], True)
+                                    if user_record.get("email"):
+                                        self.set_user_verified(user_record["email"], True)
+                except Exception:
+                    pass
+
+            if not from_sqlite:
+                self._sync_user_to_sqlite(user_record, is_ver)
+
+            user_record["email_verified"] = is_ver
         return user_record
 
     def update_user_plan(self, user_id: str, new_plan: str) -> bool:
@@ -479,15 +557,39 @@ class SupabaseService:
             if os.path.exists(db_path):
                 conn = sqlite3.connect(db_path)
                 cur = conn.cursor()
-                cur.execute("SELECT email_verified FROM users WHERE id = ? OR email = ?", (key, key))
+                cur.execute("SELECT email_verified, id, email FROM users WHERE id = ? OR email = ?", (key, key))
                 row = cur.fetchone()
+                if row is not None and row[0] is not None and row[0] == 1:
+                    conn.close()
+                    _USER_VERIFIED[key] = True
+                    if row[1]:
+                        _USER_VERIFIED[str(row[1]).strip().lower()] = True
+                    if row[2]:
+                        _USER_VERIFIED[str(row[2]).strip().lower()] = True
+                    return True
+
+                # Check if user has an existing completed profile in SQLite
+                cur.execute("""
+                    SELECT p.id FROM profiles p 
+                    JOIN users u ON p.user_id = u.id 
+                    WHERE (u.id = ? OR u.email = ? OR p.user_id = ?) 
+                    AND (p.major_domain IS NOT NULL AND p.major_domain != '')
+                """, (key, key, key))
+                p_row = cur.fetchone()
                 conn.close()
-                if row is not None and row[0] is not None:
-                    val = bool(row[0])
-                    _USER_VERIFIED[key] = val
-                    return val
+                if p_row:
+                    _USER_VERIFIED[key] = True
+                    self.set_user_verified(key, True)
+                    return True
         except Exception:
             pass
+
+        # Check in-memory profile cache
+        if key in _USER_PROFILES:
+            prof = _USER_PROFILES[key]
+            if prof.get("onboarding_completed") or prof.get("major_or_domain") or prof.get("major_domain"):
+                _USER_VERIFIED[key] = True
+                return True
 
         return False
 
@@ -498,7 +600,7 @@ class SupabaseService:
         key = str(user_id_or_email).strip().lower()
         _USER_VERIFIED[key] = verified
 
-        # Also update SQLite database
+        # Also update SQLite database and mirror to both id and email
         try:
             import sqlite3
             db_path = os.path.join(os.path.dirname(__file__), "..", "..", "grantfinder.db")
@@ -506,6 +608,13 @@ class SupabaseService:
                 conn = sqlite3.connect(db_path)
                 cur = conn.cursor()
                 cur.execute("UPDATE users SET email_verified = ? WHERE id = ? OR email = ?", (1 if verified else 0, key, key))
+                cur.execute("SELECT id, email FROM users WHERE id = ? OR email = ?", (key, key))
+                row = cur.fetchone()
+                if row:
+                    if row[0]:
+                        _USER_VERIFIED[str(row[0]).strip().lower()] = verified
+                    if row[1]:
+                        _USER_VERIFIED[str(row[1]).strip().lower()] = verified
                 conn.commit()
                 conn.close()
         except Exception:

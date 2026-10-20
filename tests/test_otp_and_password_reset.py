@@ -310,3 +310,45 @@ def test_forgot_and_reset_password_flow():
     new_login = client.post("/api/auth/login", json={"email": email, "password": "NewSecretPass@2026"})
     assert new_login.status_code == 200
     assert new_login.json()["success"] is True
+
+
+def test_established_user_with_profile_bypasses_otp_and_routes_to_dashboard():
+    """Established users with an active completed profile must not be trapped in OTP or onboarding."""
+    unique_suffix = uuid.uuid4().hex[:6]
+    email = f"founder_established_{unique_suffix}@example.com"
+    pwd = "Password123!"
+    user = supabase_service.create_user(
+        name=f"Established Founder {unique_suffix}",
+        email=email,
+        password_hash=hash_password(pwd),
+        role="founder",
+        plan="premium",
+        email_verified=True
+    )
+    # Upsert completed profile
+    supabase_service.upsert_profile(
+        user_id=user["id"],
+        profile_type="startup",
+        major_or_domain="FinTech AI",
+        degree_level_or_stage="Seed Stage",
+        semester="$50,000",
+        country_preference="Both",
+        extra_details={"onboarding_completed": True}
+    )
+
+    client.cookies.clear()
+    login_res = client.post("/api/auth/login", json={"email": email, "password": pwd})
+    assert login_res.status_code == 200
+    data = login_res.json()
+    assert data["success"] is True
+    assert data["email_verified"] is True
+    assert data["redirect"] == "/dashboard"
+
+    # Visiting /onboarding must redirect to /dashboard/founder
+    onboard_res = client.get("/onboarding", follow_redirects=False)
+    assert onboard_res.status_code == 302
+    assert onboard_res.headers["location"] == "/dashboard/founder"
+
+    # Visiting /onboarding?edit=true must allow profile editing
+    edit_res = client.get("/onboarding?edit=true", follow_redirects=False)
+    assert edit_res.status_code == 200

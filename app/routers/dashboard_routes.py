@@ -235,6 +235,14 @@ def onboarding_view(request: Request):
         return RedirectResponse(url="/admin", status_code=302)
     
     profile = get_profile_by_user_id(user["id"])
+    
+    # Smart guard: If profile is already established, redirect to dashboard unless explicitly editing
+    if profile and (profile.get("onboarding_completed") or profile.get("major_or_domain") or profile.get("major_domain")):
+        if request.query_params.get("edit") != "true":
+            if user.get("role") == "founder":
+                return RedirectResponse(url="/dashboard/founder", status_code=302)
+            return RedirectResponse(url="/dashboard/student", status_code=302)
+
     avatar = (profile and profile.get("avatar_url")) or get_avatar_url(user["id"])
     user["avatar_url"] = avatar
     
@@ -541,11 +549,16 @@ async def verify_otp_endpoint(request: Request, response: Response):
             samesite="lax"
         )
 
+    effective_uid = verified_user_id or (target_user and target_user.get("id"))
+    prof = get_profile_by_user_id(effective_uid) if effective_uid else None
+    has_completed_profile = bool(prof and (prof.get("onboarding_completed") or prof.get("major_or_domain") or prof.get("major_domain")))
+    redirect_dest = "/dashboard" if has_completed_profile else "/onboarding"
+
     return {
         "success": True,
         "message": "Email notifications confirmed and verified successfully!",
         "user_id": verified_user_id,
-        "redirect": "/onboarding",
+        "redirect": redirect_dest,
         "token": new_token
     }
 

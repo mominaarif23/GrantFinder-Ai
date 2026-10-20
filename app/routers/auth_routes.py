@@ -132,6 +132,7 @@ def login(req: UserLoginRequest, response: Response, background_tasks: Backgroun
     return {
         "success": True,
         "email_verified": True,
+        "redirect": "/dashboard",
         "message": "Login successful",
         "user": {
             "id": user["id"],
@@ -180,10 +181,15 @@ async def verify_registration_otp_endpoint(req: VerifyOtpRequest, request: Reque
             samesite="lax"
         )
 
+    effective_uid = (target_user and target_user.get("id")) or user_id
+    prof = get_profile_by_user_id(effective_uid) if effective_uid else None
+    has_completed_profile = bool(prof and (prof.get("onboarding_completed") or prof.get("major_or_domain") or prof.get("major_domain")))
+    redirect_dest = "/dashboard" if has_completed_profile else "/onboarding"
+
     return {
         "success": True,
         "message": "Email verified successfully! Your account is now fully active.",
-        "redirect": "/onboarding",
+        "redirect": redirect_dest,
         "token": new_token,
         "user": target_user
     }
