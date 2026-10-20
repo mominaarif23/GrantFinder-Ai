@@ -241,19 +241,27 @@ html.dark .destination-card:hover {
     transform: translateY(-2px) !important;
 }
 
+.destination-card {
+    background-color: #FFFFFF !important;
+}
+
+html.dark .destination-card {
+    background-color: #181B1F !important;
+}
+
 .destination-card.card-prominent.is-selected,
 .destination-card.is-selected {
     border-color: #1F4D3E !important;
-    background-color: rgba(31, 77, 62, 0.06) !important;
-    box-shadow: 0 12px 28px -6px rgba(31, 77, 62, 0.22), 0 0 0 2.5px #1F4D3E !important;
+    background-color: #F0F7F4 !important;
+    box-shadow: 0 14px 30px -6px rgba(31, 77, 62, 0.25), 0 0 0 2.5px #1F4D3E !important;
     transform: translateY(-3px) !important;
 }
 
 html.dark .destination-card.card-prominent.is-selected,
 html.dark .destination-card.is-selected {
     border-color: #E8DCC4 !important;
-    background-color: rgba(232, 220, 196, 0.08) !important;
-    box-shadow: 0 14px 32px -8px rgba(0, 0, 0, 0.7), 0 0 0 2.5px #E8DCC4 !important;
+    background-color: #1D2522 !important;
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.8), 0 0 0 2.5px #E8DCC4 !important;
     transform: translateY(-3px) !important;
 }
 

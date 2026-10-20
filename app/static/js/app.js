@@ -79,23 +79,23 @@ function showToast(message, type = 'info') {
 
     const toast = document.createElement('div');
     const colors = {
-        success: 'bg-emerald-50 border-emerald-200 text-emerald-900 shadow-md',
-        error: 'bg-rose-50 border-rose-200 text-rose-900 shadow-md',
-        info: 'bg-navy-900 border-navy-800 text-white shadow-lg'
+        success: 'bg-emerald-950/90 text-emerald-100 border-emerald-600 shadow-2xl',
+        error: 'bg-rose-950/90 text-rose-100 border-rose-600 shadow-2xl',
+        info: 'bg-[#181B1F]/95 dark:bg-[#111315]/95 text-white dark:text-[#F8F9FA] border border-white/15 dark:border-white/20 shadow-2xl'
     };
     
-    toast.className = `p-3.5 rounded-2xl border text-xs font-semibold flex items-center space-x-2 transition-all duration-300 transform translate-y-2 opacity-0 ${colors[type] || colors.info}`;
-    toast.innerHTML = `<span>${message}</span>`;
+    toast.className = `px-5 py-2.5 rounded-full border text-xs font-semibold flex items-center space-x-2.5 backdrop-blur-md transition-all duration-300 transform translate-y-3 opacity-0 pointer-events-auto ${colors[type] || colors.info}`;
+    toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#10B981] shrink-0 animate-pulse"></span><span>${message}</span>`;
     container.appendChild(toast);
 
     setTimeout(() => {
-        toast.classList.remove('translate-y-2', 'opacity-0');
+        toast.classList.remove('translate-y-3', 'opacity-0');
     }, 10);
 
     setTimeout(() => {
-        toast.classList.add('opacity-0', 'translate-y-2');
+        toast.classList.add('opacity-0', 'translate-y-3');
         setTimeout(() => toast.remove(), 300);
-    }, 3500);
+    }, 3200);
 }
 
 // ==============================================================================
