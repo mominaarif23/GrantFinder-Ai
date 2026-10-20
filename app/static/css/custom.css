@@ -224,6 +224,39 @@ html.dark [onclick*="chooseTrack"]:hover {
     z-index: 10;
 }
 
+/* ==============================================================================
+   Destination Cards Interactive Hover & Active State Architecture
+   ============================================================================== */
+.destination-card.card-prominent:hover,
+.destination-card:hover {
+    border-color: rgba(31, 77, 62, 0.5) !important;
+    box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(31, 77, 62, 0.35) !important;
+    transform: translateY(-2px) !important;
+}
+
+html.dark .destination-card.card-prominent:hover,
+html.dark .destination-card:hover {
+    border-color: rgba(232, 220, 196, 0.5) !important;
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(232, 220, 196, 0.35) !important;
+    transform: translateY(-2px) !important;
+}
+
+.destination-card.card-prominent.is-selected,
+.destination-card.is-selected {
+    border-color: #1F4D3E !important;
+    background-color: rgba(31, 77, 62, 0.06) !important;
+    box-shadow: 0 12px 28px -6px rgba(31, 77, 62, 0.22), 0 0 0 2.5px #1F4D3E !important;
+    transform: translateY(-3px) !important;
+}
+
+html.dark .destination-card.card-prominent.is-selected,
+html.dark .destination-card.is-selected {
+    border-color: #E8DCC4 !important;
+    background-color: rgba(232, 220, 196, 0.08) !important;
+    box-shadow: 0 14px 32px -8px rgba(0, 0, 0, 0.7), 0 0 0 2.5px #E8DCC4 !important;
+    transform: translateY(-3px) !important;
+}
+
 /* Light mode: Remap dark-panel-only text colors to legible slate.
    These colors are designed for dark surfaces — on white/light cards in light mode
    they would be barely visible. The .dark-panel class exempts intentional dark sections. */
@@ -245,7 +278,7 @@ html:not(.dark) h4.text-\[#FFFFFF\]:not(.dark-panel *) {
 }
 
 #atmosphereImage {
-    opacity: 0.05 !important;
+    opacity: 0.75 !important;
 }
 
 /* Light mode card surfaces: Pure Crisp White */
@@ -314,12 +347,12 @@ html.dark body {
 
 /* Atmospheric Backdrop in Dark Mode */
 html.dark #dynamicAtmosphere > div:last-child {
-    background: #111315 !important;
-    background-color: rgba(17, 19, 21, 0.98) !important;
+    background: rgba(17, 19, 21, 0.20) !important;
+    background-color: rgba(17, 19, 21, 0.20) !important;
 }
 
 html.dark #atmosphereImage {
-    opacity: 0.08 !important;
+    opacity: 0.75 !important;
     filter: saturate(110%) brightness(0.8) !important;
 }
 

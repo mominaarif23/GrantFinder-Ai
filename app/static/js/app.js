@@ -927,7 +927,7 @@ function setAtmosphereCountry(rawCountry) {
         atmosphereImage.style.opacity = '0';
         setTimeout(() => {
             atmosphereImage.style.backgroundImage = `url('${data.url}')`;
-            atmosphereImage.style.opacity = '0.06';
+            atmosphereImage.style.opacity = '0.75';
         }, 300);
     }
 
@@ -952,16 +952,29 @@ function setAtmosphereCountry(rawCountry) {
     if (legacyTag && legacyTag.parentElement) legacyTag.parentElement.remove();
 }
 
+function getDestinationCardId(countryName) {
+    if (!countryName) return null;
+    const c = countryName.toLowerCase().trim();
+    if (c.includes('pakistan')) return 'dest-card-pakistan';
+    if (c.includes('uk') || c.includes('kingdom') || c.includes('britain') || c.includes('england')) return 'dest-card-united-kingdom';
+    if (c.includes('usa') || c.includes('united states') || c.includes('america')) return 'dest-card-united-states';
+    if (c.includes('germany') || c.includes('deutschland')) return 'dest-card-germany';
+    if (c.includes('australia')) return 'dest-card-australia';
+    if (c.includes('global') || c.includes('international') || c.includes('all') || c.includes('world')) return 'dest-card-global';
+    return `dest-card-${c.replace(/\s+/g, '-')}`;
+}
+
 function selectDestinationCountry(countryName) {
     setAtmosphereCountry(countryName);
     
     // Highlight destination card if present
     document.querySelectorAll('.destination-card').forEach(c => {
-        c.classList.remove('ring-2', 'ring-brand-600', 'bg-brand-50/50');
+        c.classList.remove('is-selected', 'ring-2', 'ring-brand-600', 'bg-brand-50/50', 'ring-[#1F4D3E]', 'bg-[#1F4D3E]/10');
     });
-    const selected = document.getElementById(`dest-card-${normalizeCountryKey(countryName)}`);
+    const cardId = getDestinationCardId(countryName);
+    const selected = cardId ? document.getElementById(cardId) : null;
     if (selected) {
-        selected.classList.add('ring-2', 'ring-brand-600', 'bg-brand-50/50');
+        selected.classList.add('is-selected');
     }
 
     // If search country dropdown exists, update and trigger
