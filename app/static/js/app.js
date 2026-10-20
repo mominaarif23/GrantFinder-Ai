@@ -927,7 +927,7 @@ function setAtmosphereCountry(rawCountry) {
         atmosphereImage.style.opacity = '0';
         setTimeout(() => {
             atmosphereImage.style.backgroundImage = `url('${data.url}')`;
-            atmosphereImage.style.opacity = '0.75';
+            atmosphereImage.style.opacity = '0.60';
         }, 300);
     }
 
