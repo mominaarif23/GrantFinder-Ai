@@ -648,6 +648,7 @@ html.theme-transition *::after {
    Hero Section: Interactive Mouse-Reactive Liquid Brand Gradient
    ============================================================================== */
 .hero-liquid-interactive {
+    height: 100%;
     position: relative;
     background: radial-gradient(circle at 10% 15%, rgba(31, 77, 62, 0.08) 0%, transparent 60%),
                 radial-gradient(circle at 90% 85%, rgba(232, 220, 196, 0.40) 0%, transparent 60%),
