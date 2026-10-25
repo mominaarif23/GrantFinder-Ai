@@ -291,7 +291,8 @@ html:not(.dark) h4.text-\[#FFFFFF\]:not(.dark-panel *) {
     color: #0F172A !important;
 }
 
-#atmosphereImage {
+#atmosphereImage,
+#dynamicAtmosphere #atmosphereImage {
     opacity: 0.65 !important;
 }
 
